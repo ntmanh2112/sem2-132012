@@ -1,11 +1,11 @@
 /* ---------------------------------------------------------------------- */
 /* Script generated with: DeZign for Databases v4.1.3                     */
 /* Target DBMS:           MS SQL Server 2005                              */
-/* Project file:          Project1.dez                                    */
+/* Project file:          Database.dez                                    */
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database drop script                            */
-/* Created on:            2012-03-05 09:38                                */
+/* Created on:            2012-03-05 10:42                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -25,7 +25,10 @@ GO
 ALTER TABLE [HoaDon] DROP CONSTRAINT [KhachHang_HoaDon]
 GO
 
-ALTER TABLE [SanPham] DROP CONSTRAINT [LoiSanPham_SanPham]
+ALTER TABLE [HoaDon] DROP CONSTRAINT [ThanhVien_HoaDon]
+GO
+
+ALTER TABLE [LoiSanPham] DROP CONSTRAINT [SanPham_LoiSanPham]
 GO
 
 ALTER TABLE [ChiTietHoaDon] DROP CONSTRAINT [HoaDon_ChiTietHoaDon]
@@ -35,6 +38,9 @@ ALTER TABLE [ChiTietHoaDon] DROP CONSTRAINT [SanPham_ChiTietHoaDon]
 GO
 
 ALTER TABLE [ChiTietLoi] DROP CONSTRAINT [LoiSanPham_ChiTietLoi]
+GO
+
+ALTER TABLE [ChiTietLoi] DROP CONSTRAINT [HoaDon_ChiTietLoi]
 GO
 
 /* ---------------------------------------------------------------------- */
