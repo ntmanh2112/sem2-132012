@@ -17,6 +17,11 @@
 /* Add table "ThanhVien"                                                  */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='ThanhVien')
+BEGIN
+	DROP TABLE ThanhVien
+END
+GO 
 CREATE TABLE [ThanhVien] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_Dang_Nhap] NVARCHAR(40),
@@ -33,6 +38,11 @@ GO
 /* Add table "VaiTro"                                                     */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='VaiTro')
+BEGIN
+	DROP TABLE VaiTro
+END
+GO 
 CREATE TABLE [VaiTro] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_Vai_Tro] NVARCHAR(40),
@@ -45,6 +55,11 @@ GO
 /* Add table "ChucNang"                                                   */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='ChucNang')
+BEGIN
+	DROP TABLE ChucNang
+END
+GO 
 CREATE TABLE [ChucNang] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_Chuc_Nang] NVARCHAR(40),
@@ -57,6 +72,11 @@ GO
 /* Add table "PhanQuyen"                                                  */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='PhanQuyen')
+BEGIN
+	DROP TABLE PhanQuyen
+END
+GO 
 CREATE TABLE [PhanQuyen] (
     [Ma_Vai_Tro] INTEGER NOT NULL,
     [Ma_Chuc_Nang] INTEGER NOT NULL,
@@ -68,6 +88,11 @@ GO
 /* Add table "HoaDon"                                                     */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='HoaDon')
+BEGIN
+	DROP TABLE HoaDon
+END
+GO 
 CREATE TABLE [HoaDon] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ngay_Lap] NVARCHAR(40),
@@ -83,6 +108,11 @@ GO
 /* Add table "SanPham"                                                    */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='SanPham')
+BEGIN
+	DROP TABLE SanPham
+END
+GO 
 CREATE TABLE [SanPham] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_San_Pham] NVARCHAR(40),
@@ -96,6 +126,11 @@ GO
 /* Add table "LoiSanPham"                                                 */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='LoiSanPham')
+BEGIN
+	DROP TABLE LoiSanPham
+END
+GO 
 CREATE TABLE [LoiSanPham] (
     [ID] INTEGER NOT NULL,
     [Ma_San_Pham] INTEGER,
@@ -109,6 +144,11 @@ GO
 /* Add table "KhachHang"                                                  */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='KhachHang')
+BEGIN
+	DROP TABLE KhachHang
+END
+GO 
 CREATE TABLE [KhachHang] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_Khach_Hang] NVARCHAR(40),
@@ -123,6 +163,11 @@ GO
 /* Add table "ChiTietHoaDon"                                              */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='ChiTietHoaDon')
+BEGIN
+	DROP TABLE ChiTietHoaDon
+END
+GO 
 CREATE TABLE [ChiTietHoaDon] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ma_Khach_Hang] INTEGER,
@@ -138,6 +183,11 @@ GO
 /* Add table "ChiTietLoi"                                                 */
 /* ---------------------------------------------------------------------- */
 
+IF EXISTS (SELECT * FROM dbo.sysobjects where name='ChiTietLoi')
+BEGIN
+	DROP TABLE ChiTietLoi
+END
+GO 
 CREATE TABLE [ChiTietLoi] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ngay_Bao_Loi] NVARCHAR(40),
