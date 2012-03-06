@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-03-05 10:42                                */
+/* Created on:            2012-03-06 13:21                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -21,10 +21,10 @@ CREATE TABLE [ThanhVien] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_Dang_Nhap] NVARCHAR(40),
     [Ma_Vai_Tro] INTEGER,
-    [Ghi_Chu] NVARCHAR(40),
     [Dia_Chi] NVARCHAR(40),
     [Gioi_Tinh] NVARCHAR(40),
     [So_Dien_Thoai] NUMERIC,
+    [Ghi_Chu] NVARCHAR(40),
     CONSTRAINT [PK_ThanhVien] PRIMARY KEY ([ID])
 )
 GO
@@ -71,10 +71,10 @@ GO
 CREATE TABLE [HoaDon] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ngay_Lap] NVARCHAR(40),
-    [Ghi_Chu] NVARCHAR(40),
     [Ma_Nhan_Vien] INTEGER,
     [Ma_Khach_Hang] INTEGER,
     [So_Luong] INTEGER,
+    [Ghi_Chu] NVARCHAR(40),
     CONSTRAINT [PK_HoaDon] PRIMARY KEY ([ID])
 )
 GO
@@ -86,8 +86,8 @@ GO
 CREATE TABLE [SanPham] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ten_San_Pham] NVARCHAR(40),
-    [Ghi_Chu] NVARCHAR(40),
     [Gia_Tien] NUMERIC,
+    [Ghi_Chu] NVARCHAR(40),
     CONSTRAINT [PK_SanPham] PRIMARY KEY ([ID])
 )
 GO
@@ -99,8 +99,8 @@ GO
 CREATE TABLE [LoiSanPham] (
     [ID] INTEGER NOT NULL,
     [Ma_San_Pham] INTEGER,
-    [Ghi_Chu] NVARCHAR(40),
     [Ten_Khach_Hang] NVARCHAR(40),
+    [Ghi_Chu] NVARCHAR(40),
     CONSTRAINT [PK_LoiSanPham] PRIMARY KEY ([ID])
 )
 GO
@@ -126,10 +126,10 @@ GO
 CREATE TABLE [ChiTietHoaDon] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Ma_Khach_Hang] INTEGER,
-    [Ghi_Chu] NVARCHAR(40),
     [Ma_San_Pham] INTEGER,
-    [So_Luong] INTEGER,
     [Ma_Hoa_Don] INTEGER,
+    [So_Luong] INTEGER,
+    [Ghi_Chu] NVARCHAR(40),
     CONSTRAINT [PK_ChiTietHoaDon] PRIMARY KEY ([ID])
 )
 GO
