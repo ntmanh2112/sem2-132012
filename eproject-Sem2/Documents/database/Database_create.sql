@@ -17,6 +17,7 @@
 /* Add table "ThanhVien"                                                  */
 /* ---------------------------------------------------------------------- */
 
+
 IF EXISTS (SELECT * FROM dbo.sysobjects where name='ThanhVien')
 BEGIN
 	DROP TABLE ThanhVien
