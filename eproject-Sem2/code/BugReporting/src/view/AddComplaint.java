@@ -7,34 +7,32 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
-import javax.swing.JTextField;
 import java.awt.Point;
-import javax.swing.JPasswordField;
-import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class AddAccountManager extends JFrame {
+public class AddComplaint extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
 	private JLabel jLabel = null;
 	private JLabel jLabel1 = null;
-	private JTextField txtName = null;
+	private JTextField txtCustomername = null;
 	private JLabel jLabel2 = null;
-	private JTextField txtUsername = null;
+	private JTextField txtProductname = null;
 	private JLabel jLabel3 = null;
-	private JPasswordField txtPassword = null;
+	private JTextField txtOrdercode = null;
 	private JLabel jLabel4 = null;
-	private JComboBox cbnRole = null;
-	private JLabel jLabel5 = null;
 	private JTextField txtDate = null;
+	private JLabel jLabel5 = null;
+	private JTextField txtContent = null;
 	private JButton btnAdd = null;
 	private JButton btnCancel = null;
 
 	/**
 	 * This is the default constructor
 	 */
-	public AddAccountManager() {
+	public AddComplaint() {
 		super();
 		initialize();
 	}
@@ -45,7 +43,7 @@ public class AddAccountManager extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(512, 440);
+		this.setSize(568, 529);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -58,47 +56,48 @@ public class AddAccountManager extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel5 = new JLabel();
-			jLabel5.setText("Date");
-			jLabel5.setLocation(new Point(10, 281));
 			jLabel5.setFont(new Font("Dialog", Font.BOLD, 14));
-			jLabel5.setSize(new Dimension(113, 34));
+			jLabel5.setLocation(new Point(10, 273));
+			jLabel5.setSize(new Dimension(111, 30));
+			jLabel5.setText("Content");
 			jLabel4 = new JLabel();
 			jLabel4.setFont(new Font("Dialog", Font.BOLD, 14));
-			jLabel4.setLocation(new Point(10, 231));
-			jLabel4.setSize(new Dimension(113, 34));
-			jLabel4.setText("Role");
+			jLabel4.setLocation(new Point(10, 226));
+			jLabel4.setSize(new Dimension(111, 30));
+			jLabel4.setText("Date");
 			jLabel3 = new JLabel();
+			jLabel3.setText("Order code");
+			jLabel3.setLocation(new Point(10, 181));
 			jLabel3.setFont(new Font("Dialog", Font.BOLD, 14));
-			jLabel3.setLocation(new Point(10, 183));
-			jLabel3.setSize(new Dimension(113, 34));
-			jLabel3.setText("Password");
+			jLabel3.setSize(new Dimension(111, 30));
 			jLabel2 = new JLabel();
 			jLabel2.setFont(new Font("Dialog", Font.BOLD, 14));
-			jLabel2.setSize(new Dimension(113, 34));
 			jLabel2.setLocation(new Point(10, 136));
-			jLabel2.setText("Username");
+			jLabel2.setSize(new Dimension(111, 30));
+			jLabel2.setText("Productname");
 			jLabel1 = new JLabel();
-			jLabel1.setText("Name");
-			jLabel1.setLocation(new Point(10, 91));
 			jLabel1.setFont(new Font("Dialog", Font.BOLD, 14));
 			jLabel1.setSize(new Dimension(111, 30));
+			jLabel1.setLocation(new Point(10, 92));
+			jLabel1.setText("Customername");
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(40, 10, 400, 68));
+			jLabel.setBounds(new Rectangle(136, 12, 287, 63));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 36));
-			jLabel.setText("Add Account Manager");
+			jLabel.setText("Add Complaint");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setFont(new Font("Dialog", Font.PLAIN, 14));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
-			jContentPane.add(getTxtName(), null);
+			jContentPane.add(getTxtCustomername(), null);
 			jContentPane.add(jLabel2, null);
-			jContentPane.add(getTxtUsername(), null);
+			jContentPane.add(getTxtProductname(), null);
 			jContentPane.add(jLabel3, null);
-			jContentPane.add(getTxtPassword(), null);
+			jContentPane.add(getTxtOrdercode(), null);
 			jContentPane.add(jLabel4, null);
-			jContentPane.add(getCbnRole(), null);
-			jContentPane.add(jLabel5, null);
 			jContentPane.add(getTxtDate(), null);
+			jContentPane.add(jLabel5, null);
+			jContentPane.add(getTxtContent(), null);
 			jContentPane.add(getBtnAdd(), null);
 			jContentPane.add(getBtnCancel(), null);
 		}
@@ -106,59 +105,45 @@ public class AddAccountManager extends JFrame {
 	}
 
 	/**
-	 * This method initializes txtName	
+	 * This method initializes txtCustomername	
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtName() {
-		if (txtName == null) {
-			txtName = new JTextField();
-			txtName.setLocation(new Point(193, 91));
-			txtName.setSize(new Dimension(269, 30));
+	private JTextField getTxtCustomername() {
+		if (txtCustomername == null) {
+			txtCustomername = new JTextField();
+			txtCustomername.setLocation(new Point(164, 92));
+			txtCustomername.setSize(new Dimension(350, 30));
 		}
-		return txtName;
+		return txtCustomername;
 	}
 
 	/**
-	 * This method initializes txtUsername	
+	 * This method initializes txtProductname	
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtUsername() {
-		if (txtUsername == null) {
-			txtUsername = new JTextField();
-			txtUsername.setSize(new Dimension(269, 30));
-			txtUsername.setLocation(new Point(193, 136));
+	private JTextField getTxtProductname() {
+		if (txtProductname == null) {
+			txtProductname = new JTextField();
+			txtProductname.setLocation(new Point(164, 136));
+			txtProductname.setSize(new Dimension(350, 30));
 		}
-		return txtUsername;
+		return txtProductname;
 	}
 
 	/**
-	 * This method initializes txtPassword	
+	 * This method initializes txtOrdercode	
 	 * 	
-	 * @return javax.swing.JPasswordField	
+	 * @return javax.swing.JTextField	
 	 */
-	private JPasswordField getTxtPassword() {
-		if (txtPassword == null) {
-			txtPassword = new JPasswordField();
-			txtPassword.setSize(new Dimension(269, 30));
-			txtPassword.setLocation(new Point(193, 183));
+	private JTextField getTxtOrdercode() {
+		if (txtOrdercode == null) {
+			txtOrdercode = new JTextField();
+			txtOrdercode.setLocation(new Point(164, 180));
+			txtOrdercode.setSize(new Dimension(350, 30));
 		}
-		return txtPassword;
-	}
-
-	/**
-	 * This method initializes cbnRole	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbnRole() {
-		if (cbnRole == null) {
-			cbnRole = new JComboBox();
-			cbnRole.setSize(new Dimension(269, 30));
-			cbnRole.setLocation(new Point(193, 231));
-		}
-		return cbnRole;
+		return txtOrdercode;
 	}
 
 	/**
@@ -169,10 +154,23 @@ public class AddAccountManager extends JFrame {
 	private JTextField getTxtDate() {
 		if (txtDate == null) {
 			txtDate = new JTextField();
-			txtDate.setLocation(new Point(193, 280));
-			txtDate.setSize(new Dimension(269, 30));
+			txtDate.setLocation(new Point(164, 226));
+			txtDate.setSize(new Dimension(350, 30));
 		}
 		return txtDate;
+	}
+
+	/**
+	 * This method initializes txtContent	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtContent() {
+		if (txtContent == null) {
+			txtContent = new JTextField();
+			txtContent.setBounds(new Rectangle(164, 272, 351, 102));
+		}
+		return txtContent;
 	}
 
 	/**
@@ -183,10 +181,9 @@ public class AddAccountManager extends JFrame {
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setFont(new Font("Dialog", Font.BOLD, 14));
-			btnAdd.setLocation(new Point(70, 342));
-			btnAdd.setSize(new Dimension(110, 36));
+			btnAdd.setLocation(new Point(105, 407));
 			btnAdd.setText("Add");
+			btnAdd.setSize(new Dimension(110, 36));
 		}
 		return btnAdd;
 	}
@@ -200,7 +197,7 @@ public class AddAccountManager extends JFrame {
 		if (btnCancel == null) {
 			btnCancel = new JButton();
 			btnCancel.setFont(new Font("Dialog", Font.BOLD, 14));
-			btnCancel.setLocation(new Point(270, 342));
+			btnCancel.setLocation(new Point(313, 407));
 			btnCancel.setSize(new Dimension(110, 36));
 			btnCancel.setText("Cancel");
 		}

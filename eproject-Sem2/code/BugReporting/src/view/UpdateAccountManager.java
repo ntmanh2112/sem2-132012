@@ -1,5 +1,7 @@
 package view;
 
+
+
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
@@ -13,7 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
-public class AddAccountManager extends JFrame {
+public class UpdateAccountManager extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
@@ -28,13 +30,13 @@ public class AddAccountManager extends JFrame {
 	private JComboBox cbnRole = null;
 	private JLabel jLabel5 = null;
 	private JTextField txtDate = null;
-	private JButton btnAdd = null;
-	private JButton btnCancel = null;
+	private JButton btnUpdate = null;
+	private JButton btnExit = null;
 
 	/**
 	 * This is the default constructor
 	 */
-	public AddAccountManager() {
+	public UpdateAccountManager() {
 		super();
 		initialize();
 	}
@@ -83,9 +85,9 @@ public class AddAccountManager extends JFrame {
 			jLabel1.setFont(new Font("Dialog", Font.BOLD, 14));
 			jLabel1.setSize(new Dimension(111, 30));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(40, 10, 400, 68));
+			jLabel.setBounds(new Rectangle(22, 11, 432, 68));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 36));
-			jLabel.setText("Add Account Manager");
+			jLabel.setText("Update Account Manager");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -99,8 +101,8 @@ public class AddAccountManager extends JFrame {
 			jContentPane.add(getCbnRole(), null);
 			jContentPane.add(jLabel5, null);
 			jContentPane.add(getTxtDate(), null);
-			jContentPane.add(getBtnAdd(), null);
-			jContentPane.add(getBtnCancel(), null);
+			jContentPane.add(getBtnUpdate(), null);
+			jContentPane.add(getBtnExit(), null);
 		}
 		return jContentPane;
 	}
@@ -176,35 +178,35 @@ public class AddAccountManager extends JFrame {
 	}
 
 	/**
-	 * This method initializes btnAdd	
+	 * This method initializes btnUpdate	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnAdd() {
-		if (btnAdd == null) {
-			btnAdd = new JButton();
-			btnAdd.setFont(new Font("Dialog", Font.BOLD, 14));
-			btnAdd.setLocation(new Point(70, 342));
-			btnAdd.setSize(new Dimension(110, 36));
-			btnAdd.setText("Add");
+	private JButton getBtnUpdate() {
+		if (btnUpdate == null) {
+			btnUpdate = new JButton();
+			btnUpdate.setFont(new Font("Dialog", Font.BOLD, 14));
+			btnUpdate.setLocation(new Point(70, 342));
+			btnUpdate.setSize(new Dimension(110, 36));
+			btnUpdate.setText("Update");
 		}
-		return btnAdd;
+		return btnUpdate;
 	}
 
 	/**
-	 * This method initializes btnCancel	
+	 * This method initializes btnExit	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnCancel() {
-		if (btnCancel == null) {
-			btnCancel = new JButton();
-			btnCancel.setFont(new Font("Dialog", Font.BOLD, 14));
-			btnCancel.setLocation(new Point(270, 342));
-			btnCancel.setSize(new Dimension(110, 36));
-			btnCancel.setText("Cancel");
+	private JButton getBtnExit() {
+		if (btnExit == null) {
+			btnExit = new JButton();
+			btnExit.setFont(new Font("Dialog", Font.BOLD, 14));
+			btnExit.setLocation(new Point(270, 342));
+			btnExit.setSize(new Dimension(110, 36));
+			btnExit.setText("Exit");
 		}
-		return btnCancel;
+		return btnExit;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
