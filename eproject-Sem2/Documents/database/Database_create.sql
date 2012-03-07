@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-03-07 09:47                                */
+/* Created on:            2012-03-07 10:00                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -100,6 +100,9 @@ CREATE TABLE [LoiSanPham] (
     [ID] INTEGER NOT NULL,
     [Ma_San_Pham] INTEGER,
     [Ten_Khach_Hang] NVARCHAR(40),
+    [Ngay_Ghi_Nhan] NVARCHAR(40),
+    [Ngay_Khac_Phuc] NVARCHAR(40),
+    [Tinh_Trang_Loi] INTEGER,
     [Ghi_Chu] NVARCHAR(40),
     CONSTRAINT [PK_LoiSanPham] PRIMARY KEY ([ID])
 )
