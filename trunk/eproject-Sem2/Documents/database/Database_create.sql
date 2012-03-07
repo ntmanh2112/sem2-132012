@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-03-07 10:18                                */
+/* Created on:            2012-03-07 10:38                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -98,8 +98,10 @@ GO
 
 CREATE TABLE [LoiSanPham] (
     [ID] INTEGER NOT NULL,
-    [Ma_San_Pham] INTEGER,
     [Ten_Khach_Hang] NVARCHAR(40),
+    [Ngay_Ghi_Nhan] NVARCHAR(40),
+    [Ngay_Hoan_Thanh] NVARCHAR(40),
+    [Tinh_Trang_Loi] INTEGER,
     [Ghi_Chu] NVARCHAR(40),
     CONSTRAINT [PK_LoiSanPham] PRIMARY KEY ([ID])
 )
@@ -140,6 +142,7 @@ GO
 
 CREATE TABLE [ChiTietLoi] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
+    [Ma_San_Pham] INTEGER,
     [Ngay_Bao_Loi] NVARCHAR(40),
     [Thong_Tin_Loi] NVARCHAR(40),
     [Ten_San_Pham] NVARCHAR(40),
@@ -172,10 +175,6 @@ ALTER TABLE [HoaDon] ADD CONSTRAINT [ThanhVien_HoaDon]
     FOREIGN KEY ([Ma_Nhan_Vien]) REFERENCES [ThanhVien] ([ID])
 GO
 
-ALTER TABLE [LoiSanPham] ADD CONSTRAINT [SanPham_LoiSanPham] 
-    FOREIGN KEY ([Ma_San_Pham]) REFERENCES [SanPham] ([ID])
-GO
-
 ALTER TABLE [ChiTietHoaDon] ADD CONSTRAINT [HoaDon_ChiTietHoaDon] 
     FOREIGN KEY ([Ma_Hoa_Don]) REFERENCES [HoaDon] ([ID])
 GO
@@ -185,9 +184,13 @@ ALTER TABLE [ChiTietHoaDon] ADD CONSTRAINT [SanPham_ChiTietHoaDon]
 GO
 
 ALTER TABLE [ChiTietLoi] ADD CONSTRAINT [LoiSanPham_ChiTietLoi] 
-    FOREIGN KEY ([ID]) REFERENCES [LoiSanPham] ([Ma_San_Pham])
+    FOREIGN KEY ([Ma_San_Pham]) REFERENCES [LoiSanPham] ([ID])
 GO
 
 ALTER TABLE [ChiTietLoi] ADD CONSTRAINT [HoaDon_ChiTietLoi] 
     FOREIGN KEY ([Ma_Hoa_Don]) REFERENCES [HoaDon] ([ID])
+GO
+
+ALTER TABLE [ChiTietLoi] ADD CONSTRAINT [SanPham_ChiTietLoi] 
+    FOREIGN KEY ([Ma_San_Pham]) REFERENCES [SanPham] ([ID])
 GO
