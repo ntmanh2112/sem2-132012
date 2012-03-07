@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-03-07 09:35                                */
+/* Created on:            2012-03-07 09:47                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -176,16 +176,16 @@ ALTER TABLE [LoiSanPham] ADD CONSTRAINT [SanPham_LoiSanPham]
     FOREIGN KEY ([Ma_San_Pham]) REFERENCES [SanPham] ([ID])
 GO
 
+ALTER TABLE [LoiSanPham] ADD CONSTRAINT [ChiTietLoi_LoiSanPham] 
+    FOREIGN KEY ([Ma_San_Pham]) REFERENCES [ChiTietLoi] ([ID])
+GO
+
 ALTER TABLE [ChiTietHoaDon] ADD CONSTRAINT [HoaDon_ChiTietHoaDon] 
     FOREIGN KEY ([Ma_Hoa_Don]) REFERENCES [HoaDon] ([ID])
 GO
 
 ALTER TABLE [ChiTietHoaDon] ADD CONSTRAINT [SanPham_ChiTietHoaDon] 
     FOREIGN KEY ([Ma_San_Pham]) REFERENCES [SanPham] ([ID])
-GO
-
-ALTER TABLE [ChiTietLoi] ADD CONSTRAINT [LoiSanPham_ChiTietLoi] 
-    FOREIGN KEY ([ID]) REFERENCES [LoiSanPham] ([Ma_San_Pham])
 GO
 
 ALTER TABLE [ChiTietLoi] ADD CONSTRAINT [HoaDon_ChiTietLoi] 
