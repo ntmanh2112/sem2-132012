@@ -1,5 +1,3 @@
-package view;
-
 import java.awt.BorderLayout;
 
 import javax.swing.ImageIcon;
@@ -33,6 +31,12 @@ public class UpdateOrder extends JFrame {
 	private JTextField txtStatus = null;
 	private JButton btnUpdate = null;
 	private JButton btnCancel = null;
+	private JLabel jLabel7 = null;
+	private JTextField txtProduct = null;
+	private JLabel jLabel8 = null;
+	private JTextField txtNumber = null;
+	private JLabel jLabel9 = null;
+	private JTextField txtOrdercode = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -47,7 +51,7 @@ public class UpdateOrder extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(540, 430);
+		this.setSize(531, 578);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -59,6 +63,21 @@ public class UpdateOrder extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel9 = new JLabel();
+			jLabel9.setFont(new Font("Dialog", Font.BOLD, 14));
+			jLabel9.setSize(new Dimension(111, 30));
+			jLabel9.setLocation(new Point(10, 421));
+			jLabel9.setText("Ordercode");
+			jLabel8 = new JLabel();
+			jLabel8.setText("Number ");
+			jLabel8.setLocation(new Point(10, 376));
+			jLabel8.setFont(new Font("Dialog", Font.BOLD, 14));
+			jLabel8.setSize(new Dimension(111, 30));
+			jLabel7 = new JLabel();
+			jLabel7.setFont(new Font("Dialog", Font.BOLD, 14));
+			jLabel7.setSize(new Dimension(111, 30));
+			jLabel7.setLocation(new Point(10, 333));
+			jLabel7.setText("Product");
 			jLabel6 = new JLabel();
 			jLabel6.setText("Status");
 			jLabel6.setSize(new Dimension(111, 30));
@@ -90,8 +109,8 @@ public class UpdateOrder extends JFrame {
 			jLabel1.setText("Customername");
 			jLabel = new JLabel();
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 36));
-			jLabel.setSize(new Dimension(233, 49));
-			jLabel.setLocation(new Point(123, 8));
+			jLabel.setSize(new Dimension(245, 49));
+			jLabel.setLocation(new Point(129, 5));
 			jLabel.setText("Update Order");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -111,6 +130,12 @@ public class UpdateOrder extends JFrame {
 			jContentPane.add(getTxtStatus(), null);
 			jContentPane.add(getBtnUpdate(), null);
 			jContentPane.add(getBtnCancel(), null);
+			jContentPane.add(jLabel7, null);
+			jContentPane.add(getTxtProduct(), null);
+			jContentPane.add(jLabel8, null);
+			jContentPane.add(getTxtNumber(), null);
+			jContentPane.add(jLabel9, null);
+			jContentPane.add(getTxtOrdercode(), null);
 		}
 		return jContentPane;
 	}
@@ -165,7 +190,7 @@ public class UpdateOrder extends JFrame {
 	private JTextField getTxtTelephone() {
 		if (txtTelephone == null) {
 			txtTelephone = new JTextField();
-			txtTelephone.setLocation(new Point(163, 197));
+			txtTelephone.setLocation(new Point(163, 196));
 			txtTelephone.setSize(new Dimension(205, 30));
 		}
 		return txtTelephone;
@@ -179,7 +204,7 @@ public class UpdateOrder extends JFrame {
 	private JTextField getTxtDate() {
 		if (txtDate == null) {
 			txtDate = new JTextField();
-			txtDate.setLocation(new Point(163, 241));
+			txtDate.setLocation(new Point(163, 242));
 			txtDate.setSize(new Dimension(205, 30));
 		}
 		return txtDate;
@@ -194,7 +219,7 @@ public class UpdateOrder extends JFrame {
 		if (txtStatus == null) {
 			txtStatus = new JTextField();
 			txtStatus.setSize(new Dimension(205, 30));
-			txtStatus.setLocation(new Point(163, 287));
+			txtStatus.setLocation(new Point(163, 289));
 		}
 		return txtStatus;
 	}
@@ -208,10 +233,11 @@ public class UpdateOrder extends JFrame {
 		if (btnUpdate == null) {
 			btnUpdate = new JButton();
 			btnUpdate.setFont(new Font("Dialog", Font.BOLD, 14));
-			btnUpdate.setLocation(new Point(76, 333));
+			btnUpdate.setLocation(new Point(76, 476));
 			btnUpdate.setSize(new Dimension(110, 36));
 			btnUpdate.setText("Update");
-			
+			ImageIcon imAdd  = new ImageIcon("image/Add-2-icon.png");
+			btnUpdate.setIcon(imAdd);
 		}
 		return btnUpdate;
 	}
@@ -227,10 +253,53 @@ public class UpdateOrder extends JFrame {
 			btnCancel.setSize(new Dimension(110, 36));
 			btnCancel.setText("Cancel");
 			btnCancel.setFont(new Font("Dialog", Font.BOLD, 14));
-			btnCancel.setLocation(new Point(300, 333));
-			
+			btnCancel.setLocation(new Point(300, 476));
+			ImageIcon imCancel = new ImageIcon("image/Cancel-2-icon.png");
+			btnCancel.setIcon(imCancel);
 		}
 		return btnCancel;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="30,48"
+	/**
+	 * This method initializes txtProduct	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtProduct() {
+		if (txtProduct == null) {
+			txtProduct = new JTextField();
+			txtProduct.setSize(new Dimension(205, 30));
+			txtProduct.setLocation(new Point(163, 333));
+		}
+		return txtProduct;
+	}
+
+	/**
+	 * This method initializes txtNumber	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtNumber() {
+		if (txtNumber == null) {
+			txtNumber = new JTextField();
+			txtNumber.setLocation(new Point(163, 376));
+			txtNumber.setSize(new Dimension(205, 30));
+		}
+		return txtNumber;
+	}
+
+	/**
+	 * This method initializes txtOrdercode	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtOrdercode() {
+		if (txtOrdercode == null) {
+			txtOrdercode = new JTextField();
+			txtOrdercode.setLocation(new Point(163, 421));
+			txtOrdercode.setSize(new Dimension(205, 30));
+		}
+		return txtOrdercode;
+	}
+
+}  //  @jve:decl-index=0:visual-constraint="10,10"
