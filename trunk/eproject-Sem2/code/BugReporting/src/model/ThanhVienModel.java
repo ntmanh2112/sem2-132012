@@ -5,7 +5,7 @@ public class ThanhVienModel {
 	private String Ten_Dang_Nhap;
 	private String Ma_Vai_Tro;
 	private String Dia_Chi;
-	private String gioi_Tinh;
+	private String Gioi_Tinh;
 	private String So_Dien_Thoai;
 	private String Ghi_Chu;
 	public String getID() {
@@ -33,10 +33,10 @@ public class ThanhVienModel {
 		Dia_Chi = diaChi;
 	}
 	public String getGioi_Tinh() {
-		return gioi_Tinh;
+		return Gioi_Tinh;
 	}
 	public void setGioi_Tinh(String gioiTinh) {
-		gioi_Tinh = gioiTinh;
+		Gioi_Tinh = gioiTinh;
 	}
 	public String getSo_Dien_Thoai() {
 		return So_Dien_Thoai;
