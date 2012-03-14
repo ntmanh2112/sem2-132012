@@ -179,7 +179,7 @@
 </ATTRIBUTES>
 </ENT>
 <ENT>
-<NAME>Employee</NAME>
+<NAME>Employees</NAME>
 <NAMETEMPLATE>PK_%table%</NAMETEMPLATE>
 <ID>4</ID>
 <POSNR>0</POSNR>
@@ -190,7 +190,7 @@
 <TRGLASTID>1</TRGLASTID>
 <CONLASTID>1</CONLASTID>
 <PKCON>
-<NAME>PK_Employee</NAME>
+<NAME>PK_Employees</NAME>
 <NAMETEMPLATE>PK_%table%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -373,7 +373,7 @@
 </ATTRIBUTES>
 </ENT>
 <ENT>
-<NAME>Section</NAME>
+<NAME>Sections</NAME>
 <NAMETEMPLATE>PK_%table%</NAMETEMPLATE>
 <ID>5</ID>
 <POSNR>0</POSNR>
@@ -384,7 +384,7 @@
 <TRGLASTID>1</TRGLASTID>
 <CONLASTID>1</CONLASTID>
 <PKCON>
-<NAME>PK_Section</NAME>
+<NAME>PK_Sections</NAME>
 <NAMETEMPLATE>PK_%table%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -554,7 +554,7 @@
 </ATTRIBUTES>
 </ENT>
 <ENT>
-<NAME>Job_rotation</NAME>
+<NAME>JobRotation</NAME>
 <NAMETEMPLATE>PK_%table%</NAMETEMPLATE>
 <ID>9</ID>
 <POSNR>0</POSNR>
@@ -565,7 +565,7 @@
 <TRGLASTID>1</TRGLASTID>
 <CONLASTID>1</CONLASTID>
 <PKCON>
-<NAME>PK_Job_rotation</NAME>
+<NAME>PK_JobRotation</NAME>
 <NAMETEMPLATE>PK_%table%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -901,7 +901,7 @@
 </ATTRIBUTES>
 </ENT>
 <ENT>
-<NAME>Vacancy_Fill_Details</NAME>
+<NAME>VacancyFillDetails</NAME>
 <NAMETEMPLATE>NN_%column%</NAMETEMPLATE>
 <ID>11</ID>
 <POSNR>0</POSNR>
@@ -912,7 +912,7 @@
 <TRGLASTID>1</TRGLASTID>
 <CONLASTID>1</CONLASTID>
 <PKCON>
-<NAME>PK_Vacancy_Fill_Details</NAME>
+<NAME>PK_VacancyFillDetails</NAME>
 <NAMETEMPLATE>PK_%table%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1496,7 +1496,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>Departments_Section</NAME>
+<NAME>Departments_Sections</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>45</ID>
 <POSNR>0</POSNR>
@@ -1510,7 +1510,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>Departments_Section</NAME>
+<NAME>Departments_Sections</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1535,7 +1535,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>Section_Employee</NAME>
+<NAME>Sections_Employees</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>47</ID>
 <POSNR>0</POSNR>
@@ -1549,7 +1549,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>Section_Employee</NAME>
+<NAME>Sections_Employees</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1574,7 +1574,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>Employee_Job_rotation</NAME>
+<NAME>Employees_JobRotation</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>48</ID>
 <POSNR>0</POSNR>
@@ -1588,7 +1588,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>Employee_Job_rotation</NAME>
+<NAME>Employees_JobRotation</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1652,7 +1652,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>Vacancies_Vacancy_Fill_Details</NAME>
+<NAME>Vacancies_VacancyFillDetails</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>53</ID>
 <POSNR>0</POSNR>
@@ -1666,7 +1666,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>Vacancies_Vacancy_Fill_Details</NAME>
+<NAME>Vacancies_VacancyFillDetails</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1691,7 +1691,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>Employee_Vacancy_Fill_Details</NAME>
+<NAME>Employees_VacancyFillDetails</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>54</ID>
 <POSNR>0</POSNR>
@@ -1705,7 +1705,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>Employee_Vacancy_Fill_Details</NAME>
+<NAME>Employees_VacancyFillDetails</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1769,7 +1769,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>Section_Vacancies</NAME>
+<NAME>Sections_Vacancies</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>56</ID>
 <POSNR>0</POSNR>
@@ -1783,7 +1783,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>Section_Vacancies</NAME>
+<NAME>Sections_Vacancies</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1808,7 +1808,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>Designation_Employee</NAME>
+<NAME>Designation_Employees</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>58</ID>
 <POSNR>0</POSNR>
@@ -1822,7 +1822,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>Designation_Employee</NAME>
+<NAME>Designation_Employees</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -1847,7 +1847,7 @@
 </PAIRS>
 </REL>
 <REL>
-<NAME>Employee_History</NAME>
+<NAME>Employees_History</NAME>
 <NAMETEMPLATE>%parent%_%child%</NAMETEMPLATE>
 <ID>59</ID>
 <POSNR>0</POSNR>
@@ -1861,7 +1861,7 @@
 <UPDATERULE>0</UPDATERULE>
 <DELETERULE>0</DELETERULE>
 <CONSTRAINT>
-<NAME>Employee_History</NAME>
+<NAME>Employees_History</NAME>
 <NAMETEMPLATE>%relname%</NAMETEMPLATE>
 <ID>1</ID>
 <POSNR>0</POSNR>
@@ -2060,7 +2060,7 @@
 <ENTC>
 <ID>11</ID>
 <DIAGRAMID>1</DIAGRAMID>
-<W>124</W>
+<W>110</W>
 <H>138</H>
 <L>242</L>
 <T>312</T>
@@ -2347,11 +2347,11 @@
 <Y>255</Y>
 </POINT>
 <POINT>
-<X>304</X>
+<X>297</X>
 <Y>255</Y>
 </POINT>
 <POINT>
-<X>304</X>
+<X>297</X>
 <Y>311</Y>
 </POINT>
 </POINTS>
