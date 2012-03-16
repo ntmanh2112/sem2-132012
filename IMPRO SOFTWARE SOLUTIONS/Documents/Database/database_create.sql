@@ -1,11 +1,11 @@
 /* ---------------------------------------------------------------------- */
 /* Script generated with: DeZign for Databases v4.1.3                     */
 /* Target DBMS:           MS SQL Server 2005                              */
-/* Project file:          Project1.dez                                    */
+/* Project file:          Database.dez                                    */
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-03-14 12:50                                */
+/* Created on:            2012-03-16 10:15                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -33,16 +33,16 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [Employee] (
-    [ID] INTEGER IDENTITY(0,1) NOT NULL,
+    [EmID] VARCHAR(10) NOT NULL,
     [Name] VARCHAR(10),
-    [Dep_No] NUMERIC(10) NOT NULL,
-    [Des_ID] INTEGER NOT NULL,
-    [Section_ID] INTEGER,
+    [Dep_No] VARCHAR(40) NOT NULL,
+    [Des_ID] VARCHAR(10) NOT NULL,
+    [SecID] VARCHAR(10),
     [Address] VARCHAR(50),
     [Phone] VARCHAR(15),
     [Fax] VARCHAR(15),
     [Email] VARCHAR(50),
-    CONSTRAINT [PK_Employee] PRIMARY KEY ([ID])
+    CONSTRAINT [PK_Employee] PRIMARY KEY ([EmID])
 )
 GO
 
@@ -51,11 +51,11 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [Section] (
-    [ID] INTEGER IDENTITY(0,1) NOT NULL,
+    [SecID] VARCHAR(10) NOT NULL,
     [Name] VARCHAR(15),
     [Section_Inch] VARCHAR(10),
     [Dep_No] VARCHAR(10) NOT NULL,
-    CONSTRAINT [PK_Section] PRIMARY KEY ([ID])
+    CONSTRAINT [PK_Section] PRIMARY KEY ([SecID])
 )
 GO
 
@@ -64,9 +64,10 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [Designation] (
-    [ID] INTEGER IDENTITY(0,1) NOT NULL,
-    [Designation] VARCHAR(10),
-    CONSTRAINT [PK_Designation] PRIMARY KEY ([ID])
+    [DesID] VARCHAR(10) NOT NULL,
+    [Layer_ID] VARCHAR(10),
+    [Designation] VARCHAR(15),
+    CONSTRAINT [PK_Designation] PRIMARY KEY ([DesID])
 )
 GO
 
@@ -75,9 +76,9 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [Job_rotation] (
-    [ID] INTEGER NOT NULL,
-    [Em_ID] INTEGER NOT NULL,
-    [Present_Designation] VARCHAR(10),
+    [ID] INTEGER IDENTITY(0,1) NOT NULL,
+    [Em_ID] VARCHAR(10) NOT NULL,
+    [Present_Designation] VARCHAR(15),
     [Deputed_To] VARCHAR(10),
     [Creation_Date] DATETIME,
     [Creator] VARCHAR(20),
@@ -94,7 +95,7 @@ GO
 CREATE TABLE [Vacancies] (
     [Vacancy_ID] VARCHAR(10) NOT NULL,
     [Dep_No] VARCHAR(10) NOT NULL,
-    [Section_ID] INTEGER,
+    [SecID] VARCHAR(10),
     [Designation_ID] VARCHAR(10),
     [No_Of_Vacancies] NUMERIC(10),
     [Status] VARCHAR(10),
@@ -110,9 +111,9 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [Vacancy_Fill_Details] (
-    [ID] INTEGER NOT NULL,
+    [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Vacancy_ID] VARCHAR(10) NOT NULL,
-    [Em_ID] INTEGER,
+    [EmID] VARCHAR(10),
     [Filled_Date] DATETIME,
     [Intake_Details] VARCHAR(50),
     [Status] VARCHAR(10),
@@ -126,10 +127,10 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [DesigLayer] (
-    [Designation_ID] VARCHAR(10) NOT NULL,
+    [Layer_ID] VARCHAR(10) NOT NULL,
     [Layer] NUMERIC(10),
     [Weightage] NUMERIC(10),
-    CONSTRAINT [PK_DesigLayer] PRIMARY KEY ([Designation_ID])
+    CONSTRAINT [PK_DesigLayer] PRIMARY KEY ([Layer_ID])
 )
 GO
 
@@ -138,8 +139,8 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [Assignment] (
-    [Des_ID] INTEGER NOT NULL,
-    [Fun_ID] INTEGER NOT NULL,
+    [Des_ID] VARCHAR(10) NOT NULL,
+    [Fun_ID] VARCHAR(10) NOT NULL,
     CONSTRAINT [PK_Assignment] PRIMARY KEY ([Des_ID], [Fun_ID])
 )
 GO
@@ -149,7 +150,7 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [Functions] (
-    [ID] INTEGER IDENTITY(0,1) NOT NULL,
+    [ID] VARCHAR(10) NOT NULL,
     [Fun_Name] VARCHAR(20),
     CONSTRAINT [PK_Functions] PRIMARY KEY ([ID])
 )
@@ -160,9 +161,9 @@ GO
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [History] (
-    [ID] INTEGER NOT NULL,
-    [Em_ID] INTEGER,
-    [Des_ID] INTEGER,
+    [ID] INTEGER IDENTITY(0,1) NOT NULL,
+    [EmID] VARCHAR(10),
+    [DesID] VARCHAR(10),
     [Date_action] DATETIME,
     [Action] VARCHAR(20),
     CONSTRAINT [PK_History] PRIMARY KEY ([ID])
@@ -174,11 +175,11 @@ GO
 /* ---------------------------------------------------------------------- */
 
 ALTER TABLE [Employee] ADD CONSTRAINT [Section_Employee] 
-    FOREIGN KEY ([Section_ID]) REFERENCES [Section] ([ID])
+    FOREIGN KEY ([SecID]) REFERENCES [Section] ([SecID])
 GO
 
 ALTER TABLE [Employee] ADD CONSTRAINT [Designation_Employee] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([ID])
+    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])
 GO
 
 ALTER TABLE [Section] ADD CONSTRAINT [Departments_Section] 
@@ -186,11 +187,11 @@ ALTER TABLE [Section] ADD CONSTRAINT [Departments_Section]
 GO
 
 ALTER TABLE [Designation] ADD CONSTRAINT [DesigLayer_Designation] 
-    FOREIGN KEY ([Designation]) REFERENCES [DesigLayer] ([Designation_ID])
+    FOREIGN KEY ([Layer_ID]) REFERENCES [DesigLayer] ([Layer_ID])
 GO
 
 ALTER TABLE [Job_rotation] ADD CONSTRAINT [Employee_Job_rotation] 
-    FOREIGN KEY ([Em_ID]) REFERENCES [Employee] ([ID])
+    FOREIGN KEY ([Em_ID]) REFERENCES [Employee] ([EmID])
 GO
 
 ALTER TABLE [Vacancies] ADD CONSTRAINT [Departments_Vacancies] 
@@ -198,7 +199,7 @@ ALTER TABLE [Vacancies] ADD CONSTRAINT [Departments_Vacancies]
 GO
 
 ALTER TABLE [Vacancies] ADD CONSTRAINT [Section_Vacancies] 
-    FOREIGN KEY ([Section_ID]) REFERENCES [Section] ([ID])
+    FOREIGN KEY ([SecID]) REFERENCES [Section] ([SecID])
 GO
 
 ALTER TABLE [Vacancy_Fill_Details] ADD CONSTRAINT [Vacancies_Vacancy_Fill_Details] 
@@ -206,7 +207,7 @@ ALTER TABLE [Vacancy_Fill_Details] ADD CONSTRAINT [Vacancies_Vacancy_Fill_Detail
 GO
 
 ALTER TABLE [Vacancy_Fill_Details] ADD CONSTRAINT [Employee_Vacancy_Fill_Details] 
-    FOREIGN KEY ([Em_ID]) REFERENCES [Employee] ([ID])
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
 GO
 
 ALTER TABLE [Assignment] ADD CONSTRAINT [Functions_Assignment] 
@@ -214,13 +215,13 @@ ALTER TABLE [Assignment] ADD CONSTRAINT [Functions_Assignment]
 GO
 
 ALTER TABLE [Assignment] ADD CONSTRAINT [Designation_Assignment] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([ID])
+    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])
 GO
 
 ALTER TABLE [History] ADD CONSTRAINT [Employee_History] 
-    FOREIGN KEY ([Em_ID]) REFERENCES [Employee] ([ID])
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
 GO
 
 ALTER TABLE [History] ADD CONSTRAINT [Designation_History] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([ID])
+    FOREIGN KEY ([DesID]) REFERENCES [Designation] ([DesID])
 GO
