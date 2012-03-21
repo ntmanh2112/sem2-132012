@@ -18,13 +18,13 @@
 /* ---------------------------------------------------------------------- */
 
 CREATE TABLE [Departments] (
-    [Dep_No] VARCHAR(10) NOT NULL,
+    [Dep_ID] VARCHAR(10) NOT NULL,
     [Dep_Name] VARCHAR(10),
     [Dep_Head] VARCHAR(10),
     [Location] VARCHAR(10),
     [Up_Dep_No] NUMERIC(10),
     [Dn_Dep_No] NUMERIC(10),
-    CONSTRAINT [PK_Departments] PRIMARY KEY ([Dep_No])
+    CONSTRAINT [PK_Departments] PRIMARY KEY ([Dep_ID])
 )
 GO
 
@@ -35,7 +35,7 @@ GO
 CREATE TABLE [Employee] (
     [EmID] VARCHAR(10) NOT NULL,
     [Name] VARCHAR(10),
-    [Dep_No] VARCHAR(40) NOT NULL,
+    [Dep_ID] VARCHAR(40) NOT NULL,
     [Des_ID] VARCHAR(10) NOT NULL,
     [SecID] VARCHAR(10),
     [Address] VARCHAR(50),
@@ -54,7 +54,7 @@ CREATE TABLE [Section] (
     [SecID] VARCHAR(10) NOT NULL,
     [Name] VARCHAR(15),
     [Section_Inch] VARCHAR(10),
-    [Dep_No] VARCHAR(10) NOT NULL,
+    [Dep_ID] VARCHAR(10) NOT NULL,
     CONSTRAINT [PK_Section] PRIMARY KEY ([SecID])
 )
 GO
@@ -94,7 +94,7 @@ GO
 
 CREATE TABLE [Vacancies] (
     [Vacancy_ID] VARCHAR(10) NOT NULL,
-    [Dep_No] VARCHAR(10) NOT NULL,
+    [Dep_ID] VARCHAR(10) NOT NULL,
     [SecID] VARCHAR(10),
     [Designation_ID] VARCHAR(10),
     [No_Of_Vacancies] NUMERIC(10),
@@ -183,7 +183,7 @@ ALTER TABLE [Employee] ADD CONSTRAINT [Designation_Employee]
 GO
 
 ALTER TABLE [Section] ADD CONSTRAINT [Departments_Section] 
-    FOREIGN KEY ([Dep_No]) REFERENCES [Departments] ([Dep_No])
+    FOREIGN KEY ([Dep_ID]) REFERENCES [Departments] ([Dep_ID])
 GO
 
 ALTER TABLE [Designation] ADD CONSTRAINT [DesigLayer_Designation] 
@@ -195,7 +195,7 @@ ALTER TABLE [Job_rotation] ADD CONSTRAINT [Employee_Job_rotation]
 GO
 
 ALTER TABLE [Vacancies] ADD CONSTRAINT [Departments_Vacancies] 
-    FOREIGN KEY ([Dep_No]) REFERENCES [Departments] ([Dep_No])
+    FOREIGN KEY ([Dep_ID]) REFERENCES [Departments] ([Dep_ID])
 GO
 
 ALTER TABLE [Vacancies] ADD CONSTRAINT [Section_Vacancies] 
