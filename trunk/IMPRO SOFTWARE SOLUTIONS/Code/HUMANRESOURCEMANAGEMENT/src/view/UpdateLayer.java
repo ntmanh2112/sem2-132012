@@ -12,6 +12,13 @@ import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JSlider;
+import javax.swing.JEditorPane;
+import javax.swing.JTabbedPane;
+import java.awt.Panel;
+import java.awt.GridBagLayout;
+import javax.swing.JToolBar;
+import javax.swing.JOptionPane;
 
 public class UpdateLayer extends JFrame {
 
@@ -65,7 +72,7 @@ public class UpdateLayer extends JFrame {
 			JLabelID.setLocation(new Point(40, 100));
 			JLabelID.setSize(new Dimension(95, 25));
 			jLabelTitle = new JLabel();
-			jLabelTitle.setBounds(new Rectangle(139, 15, 165, 48));
+			jLabelTitle.setBounds(new Rectangle(44, 15, 165, 48));
 			jLabelTitle.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabelTitle.setForeground(Color.red);
 			jLabelTitle.setText("Update Layer");

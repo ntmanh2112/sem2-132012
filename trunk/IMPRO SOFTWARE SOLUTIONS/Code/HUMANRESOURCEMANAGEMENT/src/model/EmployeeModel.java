@@ -1,6 +1,6 @@
 package model;
 
-public class EmployeesModel {
+public class EmployeeModel {
 	private String EmID;
 	public String getEmID() {
 		return EmID;
