@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class DepartmentRegistration extends JFrame {
 
@@ -76,11 +78,14 @@ public class DepartmentRegistration extends JFrame {
 			jLabel1.setLocation(new Point(20, 100));
 			jLabel1.setSize(new Dimension(48, 30));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(120, 11, 286, 42));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setSize(new Dimension(286, 42));
+			jLabel.setLocation(new Point(98, 11));
+			jLabel.setForeground(new Color(255, 51, 51));
 			jLabel.setText("Department Registration");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtDeptno(), null);
@@ -168,6 +173,7 @@ public class DepartmentRegistration extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setLocation(new Point(350, 100));
 			btnAdd.setText("Add");
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
 			btnAdd.setSize(new Dimension(90, 30));
 		}
 		return btnAdd;
@@ -183,6 +189,7 @@ public class DepartmentRegistration extends JFrame {
 			btnSave = new JButton();
 			btnSave.setText("Save");
 			btnSave.setLocation(new Point(350, 150));
+			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Save.png")));
 			btnSave.setSize(new Dimension(90, 30));
 		}
 		return btnSave;
@@ -198,6 +205,7 @@ public class DepartmentRegistration extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
 			btnEdit.setLocation(new Point(350, 200));
 		}
 		return btnEdit;
@@ -213,6 +221,7 @@ public class DepartmentRegistration extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setLocation(new Point(350, 250));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setSize(new Dimension(90, 30));
 		}
 		return btnDelete;
@@ -226,8 +235,9 @@ public class DepartmentRegistration extends JFrame {
 	private JButton getBtnFirst() {
 		if (btnFirst == null) {
 			btnFirst = new JButton();
-			btnFirst.setText("First");
+			btnFirst.setText("<<");
 			btnFirst.setSize(new Dimension(90, 30));
+			
 			btnFirst.setLocation(new Point(30, 300));
 		}
 		return btnFirst;
@@ -241,9 +251,10 @@ public class DepartmentRegistration extends JFrame {
 	private JButton getBtnPrevious() {
 		if (btnPrevious == null) {
 			btnPrevious = new JButton();
-			btnPrevious.setText("Previous");
+			btnPrevious.setText("<");
 			btnPrevious.setSize(new Dimension(90, 30));
-			btnPrevious.setLocation(new Point(130, 300));
+			
+			btnPrevious.setLocation(new Point(138, 300));
 		}
 		return btnPrevious;
 	}
@@ -256,9 +267,9 @@ public class DepartmentRegistration extends JFrame {
 	private JButton getBtnNext() {
 		if (btnNext == null) {
 			btnNext = new JButton();
-			btnNext.setText("Next");
+			btnNext.setText(">");
 			btnNext.setSize(new Dimension(90, 30));
-			btnNext.setLocation(new Point(230, 300));
+			btnNext.setLocation(new Point(243, 300));
 		}
 		return btnNext;
 	}
@@ -271,9 +282,10 @@ public class DepartmentRegistration extends JFrame {
 	private JButton getBtnLast() {
 		if (btnLast == null) {
 			btnLast = new JButton();
-			btnLast.setText("Last");
+			btnLast.setText(">>");
 			btnLast.setSize(new Dimension(90, 30));
-			btnLast.setLocation(new Point(330, 300));
+			
+			btnLast.setLocation(new Point(350, 300));
 		}
 		return btnLast;
 	}

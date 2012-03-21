@@ -11,6 +11,8 @@ import java.awt.Point;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class DepartmentDependencies extends JFrame {
 
@@ -56,22 +58,24 @@ public class DepartmentDependencies extends JFrame {
 		if (jContentPane == null) {
 			jLabel3 = new JLabel();
 			jLabel3.setText("LowerDept");
-			jLabel3.setLocation(new Point(20, 200));
+			jLabel3.setLocation(new Point(46, 200));
 			jLabel3.setSize(new Dimension(64, 30));
 			jLabel2 = new JLabel();
 			jLabel2.setText("UpperDept");
-			jLabel2.setLocation(new Point(20, 150));
+			jLabel2.setLocation(new Point(45, 150));
 			jLabel2.setSize(new Dimension(62, 30));
 			jLabel1 = new JLabel();
 			jLabel1.setText("DeptNo");
-			jLabel1.setLocation(new Point(20, 100));
+			jLabel1.setLocation(new Point(45, 100));
 			jLabel1.setSize(new Dimension(45, 30));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(53, 16, 305, 49));
+			jLabel.setBounds(new Rectangle(63, 16, 305, 49));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(new Color(255, 0, 23));
 			jLabel.setText("Department Dependencies");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getCbnDeptno(), null);
@@ -96,7 +100,7 @@ public class DepartmentDependencies extends JFrame {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
 			cbnDeptno.setSize(new Dimension(200, 30));
-			cbnDeptno.setLocation(new Point(130, 100));
+			cbnDeptno.setLocation(new Point(160, 100));
 		}
 		return cbnDeptno;
 	}
@@ -110,7 +114,7 @@ public class DepartmentDependencies extends JFrame {
 		if (txtUpperdept == null) {
 			txtUpperdept = new JTextField();
 			txtUpperdept.setSize(new Dimension(200, 30));
-			txtUpperdept.setLocation(new Point(130, 150));
+			txtUpperdept.setLocation(new Point(159, 150));
 		}
 		return txtUpperdept;
 	}
@@ -124,7 +128,7 @@ public class DepartmentDependencies extends JFrame {
 		if (txtLowerdept == null) {
 			txtLowerdept = new JTextField();
 			txtLowerdept.setSize(new Dimension(200, 30));
-			txtLowerdept.setLocation(new Point(130, 200));
+			txtLowerdept.setLocation(new Point(158, 200));
 		}
 		return txtLowerdept;
 	}
@@ -139,6 +143,7 @@ public class DepartmentDependencies extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
 			btnAdd.setLocation(new Point(30, 260));
 		}
 		return btnAdd;
@@ -154,6 +159,7 @@ public class DepartmentDependencies extends JFrame {
 			btnSave = new JButton();
 			btnSave.setText("Save");
 			btnSave.setSize(new Dimension(90, 30));
+			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Save.png")));
 			btnSave.setLocation(new Point(130, 260));
 		}
 		return btnSave;
@@ -169,6 +175,7 @@ public class DepartmentDependencies extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
 			btnEdit.setLocation(new Point(230, 260));
 		}
 		return btnEdit;
@@ -184,6 +191,7 @@ public class DepartmentDependencies extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setLocation(new Point(330, 260));
 		}
 		return btnDelete;

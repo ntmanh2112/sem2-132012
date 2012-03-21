@@ -11,6 +11,9 @@ import java.awt.Point;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class EmployeeJobRotation extends JFrame {
 
@@ -46,7 +49,7 @@ public class EmployeeJobRotation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(438, 445);
+		this.setSize(471, 445);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmJobRotation");
 	}
@@ -60,30 +63,33 @@ public class EmployeeJobRotation extends JFrame {
 		if (jContentPane == null) {
 			jLabel5 = new JLabel();
 			jLabel5.setText("Remark");
-			jLabel5.setLocation(new Point(20, 300));
-			jLabel5.setSize(new Dimension(49, 30));
+			jLabel5.setLocation(new Point(50, 260));
+			jLabel5.setSize(new Dimension(68, 25));
 			jLabel4 = new JLabel();
 			jLabel4.setText("Status");
-			jLabel4.setLocation(new Point(20, 250));
-			jLabel4.setSize(new Dimension(38, 30));
+			jLabel4.setLocation(new Point(50, 220));
+			jLabel4.setHorizontalAlignment(SwingConstants.LEADING);
+			jLabel4.setSize(new Dimension(67, 25));
 			jLabel3 = new JLabel();
 			jLabel3.setText("DeputedTo");
-			jLabel3.setLocation(new Point(20, 200));
-			jLabel3.setSize(new Dimension(62, 30));
+			jLabel3.setLocation(new Point(50, 180));
+			jLabel3.setSize(new Dimension(62, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("PresentDesign");
-			jLabel2.setLocation(new Point(20, 150));
-			jLabel2.setSize(new Dimension(90, 30));
+			jLabel2.setLocation(new Point(50, 140));
+			jLabel2.setSize(new Dimension(90, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("EmpName");
-			jLabel1.setSize(new Dimension(61, 30));
-			jLabel1.setLocation(new Point(20, 100));
+			jLabel1.setSize(new Dimension(61, 25));
+			jLabel1.setLocation(new Point(50, 100));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(69, 21, 274, 42));
+			jLabel.setBounds(new Rectangle(88, 21, 287, 42));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Employee Job Rotation");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getCbnEmpname(), null);
@@ -111,8 +117,8 @@ public class EmployeeJobRotation extends JFrame {
 	private JComboBox getCbnEmpname() {
 		if (cbnEmpname == null) {
 			cbnEmpname = new JComboBox();
-			cbnEmpname.setLocation(new Point(130, 100));
-			cbnEmpname.setSize(new Dimension(200, 30));
+			cbnEmpname.setLocation(new Point(170, 100));
+			cbnEmpname.setSize(new Dimension(200, 25));
 		}
 		return cbnEmpname;
 	}
@@ -125,8 +131,8 @@ public class EmployeeJobRotation extends JFrame {
 	private JTextField getTxtPresentdesign() {
 		if (txtPresentdesign == null) {
 			txtPresentdesign = new JTextField();
-			txtPresentdesign.setSize(new Dimension(200, 30));
-			txtPresentdesign.setLocation(new Point(130, 150));
+			txtPresentdesign.setSize(new Dimension(200, 25));
+			txtPresentdesign.setLocation(new Point(170, 140));
 		}
 		return txtPresentdesign;
 	}
@@ -139,8 +145,8 @@ public class EmployeeJobRotation extends JFrame {
 	private JComboBox getCbnDeputedto() {
 		if (cbnDeputedto == null) {
 			cbnDeputedto = new JComboBox();
-			cbnDeputedto.setLocation(new Point(130, 200));
-			cbnDeputedto.setSize(new Dimension(200, 30));
+			cbnDeputedto.setLocation(new Point(170, 180));
+			cbnDeputedto.setSize(new Dimension(200, 25));
 		}
 		return cbnDeputedto;
 	}
@@ -153,8 +159,8 @@ public class EmployeeJobRotation extends JFrame {
 	private JTextField getTxtStatus() {
 		if (txtStatus == null) {
 			txtStatus = new JTextField();
-			txtStatus.setLocation(new Point(130, 250));
-			txtStatus.setSize(new Dimension(200, 30));
+			txtStatus.setLocation(new Point(170, 220));
+			txtStatus.setSize(new Dimension(200, 25));
 		}
 		return txtStatus;
 	}
@@ -167,8 +173,8 @@ public class EmployeeJobRotation extends JFrame {
 	private JTextField getTxtRemark() {
 		if (txtRemark == null) {
 			txtRemark = new JTextField();
-			txtRemark.setSize(new Dimension(200, 30));
-			txtRemark.setLocation(new Point(130, 300));
+			txtRemark.setSize(new Dimension(200, 25));
+			txtRemark.setLocation(new Point(170, 260));
 		}
 		return txtRemark;
 	}
@@ -183,7 +189,8 @@ public class EmployeeJobRotation extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(30, 360));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
+			btnAdd.setLocation(new Point(30, 330));
 		}
 		return btnAdd;
 	}
@@ -198,7 +205,8 @@ public class EmployeeJobRotation extends JFrame {
 			btnSave = new JButton();
 			btnSave.setText("Save");
 			btnSave.setSize(new Dimension(90, 30));
-			btnSave.setLocation(new Point(130, 360));
+			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Save.png")));
+			btnSave.setLocation(new Point(130, 330));
 		}
 		return btnSave;
 	}
@@ -213,7 +221,8 @@ public class EmployeeJobRotation extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(230, 360));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
+			btnEdit.setLocation(new Point(230, 330));
 		}
 		return btnEdit;
 	}
@@ -228,7 +237,8 @@ public class EmployeeJobRotation extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(330, 360));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(330, 330));
 		}
 		return btnDelete;
 	}
