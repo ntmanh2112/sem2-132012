@@ -11,6 +11,8 @@ import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class UpdateDesignation extends JFrame {
 
@@ -37,7 +39,7 @@ public class UpdateDesignation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(385, 330);
+		this.setSize(413, 330);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmUpdateDesign");
 	}
@@ -50,18 +52,21 @@ public class UpdateDesignation extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel2 = new JLabel();
-			jLabel2.setBounds(new Rectangle(20, 150, 107, 32));
 			jLabel2.setText("Designation Name");
+			jLabel2.setLocation(new Point(30, 140));
+			jLabel2.setSize(new Dimension(107, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("DesignationID");
-			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(80, 30));
+			jLabel1.setLocation(new Point(30, 100));
+			jLabel1.setSize(new Dimension(80, 25));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(65, 13, 226, 50));
+			jLabel.setBounds(new Rectangle(75, 13, 226, 50));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Update Designation");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtDesignationid(), null);
@@ -81,8 +86,8 @@ public class UpdateDesignation extends JFrame {
 	private JTextField getTxtDesignationid() {
 		if (txtDesignationid == null) {
 			txtDesignationid = new JTextField();
-			txtDesignationid.setSize(new Dimension(200, 30));
-			txtDesignationid.setLocation(new Point(150, 100));
+			txtDesignationid.setSize(new Dimension(200, 25));
+			txtDesignationid.setLocation(new Point(160, 100));
 		}
 		return txtDesignationid;
 	}
@@ -95,8 +100,8 @@ public class UpdateDesignation extends JFrame {
 	private JTextField getTxtDesignationname() {
 		if (txtDesignationname == null) {
 			txtDesignationname = new JTextField();
-			txtDesignationname.setLocation(new Point(150, 150));
-			txtDesignationname.setSize(new Dimension(200, 30));
+			txtDesignationname.setLocation(new Point(160, 140));
+			txtDesignationname.setSize(new Dimension(200, 25));
 		}
 		return txtDesignationname;
 	}
@@ -112,7 +117,8 @@ public class UpdateDesignation extends JFrame {
 			btnOk.setText("OK");
 			btnOk.setSize(new Dimension(90, 30));
 			btnOk.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnOk.setLocation(new Point(74, 226));
+			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Apply.png")));
+			btnOk.setLocation(new Point(74, 225));
 		}
 		return btnOk;
 	}
@@ -126,8 +132,9 @@ public class UpdateDesignation extends JFrame {
 		if (btnCancel == null) {
 			btnCancel = new JButton();
 			btnCancel.setText("Cancel");
-			btnCancel.setSize(new Dimension(90, 30));
-			btnCancel.setLocation(new Point(205, 226));
+			btnCancel.setSize(new Dimension(97, 30));
+			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
+			btnCancel.setLocation(new Point(226, 225));
 		}
 		return btnCancel;
 	}

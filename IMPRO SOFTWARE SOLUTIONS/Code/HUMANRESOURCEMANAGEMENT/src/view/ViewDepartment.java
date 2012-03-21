@@ -21,6 +21,9 @@ import javax.swing.JTextField;
 import dao.DepartmentsDAO;
 
 import model.DepartmentsModel;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class ViewDepartment extends JFrame {
 
@@ -72,9 +75,11 @@ public class ViewDepartment extends JFrame {
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(208, 18, 202, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("View Department");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(getJScrollPane(), null);
 			jContentPane.add(getBtnAdd(), null);
@@ -136,7 +141,8 @@ public class ViewDepartment extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(90, 420));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
+			btnAdd.setLocation(new Point(90, 410));
 		}
 		return btnAdd;
 	}
@@ -151,7 +157,8 @@ public class ViewDepartment extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(270, 420));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
+			btnEdit.setLocation(new Point(270, 410));
 		}
 		return btnEdit;
 	}
@@ -166,7 +173,8 @@ public class ViewDepartment extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(450, 420));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(450, 410));
 		}
 		return btnDelete;
 	}
@@ -181,19 +189,19 @@ public class ViewDepartment extends JFrame {
 			jLabel3 = new JLabel();
 			jLabel3.setText("DeptHead");
 			jLabel3.setLocation(new Point(278, 17));
-			jLabel3.setSize(new Dimension(57, 30));
+			jLabel3.setSize(new Dimension(57, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("DeptName");
-			jLabel2.setSize(new Dimension(64, 30));
-			jLabel2.setLocation(new Point(9, 69));
+			jLabel2.setSize(new Dimension(64, 25));
+			jLabel2.setLocation(new Point(9, 55));
 			jLabel1 = new JLabel();
 			jLabel1.setText("DeptID");
-			jLabel1.setSize(new Dimension(40, 30));
+			jLabel1.setSize(new Dimension(40, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(564, 116));
+			jPanel.setSize(new Dimension(564, 94));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtDeptid(), null);
 			jPanel.add(jLabel2, null);
@@ -215,7 +223,7 @@ public class ViewDepartment extends JFrame {
 		if (txtDeptid == null) {
 			txtDeptid = new JTextField();
 			txtDeptid.setLocation(new Point(88, 17));
-			txtDeptid.setSize(new Dimension(160, 30));
+			txtDeptid.setSize(new Dimension(160, 25));
 		}
 		return txtDeptid;
 	}
@@ -228,8 +236,8 @@ public class ViewDepartment extends JFrame {
 	private JTextField getTxtDeptname() {
 		if (txtDeptname == null) {
 			txtDeptname = new JTextField();
-			txtDeptname.setLocation(new Point(88, 69));
-			txtDeptname.setSize(new Dimension(160, 30));
+			txtDeptname.setLocation(new Point(88, 55));
+			txtDeptname.setSize(new Dimension(160, 25));
 		}
 		return txtDeptname;
 	}
@@ -243,7 +251,7 @@ public class ViewDepartment extends JFrame {
 		if (txtDepthead == null) {
 			txtDepthead = new JTextField();
 			txtDepthead.setLocation(new Point(353, 17));
-			txtDepthead.setSize(new Dimension(160, 30));
+			txtDepthead.setSize(new Dimension(160, 25));
 		}
 		return txtDepthead;
 	}
@@ -257,8 +265,10 @@ public class ViewDepartment extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(117, 30));
-			btnSearch.setLocation(new Point(353, 69));
+			btnSearch.setSize(new Dimension(95, 25));
+			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/Zoom.png")));
+			btnSearch.setLocation(new Point(393, 56));
 		}
 		return btnSearch;
 	}

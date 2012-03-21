@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
@@ -26,8 +28,8 @@ public class Login extends JFrame {
 	private JTextField txtUserid = null;
 	private JLabel jLabel2 = null;
 	private JPasswordField txtPassword = null;
-	private JLabel jLabel3 = null;
-	private JTextField txtAcclevel = null;
+	//private JLabel jLabel3 = null;
+	//private JTextField txtAcclevel = null;
 	private JButton btnLogin = null;
 	private JButton btnCancel = null;
 
@@ -57,24 +59,26 @@ public class Login extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
-			jLabel3 = new JLabel();
-			jLabel3.setText("Acc-Level");
-			jLabel3.setLocation(new Point(73, 200));
+			//jLabel3 = new JLabel();
+			
+			/*jLabel3.setLocation(new Point(73, 200));
 			jLabel3.setForeground(Color.yellow);
 			jLabel3.setFont(new Font("Dialog", Font.BOLD, 14));
-			jLabel3.setSize(new Dimension(76, 30));
+			jLabel3.setSize(new Dimension(76, 30));*/
 			jLabel2 = new JLabel();
 			jLabel2.setText("Password");
-			jLabel2.setLocation(new Point(73, 150));
+			jLabel2.setLocation(new Point(54, 150));
 			jLabel2.setForeground(Color.yellow);
 			jLabel2.setFont(new Font("Dialog", Font.BOLD, 14));
-			jLabel2.setSize(new Dimension(76, 30));
+			jLabel2.setIcon(new ImageIcon(getClass().getResource("/images/Key.png")));
+			jLabel2.setSize(new Dimension(95, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("UserID");
-			jLabel1.setLocation(new Point(73, 99));
+			jLabel1.setLocation(new Point(54, 99));
 			jLabel1.setForeground(Color.yellow);
 			jLabel1.setFont(new Font("Dialog", Font.BOLD, 14));
-			jLabel1.setSize(new Dimension(58, 30));
+			jLabel1.setIcon(new ImageIcon(getClass().getResource("/images/People.png")));
+			jLabel1.setSize(new Dimension(77, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(29, 8, 407, 60));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
@@ -88,8 +92,8 @@ public class Login extends JFrame {
 			jContentPane.add(getTxtUserid(), null);
 			jContentPane.add(jLabel2, null);
 			jContentPane.add(getTxtPassword(), null);
-			jContentPane.add(jLabel3, null);
-			jContentPane.add(getTxtAcclevel(), null);
+			//jContentPane.add(jLabel3, null);
+			
 			jContentPane.add(getBtnLogin(), null);
 			jContentPane.add(getBtnCancel(), null);
 		}
@@ -104,7 +108,7 @@ public class Login extends JFrame {
 	private JTextField getTxtUserid() {
 		if (txtUserid == null) {
 			txtUserid = new JTextField();
-			txtUserid.setSize(new Dimension(200, 30));
+			txtUserid.setSize(new Dimension(200, 25));
 			txtUserid.setLocation(new Point(179, 99));
 		}
 		return txtUserid;
@@ -119,7 +123,7 @@ public class Login extends JFrame {
 		if (txtPassword == null) {
 			txtPassword = new JPasswordField();
 			txtPassword.setLocation(new Point(179, 150));
-			txtPassword.setSize(new Dimension(200, 30));
+			txtPassword.setSize(new Dimension(200, 25));
 		}
 		return txtPassword;
 	}
@@ -129,15 +133,7 @@ public class Login extends JFrame {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtAcclevel() {
-		if (txtAcclevel == null) {
-			txtAcclevel = new JTextField();
-			txtAcclevel.setSize(new Dimension(200, 30));
-			txtAcclevel.setLocation(new Point(179, 200));
-		}
-		return txtAcclevel;
-	}
-
+	
 	/**
 	 * This method initializes btnLogin	
 	 * 	
@@ -150,8 +146,8 @@ public class Login extends JFrame {
 			btnLogin.setSize(new Dimension(101, 30));
 			btnLogin.setForeground(Color.yellow);
 			btnLogin.setBackground(new Color(0, 109, 255));
-			btnLogin.setIcon(new ImageIcon(getClass().getResource("/images/Key.png")));
-			btnLogin.setLocation(new Point(110, 260));
+			btnLogin.setIcon(new ImageIcon(getClass().getResource("/images/Yes.png")));
+			btnLogin.setLocation(new Point(90, 230));
 			btnLogin.addActionListener(new ActionListener() {
 				
 				@Override
@@ -177,7 +173,19 @@ public class Login extends JFrame {
 			btnCancel.setForeground(Color.yellow);
 			btnCancel.setBackground(new Color(0, 109, 255));
 			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
-			btnCancel.setLocation(new Point(250, 260));
+			btnCancel.setLocation(new Point(260, 230));
+			btnCancel.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					int kg = JOptionPane.showConfirmDialog(null, "Ban co chac muon thoat","Thong Bao",JOptionPane.OK_CANCEL_OPTION);
+					if (kg==0) {
+						System.exit(1);
+					}
+					
+				}
+			});
 		}
 		return btnCancel;
 	}

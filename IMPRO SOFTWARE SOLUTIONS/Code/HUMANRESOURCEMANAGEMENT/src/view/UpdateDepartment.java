@@ -10,6 +10,8 @@ import java.awt.Font;
 import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class UpdateDepartment extends JFrame {
 
@@ -40,7 +42,7 @@ public class UpdateDepartment extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(344, 403);
+		this.setSize(422, 403);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FormDept");
 	}
@@ -54,26 +56,28 @@ public class UpdateDepartment extends JFrame {
 		if (jContentPane == null) {
 			jLabel4 = new JLabel();
 			jLabel4.setText("Location");
-			jLabel4.setSize(new Dimension(52, 30));
-			jLabel4.setLocation(new Point(20, 250));
+			jLabel4.setSize(new Dimension(52, 25));
+			jLabel4.setLocation(new Point(50, 220));
 			jLabel3 = new JLabel();
 			jLabel3.setText("DeptHead");
-			jLabel3.setLocation(new Point(20, 200));
-			jLabel3.setSize(new Dimension(61, 30));
+			jLabel3.setLocation(new Point(50, 180));
+			jLabel3.setSize(new Dimension(61, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("DeptName");
-			jLabel2.setLocation(new Point(20, 150));
-			jLabel2.setSize(new Dimension(62, 30));
+			jLabel2.setLocation(new Point(50, 140));
+			jLabel2.setSize(new Dimension(62, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("DeptNo");
-			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(48, 30));
+			jLabel1.setLocation(new Point(50, 100));
+			jLabel1.setSize(new Dimension(48, 25));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(50, 16, 286, 42));
+			jLabel.setBounds(new Rectangle(76, 16, 240, 42));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Update Department");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtDeptno(), null);
@@ -97,8 +101,8 @@ public class UpdateDepartment extends JFrame {
 	private JTextField getTxtDeptno() {
 		if (txtDeptno == null) {
 			txtDeptno = new JTextField();
-			txtDeptno.setLocation(new Point(100, 100));
-			txtDeptno.setSize(new Dimension(200, 30));
+			txtDeptno.setLocation(new Point(150, 100));
+			txtDeptno.setSize(new Dimension(200, 25));
 		}
 		return txtDeptno;
 	}
@@ -111,8 +115,8 @@ public class UpdateDepartment extends JFrame {
 	private JTextField getTxtDeptname() {
 		if (txtDeptname == null) {
 			txtDeptname = new JTextField();
-			txtDeptname.setLocation(new Point(100, 150));
-			txtDeptname.setSize(new Dimension(200, 30));
+			txtDeptname.setLocation(new Point(150, 140));
+			txtDeptname.setSize(new Dimension(200, 25));
 		}
 		return txtDeptname;
 	}
@@ -125,8 +129,8 @@ public class UpdateDepartment extends JFrame {
 	private JTextField getTxtDepthead() {
 		if (txtDepthead == null) {
 			txtDepthead = new JTextField();
-			txtDepthead.setLocation(new Point(100, 200));
-			txtDepthead.setSize(new Dimension(200, 30));
+			txtDepthead.setLocation(new Point(150, 180));
+			txtDepthead.setSize(new Dimension(200, 25));
 		}
 		return txtDepthead;
 	}
@@ -139,8 +143,8 @@ public class UpdateDepartment extends JFrame {
 	private JTextField getTxtLocation() {
 		if (txtLocation == null) {
 			txtLocation = new JTextField();
-			txtLocation.setSize(new Dimension(200, 30));
-			txtLocation.setLocation(new Point(100, 250));
+			txtLocation.setSize(new Dimension(200, 25));
+			txtLocation.setLocation(new Point(150, 220));
 		}
 		return txtLocation;
 	}
@@ -154,8 +158,9 @@ public class UpdateDepartment extends JFrame {
 		if (btnOk == null) {
 			btnOk = new JButton();
 			btnOk.setText("OK");
-			btnOk.setSize(new Dimension(90, 30));
-			btnOk.setLocation(new Point(52, 300));
+			btnOk.setSize(new Dimension(90, 25));
+			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Apply.png")));
+			btnOk.setLocation(new Point(90, 300));
 		}
 		return btnOk;
 	}
@@ -169,8 +174,9 @@ public class UpdateDepartment extends JFrame {
 		if (btnCancel == null) {
 			btnCancel = new JButton();
 			btnCancel.setText("Cancel");
-			btnCancel.setSize(new Dimension(90, 30));
-			btnCancel.setLocation(new Point(181, 300));
+			btnCancel.setSize(new Dimension(96, 25));
+			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
+			btnCancel.setLocation(new Point(226, 299));
 		}
 		return btnCancel;
 	}
