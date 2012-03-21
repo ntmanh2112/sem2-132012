@@ -11,6 +11,8 @@ import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class DesignationRegistration extends JFrame {
 
@@ -53,18 +55,22 @@ public class DesignationRegistration extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel2 = new JLabel();
-			jLabel2.setBounds(new Rectangle(20, 150, 107, 32));
 			jLabel2.setText("Designation Name");
+			jLabel2.setSize(new Dimension(107, 25));
+			jLabel2.setLocation(new Point(40, 140));
 			jLabel1 = new JLabel();
 			jLabel1.setText("DesignationID");
-			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(80, 30));
+			jLabel1.setLocation(new Point(40, 100));
+			jLabel1.setSize(new Dimension(80, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(97, 14, 286, 50));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setBackground(Color.white);
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Designation Registration");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtDesignationid(), null);
@@ -86,8 +92,8 @@ public class DesignationRegistration extends JFrame {
 	private JTextField getTxtDesignationid() {
 		if (txtDesignationid == null) {
 			txtDesignationid = new JTextField();
-			txtDesignationid.setSize(new Dimension(200, 30));
-			txtDesignationid.setLocation(new Point(150, 100));
+			txtDesignationid.setSize(new Dimension(200, 25));
+			txtDesignationid.setLocation(new Point(180, 100));
 		}
 		return txtDesignationid;
 	}
@@ -100,8 +106,8 @@ public class DesignationRegistration extends JFrame {
 	private JTextField getTxtDesignationname() {
 		if (txtDesignationname == null) {
 			txtDesignationname = new JTextField();
-			txtDesignationname.setLocation(new Point(150, 150));
-			txtDesignationname.setSize(new Dimension(200, 30));
+			txtDesignationname.setLocation(new Point(180, 140));
+			txtDesignationname.setSize(new Dimension(200, 25));
 		}
 		return txtDesignationname;
 	}
@@ -116,7 +122,8 @@ public class DesignationRegistration extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(40, 230));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
+			btnAdd.setLocation(new Point(40, 210));
 		}
 		return btnAdd;
 	}
@@ -132,7 +139,8 @@ public class DesignationRegistration extends JFrame {
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
 			btnEdit.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnEdit.setLocation(new Point(140, 230));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
+			btnEdit.setLocation(new Point(140, 210));
 		}
 		return btnEdit;
 	}
@@ -147,7 +155,8 @@ public class DesignationRegistration extends JFrame {
 			btnSave = new JButton();
 			btnSave.setText("Save");
 			btnSave.setSize(new Dimension(90, 30));
-			btnSave.setLocation(new Point(240, 230));
+			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Save.png")));
+			btnSave.setLocation(new Point(240, 210));
 		}
 		return btnSave;
 	}
@@ -162,7 +171,8 @@ public class DesignationRegistration extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(340, 230));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(340, 210));
 		}
 		return btnDelete;
 	}

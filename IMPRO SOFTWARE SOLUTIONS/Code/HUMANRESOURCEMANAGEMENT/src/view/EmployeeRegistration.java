@@ -11,6 +11,9 @@ import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 public class EmployeeRegistration extends JFrame {
 
@@ -52,7 +55,7 @@ public class EmployeeRegistration extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(660, 498);
+		this.setSize(660, 432);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmEmployee");
 	}
@@ -66,42 +69,45 @@ public class EmployeeRegistration extends JFrame {
 		if (jContentPane == null) {
 			jLabel8 = new JLabel();
 			jLabel8.setText("Email");
-			jLabel8.setLocation(new Point(350, 250));
-			jLabel8.setSize(new Dimension(38, 30));
+			jLabel8.setLocation(new Point(350, 220));
+			jLabel8.setDisplayedMnemonic(KeyEvent.VK_UNDEFINED);
+			jLabel8.setSize(new Dimension(38, 25));
 			jLabel7 = new JLabel();
 			jLabel7.setText("Fax");
-			jLabel7.setLocation(new Point(350, 200));
-			jLabel7.setSize(new Dimension(30, 30));
+			jLabel7.setLocation(new Point(350, 180));
+			jLabel7.setSize(new Dimension(30, 25));
 			jLabel6 = new JLabel();
 			jLabel6.setText("Phone");
-			jLabel6.setSize(new Dimension(38, 30));
-			jLabel6.setLocation(new Point(350, 150));
+			jLabel6.setSize(new Dimension(38, 25));
+			jLabel6.setLocation(new Point(350, 140));
 			jLabel5 = new JLabel();
 			jLabel5.setText("Address");
-			jLabel5.setSize(new Dimension(55, 30));
+			jLabel5.setSize(new Dimension(55, 25));
 			jLabel5.setLocation(new Point(350, 100));
 			jLabel4 = new JLabel();
 			jLabel4.setText("DesignId");
-			jLabel4.setLocation(new Point(20, 250));
-			jLabel4.setSize(new Dimension(56, 30));
+			jLabel4.setLocation(new Point(20, 220));
+			jLabel4.setSize(new Dimension(56, 25));
 			jLabel3 = new JLabel();
 			jLabel3.setText("DeptNo");
-			jLabel3.setSize(new Dimension(50, 30));
-			jLabel3.setLocation(new Point(20, 200));
+			jLabel3.setSize(new Dimension(50, 25));
+			jLabel3.setLocation(new Point(20, 180));
 			jLabel2 = new JLabel();
 			jLabel2.setText("EmpName");
-			jLabel2.setLocation(new Point(20, 150));
-			jLabel2.setSize(new Dimension(65, 30));
+			jLabel2.setLocation(new Point(20, 140));
+			jLabel2.setSize(new Dimension(65, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("EmpId");
 			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(48, 31));
+			jLabel1.setSize(new Dimension(48, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(183, 12, 262, 37));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Employee Registration");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtEmpid(), null);
@@ -119,10 +125,10 @@ public class EmployeeRegistration extends JFrame {
 			jContentPane.add(getTxtFax(), null);
 			jContentPane.add(jLabel8, null);
 			jContentPane.add(getTxtEmail(), null);
-			jContentPane.add(getBtnAdd(), null);
+			
 			jContentPane.add(getBtnSave(), null);
 			jContentPane.add(getBtnEdit(), null);
-			jContentPane.add(getBtnDelete(), null);
+			
 		}
 		return jContentPane;
 	}
@@ -136,7 +142,7 @@ public class EmployeeRegistration extends JFrame {
 		if (txtEmpid == null) {
 			txtEmpid = new JTextField();
 			txtEmpid.setLocation(new Point(100, 100));
-			txtEmpid.setSize(new Dimension(200, 30));
+			txtEmpid.setSize(new Dimension(200, 25));
 		}
 		return txtEmpid;
 	}
@@ -149,8 +155,8 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtEmpname() {
 		if (txtEmpname == null) {
 			txtEmpname = new JTextField();
-			txtEmpname.setLocation(new Point(100, 150));
-			txtEmpname.setSize(new Dimension(200, 30));
+			txtEmpname.setLocation(new Point(100, 140));
+			txtEmpname.setSize(new Dimension(200, 25));
 		}
 		return txtEmpname;
 	}
@@ -163,8 +169,8 @@ public class EmployeeRegistration extends JFrame {
 	private JComboBox getCbnDeptno() {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
-			cbnDeptno.setLocation(new Point(100, 200));
-			cbnDeptno.setSize(new Dimension(200, 30));
+			cbnDeptno.setLocation(new Point(100, 180));
+			cbnDeptno.setSize(new Dimension(200, 25));
 		}
 		return cbnDeptno;
 	}
@@ -177,8 +183,8 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtDesignid() {
 		if (txtDesignid == null) {
 			txtDesignid = new JTextField();
-			txtDesignid.setSize(new Dimension(200, 30));
-			txtDesignid.setLocation(new Point(100, 250));
+			txtDesignid.setSize(new Dimension(200, 25));
+			txtDesignid.setLocation(new Point(100, 220));
 		}
 		return txtDesignid;
 	}
@@ -192,7 +198,7 @@ public class EmployeeRegistration extends JFrame {
 		if (txtAddress == null) {
 			txtAddress = new JTextField();
 			txtAddress.setLocation(new Point(430, 100));
-			txtAddress.setSize(new Dimension(200, 30));
+			txtAddress.setSize(new Dimension(200, 25));
 		}
 		return txtAddress;
 	}
@@ -205,8 +211,8 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtPhone() {
 		if (txtPhone == null) {
 			txtPhone = new JTextField();
-			txtPhone.setLocation(new Point(430, 150));
-			txtPhone.setSize(new Dimension(200, 30));
+			txtPhone.setLocation(new Point(430, 140));
+			txtPhone.setSize(new Dimension(200, 25));
 		}
 		return txtPhone;
 	}
@@ -219,8 +225,8 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtFax() {
 		if (txtFax == null) {
 			txtFax = new JTextField();
-			txtFax.setLocation(new Point(430, 200));
-			txtFax.setSize(new Dimension(200, 30));
+			txtFax.setLocation(new Point(430, 180));
+			txtFax.setSize(new Dimension(200, 25));
 		}
 		return txtFax;
 	}
@@ -233,8 +239,8 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtEmail() {
 		if (txtEmail == null) {
 			txtEmail = new JTextField();
-			txtEmail.setSize(new Dimension(200, 30));
-			txtEmail.setLocation(new Point(430, 250));
+			txtEmail.setSize(new Dimension(200, 25));
+			txtEmail.setLocation(new Point(430, 220));
 		}
 		return txtEmail;
 	}
@@ -244,15 +250,7 @@ public class EmployeeRegistration extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnAdd() {
-		if (btnAdd == null) {
-			btnAdd = new JButton();
-			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(60, 330));
-		}
-		return btnAdd;
-	}
+	
 
 	/**
 	 * This method initializes btnSave	
@@ -262,9 +260,10 @@ public class EmployeeRegistration extends JFrame {
 	private JButton getBtnSave() {
 		if (btnSave == null) {
 			btnSave = new JButton();
-			btnSave.setText("Save");
+			btnSave.setText("OK");
 			btnSave.setSize(new Dimension(90, 30));
-			btnSave.setLocation(new Point(200, 330));
+			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Apply.png")));
+			btnSave.setLocation(new Point(200, 300));
 		}
 		return btnSave;
 	}
@@ -277,9 +276,10 @@ public class EmployeeRegistration extends JFrame {
 	private JButton getBtnEdit() {
 		if (btnEdit == null) {
 			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(340, 330));
+			btnEdit.setText("Cancel");
+			btnEdit.setSize(new Dimension(101, 30));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
+			btnEdit.setLocation(new Point(340, 300));
 		}
 		return btnEdit;
 	}
@@ -289,14 +289,6 @@ public class EmployeeRegistration extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnDelete() {
-		if (btnDelete == null) {
-			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(480, 330));
-		}
-		return btnDelete;
-	}
+	
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

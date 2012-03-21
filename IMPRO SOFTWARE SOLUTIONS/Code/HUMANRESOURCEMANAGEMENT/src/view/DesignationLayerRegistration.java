@@ -11,6 +11,10 @@ import java.awt.Point;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class DesignationLayerRegistration extends JFrame {
 
@@ -55,22 +59,24 @@ public class DesignationLayerRegistration extends JFrame {
 		if (jContentPane == null) {
 			jLabel3 = new JLabel();
 			jLabel3.setText("Weightage");
-			jLabel3.setLocation(new Point(20, 200));
-			jLabel3.setSize(new Dimension(64, 30));
+			jLabel3.setLocation(new Point(20, 180));
+			jLabel3.setSize(new Dimension(64, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("Layer");
-			jLabel2.setLocation(new Point(20, 150));
-			jLabel2.setSize(new Dimension(36, 30));
+			jLabel2.setLocation(new Point(20, 140));
+			jLabel2.setSize(new Dimension(36, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("DesignationID");
 			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(81, 30));
+			jLabel1.setSize(new Dimension(81, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(46, 19, 356, 43));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Designation Layer Registration");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getCbnDesignationid(), null);
@@ -94,7 +100,7 @@ public class DesignationLayerRegistration extends JFrame {
 	private JComboBox getCbnDesignationid() {
 		if (cbnDesignationid == null) {
 			cbnDesignationid = new JComboBox();
-			cbnDesignationid.setSize(new Dimension(200, 30));
+			cbnDesignationid.setSize(new Dimension(200, 25));
 			cbnDesignationid.setLocation(new Point(130, 100));
 		}
 		return cbnDesignationid;
@@ -108,8 +114,8 @@ public class DesignationLayerRegistration extends JFrame {
 	private JTextField getTxtLayer() {
 		if (txtLayer == null) {
 			txtLayer = new JTextField();
-			txtLayer.setLocation(new Point(130, 150));
-			txtLayer.setSize(new Dimension(200, 30));
+			txtLayer.setLocation(new Point(130, 140));
+			txtLayer.setSize(new Dimension(200, 25));
 		}
 		return txtLayer;
 	}
@@ -122,8 +128,8 @@ public class DesignationLayerRegistration extends JFrame {
 	private JTextField getTxtWeightage() {
 		if (txtWeightage == null) {
 			txtWeightage = new JTextField();
-			txtWeightage.setLocation(new Point(130, 200));
-			txtWeightage.setSize(new Dimension(200, 30));
+			txtWeightage.setLocation(new Point(130, 180));
+			txtWeightage.setSize(new Dimension(200, 25));
 		}
 		return txtWeightage;
 	}
@@ -138,7 +144,8 @@ public class DesignationLayerRegistration extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(30, 260));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
+			btnAdd.setLocation(new Point(29, 243));
 		}
 		return btnAdd;
 	}
@@ -153,7 +160,9 @@ public class DesignationLayerRegistration extends JFrame {
 			btnSave = new JButton();
 			btnSave.setText("Save");
 			btnSave.setSize(new Dimension(90, 30));
-			btnSave.setLocation(new Point(130, 260));
+			btnSave.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Save.png")));
+			btnSave.setLocation(new Point(130, 243));
 		}
 		return btnSave;
 	}
@@ -168,7 +177,8 @@ public class DesignationLayerRegistration extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(230, 260));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
+			btnEdit.setLocation(new Point(230, 243));
 		}
 		return btnEdit;
 	}
@@ -183,9 +193,10 @@ public class DesignationLayerRegistration extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(330, 260));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(330, 243));
 		}
 		return btnDelete;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+}  //  @jve:decl-index=0:visual-constraint="11,10"
