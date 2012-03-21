@@ -12,6 +12,9 @@ import java.awt.Point;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 
 public class Login extends JFrame {
@@ -149,6 +152,14 @@ public class Login extends JFrame {
 			btnLogin.setBackground(new Color(0, 109, 255));
 			btnLogin.setIcon(new ImageIcon(getClass().getResource("/images/Key.png")));
 			btnLogin.setLocation(new Point(110, 260));
+			btnLogin.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		}
 		return btnLogin;
 	}
