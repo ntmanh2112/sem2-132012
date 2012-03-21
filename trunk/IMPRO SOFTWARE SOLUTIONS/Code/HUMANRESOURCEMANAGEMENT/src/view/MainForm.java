@@ -1,6 +1,9 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
+
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.Dimension;
@@ -9,6 +12,10 @@ import java.awt.Rectangle;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class MainForm extends JFrame {
 
@@ -21,6 +28,7 @@ public class MainForm extends JFrame {
 	private JMenu jMenuWeightage = null;
 	private JMenu jMenuAuthentication = null;
 	private JMenu jMenuReports = null;
+	//private image img = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -50,6 +58,14 @@ public class MainForm extends JFrame {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
+			 BufferedImage image = null;
+			 try {
+				 image = ImageIO.read(new File("images/A013.jpg"));
+				 } catch (IOException e) {
+					 e.printStackTrace();  
+				} 
+			//jContentPane = new ImagePanel(image,Double.valueOf(dim.getWidth()).intValue(),Double.valueOf(dim.getHeight()).intValue());
 		}
 		return jContentPane;
 	}

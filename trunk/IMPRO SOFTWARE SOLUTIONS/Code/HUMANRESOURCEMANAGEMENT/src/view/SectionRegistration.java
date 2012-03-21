@@ -11,6 +11,8 @@ import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class SectionRegistration extends JFrame {
 
@@ -25,8 +27,8 @@ public class SectionRegistration extends JFrame {
 	private JTextField txtSecincharge = null;
 	private JLabel jLabel4 = null;
 	private JComboBox cbnDeptno = null;
-	private JButton btnAdd = null;
-	private JButton btnEdit = null;
+	//private JButton btnAdd = null;
+	//private JButton btnEdit = null;
 	private JButton btnDelete = null;
 	private JButton btnSave = null;
 
@@ -57,27 +59,29 @@ public class SectionRegistration extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel4 = new JLabel();
-			jLabel4.setText("DeptNo");
-			jLabel4.setLocation(new Point(20, 250));
-			jLabel4.setSize(new Dimension(46, 30));
+			jLabel4.setText("DeptID");
+			jLabel4.setLocation(new Point(50, 220));
+			jLabel4.setSize(new Dimension(46, 25));
 			jLabel3 = new JLabel();
 			jLabel3.setText("Sec-incharge");
-			jLabel3.setLocation(new Point(20, 200));
-			jLabel3.setSize(new Dimension(78, 30));
+			jLabel3.setLocation(new Point(50, 180));
+			jLabel3.setSize(new Dimension(78, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("SectionName");
-			jLabel2.setLocation(new Point(20, 150));
-			jLabel2.setSize(new Dimension(80, 30));
+			jLabel2.setLocation(new Point(50, 140));
+			jLabel2.setSize(new Dimension(80, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("SectionID");
-			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(57, 29));
+			jLabel1.setLocation(new Point(50, 100));
+			jLabel1.setSize(new Dimension(57, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(130, 13, 244, 41));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Section Registration");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtSectionid(), null);
@@ -87,8 +91,8 @@ public class SectionRegistration extends JFrame {
 			jContentPane.add(getTxtSecincharge(), null);
 			jContentPane.add(jLabel4, null);
 			jContentPane.add(getCbnDeptno(), null);
-			jContentPane.add(getBtnAdd(), null);
-			jContentPane.add(getBtnEdit(), null);
+			//jContentPane.add(getBtnAdd(), null);
+			//jContentPane.add(getBtnEdit(), null);
 			jContentPane.add(getBtnDelete(), null);
 			jContentPane.add(getBtnSave(), null);
 		}
@@ -104,7 +108,7 @@ public class SectionRegistration extends JFrame {
 		if (txtSectionid == null) {
 			txtSectionid = new JTextField();
 			txtSectionid.setSize(new Dimension(200, 30));
-			txtSectionid.setLocation(new Point(150, 100));
+			txtSectionid.setLocation(new Point(180, 100));
 		}
 		return txtSectionid;
 	}
@@ -117,7 +121,7 @@ public class SectionRegistration extends JFrame {
 	private JTextField getTxtSectionname() {
 		if (txtSectionname == null) {
 			txtSectionname = new JTextField();
-			txtSectionname.setLocation(new Point(150, 150));
+			txtSectionname.setLocation(new Point(180, 140));
 			txtSectionname.setSize(new Dimension(200, 30));
 		}
 		return txtSectionname;
@@ -131,7 +135,7 @@ public class SectionRegistration extends JFrame {
 	private JTextField getTxtSecincharge() {
 		if (txtSecincharge == null) {
 			txtSecincharge = new JTextField();
-			txtSecincharge.setLocation(new Point(150, 200));
+			txtSecincharge.setLocation(new Point(180, 180));
 			txtSecincharge.setSize(new Dimension(200, 30));
 		}
 		return txtSecincharge;
@@ -145,8 +149,8 @@ public class SectionRegistration extends JFrame {
 	private JComboBox getCbnDeptno() {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
-			cbnDeptno.setLocation(new Point(150, 250));
-			cbnDeptno.setSize(new Dimension(200, 30));
+			cbnDeptno.setLocation(new Point(180, 220));
+			cbnDeptno.setSize(new Dimension(200, 25));
 		}
 		return cbnDeptno;
 	}
@@ -156,30 +160,14 @@ public class SectionRegistration extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnAdd() {
-		if (btnAdd == null) {
-			btnAdd = new JButton();
-			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(50, 310));
-		}
-		return btnAdd;
-	}
+	
 
 	/**
 	 * This method initializes btnEdit	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnEdit() {
-		if (btnEdit == null) {
-			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(350, 310));
-		}
-		return btnEdit;
-	}
+	
 
 	/**
 	 * This method initializes btnDelete	
@@ -189,9 +177,10 @@ public class SectionRegistration extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(250, 310));
+			btnDelete.setText("cancel");
+			btnDelete.setSize(new Dimension(97, 25));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
+			btnDelete.setLocation(new Point(270, 310));
 		}
 		return btnDelete;
 	}
@@ -204,9 +193,10 @@ public class SectionRegistration extends JFrame {
 	private JButton getBtnSave() {
 		if (btnSave == null) {
 			btnSave = new JButton();
-			btnSave.setText("Save");
-			btnSave.setSize(new Dimension(90, 30));
-			btnSave.setLocation(new Point(150, 310));
+			btnSave.setText("OK");
+			btnSave.setSize(new Dimension(90, 25));
+			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Yes.png")));
+			btnSave.setLocation(new Point(120, 310));
 		}
 		return btnSave;
 	}
