@@ -52,13 +52,13 @@ public class UpdateDesignation extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel2 = new JLabel();
-			jLabel2.setText("Designation Name");
+			jLabel2.setText("Designation Name :");
 			jLabel2.setLocation(new Point(30, 140));
-			jLabel2.setSize(new Dimension(107, 25));
+			jLabel2.setSize(new Dimension(114, 25));
 			jLabel1 = new JLabel();
-			jLabel1.setText("DesignationID");
+			jLabel1.setText("DesignationID :");
 			jLabel1.setLocation(new Point(30, 100));
-			jLabel1.setSize(new Dimension(80, 25));
+			jLabel1.setSize(new Dimension(90, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(75, 13, 226, 50));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
@@ -66,7 +66,7 @@ public class UpdateDesignation extends JFrame {
 			jLabel.setText("Update Designation");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.setBackground(Color.white);
+			jContentPane.setBackground(new Color(238, 238, 238));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtDesignationid(), null);
@@ -115,10 +115,10 @@ public class UpdateDesignation extends JFrame {
 		if (btnOk == null) {
 			btnOk = new JButton();
 			btnOk.setText("OK");
-			btnOk.setSize(new Dimension(90, 30));
+			btnOk.setSize(new Dimension(90, 34));
 			btnOk.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Apply.png")));
-			btnOk.setLocation(new Point(74, 225));
+			btnOk.setLocation(new Point(74, 217));
 		}
 		return btnOk;
 	}
@@ -132,9 +132,9 @@ public class UpdateDesignation extends JFrame {
 		if (btnCancel == null) {
 			btnCancel = new JButton();
 			btnCancel.setText("Cancel");
-			btnCancel.setSize(new Dimension(97, 30));
+			btnCancel.setSize(new Dimension(97, 34));
 			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
-			btnCancel.setLocation(new Point(226, 225));
+			btnCancel.setLocation(new Point(226, 217));
 		}
 		return btnCancel;
 	}

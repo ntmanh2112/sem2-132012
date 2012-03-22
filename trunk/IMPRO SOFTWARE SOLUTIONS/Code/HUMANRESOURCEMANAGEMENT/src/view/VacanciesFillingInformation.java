@@ -13,6 +13,8 @@ import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class VacanciesFillingInformation extends JFrame {
 
@@ -28,9 +30,12 @@ public class VacanciesFillingInformation extends JFrame {
 	private JLabel jLabel4 = null;
 	private JTextArea jtaIntakedetails = null;
 	private JButton btnAdd = null;
-	private JButton btnSave = null;
-	private JButton btnEdit = null;
+	
 	private JButton btnDelete = null;
+	private JLabel jLabel5 = null;
+	private JLabel jLabel6 = null;
+	private JTextField jTextField = null;
+	private JTextField jTextField1 = null;
 
 	/**
 	 * This is the default constructor
@@ -46,7 +51,7 @@ public class VacanciesFillingInformation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(436, 408);
+		this.setSize(469, 408);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmVacancyFill");
 	}
@@ -58,26 +63,35 @@ public class VacanciesFillingInformation extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel6 = new JLabel();
+			jLabel6.setText("Creator :");
+			jLabel6.setLocation(new Point(240, 180));
+			jLabel6.setSize(new Dimension(82, 25));
+			jLabel5 = new JLabel();
+			jLabel5.setText("Status :");
+			jLabel5.setLocation(new Point(240, 140));
+			jLabel5.setSize(new Dimension(77, 25));
 			jLabel4 = new JLabel();
-			jLabel4.setText("IntakeDetails");
-			jLabel4.setLocation(new Point(20, 250));
-			jLabel4.setSize(new Dimension(77, 30));
+			jLabel4.setText("IntakeDetails :");
+			jLabel4.setLocation(new Point(20, 220));
+			jLabel4.setSize(new Dimension(83, 25));
 			jLabel3 = new JLabel();
-			jLabel3.setText("Filldate");
-			jLabel3.setLocation(new Point(20, 200));
-			jLabel3.setSize(new Dimension(45, 30));
+			jLabel3.setText("Fill-Date :");
+			jLabel3.setLocation(new Point(20, 180));
+			jLabel3.setSize(new Dimension(57, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("EmployeeID");
-			jLabel2.setLocation(new Point(20, 150));
-			jLabel2.setSize(new Dimension(69, 30));
+			jLabel2.setText("EmployeeID :");
+			jLabel2.setLocation(new Point(20, 140));
+			jLabel2.setSize(new Dimension(75, 25));
 			jLabel1 = new JLabel();
-			jLabel1.setText("VacancyID");
+			jLabel1.setText("VacancyID :");
 			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(62, 30));
+			jLabel1.setSize(new Dimension(69, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(46, 17, 338, 41));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-			jLabel.setText("Vacancies Filling Information");
+			jLabel.setForeground(Color.red);
+			jLabel.setText("Add Vacancies Filling Details");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -90,9 +104,12 @@ public class VacanciesFillingInformation extends JFrame {
 			jContentPane.add(jLabel4, null);
 			jContentPane.add(getJtaIntakedetails(), null);
 			jContentPane.add(getBtnAdd(), null);
-			jContentPane.add(getBtnSave(), null);
-			jContentPane.add(getBtnEdit(), null);
+			
 			jContentPane.add(getBtnDelete(), null);
+			jContentPane.add(jLabel5, null);
+			jContentPane.add(jLabel6, null);
+			jContentPane.add(getJTextField(), null);
+			jContentPane.add(getJTextField1(), null);
 		}
 		return jContentPane;
 	}
@@ -105,8 +122,8 @@ public class VacanciesFillingInformation extends JFrame {
 	private JTextField getTxtVacancyid() {
 		if (txtVacancyid == null) {
 			txtVacancyid = new JTextField();
-			txtVacancyid.setLocation(new Point(130, 100));
-			txtVacancyid.setSize(new Dimension(250, 30));
+			txtVacancyid.setLocation(new Point(110, 100));
+			txtVacancyid.setSize(new Dimension(90, 25));
 		}
 		return txtVacancyid;
 	}
@@ -119,8 +136,8 @@ public class VacanciesFillingInformation extends JFrame {
 	private JTextField getTxtEmployeeid() {
 		if (txtEmployeeid == null) {
 			txtEmployeeid = new JTextField();
-			txtEmployeeid.setSize(new Dimension(250, 30));
-			txtEmployeeid.setLocation(new Point(130, 150));
+			txtEmployeeid.setSize(new Dimension(90, 25));
+			txtEmployeeid.setLocation(new Point(110, 140));
 		}
 		return txtEmployeeid;
 	}
@@ -133,8 +150,9 @@ public class VacanciesFillingInformation extends JFrame {
 	private JTextField getTxtFilldate() {
 		if (txtFilldate == null) {
 			txtFilldate = new JTextField();
-			txtFilldate.setLocation(new Point(130, 200));
-			txtFilldate.setSize(new Dimension(250, 30));
+			txtFilldate.setLocation(new Point(110, 180));
+			txtFilldate.setPreferredSize(new Dimension(4, 20));
+			txtFilldate.setSize(new Dimension(90, 25));
 		}
 		return txtFilldate;
 	}
@@ -147,8 +165,9 @@ public class VacanciesFillingInformation extends JFrame {
 	private JTextArea getJtaIntakedetails() {
 		if (jtaIntakedetails == null) {
 			jtaIntakedetails = new JTextArea();
-			jtaIntakedetails.setSize(new Dimension(250, 55));
-			jtaIntakedetails.setLocation(new Point(130, 250));
+			jtaIntakedetails.setSize(new Dimension(200, 70));
+			jtaIntakedetails.setLocation(new Point(110, 220));
+			jtaIntakedetails.setPreferredSize(new Dimension(4, 20));
 			jtaIntakedetails.setBorder(BorderFactory.createEtchedBorder());
 		}
 		return jtaIntakedetails;
@@ -163,8 +182,9 @@ public class VacanciesFillingInformation extends JFrame {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(20, 320));
+			btnAdd.setSize(new Dimension(96, 30));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
+			btnAdd.setLocation(new Point(79, 316));
 		}
 		return btnAdd;
 	}
@@ -174,30 +194,13 @@ public class VacanciesFillingInformation extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnSave() {
-		if (btnSave == null) {
-			btnSave = new JButton();
-			btnSave.setText("Save");
-			btnSave.setSize(new Dimension(90, 30));
-			btnSave.setLocation(new Point(120, 320));
-		}
-		return btnSave;
-	}
-
+	
 	/**
 	 * This method initializes btnEdit	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnEdit() {
-		if (btnEdit == null) {
-			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(220, 320));
-		}
-		return btnEdit;
-	}
+	
 
 	/**
 	 * This method initializes btnDelete	
@@ -207,11 +210,40 @@ public class VacanciesFillingInformation extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(320, 320));
+			btnDelete.setText("Cancel");
+			btnDelete.setSize(new Dimension(97, 30));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/button-cancel-icon.png")));
+			btnDelete.setLocation(new Point(232, 316));
 		}
 		return btnDelete;
+	}
+
+	/**
+	 * This method initializes jTextField	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getJTextField() {
+		if (jTextField == null) {
+			jTextField = new JTextField();
+			jTextField.setSize(new Dimension(90, 25));
+			jTextField.setLocation(new Point(340, 140));
+		}
+		return jTextField;
+	}
+
+	/**
+	 * This method initializes jTextField1	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getJTextField1() {
+		if (jTextField1 == null) {
+			jTextField1 = new JTextField();
+			jTextField1.setSize(new Dimension(90, 25));
+			jTextField1.setLocation(new Point(340, 180));
+		}
+		return jTextField1;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

@@ -19,6 +19,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 
+import dao.AccountDAO;
+
+import model.AccountModel;
+
 public class Login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -73,7 +77,7 @@ public class Login extends JFrame {
 			jLabel2.setIcon(new ImageIcon(getClass().getResource("/images/Key.png")));
 			jLabel2.setSize(new Dimension(95, 25));
 			jLabel1 = new JLabel();
-			jLabel1.setText("UserID");
+			jLabel1.setText("Em_ID");
 			jLabel1.setLocation(new Point(54, 99));
 			jLabel1.setForeground(Color.yellow);
 			jLabel1.setFont(new Font("Dialog", Font.BOLD, 14));
@@ -153,7 +157,17 @@ public class Login extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
+					String EmID = txtUserid.getText();
 					
+					String Password = txtPassword.getText();
+					AccountModel model = AccountDAO.getAccountNEW(EmID, Password);
+					if (model == null) {
+						JOptionPane.showMessageDialog(null, "Dang Nhap That Bai");
+					}else {
+						
+						(new MainForm()).setVisible(true);
+						hide();
+					}
 				}
 			});
 		}

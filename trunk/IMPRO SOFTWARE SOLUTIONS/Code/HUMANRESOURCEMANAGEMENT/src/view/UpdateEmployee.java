@@ -8,9 +8,28 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+
+import Common.KeyValue;
+import dao.DepartmentsDAO;
+import dao.DesignationDAO;
+import dao.EmployeeDAO;
+import dao.SectionDAO;
+
+import model.DepartmentsModel;
+import model.DesignationModel;
+import model.EmployeeModel;
+import model.SectionModel;
 
 public class UpdateEmployee extends JFrame {
 
@@ -24,7 +43,6 @@ public class UpdateEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JComboBox cbnDeptno = null;
 	private JLabel jLabel4 = null;
-	private JTextField txtDesignid = null;
 	private JLabel jLabel5 = null;
 	private JTextField txtAddress = null;
 	private JLabel jLabel6 = null;
@@ -35,12 +53,51 @@ public class UpdateEmployee extends JFrame {
 	private JTextField txtEmail = null;
 	private JButton btnOk = null;
 	private JButton btnCancel = null;
+	private JLabel jLabel9 = null;
+	private JComboBox cbnSecID = null;
+	private JComboBox cbnDesID = null;
+	EmployeeModel model = new EmployeeModel();
 	/**
 	 * This is the default constructor
 	 */
 	public UpdateEmployee() {
 		super();
 		initialize();
+		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
+		for (DepartmentsModel dm : listDepartment) {
+			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
+
+			cbnDeptno.addItem(item);
+			if (item.getKey().equals(model.getDep_ID())) {
+				cbnDeptno.setSelectedItem(item);
+			}
+		}
+		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
+		for (DesignationModel desm : listDesignation) {
+			KeyValue item = new KeyValue(desm.getDesID(),desm.getDesignation());
+
+			cbnDesID.addItem(item);
+			if (item.getKey().equals(model.getDes_ID())) {
+				cbnDesID.setSelectedItem(item);
+			}
+		}
+		
+		ArrayList<SectionModel> listSec = SectionDAO.getAllSection();
+		for (SectionModel sem : listSec) {
+			KeyValue item = new KeyValue(sem.getSecID(),sem.getName());
+
+			cbnSecID.addItem(item);
+			if (item.getKey().equals(model.getSecID())) {
+				cbnSecID.setSelectedItem(item);
+			}
+		}
+	}
+	public UpdateEmployee(EmployeeModel em) {
+		super();
+		this.model = EmployeeDAO.getEmployeeByID(em.getEmID());
+		initialize();
+		txtEmpid.setText(model.getEmID());
+		txtEmpname.setText(model.getName());
 	}
 
 	/**
@@ -61,41 +118,46 @@ public class UpdateEmployee extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel9 = new JLabel();
+			jLabel9.setText("SecID");
+			jLabel9.setSize(new Dimension(58, 25));
+			jLabel9.setLocation(new Point(20, 257));
 			jLabel8 = new JLabel();
-			jLabel8.setText("Email");
-			jLabel8.setLocation(new Point(350, 250));
-			jLabel8.setSize(new Dimension(38, 30));
+			jLabel8.setText("Email :");
+			jLabel8.setLocation(new Point(350, 220));
+			jLabel8.setSize(new Dimension(38, 25));
 			jLabel7 = new JLabel();
-			jLabel7.setText("Fax");
-			jLabel7.setLocation(new Point(350, 200));
-			jLabel7.setSize(new Dimension(30, 30));
+			jLabel7.setText("Fax :");
+			jLabel7.setLocation(new Point(350, 180));
+			jLabel7.setSize(new Dimension(30, 25));
 			jLabel6 = new JLabel();
-			jLabel6.setText("Phone");
-			jLabel6.setSize(new Dimension(38, 30));
-			jLabel6.setLocation(new Point(350, 150));
+			jLabel6.setText("Phone :");
+			jLabel6.setSize(new Dimension(52, 25));
+			jLabel6.setLocation(new Point(350, 140));
 			jLabel5 = new JLabel();
 			jLabel5.setText("Address");
-			jLabel5.setSize(new Dimension(55, 30));
+			jLabel5.setSize(new Dimension(55, 25));
 			jLabel5.setLocation(new Point(350, 100));
 			jLabel4 = new JLabel();
-			jLabel4.setText("DesignId");
-			jLabel4.setLocation(new Point(20, 250));
-			jLabel4.setSize(new Dimension(56, 30));
+			jLabel4.setText("DesignID :");
+			jLabel4.setLocation(new Point(20, 220));
+			jLabel4.setSize(new Dimension(56, 25));
 			jLabel3 = new JLabel();
-			jLabel3.setText("DeptNo");
-			jLabel3.setSize(new Dimension(50, 30));
-			jLabel3.setLocation(new Point(20, 200));
+			jLabel3.setText("DepID :");
+			jLabel3.setSize(new Dimension(50, 25));
+			jLabel3.setLocation(new Point(20, 180));
 			jLabel2 = new JLabel();
-			jLabel2.setText("EmpName");
-			jLabel2.setLocation(new Point(20, 150));
-			jLabel2.setSize(new Dimension(65, 30));
+			jLabel2.setText("EmpName :");
+			jLabel2.setLocation(new Point(20, 140));
+			jLabel2.setSize(new Dimension(65, 25));
 			jLabel1 = new JLabel();
-			jLabel1.setText("EmpId");
+			jLabel1.setText("EmpID :");
 			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(48, 31));
+			jLabel1.setSize(new Dimension(48, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(202, 13, 207, 37));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Update Employee");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -107,7 +169,6 @@ public class UpdateEmployee extends JFrame {
 			jContentPane.add(jLabel3, null);
 			jContentPane.add(getCbnDeptno(), null);
 			jContentPane.add(jLabel4, null);
-			jContentPane.add(getTxtDesignid(), null);
 			jContentPane.add(jLabel5, null);
 			jContentPane.add(getTxtAddress(), null);
 			jContentPane.add(jLabel6, null);
@@ -118,6 +179,9 @@ public class UpdateEmployee extends JFrame {
 			jContentPane.add(getTxtEmail(), null);
 			jContentPane.add(getBtnOk(), null);
 			jContentPane.add(getBtnCancel(), null);
+			jContentPane.add(jLabel9, null);
+			jContentPane.add(getCbnSecID(), null);
+			jContentPane.add(getCbnDesID(), null);
 		}
 		return jContentPane;
 	}
@@ -131,7 +195,7 @@ public class UpdateEmployee extends JFrame {
 		if (txtEmpid == null) {
 			txtEmpid = new JTextField();
 			txtEmpid.setLocation(new Point(100, 100));
-			txtEmpid.setSize(new Dimension(200, 30));
+			txtEmpid.setSize(new Dimension(200, 25));
 		}
 		return txtEmpid;
 	}
@@ -144,8 +208,8 @@ public class UpdateEmployee extends JFrame {
 	private JTextField getTxtEmpname() {
 		if (txtEmpname == null) {
 			txtEmpname = new JTextField();
-			txtEmpname.setLocation(new Point(100, 150));
-			txtEmpname.setSize(new Dimension(200, 30));
+			txtEmpname.setLocation(new Point(100, 140));
+			txtEmpname.setSize(new Dimension(200, 25));
 		}
 		return txtEmpname;
 	}
@@ -158,8 +222,8 @@ public class UpdateEmployee extends JFrame {
 	private JComboBox getCbnDeptno() {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
-			cbnDeptno.setLocation(new Point(100, 200));
-			cbnDeptno.setSize(new Dimension(200, 30));
+			cbnDeptno.setLocation(new Point(100, 180));
+			cbnDeptno.setSize(new Dimension(200, 25));
 		}
 		return cbnDeptno;
 	}
@@ -169,14 +233,7 @@ public class UpdateEmployee extends JFrame {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtDesignid() {
-		if (txtDesignid == null) {
-			txtDesignid = new JTextField();
-			txtDesignid.setSize(new Dimension(200, 30));
-			txtDesignid.setLocation(new Point(100, 250));
-		}
-		return txtDesignid;
-	}
+	
 
 	/**
 	 * This method initializes txtAddress	
@@ -187,7 +244,7 @@ public class UpdateEmployee extends JFrame {
 		if (txtAddress == null) {
 			txtAddress = new JTextField();
 			txtAddress.setLocation(new Point(430, 100));
-			txtAddress.setSize(new Dimension(200, 30));
+			txtAddress.setSize(new Dimension(200, 25));
 		}
 		return txtAddress;
 	}
@@ -200,8 +257,8 @@ public class UpdateEmployee extends JFrame {
 	private JTextField getTxtPhone() {
 		if (txtPhone == null) {
 			txtPhone = new JTextField();
-			txtPhone.setLocation(new Point(430, 150));
-			txtPhone.setSize(new Dimension(200, 30));
+			txtPhone.setLocation(new Point(430, 140));
+			txtPhone.setSize(new Dimension(200, 25));
 		}
 		return txtPhone;
 	}
@@ -214,8 +271,8 @@ public class UpdateEmployee extends JFrame {
 	private JTextField getTxtFax() {
 		if (txtFax == null) {
 			txtFax = new JTextField();
-			txtFax.setLocation(new Point(430, 200));
-			txtFax.setSize(new Dimension(200, 30));
+			txtFax.setLocation(new Point(430, 180));
+			txtFax.setSize(new Dimension(200, 25));
 		}
 		return txtFax;
 	}
@@ -228,8 +285,8 @@ public class UpdateEmployee extends JFrame {
 	private JTextField getTxtEmail() {
 		if (txtEmail == null) {
 			txtEmail = new JTextField();
-			txtEmail.setSize(new Dimension(200, 30));
-			txtEmail.setLocation(new Point(430, 250));
+			txtEmail.setSize(new Dimension(200, 25));
+			txtEmail.setLocation(new Point(430, 220));
 		}
 		return txtEmail;
 	}
@@ -242,9 +299,46 @@ public class UpdateEmployee extends JFrame {
 	private JButton getBtnOk() {
 		if (btnOk == null) {
 			btnOk = new JButton();
-			btnOk.setText("OK");
-			btnOk.setSize(new Dimension(90, 30));
-			btnOk.setLocation(new Point(206, 330));
+			btnOk.setText("Update");
+			btnOk.setSize(new Dimension(105, 34));
+			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnOk.setLocation(new Point(177, 312));
+			btnOk.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					EmployeeModel model = new EmployeeModel();
+					model.setEmID(txtEmpid.getText().trim());
+					model.setName(txtEmpname.getText().trim());
+					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
+							.getKey());
+					model.setDes_ID(((KeyValue) cbnDesID.getSelectedItem())
+							.getKey());
+					model.setSecID(((KeyValue) cbnSecID.getSelectedItem())
+							.getKey());
+					model.setAddress(txtAddress.getText().trim());
+					model.setPhone(txtPhone.getText().trim());
+					model.setFax(txtFax.getText().trim());
+					model.setEmail(txtEmail.getText().trim());
+					if(!validateModel(model)) {
+						
+						return;
+					}
+					Boolean kq = EmployeeDAO.updateEmployee(model);
+					if (kq) {
+						JOptionPane.showMessageDialog(null,
+								"Cap Nhat Thân Nhân Thành Công",
+								"Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewEmployee()).setVisible(true);
+						dispose();
+
+					}
+
+					
+				}
+			});
 		}
 		return btnOk;
 	}
@@ -258,10 +352,61 @@ public class UpdateEmployee extends JFrame {
 		if (btnCancel == null) {
 			btnCancel = new JButton();
 			btnCancel.setText("Cancel");
-			btnCancel.setSize(new Dimension(90, 30));
-			btnCancel.setLocation(new Point(344, 330));
+			btnCancel.setSize(new Dimension(98, 34));
+			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Button-Close-icon.png")));
+			btnCancel.setLocation(new Point(364, 312));
 		}
 		return btnCancel;
 	}
 
+	/**
+	 * This method initializes cbnSecID	
+	 * 	
+	 * @return javax.swing.JComboBox	
+	 */
+	private JComboBox getCbnSecID() {
+		if (cbnSecID == null) {
+			cbnSecID = new JComboBox();
+			cbnSecID.setSize(new Dimension(200, 24));
+			cbnSecID.setLocation(new Point(100, 260));
+		}
+		return cbnSecID;
+	}
+
+	/**
+	 * This method initializes cbnDesID	
+	 * 	
+	 * @return javax.swing.JComboBox	
+	 */
+	private JComboBox getCbnDesID() {
+		if (cbnDesID == null) {
+			cbnDesID = new JComboBox();
+			cbnDesID.setSize(new Dimension(200, 23));
+			cbnDesID.setLocation(new Point(100, 220));
+		}
+		return cbnDesID;
+	}
+private Boolean validateModel(EmployeeModel mo) {
+    	
+    	
+    	if( mo.getAddress()== null || mo.getAddress().equals("")){
+    		JOptionPane.showMessageDialog(null, "Address không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getPhone()== null || mo.getPhone().equals("")){
+    		JOptionPane.showMessageDialog(null, "phone không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getFax()== null || mo.getFax().equals("")){
+    		JOptionPane.showMessageDialog(null, "Fax không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getEmail()== null || mo.getEmail().equals("")){
+    		JOptionPane.showMessageDialog(null, "Email không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	
+		return true;
+    	
+    }
 }  //  @jve:decl-index=0:visual-constraint="10,10"

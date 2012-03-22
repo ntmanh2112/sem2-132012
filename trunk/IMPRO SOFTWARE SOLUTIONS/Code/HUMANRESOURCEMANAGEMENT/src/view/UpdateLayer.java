@@ -60,15 +60,15 @@ public class UpdateLayer extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabelWeightage = new JLabel();
-			jLabelWeightage.setText("Weightage");
+			jLabelWeightage.setText("Weightage :");
 			jLabelWeightage.setLocation(new Point(40, 180));
 			jLabelWeightage.setSize(new Dimension(89, 25));
 			jLabelLayer = new JLabel();
-			jLabelLayer.setText("Layer");
+			jLabelLayer.setText("Layer :");
 			jLabelLayer.setLocation(new Point(40, 140));
 			jLabelLayer.setSize(new Dimension(93, 25));
 			JLabelID = new JLabel();
-			JLabelID.setText("LayerID");
+			JLabelID.setText("LayerID :");
 			JLabelID.setLocation(new Point(40, 100));
 			JLabelID.setSize(new Dimension(95, 25));
 			jLabelTitle = new JLabel();
@@ -78,7 +78,7 @@ public class UpdateLayer extends JFrame {
 			jLabelTitle.setText("Update Layer");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.setBackground(Color.white);
+			jContentPane.setBackground(new Color(238, 238, 238));
 			jContentPane.add(jLabelTitle, null);
 			jContentPane.add(JLabelID, null);
 			jContentPane.add(getTxtID(), null);
@@ -142,10 +142,10 @@ public class UpdateLayer extends JFrame {
 	private JButton getBtnDongy() {
 		if (btnDongy == null) {
 			btnDongy = new JButton();
-			btnDongy.setText("OK");
-			btnDongy.setLocation(new Point(80, 244));
-			btnDongy.setIcon(new ImageIcon(getClass().getResource("/images/Apply.png")));
-			btnDongy.setSize(new Dimension(95, 30));
+			btnDongy.setText("Update");
+			btnDongy.setLocation(new Point(79, 237));
+			btnDongy.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnDongy.setSize(new Dimension(95, 34));
 		}
 		return btnDongy;
 	}
@@ -159,9 +159,9 @@ public class UpdateLayer extends JFrame {
 		if (btnCancel == null) {
 			btnCancel = new JButton();
 			btnCancel.setText("Cancel");
-			btnCancel.setLocation(new Point(242, 244));
-			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
-			btnCancel.setSize(new Dimension(117, 30));
+			btnCancel.setLocation(new Point(240, 237));
+			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/button-cancel-icon.png")));
+			btnCancel.setSize(new Dimension(98, 34));
 		}
 		return btnCancel;
 	}

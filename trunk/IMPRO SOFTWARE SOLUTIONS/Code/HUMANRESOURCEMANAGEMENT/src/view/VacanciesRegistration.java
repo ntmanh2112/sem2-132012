@@ -11,6 +11,12 @@ import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.WindowConstants;
+import javax.swing.JOptionPane;
+import java.awt.GridBagLayout;
+import javax.swing.JMenuItem;
+import javax.swing.BorderFactory;
+import javax.swing.border.EtchedBorder;
 
 public class VacanciesRegistration extends JFrame {
 
@@ -35,6 +41,7 @@ public class VacanciesRegistration extends JFrame {
 	private JTextField txtPriority = null;
 	private JButton btnAdd = null;
 	private JButton btnSave = null;
+	private JPanel jPanel = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -50,8 +57,10 @@ public class VacanciesRegistration extends JFrame {
 	 */
 	private void initialize() {
 		this.setSize(680, 423);
+		this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
+		this.setVisible(false);
 	}
 
 	/**
@@ -99,6 +108,7 @@ public class VacanciesRegistration extends JFrame {
 			jLabel.setText("Vacancies Registration");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtVacancyid(), null);
@@ -118,6 +128,7 @@ public class VacanciesRegistration extends JFrame {
 			jContentPane.add(getTxtPriority(), null);
 			jContentPane.add(getBtnAdd(), null);
 			jContentPane.add(getBtnSave(), null);
+			jContentPane.add(getJPanel(), null);
 		}
 		return jContentPane;
 	}
@@ -257,8 +268,23 @@ public class VacanciesRegistration extends JFrame {
 		if (btnSave == null) {
 			btnSave = new JButton();
 			btnSave.setBounds(new Rectangle(209, 316, 111, 31));
+			btnSave.setText("Cancel");
 		}
 		return btnSave;
+	}
+
+	/**
+	 * This method initializes jPanel	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanel() {
+		if (jPanel == null) {
+			jPanel = new JPanel();
+			jPanel.setLayout(new GridBagLayout());
+			jPanel.setBounds(new Rectangle(420, 304, 184, 62));
+		}
+		return jPanel;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

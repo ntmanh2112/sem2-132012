@@ -15,6 +15,9 @@ import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class ViewDesignation extends JFrame {
 
@@ -47,7 +50,7 @@ public class ViewDesignation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(650, 516);
+		this.setSize(701, 516);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewDesign");
 	}
@@ -60,8 +63,9 @@ public class ViewDesignation extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(208, 18, 202, 47));
+			jLabel.setBounds(new Rectangle(229, 18, 202, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("View Designation");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -83,7 +87,7 @@ public class ViewDesignation extends JFrame {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(27, 83, 567, 191));
+			jScrollPane.setBounds(new Rectangle(27, 83, 635, 191));
 			jScrollPane.setViewportView(getJTableViewdesignation());
 		}
 		return jScrollPane;
@@ -111,7 +115,11 @@ public class ViewDesignation extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(90, 420));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
+			btnAdd.setFont(new Font("Dialog", Font.BOLD, 12));
+			btnAdd.setHorizontalTextPosition(SwingConstants.TRAILING);
+			btnAdd.setHorizontalAlignment(SwingConstants.TRAILING);
+			btnAdd.setLocation(new Point(92, 392));
 		}
 		return btnAdd;
 	}
@@ -126,7 +134,8 @@ public class ViewDesignation extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(270, 420));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Edit-icon.png")));
+			btnEdit.setLocation(new Point(280, 392));
 		}
 		return btnEdit;
 	}
@@ -141,7 +150,8 @@ public class ViewDesignation extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(450, 420));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(464, 392));
 		}
 		return btnDelete;
 	}
@@ -154,17 +164,17 @@ public class ViewDesignation extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel2 = new JLabel();
-			jLabel2.setText("DesignationName");
-			jLabel2.setSize(new Dimension(104, 30));
-			jLabel2.setLocation(new Point(9, 69));
+			jLabel2.setText("DesignationName :");
+			jLabel2.setSize(new Dimension(112, 25));
+			jLabel2.setLocation(new Point(227, 17));
 			jLabel1 = new JLabel();
-			jLabel1.setText("DesignationID");
-			jLabel1.setSize(new Dimension(88, 30));
+			jLabel1.setText("DesignationID :");
+			jLabel1.setSize(new Dimension(88, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(477, 116));
+			jPanel.setSize(new Dimension(634, 58));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtDesignationid(), null);
 			jPanel.add(jLabel2, null);
@@ -183,8 +193,8 @@ public class ViewDesignation extends JFrame {
 	private JTextField getTxtDesignationid() {
 		if (txtDesignationid == null) {
 			txtDesignationid = new JTextField();
-			txtDesignationid.setLocation(new Point(150, 17));
-			txtDesignationid.setSize(new Dimension(160, 30));
+			txtDesignationid.setLocation(new Point(108, 17));
+			txtDesignationid.setSize(new Dimension(90, 25));
 		}
 		return txtDesignationid;
 	}
@@ -197,8 +207,8 @@ public class ViewDesignation extends JFrame {
 	private JTextField getTxtDesignationname() {
 		if (txtDesignationname == null) {
 			txtDesignationname = new JTextField();
-			txtDesignationname.setLocation(new Point(150, 69));
-			txtDesignationname.setSize(new Dimension(160, 30));
+			txtDesignationname.setLocation(new Point(354, 17));
+			txtDesignationname.setSize(new Dimension(90, 25));
 		}
 		return txtDesignationname;
 	}
@@ -212,8 +222,9 @@ public class ViewDesignation extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(117, 48));
-			btnSearch.setLocation(new Point(337, 36));
+			btnSearch.setSize(new Dimension(100, 25));
+			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
+			btnSearch.setLocation(new Point(484, 17));
 		}
 		return btnSearch;
 	}

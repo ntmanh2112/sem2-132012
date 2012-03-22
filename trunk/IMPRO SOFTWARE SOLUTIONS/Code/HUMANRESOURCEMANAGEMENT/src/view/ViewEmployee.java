@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -22,6 +23,12 @@ import model.DepartmentsModel;
 import model.EmployeeModel;
 import dao.DepartmentsDAO;
 import dao.EmployeeDAO;
+import javax.swing.ImageIcon;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.Color;
 
 public class ViewEmployee extends JFrame {
 
@@ -57,7 +64,7 @@ public class ViewEmployee extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(648, 516);
+		this.setSize(807, 461);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewEmp");
 	}
@@ -70,8 +77,9 @@ public class ViewEmployee extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(208, 18, 185, 47));
+			jLabel.setBounds(new Rectangle(299, 18, 185, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("View Employee");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -93,7 +101,7 @@ public class ViewEmployee extends JFrame {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(27, 83, 567, 191));
+			jScrollPane.setBounds(new Rectangle(32, 84, 739, 191));
 			jScrollPane.setViewportView(getJTableViewemployee());
 		}
 		return jScrollPane;
@@ -137,9 +145,20 @@ public class ViewEmployee extends JFrame {
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(90, 420));
+			btnAdd.setText("Add Employee");
+			btnAdd.setSize(new Dimension(150, 35));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
+			btnAdd.setLocation(new Point(60, 295));
+			btnAdd.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					
+					(new EmployeeRegistration()).setVisible(true);
+					hide();
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -152,9 +171,29 @@ public class ViewEmployee extends JFrame {
 	private JButton getBtnEdit() {
 		if (btnEdit == null) {
 			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(270, 420));
+			btnEdit.setText("Update Employee");
+			btnEdit.setSize(new Dimension(158, 35));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnEdit.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnEdit.setLocation(new Point(233, 295));
+			btnEdit.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					int row = jTableViewemployee.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 1;
+					String manvduocluachon = jTableViewemployee.getValueAt(row, column).toString();
+					EmployeeModel model = new EmployeeModel();
+					model.setEmID(manvduocluachon);
+					(new UpdateEmployee()).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnEdit;
 	}
@@ -167,9 +206,11 @@ public class ViewEmployee extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(450, 420));
+			btnDelete.setText("Delete Employee");
+			btnDelete.setSize(new Dimension(150, 35));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnDelete.setLocation(new Point(416, 295));
 		}
 		return btnDelete;
 	}
@@ -182,21 +223,21 @@ public class ViewEmployee extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("DeptID");
-			jLabel3.setLocation(new Point(278, 17));
-			jLabel3.setSize(new Dimension(57, 30));
+			jLabel3.setText("DeptID :");
+			jLabel3.setLocation(new Point(351, 17));
+			jLabel3.setSize(new Dimension(50, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("EmpName");
-			jLabel2.setSize(new Dimension(64, 30));
-			jLabel2.setLocation(new Point(9, 69));
+			jLabel2.setText("Name :");
+			jLabel2.setSize(new Dimension(50, 25));
+			jLabel2.setLocation(new Point(179, 17));
 			jLabel1 = new JLabel();
-			jLabel1.setText("EmpID");
-			jLabel1.setSize(new Dimension(40, 30));
+			jLabel1.setText("EmpID :");
+			jLabel1.setSize(new Dimension(46, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(564, 116));
+			jPanel.setLocation(new Point(59, 347));
+			jPanel.setSize(new Dimension(649, 59));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtEmpid(), null);
 			jPanel.add(jLabel2, null);
@@ -217,8 +258,8 @@ public class ViewEmployee extends JFrame {
 	private JTextField getTxtEmpid() {
 		if (txtEmpid == null) {
 			txtEmpid = new JTextField();
-			txtEmpid.setLocation(new Point(88, 17));
-			txtEmpid.setSize(new Dimension(160, 30));
+			txtEmpid.setLocation(new Point(70, 17));
+			txtEmpid.setSize(new Dimension(90, 25));
 		}
 		return txtEmpid;
 	}
@@ -231,8 +272,8 @@ public class ViewEmployee extends JFrame {
 	private JTextField getTxtEmpname() {
 		if (txtEmpname == null) {
 			txtEmpname = new JTextField();
-			txtEmpname.setLocation(new Point(88, 69));
-			txtEmpname.setSize(new Dimension(160, 30));
+			txtEmpname.setLocation(new Point(241, 17));
+			txtEmpname.setSize(new Dimension(90, 25));
 		}
 		return txtEmpname;
 	}
@@ -245,8 +286,8 @@ public class ViewEmployee extends JFrame {
 	private JTextField getTxtDeptid() {
 		if (txtDeptid == null) {
 			txtDeptid = new JTextField();
-			txtDeptid.setLocation(new Point(353, 17));
-			txtDeptid.setSize(new Dimension(160, 30));
+			txtDeptid.setLocation(new Point(415, 17));
+			txtDeptid.setSize(new Dimension(90, 25));
 		}
 		return txtDeptid;
 	}
@@ -260,8 +301,9 @@ public class ViewEmployee extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(117, 30));
-			btnSearch.setLocation(new Point(353, 69));
+			btnSearch.setSize(new Dimension(106, 25));
+			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.gif")));
+			btnSearch.setLocation(new Point(524, 17));
 		}
 		return btnSearch;
 	}
