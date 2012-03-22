@@ -16,12 +16,12 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.SystemColor;
 
 public class MainForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
-	private JMenu jMenu = null;
 	private JMenuBar jJMenuBar = null;
 	private JMenu jMenuMaster = null;
 	private JMenu jMenuOrgdetail = null;
@@ -58,28 +58,16 @@ public class MainForm extends JFrame {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.setBackground(Color.white);
+			/*jContentPane.setBackground(SystemColor.activeCaption);
 			 BufferedImage image = null;
 			 try {
 				 image = ImageIO.read(new File("images/A013.jpg"));
 				 } catch (IOException e) {
 					 e.printStackTrace();  
-				} 
+				} */
 			//jContentPane = new ImagePanel(image,Double.valueOf(dim.getWidth()).intValue(),Double.valueOf(dim.getHeight()).intValue());
 		}
 		return jContentPane;
-	}
-
-	/**
-	 * This method initializes jMenu	
-	 * 	
-	 * @return javax.swing.JMenu	
-	 */
-	private JMenu getJMenu() {
-		if (jMenu == null) {
-			jMenu = new JMenu();
-		}
-		return jMenu;
 	}
 
 	/**

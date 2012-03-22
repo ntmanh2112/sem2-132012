@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-03-16 10:15                                */
+/* Created on:            2012-03-22 11:44                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -171,6 +171,19 @@ CREATE TABLE [History] (
 GO
 
 /* ---------------------------------------------------------------------- */
+/* Add table "Account"                                                    */
+/* ---------------------------------------------------------------------- */
+
+CREATE TABLE [Account] (
+    [UserID] INTEGER IDENTITY(0,1) NOT NULL,
+    [Password] NVARCHAR(40),
+    [EmID] VARCHAR(10) NOT NULL,
+    [Acc_Level] NUMERIC,
+    CONSTRAINT [PK_Account] PRIMARY KEY ([UserID])
+)
+GO
+
+/* ---------------------------------------------------------------------- */
 /* Foreign key constraints                                                */
 /* ---------------------------------------------------------------------- */
 
@@ -224,4 +237,8 @@ GO
 
 ALTER TABLE [History] ADD CONSTRAINT [Designation_History] 
     FOREIGN KEY ([DesID]) REFERENCES [Designation] ([DesID])
+GO
+
+ALTER TABLE [Account] ADD CONSTRAINT [Employee_Account] 
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
 GO

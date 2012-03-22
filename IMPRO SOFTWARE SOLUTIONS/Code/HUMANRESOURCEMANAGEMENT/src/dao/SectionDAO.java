@@ -12,7 +12,8 @@ public class SectionDAO {
 	public static ArrayList<SectionModel> getAllSection(){
 		ArrayList<SectionModel> listSection = new ArrayList<SectionModel>();
 		try {
-			String sql = "SELECT * FROM Section";
+			String sql = "select * from section";
+
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				SectionModel model = new SectionModel();

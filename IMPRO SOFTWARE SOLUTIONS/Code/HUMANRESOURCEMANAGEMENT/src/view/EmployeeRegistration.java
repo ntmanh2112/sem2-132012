@@ -8,12 +8,30 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.event.KeyEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
+
+import Common.KeyValue;
+
+
+import dao.DepartmentsDAO;
+import dao.DesignationDAO;
+import dao.EmployeeDAO;
+import dao.SectionDAO;
+
+import model.DepartmentsModel;
+import model.DesignationModel;
+import model.EmployeeModel;
+import model.SectionModel;
 
 public class EmployeeRegistration extends JFrame {
 
@@ -27,7 +45,6 @@ public class EmployeeRegistration extends JFrame {
 	private JLabel jLabel3 = null;
 	private JComboBox cbnDeptno = null;
 	private JLabel jLabel4 = null;
-	private JTextField txtDesignid = null;
 	private JLabel jLabel5 = null;
 	private JTextField txtAddress = null;
 	private JLabel jLabel6 = null;
@@ -36,18 +53,59 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField txtFax = null;
 	private JLabel jLabel8 = null;
 	private JTextField txtEmail = null;
-	private JButton btnAdd = null;
-	private JButton btnSave = null;
-	private JButton btnEdit = null;
-	private JButton btnDelete = null;
-
+	private JButton btnOk = null;
+	private JButton btnCancel = null;
+	private JLabel jLabel9 = null;
+	private JComboBox cbnSecID = null;
+	private JComboBox cbnDesID = null;
+	EmployeeModel model = new EmployeeModel();
 	/**
 	 * This is the default constructor
 	 */
 	public EmployeeRegistration() {
 		super();
 		initialize();
+		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
+		for (DepartmentsModel dm : listDepartment) {
+			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
+
+			cbnDeptno.addItem(item);
+			if (item.getKey().equals(model.getDep_ID())) {
+				cbnDeptno.setSelectedItem(item);
+			}
+		}
+		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
+		for (DesignationModel desm : listDesignation) {
+			KeyValue item = new KeyValue(desm.getDesID(),desm.getDesignation());
+
+			cbnDesID.addItem(item);
+			if (item.getKey().equals(model.getDes_ID())) {
+				cbnDesID.setSelectedItem(item);
+			}
+		}
+		
+		ArrayList<SectionModel> listSec = SectionDAO.getAllSection();
+		for (SectionModel sem : listSec) {
+			KeyValue item = new KeyValue(sem.getSecID(),sem.getName());
+
+			cbnSecID.addItem(item);
+			if (item.getKey().equals(model.getSecID())) {
+				cbnSecID.setSelectedItem(item);
+			}
+		}
+			
+				
+				
+		
 	}
+	/*public EmployeeRegistration(EmployeeModel mo) {
+		super();
+		this.model = EmployeeDAO.getEmployeeByID(mo.getEmID());
+		initialize();
+		txtEmpid.setText(model.getEmID());
+		txtEmpname.setText(model.getName());
+		cbnDeptno.
+	}*/
 
 	/**
 	 * This method initializes this
@@ -55,9 +113,9 @@ public class EmployeeRegistration extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(660, 432);
+		this.setSize(660, 417);
 		this.setContentPane(getJContentPane());
-		this.setTitle("FrmEmployee");
+		this.setTitle("FrmUpdateEmployee");
 	}
 
 	/**
@@ -67,47 +125,49 @@ public class EmployeeRegistration extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel9 = new JLabel();
+			jLabel9.setText("SecID");
+			jLabel9.setSize(new Dimension(58, 25));
+			jLabel9.setLocation(new Point(20, 257));
 			jLabel8 = new JLabel();
-			jLabel8.setText("Email");
+			jLabel8.setText("Email :");
 			jLabel8.setLocation(new Point(350, 220));
-			jLabel8.setDisplayedMnemonic(KeyEvent.VK_UNDEFINED);
 			jLabel8.setSize(new Dimension(38, 25));
 			jLabel7 = new JLabel();
-			jLabel7.setText("Fax");
+			jLabel7.setText("Fax :");
 			jLabel7.setLocation(new Point(350, 180));
 			jLabel7.setSize(new Dimension(30, 25));
 			jLabel6 = new JLabel();
-			jLabel6.setText("Phone");
-			jLabel6.setSize(new Dimension(38, 25));
+			jLabel6.setText("Phone :");
+			jLabel6.setSize(new Dimension(52, 25));
 			jLabel6.setLocation(new Point(350, 140));
 			jLabel5 = new JLabel();
 			jLabel5.setText("Address");
 			jLabel5.setSize(new Dimension(55, 25));
 			jLabel5.setLocation(new Point(350, 100));
 			jLabel4 = new JLabel();
-			jLabel4.setText("DesignId");
+			jLabel4.setText("DesignID :");
 			jLabel4.setLocation(new Point(20, 220));
 			jLabel4.setSize(new Dimension(56, 25));
 			jLabel3 = new JLabel();
-			jLabel3.setText("DeptNo");
+			jLabel3.setText("DepID :");
 			jLabel3.setSize(new Dimension(50, 25));
 			jLabel3.setLocation(new Point(20, 180));
 			jLabel2 = new JLabel();
-			jLabel2.setText("EmpName");
+			jLabel2.setText("EmpName :");
 			jLabel2.setLocation(new Point(20, 140));
 			jLabel2.setSize(new Dimension(65, 25));
 			jLabel1 = new JLabel();
-			jLabel1.setText("EmpId");
+			jLabel1.setText("EmpID :");
 			jLabel1.setLocation(new Point(20, 100));
 			jLabel1.setSize(new Dimension(48, 25));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(183, 12, 262, 37));
+			jLabel.setBounds(new Rectangle(185, 13, 277, 37));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
 			jLabel.setText("Employee Registration");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.setBackground(Color.white);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtEmpid(), null);
@@ -116,7 +176,6 @@ public class EmployeeRegistration extends JFrame {
 			jContentPane.add(jLabel3, null);
 			jContentPane.add(getCbnDeptno(), null);
 			jContentPane.add(jLabel4, null);
-			jContentPane.add(getTxtDesignid(), null);
 			jContentPane.add(jLabel5, null);
 			jContentPane.add(getTxtAddress(), null);
 			jContentPane.add(jLabel6, null);
@@ -125,10 +184,11 @@ public class EmployeeRegistration extends JFrame {
 			jContentPane.add(getTxtFax(), null);
 			jContentPane.add(jLabel8, null);
 			jContentPane.add(getTxtEmail(), null);
-			
-			jContentPane.add(getBtnSave(), null);
-			jContentPane.add(getBtnEdit(), null);
-			
+			jContentPane.add(getBtnOk(), null);
+			jContentPane.add(getBtnCancel(), null);
+			jContentPane.add(jLabel9, null);
+			jContentPane.add(getCbnSecID(), null);
+			jContentPane.add(getCbnDesID(), null);
 		}
 		return jContentPane;
 	}
@@ -180,14 +240,7 @@ public class EmployeeRegistration extends JFrame {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtDesignid() {
-		if (txtDesignid == null) {
-			txtDesignid = new JTextField();
-			txtDesignid.setSize(new Dimension(200, 25));
-			txtDesignid.setLocation(new Point(100, 220));
-		}
-		return txtDesignid;
-	}
+	
 
 	/**
 	 * This method initializes txtAddress	
@@ -246,49 +299,127 @@ public class EmployeeRegistration extends JFrame {
 	}
 
 	/**
-	 * This method initializes btnAdd	
+	 * This method initializes btnOk	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	
+	private JButton getBtnOk() {
+		if (btnOk == null) {
+			btnOk = new JButton();
+			btnOk.setText("Add");
+			btnOk.setSize(new Dimension(105, 34));
+			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
+			btnOk.setLocation(new Point(177, 312));
+			btnOk.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					EmployeeModel model = new EmployeeModel();
+					model.setEmID(txtEmpid.getText().trim());
+					model.setName(txtEmpname.getText().trim());
+					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
+							.getKey());
+					model.setDes_ID(((KeyValue) cbnDesID.getSelectedItem())
+							.getKey());
+					model.setSecID(((KeyValue) cbnSecID.getSelectedItem())
+							.getKey());
+					model.setAddress(txtAddress.getText().trim());
+					model.setPhone(txtPhone.getText().trim());
+					model.setFax(txtFax.getText().trim());
+					model.setEmail(txtEmail.getText().trim());
+					if(!validateModel(model)) {
+						
+						return;
+					}
 
-	/**
-	 * This method initializes btnSave	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtnSave() {
-		if (btnSave == null) {
-			btnSave = new JButton();
-			btnSave.setText("OK");
-			btnSave.setSize(new Dimension(90, 30));
-			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Apply.png")));
-			btnSave.setLocation(new Point(200, 300));
+						Boolean kq = EmployeeDAO.insertEmployee(model);
+						if (kq) {
+							JOptionPane.showMessageDialog(null,
+									"Thêm Nhân Viên Thành Công", "Thông Báo",
+									JOptionPane.INFORMATION_MESSAGE);
+							(new ViewEmployee()).setVisible(true);
+							dispose();
+						}
+					
+				}
+			});
 		}
-		return btnSave;
+		return btnOk;
 	}
 
 	/**
-	 * This method initializes btnEdit	
+	 * This method initializes btnCancel	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnEdit() {
-		if (btnEdit == null) {
-			btnEdit = new JButton();
-			btnEdit.setText("Cancel");
-			btnEdit.setSize(new Dimension(101, 30));
-			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
-			btnEdit.setLocation(new Point(340, 300));
+	private JButton getBtnCancel() {
+		if (btnCancel == null) {
+			btnCancel = new JButton();
+			btnCancel.setText("Cancel");
+			btnCancel.setSize(new Dimension(98, 34));
+			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Button-Close-icon.png")));
+			btnCancel.setLocation(new Point(364, 312));
 		}
-		return btnEdit;
+		return btnCancel;
 	}
 
 	/**
-	 * This method initializes btnDelete	
+	 * This method initializes cbnSecID	
 	 * 	
-	 * @return javax.swing.JButton	
+	 * @return javax.swing.JComboBox	
 	 */
-	
+	private JComboBox getCbnSecID() {
+		if (cbnSecID == null) {
+			cbnSecID = new JComboBox();
+			cbnSecID.setSize(new Dimension(200, 24));
+			cbnSecID.setLocation(new Point(100, 260));
+		}
+		return cbnSecID;
+	}
+
+	/**
+	 * This method initializes cbnDesID	
+	 * 	
+	 * @return javax.swing.JComboBox	
+	 */
+	private JComboBox getCbnDesID() {
+		if (cbnDesID == null) {
+			cbnDesID = new JComboBox();
+			cbnDesID.setSize(new Dimension(200, 23));
+			cbnDesID.setLocation(new Point(100, 220));
+		}
+		return cbnDesID;
+	}
+private Boolean validateModel(EmployeeModel mo) {
+    	
+    	if( mo.getEmID() == null || mo.getEmID().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Mã NV Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getName() == null || mo.getName().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Tên Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getAddress()== null || mo.getAddress().equals("")){
+    		JOptionPane.showMessageDialog(null, "Address không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getPhone()== null || mo.getPhone().equals("")){
+    		JOptionPane.showMessageDialog(null, "phone không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getFax()== null || mo.getFax().equals("")){
+    		JOptionPane.showMessageDialog(null, "Fax không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getEmail()== null || mo.getEmail().equals("")){
+    		JOptionPane.showMessageDialog(null, "Email không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	
+		return true;
+    	
+    }
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

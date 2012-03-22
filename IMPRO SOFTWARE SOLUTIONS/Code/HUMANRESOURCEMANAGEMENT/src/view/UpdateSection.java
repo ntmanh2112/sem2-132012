@@ -11,6 +11,8 @@ import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class UpdateSection extends JFrame {
 
@@ -55,24 +57,25 @@ public class UpdateSection extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel4 = new JLabel();
-			jLabel4.setText("DeptNo");
-			jLabel4.setLocation(new Point(20, 250));
-			jLabel4.setSize(new Dimension(46, 30));
+			jLabel4.setText("DepID :");
+			jLabel4.setLocation(new Point(20, 220));
+			jLabel4.setSize(new Dimension(46, 25));
 			jLabel3 = new JLabel();
-			jLabel3.setText("Sec-incharge");
-			jLabel3.setLocation(new Point(20, 200));
-			jLabel3.setSize(new Dimension(78, 30));
+			jLabel3.setText("Sec-incharge :");
+			jLabel3.setLocation(new Point(20, 180));
+			jLabel3.setSize(new Dimension(86, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("SectionName");
-			jLabel2.setLocation(new Point(20, 150));
-			jLabel2.setSize(new Dimension(80, 30));
+			jLabel2.setText("SectionName :");
+			jLabel2.setLocation(new Point(20, 140));
+			jLabel2.setSize(new Dimension(87, 25));
 			jLabel1 = new JLabel();
-			jLabel1.setText("SectionID");
+			jLabel1.setText("SectionID :");
 			jLabel1.setLocation(new Point(20, 100));
-			jLabel1.setSize(new Dimension(57, 29));
+			jLabel1.setSize(new Dimension(70, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(151, 13, 179, 41));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Update Section");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -99,7 +102,7 @@ public class UpdateSection extends JFrame {
 	private JTextField getTxtSectionid() {
 		if (txtSectionid == null) {
 			txtSectionid = new JTextField();
-			txtSectionid.setSize(new Dimension(200, 30));
+			txtSectionid.setSize(new Dimension(200, 25));
 			txtSectionid.setLocation(new Point(150, 100));
 		}
 		return txtSectionid;
@@ -113,8 +116,8 @@ public class UpdateSection extends JFrame {
 	private JTextField getTxtSectionname() {
 		if (txtSectionname == null) {
 			txtSectionname = new JTextField();
-			txtSectionname.setLocation(new Point(150, 150));
-			txtSectionname.setSize(new Dimension(200, 30));
+			txtSectionname.setLocation(new Point(150, 140));
+			txtSectionname.setSize(new Dimension(200, 25));
 		}
 		return txtSectionname;
 	}
@@ -127,8 +130,8 @@ public class UpdateSection extends JFrame {
 	private JTextField getTxtSecincharge() {
 		if (txtSecincharge == null) {
 			txtSecincharge = new JTextField();
-			txtSecincharge.setLocation(new Point(150, 200));
-			txtSecincharge.setSize(new Dimension(200, 30));
+			txtSecincharge.setLocation(new Point(150, 180));
+			txtSecincharge.setSize(new Dimension(200, 25));
 		}
 		return txtSecincharge;
 	}
@@ -141,8 +144,8 @@ public class UpdateSection extends JFrame {
 	private JComboBox getCbnDeptno() {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
-			cbnDeptno.setLocation(new Point(150, 250));
-			cbnDeptno.setSize(new Dimension(200, 30));
+			cbnDeptno.setLocation(new Point(150, 220));
+			cbnDeptno.setSize(new Dimension(200, 25));
 		}
 		return cbnDeptno;
 	}
@@ -156,8 +159,9 @@ public class UpdateSection extends JFrame {
 		if (btnCancel == null) {
 			btnCancel = new JButton();
 			btnCancel.setText("Cancel");
-			btnCancel.setSize(new Dimension(90, 30));
-			btnCancel.setLocation(new Point(250, 310));
+			btnCancel.setSize(new Dimension(100, 34));
+			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Button-Close-icon.png")));
+			btnCancel.setLocation(new Point(267, 284));
 		}
 		return btnCancel;
 	}
@@ -170,9 +174,10 @@ public class UpdateSection extends JFrame {
 	private JButton getBtnOk() {
 		if (btnOk == null) {
 			btnOk = new JButton();
-			btnOk.setText("OK");
-			btnOk.setSize(new Dimension(90, 30));
-			btnOk.setLocation(new Point(150, 310));
+			btnOk.setText("Update");
+			btnOk.setSize(new Dimension(96, 34));
+			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnOk.setLocation(new Point(108, 284));
 		}
 		return btnOk;
 	}

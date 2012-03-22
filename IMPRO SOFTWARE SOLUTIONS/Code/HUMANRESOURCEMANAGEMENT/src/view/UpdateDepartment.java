@@ -77,7 +77,7 @@ public class UpdateDepartment extends JFrame {
 			jLabel.setText("Update Department");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.setBackground(Color.white);
+			jContentPane.setBackground(new Color(238, 238, 238));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtDeptno(), null);
@@ -158,7 +158,7 @@ public class UpdateDepartment extends JFrame {
 		if (btnOk == null) {
 			btnOk = new JButton();
 			btnOk.setText("OK");
-			btnOk.setSize(new Dimension(90, 25));
+			btnOk.setSize(new Dimension(90, 34));
 			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Apply.png")));
 			btnOk.setLocation(new Point(90, 300));
 		}
@@ -174,7 +174,7 @@ public class UpdateDepartment extends JFrame {
 		if (btnCancel == null) {
 			btnCancel = new JButton();
 			btnCancel.setText("Cancel");
-			btnCancel.setSize(new Dimension(96, 25));
+			btnCancel.setSize(new Dimension(96, 34));
 			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
 			btnCancel.setLocation(new Point(226, 299));
 		}

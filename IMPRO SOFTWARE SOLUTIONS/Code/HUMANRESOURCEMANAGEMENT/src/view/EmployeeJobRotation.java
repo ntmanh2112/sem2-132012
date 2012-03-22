@@ -31,8 +31,6 @@ public class EmployeeJobRotation extends JFrame {
 	private JLabel jLabel5 = null;
 	private JTextField txtRemark = null;
 	private JButton btnAdd = null;
-	private JButton btnSave = null;
-	private JButton btnEdit = null;
 	private JButton btnDelete = null;
 
 	/**
@@ -89,7 +87,7 @@ public class EmployeeJobRotation extends JFrame {
 			jLabel.setText("Employee Job Rotation");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.setBackground(Color.white);
+			jContentPane.setBackground(new Color(238, 238, 238));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getCbnEmpname(), null);
@@ -102,8 +100,6 @@ public class EmployeeJobRotation extends JFrame {
 			jContentPane.add(jLabel5, null);
 			jContentPane.add(getTxtRemark(), null);
 			jContentPane.add(getBtnAdd(), null);
-			jContentPane.add(getBtnSave(), null);
-			jContentPane.add(getBtnEdit(), null);
 			jContentPane.add(getBtnDelete(), null);
 		}
 		return jContentPane;
@@ -188,9 +184,9 @@ public class EmployeeJobRotation extends JFrame {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
+			btnAdd.setSize(new Dimension(90, 34));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
-			btnAdd.setLocation(new Point(30, 330));
+			btnAdd.setLocation(new Point(99, 331));
 		}
 		return btnAdd;
 	}
@@ -200,32 +196,14 @@ public class EmployeeJobRotation extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnSave() {
-		if (btnSave == null) {
-			btnSave = new JButton();
-			btnSave.setText("Save");
-			btnSave.setSize(new Dimension(90, 30));
-			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Save.png")));
-			btnSave.setLocation(new Point(130, 330));
-		}
-		return btnSave;
-	}
+	
 
 	/**
 	 * This method initializes btnEdit	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnEdit() {
-		if (btnEdit == null) {
-			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
-			btnEdit.setLocation(new Point(230, 330));
-		}
-		return btnEdit;
-	}
+	
 
 	/**
 	 * This method initializes btnDelete	
@@ -236,9 +214,9 @@ public class EmployeeJobRotation extends JFrame {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
+			btnDelete.setSize(new Dimension(90, 34));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(330, 330));
+			btnDelete.setLocation(new Point(262, 331));
 		}
 		return btnDelete;
 	}

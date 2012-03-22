@@ -46,7 +46,7 @@ public class SectionRegistration extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(485, 414);
+		this.setSize(485, 395);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -59,21 +59,21 @@ public class SectionRegistration extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel4 = new JLabel();
-			jLabel4.setText("DeptID");
+			jLabel4.setText("DepID :");
 			jLabel4.setLocation(new Point(50, 220));
 			jLabel4.setSize(new Dimension(46, 25));
 			jLabel3 = new JLabel();
-			jLabel3.setText("Sec-incharge");
+			jLabel3.setText("Sec-incharge :");
 			jLabel3.setLocation(new Point(50, 180));
-			jLabel3.setSize(new Dimension(78, 25));
+			jLabel3.setSize(new Dimension(88, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("SectionName");
+			jLabel2.setText("SectionName :");
 			jLabel2.setLocation(new Point(50, 140));
-			jLabel2.setSize(new Dimension(80, 25));
+			jLabel2.setSize(new Dimension(87, 25));
 			jLabel1 = new JLabel();
-			jLabel1.setText("SectionID");
+			jLabel1.setText("SectionID :");
 			jLabel1.setLocation(new Point(50, 100));
-			jLabel1.setSize(new Dimension(57, 25));
+			jLabel1.setSize(new Dimension(72, 25));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(130, 13, 244, 41));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
@@ -81,7 +81,7 @@ public class SectionRegistration extends JFrame {
 			jLabel.setText("Section Registration");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.setBackground(Color.white);
+			jContentPane.setBackground(new Color(238, 238, 238));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtSectionid(), null);
@@ -107,7 +107,7 @@ public class SectionRegistration extends JFrame {
 	private JTextField getTxtSectionid() {
 		if (txtSectionid == null) {
 			txtSectionid = new JTextField();
-			txtSectionid.setSize(new Dimension(200, 30));
+			txtSectionid.setSize(new Dimension(200, 25));
 			txtSectionid.setLocation(new Point(180, 100));
 		}
 		return txtSectionid;
@@ -122,7 +122,7 @@ public class SectionRegistration extends JFrame {
 		if (txtSectionname == null) {
 			txtSectionname = new JTextField();
 			txtSectionname.setLocation(new Point(180, 140));
-			txtSectionname.setSize(new Dimension(200, 30));
+			txtSectionname.setSize(new Dimension(200, 25));
 		}
 		return txtSectionname;
 	}
@@ -136,7 +136,7 @@ public class SectionRegistration extends JFrame {
 		if (txtSecincharge == null) {
 			txtSecincharge = new JTextField();
 			txtSecincharge.setLocation(new Point(180, 180));
-			txtSecincharge.setSize(new Dimension(200, 30));
+			txtSecincharge.setSize(new Dimension(200, 25));
 		}
 		return txtSecincharge;
 	}
@@ -178,9 +178,9 @@ public class SectionRegistration extends JFrame {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
 			btnDelete.setText("cancel");
-			btnDelete.setSize(new Dimension(97, 25));
+			btnDelete.setSize(new Dimension(98, 34));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
-			btnDelete.setLocation(new Point(270, 310));
+			btnDelete.setLocation(new Point(269, 287));
 		}
 		return btnDelete;
 	}
@@ -193,10 +193,10 @@ public class SectionRegistration extends JFrame {
 	private JButton getBtnSave() {
 		if (btnSave == null) {
 			btnSave = new JButton();
-			btnSave.setText("OK");
-			btnSave.setSize(new Dimension(90, 25));
+			btnSave.setText("Add");
+			btnSave.setSize(new Dimension(90, 34));
 			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Yes.png")));
-			btnSave.setLocation(new Point(120, 310));
+			btnSave.setLocation(new Point(118, 287));
 		}
 		return btnSave;
 	}
