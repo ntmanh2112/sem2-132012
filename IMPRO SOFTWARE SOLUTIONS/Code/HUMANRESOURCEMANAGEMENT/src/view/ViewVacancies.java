@@ -14,7 +14,17 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
+
+import model.Vacancy_Fill_DetailsModel;
+import model.VacaniesModel;
+import dao.VacanciesDAO;
+import dao.VacancyFillingDetailsDAO;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class ViewVacancies extends JFrame {
 
@@ -34,6 +44,8 @@ public class ViewVacancies extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
+	private String[] ColumnName ={"Vacancy_ID","Dep_ID","SecID","Designation_ID","No_Of_Vacancies","Status","Vacancy_Date","Creator","Priority"};
+	private String[][] tableData;
 
 	/**
 	 * This is the default constructor
@@ -49,7 +61,7 @@ public class ViewVacancies extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(650, 516);
+		this.setSize(804, 516);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewVacancy");
 	}
@@ -64,6 +76,7 @@ public class ViewVacancies extends JFrame {
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(208, 18, 185, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("View Vacancies");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -85,7 +98,7 @@ public class ViewVacancies extends JFrame {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(27, 83, 567, 191));
+			jScrollPane.setBounds(new Rectangle(27, 83, 741, 191));
 			jScrollPane.setViewportView(getJTableViewvacancies());
 		}
 		return jScrollPane;
@@ -97,11 +110,31 @@ public class ViewVacancies extends JFrame {
 	 * @return javax.swing.JTable	
 	 */
 	private JTable getJTableViewvacancies() {
+		loadDataToTable();
 		if (jTableViewvacancies == null) {
-			jTableViewvacancies = new JTable();
+			jTableViewvacancies = new JTable(tableData,ColumnName);
+			
 		}
 		return jTableViewvacancies;
 	}
+	private void loadDataToTable(){
+		ArrayList<VacaniesModel> listVacancies = VacanciesDAO.getAllVacasies();
+		tableData = new String[listVacancies.size()][9];
+		int row = 0;
+		for (VacaniesModel model:listVacancies){
+		tableData [row][0] = model.getVacancy_ID();
+		tableData [row][1] = model.getDep_ID();
+		tableData [row][2] = model.getSecID();
+		tableData [row][3] = model.getDesignation_ID();
+		tableData [row][4] = model.getNo_Of_Vacancies();
+		tableData [row][5] = model.getStatus();
+		tableData [row][6] = model.getVacancy_Date();
+		tableData [row][7] = model.getCreator();
+		tableData [row][8] = model.getPriority();
+		
+		row++;
+		}
+		}
 
 	/**
 	 * This method initializes btnAdd	
@@ -113,7 +146,8 @@ public class ViewVacancies extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(90, 420));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
+			btnAdd.setLocation(new Point(121, 392));
 		}
 		return btnAdd;
 	}
@@ -128,7 +162,8 @@ public class ViewVacancies extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(270, 420));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
+			btnEdit.setLocation(new Point(353, 392));
 		}
 		return btnEdit;
 	}
@@ -143,7 +178,8 @@ public class ViewVacancies extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(450, 420));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(568, 392));
 		}
 		return btnDelete;
 	}
@@ -156,21 +192,21 @@ public class ViewVacancies extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("DeptID");
-			jLabel3.setLocation(new Point(278, 17));
-			jLabel3.setSize(new Dimension(57, 30));
+			jLabel3.setText("DepID :");
+			jLabel3.setLocation(new Point(194, 17));
+			jLabel3.setSize(new Dimension(57, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("SectionID");
-			jLabel2.setSize(new Dimension(64, 30));
-			jLabel2.setLocation(new Point(9, 69));
+			jLabel2.setText("SectionID :");
+			jLabel2.setSize(new Dimension(64, 25));
+			jLabel2.setLocation(new Point(371, 17));
 			jLabel1 = new JLabel();
-			jLabel1.setText("VacancyID");
-			jLabel1.setSize(new Dimension(62, 30));
+			jLabel1.setText("VacancyID :");
+			jLabel1.setSize(new Dimension(68, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(564, 116));
+			jPanel.setSize(new Dimension(737, 61));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtEmpid(), null);
 			jPanel.add(jLabel2, null);
@@ -192,7 +228,7 @@ public class ViewVacancies extends JFrame {
 		if (txtEmpid == null) {
 			txtEmpid = new JTextField();
 			txtEmpid.setLocation(new Point(88, 17));
-			txtEmpid.setSize(new Dimension(160, 30));
+			txtEmpid.setSize(new Dimension(90, 25));
 		}
 		return txtEmpid;
 	}
@@ -205,8 +241,8 @@ public class ViewVacancies extends JFrame {
 	private JTextField getTxtSectionid() {
 		if (txtSectionid == null) {
 			txtSectionid = new JTextField();
-			txtSectionid.setLocation(new Point(88, 69));
-			txtSectionid.setSize(new Dimension(160, 30));
+			txtSectionid.setLocation(new Point(453, 17));
+			txtSectionid.setSize(new Dimension(90, 25));
 		}
 		return txtSectionid;
 	}
@@ -219,8 +255,8 @@ public class ViewVacancies extends JFrame {
 	private JTextField getTxtDeptid() {
 		if (txtDeptid == null) {
 			txtDeptid = new JTextField();
-			txtDeptid.setLocation(new Point(353, 17));
-			txtDeptid.setSize(new Dimension(160, 30));
+			txtDeptid.setLocation(new Point(264, 17));
+			txtDeptid.setSize(new Dimension(90, 25));
 		}
 		return txtDeptid;
 	}
@@ -234,8 +270,10 @@ public class ViewVacancies extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(117, 30));
-			btnSearch.setLocation(new Point(353, 69));
+			btnSearch.setSize(new Dimension(117, 25));
+			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
+			btnSearch.setLocation(new Point(581, 17));
 		}
 		return btnSearch;
 	}
