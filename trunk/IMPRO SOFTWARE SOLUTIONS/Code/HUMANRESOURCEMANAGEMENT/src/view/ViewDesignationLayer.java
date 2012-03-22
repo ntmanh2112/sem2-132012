@@ -15,6 +15,15 @@ import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+
+import model.DesigLayerModel;
+import model.Vacancy_Fill_DetailsModel;
+import dao.DesignLayerDAO;
+import dao.VacancyFillingDetailsDAO;
+
+import java.awt.Color;
+import java.util.ArrayList;
 
 public class ViewDesignationLayer extends JFrame {
 
@@ -34,7 +43,8 @@ public class ViewDesignationLayer extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtLayer = null;
 	private JButton btnSearch = null;
-
+	private String[] ColumnName ={"ID","Layer","Weightage"};
+	private String[][] tableData;
 	/**
 	 * This is the default constructor
 	 */
@@ -49,7 +59,7 @@ public class ViewDesignationLayer extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(650, 516);
+		this.setSize(773, 516);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewDesignLayer");
 	}
@@ -62,9 +72,10 @@ public class ViewDesignationLayer extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(161, 17, 274, 47));
+			jLabel.setBounds(new Rectangle(294, 17, 143, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-			jLabel.setText("View Designation Layer");
+			jLabel.setForeground(Color.red);
+			jLabel.setText("View Layer");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -85,7 +96,7 @@ public class ViewDesignationLayer extends JFrame {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(27, 83, 567, 191));
+			jScrollPane.setBounds(new Rectangle(27, 83, 697, 191));
 			jScrollPane.setViewportView(getJTableViewdesignationlayer());
 		}
 		return jScrollPane;
@@ -97,11 +108,25 @@ public class ViewDesignationLayer extends JFrame {
 	 * @return javax.swing.JTable	
 	 */
 	private JTable getJTableViewdesignationlayer() {
+		loadDataToTable();
 		if (jTableViewdesignationlayer == null) {
-			jTableViewdesignationlayer = new JTable();
+			jTableViewdesignationlayer = new JTable(tableData, ColumnName);
+			
 		}
 		return jTableViewdesignationlayer;
 	}
+	private void loadDataToTable(){
+		ArrayList<DesigLayerModel> listDesigLayer = DesignLayerDAO.getAllDesigLayer();
+		tableData = new String[listDesigLayer.size()][7];
+		int row = 0;
+		for (DesigLayerModel model:listDesigLayer){
+		tableData [row][0] = model.getLayer_ID();
+		tableData [row][1] = model.getLayer();
+		tableData [row][2] = model.getWeightage();
+		
+		row++;
+		}
+		}
 
 	/**
 	 * This method initializes btnAdd	
@@ -113,7 +138,8 @@ public class ViewDesignationLayer extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(90, 420));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
+			btnAdd.setLocation(new Point(113, 391));
 		}
 		return btnAdd;
 	}
@@ -128,7 +154,8 @@ public class ViewDesignationLayer extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(270, 420));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
+			btnEdit.setLocation(new Point(322, 391));
 		}
 		return btnEdit;
 	}
@@ -143,7 +170,8 @@ public class ViewDesignationLayer extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(450, 420));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(527, 391));
 		}
 		return btnDelete;
 	}
@@ -156,21 +184,21 @@ public class ViewDesignationLayer extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("Layer");
-			jLabel3.setLocation(new Point(278, 17));
-			jLabel3.setSize(new Dimension(57, 30));
+			jLabel3.setText("Layer :");
+			jLabel3.setLocation(new Point(196, 17));
+			jLabel3.setSize(new Dimension(44, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("Weightage");
-			jLabel2.setSize(new Dimension(64, 30));
-			jLabel2.setLocation(new Point(9, 69));
+			jLabel2.setText("Weightage :");
+			jLabel2.setSize(new Dimension(70, 25));
+			jLabel2.setLocation(new Point(366, 17));
 			jLabel1 = new JLabel();
-			jLabel1.setText("DesignationID");
-			jLabel1.setSize(new Dimension(80, 30));
+			jLabel1.setText("Layer_ID :");
+			jLabel1.setSize(new Dimension(67, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(564, 116));
+			jPanel.setSize(new Dimension(696, 60));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtDesignationid(), null);
 			jPanel.add(jLabel2, null);
@@ -191,8 +219,8 @@ public class ViewDesignationLayer extends JFrame {
 	private JTextField getTxtDesignationid() {
 		if (txtDesignationid == null) {
 			txtDesignationid = new JTextField();
-			txtDesignationid.setLocation(new Point(108, 17));
-			txtDesignationid.setSize(new Dimension(160, 30));
+			txtDesignationid.setLocation(new Point(87, 17));
+			txtDesignationid.setSize(new Dimension(90, 25));
 		}
 		return txtDesignationid;
 	}
@@ -205,8 +233,8 @@ public class ViewDesignationLayer extends JFrame {
 	private JTextField getTxtWeightage() {
 		if (txtWeightage == null) {
 			txtWeightage = new JTextField();
-			txtWeightage.setLocation(new Point(108, 69));
-			txtWeightage.setSize(new Dimension(160, 30));
+			txtWeightage.setLocation(new Point(446, 17));
+			txtWeightage.setSize(new Dimension(90, 25));
 		}
 		return txtWeightage;
 	}
@@ -219,8 +247,8 @@ public class ViewDesignationLayer extends JFrame {
 	private JTextField getTxtLayer() {
 		if (txtLayer == null) {
 			txtLayer = new JTextField();
-			txtLayer.setLocation(new Point(353, 17));
-			txtLayer.setSize(new Dimension(160, 30));
+			txtLayer.setLocation(new Point(253, 17));
+			txtLayer.setSize(new Dimension(90, 25));
 		}
 		return txtLayer;
 	}
@@ -234,8 +262,9 @@ public class ViewDesignationLayer extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(117, 30));
-			btnSearch.setLocation(new Point(353, 69));
+			btnSearch.setSize(new Dimension(117, 25));
+			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
+			btnSearch.setLocation(new Point(557, 17));
 		}
 		return btnSearch;
 	}

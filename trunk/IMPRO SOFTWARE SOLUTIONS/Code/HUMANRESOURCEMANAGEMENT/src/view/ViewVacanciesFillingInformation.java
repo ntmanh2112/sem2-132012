@@ -14,7 +14,16 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
+
+import model.EmployeeModel;
+import model.Vacancy_Fill_DetailsModel;
+import dao.EmployeeDAO;
+import dao.VacancyFillingDetailsDAO;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class ViewVacanciesFillingInformation extends JFrame {
 
@@ -34,6 +43,8 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtVacancyid = null;
 	private JButton btnSearch = null;
+	private String[] ColumnName ={"ID","Vacancy_ID","EmID","Filled_Date","Intake_Details","Status","Creator"};
+	private String[][] tableData;
 
 	/**
 	 * This is the default constructor
@@ -49,7 +60,7 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(650, 516);
+		this.setSize(750, 516);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewEmp");
 	}
@@ -62,9 +73,10 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(109, 18, 402, 47));
+			jLabel.setBounds(new Rectangle(135, 18, 333, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-			jLabel.setText("View Vacancies Filling Information");
+			jLabel.setForeground(Color.red);
+			jLabel.setText("View Vacancy Filling Details");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -85,7 +97,7 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(27, 83, 567, 191));
+			jScrollPane.setBounds(new Rectangle(27, 83, 679, 191));
 			jScrollPane.setViewportView(getJTableViewvacanciesfillinginformation());
 		}
 		return jScrollPane;
@@ -97,11 +109,28 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	 * @return javax.swing.JTable	
 	 */
 	private JTable getJTableViewvacanciesfillinginformation() {
+		loadDataToTable();
 		if (jTableViewvacanciesfillinginformation == null) {
-			jTableViewvacanciesfillinginformation = new JTable();
+			jTableViewvacanciesfillinginformation = new JTable(tableData,ColumnName);
 		}
 		return jTableViewvacanciesfillinginformation;
 	}
+	private void loadDataToTable(){
+		ArrayList<Vacancy_Fill_DetailsModel> listVacancyFillDetails = VacancyFillingDetailsDAO.getAllVacancyFillDetails();
+		tableData = new String[listVacancyFillDetails.size()][7];
+		int row = 0;
+		for (Vacancy_Fill_DetailsModel model:listVacancyFillDetails){
+		tableData [row][0] = model.getID();
+		tableData [row][1] = model.getVacancy_ID();
+		tableData [row][2] = model.getEmID();
+		tableData [row][3] = model.getFilled_Date();
+		tableData [row][4] = model.getIntake_Details();
+		tableData [row][5] = model.getStatus();
+		tableData [row][6] = model.getCreator();
+		
+		row++;
+		}
+		}
 
 	/**
 	 * This method initializes btnAdd	
@@ -113,7 +142,8 @@ public class ViewVacanciesFillingInformation extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
-			btnAdd.setLocation(new Point(90, 420));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
+			btnAdd.setLocation(new Point(118, 391));
 		}
 		return btnAdd;
 	}
@@ -128,7 +158,8 @@ public class ViewVacanciesFillingInformation extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(270, 420));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
+			btnEdit.setLocation(new Point(310, 391));
 		}
 		return btnEdit;
 	}
@@ -143,7 +174,8 @@ public class ViewVacanciesFillingInformation extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(450, 420));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(491, 390));
 		}
 		return btnDelete;
 	}
@@ -156,21 +188,23 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("VacancyID");
-			jLabel3.setLocation(new Point(266, 17));
-			jLabel3.setSize(new Dimension(69, 30));
+			jLabel3.setText("VacancyID :");
+			jLabel3.setLocation(new Point(196, 17));
+			jLabel3.setSize(new Dimension(69, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("Filldate");
-			jLabel2.setSize(new Dimension(64, 30));
-			jLabel2.setLocation(new Point(9, 69));
+			jLabel2.setText("Filldate :");
+			jLabel2.setSize(new Dimension(53, 25));
+			jLabel2.setLocation(new Point(397, 17));
 			jLabel1 = new JLabel();
-			jLabel1.setText("EmpID");
-			jLabel1.setSize(new Dimension(40, 30));
+			jLabel1.setText("EmpID :");
+			jLabel1.setSize(new Dimension(53, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(564, 116));
+			jPanel.setSize(new Dimension(678, 59));
+			jPanel.setName("");
+			jPanel.setToolTipText("");
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtEmpid(), null);
 			jPanel.add(jLabel2, null);
@@ -191,8 +225,8 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JTextField getTxtEmpid() {
 		if (txtEmpid == null) {
 			txtEmpid = new JTextField();
-			txtEmpid.setLocation(new Point(88, 17));
-			txtEmpid.setSize(new Dimension(160, 30));
+			txtEmpid.setLocation(new Point(72, 17));
+			txtEmpid.setSize(new Dimension(90, 25));
 		}
 		return txtEmpid;
 	}
@@ -205,8 +239,8 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JTextField getTxtFilldate() {
 		if (txtFilldate == null) {
 			txtFilldate = new JTextField();
-			txtFilldate.setLocation(new Point(88, 69));
-			txtFilldate.setSize(new Dimension(160, 30));
+			txtFilldate.setLocation(new Point(462, 17));
+			txtFilldate.setSize(new Dimension(90, 25));
 		}
 		return txtFilldate;
 	}
@@ -219,8 +253,8 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JTextField getTxtVacancyid() {
 		if (txtVacancyid == null) {
 			txtVacancyid = new JTextField();
-			txtVacancyid.setLocation(new Point(353, 17));
-			txtVacancyid.setSize(new Dimension(160, 30));
+			txtVacancyid.setLocation(new Point(277, 17));
+			txtVacancyid.setSize(new Dimension(90, 25));
 		}
 		return txtVacancyid;
 	}
@@ -234,8 +268,9 @@ public class ViewVacanciesFillingInformation extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(117, 30));
-			btnSearch.setLocation(new Point(353, 69));
+			btnSearch.setSize(new Dimension(100, 25));
+			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
+			btnSearch.setLocation(new Point(568, 17));
 		}
 		return btnSearch;
 	}

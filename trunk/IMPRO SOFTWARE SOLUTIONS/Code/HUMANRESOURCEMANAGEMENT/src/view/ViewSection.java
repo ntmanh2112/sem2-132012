@@ -14,7 +14,17 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+
 import javax.swing.JTextField;
+
+import model.SectionModel;
+import model.Vacancy_Fill_DetailsModel;
+import dao.SectionDAO;
+import dao.VacancyFillingDetailsDAO;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class ViewSection extends JFrame {
 
@@ -34,6 +44,8 @@ public class ViewSection extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtSectionname = null;
 	private JButton btnSearch = null;
+	private String[] ColumnName ={"SecID","Name","Section_Inch","Dep_ID"};
+	private String[][] tableData;
 
 	/**
 	 * This is the default constructor
@@ -49,7 +61,7 @@ public class ViewSection extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(650, 516);
+		this.setSize(634, 516);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewSection");
 	}
@@ -62,8 +74,9 @@ public class ViewSection extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(208, 18, 154, 47));
+			jLabel.setBounds(new Rectangle(222, 18, 154, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("View Section");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -97,11 +110,25 @@ public class ViewSection extends JFrame {
 	 * @return javax.swing.JTable	
 	 */
 	private JTable getJTableViewsection() {
+		loadDataToTable();
 		if (jTableViewsection == null) {
-			jTableViewsection = new JTable();
+			jTableViewsection = new JTable(tableData,ColumnName);
 		}
 		return jTableViewsection;
 	}
+	private void loadDataToTable(){
+		ArrayList<SectionModel> listSection = SectionDAO.getAllSection();
+		tableData = new String[listSection.size()][4];
+		int row = 0;
+		for (SectionModel model:listSection){
+		tableData [row][0] = model.getSecID();
+		tableData [row][1] = model.getName();
+		tableData [row][2] = model.getSection_Inch();
+		tableData [row][3] = model.getDep_ID();
+				
+		row++;
+		}
+		}
 
 	/**
 	 * This method initializes btnAdd	
@@ -113,6 +140,7 @@ public class ViewSection extends JFrame {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(90, 30));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
 			btnAdd.setLocation(new Point(90, 420));
 		}
 		return btnAdd;
@@ -128,7 +156,8 @@ public class ViewSection extends JFrame {
 			btnEdit = new JButton();
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setLocation(new Point(270, 420));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
+			btnEdit.setLocation(new Point(263, 420));
 		}
 		return btnEdit;
 	}
@@ -143,7 +172,8 @@ public class ViewSection extends JFrame {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
-			btnDelete.setLocation(new Point(450, 420));
+			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnDelete.setLocation(new Point(442, 420));
 		}
 		return btnDelete;
 	}
@@ -158,19 +188,19 @@ public class ViewSection extends JFrame {
 			jLabel3 = new JLabel();
 			jLabel3.setText("SectionName");
 			jLabel3.setLocation(new Point(266, 17));
-			jLabel3.setSize(new Dimension(77, 30));
+			jLabel3.setSize(new Dimension(77, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("DeptID");
-			jLabel2.setSize(new Dimension(41, 30));
-			jLabel2.setLocation(new Point(9, 69));
+			jLabel2.setSize(new Dimension(41, 25));
+			jLabel2.setLocation(new Point(9, 59));
 			jLabel1 = new JLabel();
 			jLabel1.setText("SectionID");
-			jLabel1.setSize(new Dimension(56, 30));
+			jLabel1.setSize(new Dimension(56, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(564, 116));
+			jPanel.setSize(new Dimension(564, 104));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtSectionid(), null);
 			jPanel.add(jLabel2, null);
@@ -192,7 +222,7 @@ public class ViewSection extends JFrame {
 		if (txtSectionid == null) {
 			txtSectionid = new JTextField();
 			txtSectionid.setLocation(new Point(88, 17));
-			txtSectionid.setSize(new Dimension(160, 30));
+			txtSectionid.setSize(new Dimension(160, 25));
 		}
 		return txtSectionid;
 	}
@@ -205,8 +235,8 @@ public class ViewSection extends JFrame {
 	private JTextField getTxtDeptid() {
 		if (txtDeptid == null) {
 			txtDeptid = new JTextField();
-			txtDeptid.setLocation(new Point(88, 69));
-			txtDeptid.setSize(new Dimension(160, 30));
+			txtDeptid.setLocation(new Point(88, 59));
+			txtDeptid.setSize(new Dimension(160, 25));
 		}
 		return txtDeptid;
 	}
@@ -220,7 +250,7 @@ public class ViewSection extends JFrame {
 		if (txtSectionname == null) {
 			txtSectionname = new JTextField();
 			txtSectionname.setLocation(new Point(353, 17));
-			txtSectionname.setSize(new Dimension(160, 30));
+			txtSectionname.setSize(new Dimension(160, 25));
 		}
 		return txtSectionname;
 	}
@@ -234,8 +264,10 @@ public class ViewSection extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(117, 30));
-			btnSearch.setLocation(new Point(353, 69));
+			btnSearch.setSize(new Dimension(117, 25));
+			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
+			btnSearch.setLocation(new Point(373, 59));
 		}
 		return btnSearch;
 	}
