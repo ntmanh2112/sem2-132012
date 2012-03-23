@@ -360,6 +360,21 @@ public class EmployeeRegistration extends JFrame {
 			btnCancel.setSize(new Dimension(98, 34));
 			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Button-Close-icon.png")));
 			btnCancel.setLocation(new Point(364, 312));
+			btnCancel.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Ban co chac muon thoat", "Thong Bao",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						(new ViewEmployee()).setVisible(true);
+						dispose();
+					}
+					
+				}
+			});
 		}
 		return btnCancel;
 	}

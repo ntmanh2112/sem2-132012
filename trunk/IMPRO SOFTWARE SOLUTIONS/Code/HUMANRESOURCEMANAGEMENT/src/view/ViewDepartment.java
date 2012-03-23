@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -19,10 +20,17 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 
 import dao.DepartmentsDAO;
+import dao.EmployeeDAO;
 
 import model.DepartmentsModel;
+import model.EmployeeModel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Color;
 
 public class ViewDepartment extends JFrame {
@@ -60,7 +68,7 @@ public class ViewDepartment extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(650, 516);
+		this.setSize(803, 516);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewDept");
 	}
@@ -73,13 +81,13 @@ public class ViewDepartment extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(208, 18, 202, 47));
+			jLabel.setBounds(new Rectangle(282, 18, 202, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
 			jLabel.setText("View Department");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			jContentPane.setBackground(Color.white);
+			jContentPane.setBackground(new Color(238, 238, 238));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(getJScrollPane(), null);
 			jContentPane.add(getBtnAdd(), null);
@@ -98,7 +106,7 @@ public class ViewDepartment extends JFrame {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(27, 83, 567, 191));
+			jScrollPane.setBounds(new Rectangle(28, 79, 736, 191));
 			jScrollPane.setViewportView(getJTableViewdepartment());
 		}
 		return jScrollPane;
@@ -139,10 +147,19 @@ public class ViewDepartment extends JFrame {
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
+			btnAdd.setText("Add Department");
+			btnAdd.setSize(new Dimension(153, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
-			btnAdd.setLocation(new Point(90, 410));
+			btnAdd.setLocation(new Point(60, 293));
+			btnAdd.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					(new DepartmentRegistration()).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -155,10 +172,28 @@ public class ViewDepartment extends JFrame {
 	private JButton getBtnEdit() {
 		if (btnEdit == null) {
 			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
-			btnEdit.setLocation(new Point(270, 410));
+			btnEdit.setText("Update Department");
+			btnEdit.setSize(new Dimension(170, 40));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnEdit.setLocation(new Point(271, 291));
+			btnEdit.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					int row = jTableViewdepartment.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 1;
+					String manvduocluachon = jTableViewdepartment.getValueAt(row, column).toString();
+					DepartmentsModel model = new DepartmentsModel();
+					model.setDep_ID(manvduocluachon);
+					(new UpdateDepartment(model)).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnEdit;
 	}
@@ -171,10 +206,41 @@ public class ViewDepartment extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
+			btnDelete.setText("Delete Department");
+			btnDelete.setSize(new Dimension(166, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(450, 410));
+			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnDelete.setLocation(new Point(484, 293));
+			btnDelete.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					DepartmentsModel mo = new DepartmentsModel();
+					int row = jTableViewdepartment.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon xoa","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewdepartment.getValueAt(row, column).toString();
+					mo.setDep_ID(manvduocluachon);
+					int yn = JOptionPane.showConfirmDialog(null, "Ban co chac muon xoa khong","Thong Bao",JOptionPane.OK_CANCEL_OPTION);
+					if(yn == 0){
+						Boolean kq = DepartmentsDAO.deleteDepartments(mo);
+						if(kq){
+							loadDataToTable();
+							jTableViewdepartment.setModel(new DefaultTableModel(tableData,ColumnName));
+							JOptionPane.showMessageDialog(null, "Delete Success","thong bao",JOptionPane.INFORMATION_MESSAGE);
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "Delete That bai","thong bao",JOptionPane.WARNING_MESSAGE);
+					
+						}
+					}
+				}
+			});
 		}
 		return btnDelete;
 	}
@@ -187,21 +253,21 @@ public class ViewDepartment extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("DeptHead");
-			jLabel3.setLocation(new Point(278, 17));
-			jLabel3.setSize(new Dimension(57, 25));
+			jLabel3.setText("DeptHead :");
+			jLabel3.setLocation(new Point(362, 17));
+			jLabel3.setSize(new Dimension(64, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("DeptName");
-			jLabel2.setSize(new Dimension(64, 25));
-			jLabel2.setLocation(new Point(9, 55));
+			jLabel2.setText("DeptName :");
+			jLabel2.setSize(new Dimension(70, 25));
+			jLabel2.setLocation(new Point(177, 17));
 			jLabel1 = new JLabel();
-			jLabel1.setText("DeptID");
-			jLabel1.setSize(new Dimension(40, 25));
+			jLabel1.setText("DeptID :");
+			jLabel1.setSize(new Dimension(47, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(564, 94));
+			jPanel.setLocation(new Point(53, 357));
+			jPanel.setSize(new Dimension(688, 58));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtDeptid(), null);
 			jPanel.add(jLabel2, null);
@@ -222,8 +288,8 @@ public class ViewDepartment extends JFrame {
 	private JTextField getTxtDeptid() {
 		if (txtDeptid == null) {
 			txtDeptid = new JTextField();
-			txtDeptid.setLocation(new Point(88, 17));
-			txtDeptid.setSize(new Dimension(160, 25));
+			txtDeptid.setLocation(new Point(68, 17));
+			txtDeptid.setSize(new Dimension(90, 25));
 		}
 		return txtDeptid;
 	}
@@ -236,8 +302,8 @@ public class ViewDepartment extends JFrame {
 	private JTextField getTxtDeptname() {
 		if (txtDeptname == null) {
 			txtDeptname = new JTextField();
-			txtDeptname.setLocation(new Point(88, 55));
-			txtDeptname.setSize(new Dimension(160, 25));
+			txtDeptname.setLocation(new Point(253, 17));
+			txtDeptname.setSize(new Dimension(90, 25));
 		}
 		return txtDeptname;
 	}
@@ -250,8 +316,8 @@ public class ViewDepartment extends JFrame {
 	private JTextField getTxtDepthead() {
 		if (txtDepthead == null) {
 			txtDepthead = new JTextField();
-			txtDepthead.setLocation(new Point(353, 17));
-			txtDepthead.setSize(new Dimension(160, 25));
+			txtDepthead.setLocation(new Point(438, 17));
+			txtDepthead.setSize(new Dimension(90, 25));
 		}
 		return txtDepthead;
 	}
@@ -268,7 +334,7 @@ public class ViewDepartment extends JFrame {
 			btnSearch.setSize(new Dimension(95, 25));
 			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/Zoom.png")));
-			btnSearch.setLocation(new Point(393, 56));
+			btnSearch.setLocation(new Point(554, 17));
 		}
 		return btnSearch;
 	}
