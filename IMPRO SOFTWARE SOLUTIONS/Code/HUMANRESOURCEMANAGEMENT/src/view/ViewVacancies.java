@@ -22,6 +22,9 @@ import model.Vacancy_Fill_DetailsModel;
 import model.VacanciesModel;
 import dao.VacanciesDAO;
 import dao.VacancyFillingDetailsDAO;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -61,7 +64,7 @@ public class ViewVacancies extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(804, 516);
+		this.setSize(804, 479);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewVacancy");
 	}
@@ -144,10 +147,19 @@ public class ViewVacancies extends JFrame {
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
+			btnAdd.setText("Add Vacancies");
+			btnAdd.setSize(new Dimension(140, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
-			btnAdd.setLocation(new Point(121, 392));
+			btnAdd.setLocation(new Point(59, 301));
+			btnAdd.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					(new VacanciesRegistration()).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -160,10 +172,19 @@ public class ViewVacancies extends JFrame {
 	private JButton getBtnEdit() {
 		if (btnEdit == null) {
 			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
+			btnEdit.setText("Update Vacancies");
+			btnEdit.setSize(new Dimension(159, 40));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
-			btnEdit.setLocation(new Point(353, 392));
+			btnEdit.setLocation(new Point(255, 301));
+			btnEdit.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					(new UpdateVacancies()).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnEdit;
 	}
@@ -176,10 +197,10 @@ public class ViewVacancies extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
+			btnDelete.setText("Delete Vacancies");
+			btnDelete.setSize(new Dimension(154, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(568, 392));
+			btnDelete.setLocation(new Point(467, 301));
 		}
 		return btnDelete;
 	}
@@ -205,7 +226,7 @@ public class ViewVacancies extends JFrame {
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setLocation(new Point(28, 291));
+			jPanel.setLocation(new Point(28, 363));
 			jPanel.setSize(new Dimension(737, 61));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtEmpid(), null);

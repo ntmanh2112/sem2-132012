@@ -11,7 +11,16 @@ import java.awt.Point;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.WindowConstants;
+import javax.swing.JOptionPane;
+import java.awt.GridBagLayout;
+import javax.swing.JMenuItem;
+import javax.swing.BorderFactory;
+import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 public class UpdateVacancies extends JFrame {
@@ -35,8 +44,10 @@ public class UpdateVacancies extends JFrame {
 	private JTextField txtVacancydate = null;
 	private JLabel jLabel8 = null;
 	private JTextField txtPriority = null;
-	private JButton btnOk = null;
-	private JButton btnCancel = null;
+	private JButton btnAdd = null;
+	private JButton btnSave = null;
+	private JLabel jLabel9 = null;
+	private JTextField txtCreator = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -51,9 +62,11 @@ public class UpdateVacancies extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(680, 423);
+		this.setSize(687, 423);
+		this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		this.setContentPane(getJContentPane());
-		this.setTitle("FrmUpdateVacancy");
+		this.setTitle("JFrame");
+		this.setVisible(false);
 	}
 
 	/**
@@ -63,45 +76,50 @@ public class UpdateVacancies extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel9 = new JLabel();
+			jLabel9.setText("Creator :");
+			jLabel9.setLocation(new Point(361, 150));
+			jLabel9.setSize(new Dimension(64, 25));
 			jLabel8 = new JLabel();
 			jLabel8.setText("Priority :");
-			jLabel8.setLocation(new Point(330, 220));
+			jLabel8.setLocation(new Point(362, 190));
 			jLabel8.setSize(new Dimension(49, 25));
 			jLabel7 = new JLabel();
-			jLabel7.setText("Vacancy-Date :");
-			jLabel7.setLocation(new Point(330, 180));
-			jLabel7.setSize(new Dimension(87, 25));
+			jLabel7.setText("VacancyDate :");
+			jLabel7.setLocation(new Point(361, 110));
+			jLabel7.setSize(new Dimension(85, 25));
 			jLabel6 = new JLabel();
 			jLabel6.setText("Status :");
-			jLabel6.setLocation(new Point(330, 140));
+			jLabel6.setLocation(new Point(361, 70));
 			jLabel6.setSize(new Dimension(47, 25));
 			jLabel5 = new JLabel();
 			jLabel5.setText("No of Vacancies :");
-			jLabel5.setLocation(new Point(330, 100));
-			jLabel5.setSize(new Dimension(101, 25));
+			jLabel5.setLocation(new Point(20, 230));
+			jLabel5.setSize(new Dimension(100, 30));
 			jLabel4 = new JLabel();
-			jLabel4.setText("DesignID :");
-			jLabel4.setLocation(new Point(20, 220));
-			jLabel4.setSize(new Dimension(63, 25));
+			jLabel4.setText("Des_ID :");
+			jLabel4.setLocation(new Point(20, 190));
+			jLabel4.setSize(new Dimension(54, 25));
 			jLabel3 = new JLabel();
-			jLabel3.setText("SectionID :");
-			jLabel3.setLocation(new Point(20, 180));
+			jLabel3.setText("Sec_ID :");
+			jLabel3.setLocation(new Point(20, 150));
 			jLabel3.setSize(new Dimension(61, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("DeptNo :");
-			jLabel2.setLocation(new Point(20, 140));
+			jLabel2.setText("DepID :");
+			jLabel2.setLocation(new Point(20, 110));
 			jLabel2.setSize(new Dimension(47, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("VacancyID :");
-			jLabel1.setSize(new Dimension(70, 25));
-			jLabel1.setLocation(new Point(20, 100));
+			jLabel1.setSize(new Dimension(74, 25));
+			jLabel1.setLocation(new Point(20, 70));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(230, 10, 217, 40));
+			jLabel.setBounds(new Rectangle(225, 13, 232, 40));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
-			jLabel.setText("Update Vacancies");
+			jLabel.setText("Update Vacancies ");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
+			jContentPane.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtVacancyid(), null);
@@ -119,8 +137,10 @@ public class UpdateVacancies extends JFrame {
 			jContentPane.add(getTxtVacancydate(), null);
 			jContentPane.add(jLabel8, null);
 			jContentPane.add(getTxtPriority(), null);
-			jContentPane.add(getBtnOk(), null);
-			jContentPane.add(getBtnCancel(), null);
+			jContentPane.add(getBtnAdd(), null);
+			jContentPane.add(getBtnSave(), null);
+			jContentPane.add(jLabel9, null);
+			jContentPane.add(getTxtCreator(), null);
 		}
 		return jContentPane;
 	}
@@ -133,7 +153,7 @@ public class UpdateVacancies extends JFrame {
 	private JTextField getTxtVacancyid() {
 		if (txtVacancyid == null) {
 			txtVacancyid = new JTextField();
-			txtVacancyid.setLocation(new Point(100, 100));
+			txtVacancyid.setLocation(new Point(125, 70));
 			txtVacancyid.setSize(new Dimension(200, 25));
 		}
 		return txtVacancyid;
@@ -148,7 +168,7 @@ public class UpdateVacancies extends JFrame {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
 			cbnDeptno.setSize(new Dimension(200, 25));
-			cbnDeptno.setLocation(new Point(100, 140));
+			cbnDeptno.setLocation(new Point(125, 110));
 		}
 		return cbnDeptno;
 	}
@@ -161,7 +181,7 @@ public class UpdateVacancies extends JFrame {
 	private JComboBox getCbnSectionid() {
 		if (cbnSectionid == null) {
 			cbnSectionid = new JComboBox();
-			cbnSectionid.setLocation(new Point(100, 180));
+			cbnSectionid.setLocation(new Point(125, 150));
 			cbnSectionid.setSize(new Dimension(200, 25));
 		}
 		return cbnSectionid;
@@ -176,7 +196,7 @@ public class UpdateVacancies extends JFrame {
 		if (cbnDesignid == null) {
 			cbnDesignid = new JComboBox();
 			cbnDesignid.setSize(new Dimension(200, 25));
-			cbnDesignid.setLocation(new Point(100, 220));
+			cbnDesignid.setLocation(new Point(125, 190));
 		}
 		return cbnDesignid;
 	}
@@ -189,8 +209,8 @@ public class UpdateVacancies extends JFrame {
 	private JTextField getTxtNoofvavancies() {
 		if (txtNoofvavancies == null) {
 			txtNoofvavancies = new JTextField();
-			txtNoofvavancies.setLocation(new Point(450, 100));
-			txtNoofvavancies.setSize(new Dimension(200, 25));
+			txtNoofvavancies.setLocation(new Point(125, 230));
+			txtNoofvavancies.setSize(new Dimension(200, 30));
 		}
 		return txtNoofvavancies;
 	}
@@ -203,7 +223,7 @@ public class UpdateVacancies extends JFrame {
 	private JTextField getTxtStatus() {
 		if (txtStatus == null) {
 			txtStatus = new JTextField();
-			txtStatus.setLocation(new Point(450, 140));
+			txtStatus.setLocation(new Point(450, 70));
 			txtStatus.setSize(new Dimension(200, 25));
 		}
 		return txtStatus;
@@ -217,7 +237,7 @@ public class UpdateVacancies extends JFrame {
 	private JTextField getTxtVacancydate() {
 		if (txtVacancydate == null) {
 			txtVacancydate = new JTextField();
-			txtVacancydate.setLocation(new Point(450, 180));
+			txtVacancydate.setLocation(new Point(450, 110));
 			txtVacancydate.setSize(new Dimension(200, 25));
 		}
 		return txtVacancydate;
@@ -232,41 +252,70 @@ public class UpdateVacancies extends JFrame {
 		if (txtPriority == null) {
 			txtPriority = new JTextField();
 			txtPriority.setSize(new Dimension(200, 25));
-			txtPriority.setLocation(new Point(450, 220));
+			txtPriority.setLocation(new Point(450, 190));
 		}
 		return txtPriority;
 	}
 
 	/**
-	 * This method initializes btnOk	
+	 * This method initializes btnAdd	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnOk() {
-		if (btnOk == null) {
-			btnOk = new JButton();
-			btnOk.setText("Update");
-			btnOk.setSize(new Dimension(96, 34));
-			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
-			btnOk.setLocation(new Point(181, 300));
+	private JButton getBtnAdd() {
+		if (btnAdd == null) {
+			btnAdd = new JButton();
+			btnAdd.setText("Update");
+			btnAdd.setSize(new Dimension(110, 35));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnAdd.setLocation(new Point(164, 299));
 		}
-		return btnOk;
+		return btnAdd;
 	}
 
 	/**
-	 * This method initializes btnCancel	
+	 * This method initializes btnSave	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnCancel() {
-		if (btnCancel == null) {
-			btnCancel = new JButton();
-			btnCancel.setText("Cancel");
-			btnCancel.setSize(new Dimension(98, 34));
-			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Button-Close-icon.png")));
-			btnCancel.setLocation(new Point(391, 301));
+	private JButton getBtnSave() {
+		if (btnSave == null) {
+			btnSave = new JButton();
+			btnSave.setText("Cancel");
+			btnSave.setSize(new Dimension(110, 35));
+			btnSave.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
+			btnSave.setLocation(new Point(411, 299));
+			btnSave.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Ban co chac muon thoat", "Thong Bao",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						(new ViewVacancies()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
-		return btnCancel;
+		return btnSave;
+	}
+
+	/**
+	 * This method initializes txtCreator	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtCreator() {
+		if (txtCreator == null) {
+			txtCreator = new JTextField();
+			txtCreator.setSize(new Dimension(200, 25));
+			txtCreator.setLocation(new Point(450, 150));
+		}
+		return txtCreator;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

@@ -103,11 +103,11 @@ public class UpdateDesignation extends JFrame {
 			jLabel1.setLocation(new Point(20, 100));
 			jLabel1.setSize(new Dimension(63, 25));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(53, 14, 207, 50));
+			jLabel.setBounds(new Rectangle(45, 14, 233, 50));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setBackground(Color.white);
 			jLabel.setForeground(Color.red);
-			jLabel.setText("Add Designation");
+			jLabel.setText("Update Designation");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.setBackground(new Color(238, 238, 238));
@@ -160,8 +160,8 @@ public class UpdateDesignation extends JFrame {
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setText("Add ");
-			btnAdd.setSize(new Dimension(90, 35));
+			btnAdd.setText("Update");
+			btnAdd.setSize(new Dimension(98, 35));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
 			btnAdd.setLocation(new Point(40, 228));
 			btnAdd.addActionListener(new ActionListener() {
@@ -201,7 +201,7 @@ public class UpdateDesignation extends JFrame {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
 			btnDelete.setText("Cancel");
-			btnDelete.setSize(new Dimension(93, 35));
+			btnDelete.setSize(new Dimension(99, 35));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setLocation(new Point(175, 228));
 			btnDelete.addActionListener(new ActionListener() {
