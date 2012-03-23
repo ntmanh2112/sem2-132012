@@ -9,6 +9,7 @@ import javax.swing.text.html.ListView;
 
 import model.DepartmentsModel;
 import model.VacanciesModel;
+import model.VacanciesModel;
 
 import util.DataUtil;
 

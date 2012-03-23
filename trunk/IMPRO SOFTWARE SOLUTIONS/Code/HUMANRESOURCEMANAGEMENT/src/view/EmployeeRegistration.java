@@ -58,7 +58,7 @@ public class EmployeeRegistration extends JFrame {
 	private JLabel jLabel9 = null;
 	private JComboBox cbnSecID = null;
 	private JComboBox cbnDesID = null;
-	EmployeeModel model = new EmployeeModel();
+	EmployeeModel model = new EmployeeModel();  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
 	 */

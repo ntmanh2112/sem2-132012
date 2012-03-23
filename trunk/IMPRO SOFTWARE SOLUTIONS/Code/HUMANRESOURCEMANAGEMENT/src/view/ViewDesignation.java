@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -18,6 +19,17 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
+import model.DesignationModel;
+import model.EmployeeModel;
+import dao.DesignationDAO;
+import dao.EmployeeDAO;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class ViewDesignation extends JFrame {
 
@@ -35,7 +47,8 @@ public class ViewDesignation extends JFrame {
 	private JLabel jLabel2 = null;
 	private JTextField txtDesignationname = null;
 	private JButton btnSearch = null;
-
+	private String[] ColumnName ={"DesID","Layer_ID","Designation"};
+	private String[][] tableData;
 	/**
 	 * This is the default constructor
 	 */
@@ -50,7 +63,7 @@ public class ViewDesignation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(701, 516);
+		this.setSize(701, 466);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewDesign");
 	}
@@ -99,11 +112,24 @@ public class ViewDesignation extends JFrame {
 	 * @return javax.swing.JTable	
 	 */
 	private JTable getJTableViewdesignation() {
+		loadDataToTable();
 		if (jTableViewdesignation == null) {
-			jTableViewdesignation = new JTable();
+			jTableViewdesignation = new JTable(tableData,ColumnName);
 		}
 		return jTableViewdesignation;
 	}
+	private void loadDataToTable(){
+		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
+		tableData = new String[listDesignation.size()][9];
+		int row = 0;
+		for (DesignationModel model:listDesignation){
+		tableData [row][0] = model.getDesID();
+		tableData [row][1] = model.getLayer_ID();
+		tableData [row][2] = model.getDesignation();
+		
+		row++;
+		}
+		}
 
 	/**
 	 * This method initializes btnAdd	
@@ -113,13 +139,22 @@ public class ViewDesignation extends JFrame {
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
+			btnAdd.setText("Add Designation");
+			btnAdd.setSize(new Dimension(153, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
 			btnAdd.setFont(new Font("Dialog", Font.BOLD, 12));
 			btnAdd.setHorizontalTextPosition(SwingConstants.TRAILING);
 			btnAdd.setHorizontalAlignment(SwingConstants.TRAILING);
-			btnAdd.setLocation(new Point(92, 392));
+			btnAdd.setLocation(new Point(43, 300));
+			btnAdd.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					(new DesignationRegistration()).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -132,10 +167,29 @@ public class ViewDesignation extends JFrame {
 	private JButton getBtnEdit() {
 		if (btnEdit == null) {
 			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Edit-icon.png")));
-			btnEdit.setLocation(new Point(280, 392));
+			btnEdit.setText("Update Designation");
+			btnEdit.setSize(new Dimension(169, 40));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnEdit.setLocation(new Point(226, 300));
+			btnEdit.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					int row = jTableViewdesignation.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewdesignation.getValueAt(row, column).toString();
+					DesignationModel model = new DesignationModel();
+					model.setDesID(manvduocluachon);
+					(new UpdateDesignation(model)).setVisible(true);
+					dispose();
+				}
+			});
+			
 		}
 		return btnEdit;
 	}
@@ -148,10 +202,41 @@ public class ViewDesignation extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
+			btnDelete.setText("Delete Designation");
+			btnDelete.setSize(new Dimension(165, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(464, 392));
+			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
+			btnDelete.setLocation(new Point(424, 300));
+			btnDelete.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					DesignationModel mo = new DesignationModel();
+					int row = jTableViewdesignation.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon xoa","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewdesignation.getValueAt(row, column).toString();
+					mo.setDesID(manvduocluachon);
+					int yn = JOptionPane.showConfirmDialog(null, "Ban co chac muon xoa khong","Thong Bao",JOptionPane.OK_CANCEL_OPTION);
+					if(yn == 0){
+						Boolean kq = DesignationDAO.deleteDesignation(mo);
+						if(kq){
+							loadDataToTable();
+							jTableViewdesignation.setModel(new DefaultTableModel(tableData,ColumnName));
+							JOptionPane.showMessageDialog(null, "Delete Thanh cong","thong bao",JOptionPane.INFORMATION_MESSAGE);
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "Delete That bai","thong bao",JOptionPane.WARNING_MESSAGE);
+					
+						}
+					}
+				}
+			});
 		}
 		return btnDelete;
 	}
@@ -173,7 +258,7 @@ public class ViewDesignation extends JFrame {
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setLocation(new Point(28, 291));
+			jPanel.setLocation(new Point(29, 358));
 			jPanel.setSize(new Dimension(634, 58));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtDesignationid(), null);

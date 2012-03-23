@@ -70,15 +70,15 @@ public class UpdateEmployee extends JFrame {
 		super();
 		this.model = EmployeeDAO.getEmployeeByID(model.getEmID());
 		initialize();
-		txtEmpid.setText(model.getEmID());
-		txtEmpname.setText(model.getName());
+		txtEmpid.setText(this.model.getEmID());
+		txtEmpname.setText(this.model.getName());
+		
 		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
 		for (DepartmentsModel dm : listDepartment) {
 			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
 
 			cbnDeptno.addItem(item);
-			if (model.getDep_ID() != null
-					&& item.getKey().equals(model.getDep_ID())) {
+			if (item.getKey().equals(this.model.getDep_ID())) {
 				cbnDeptno.setSelectedItem(item);
 			}
 		}
@@ -87,7 +87,7 @@ public class UpdateEmployee extends JFrame {
 			KeyValue item = new KeyValue(desm.getDesID(),desm.getDesignation());
 
 			cbnDesID.addItem(item);
-			if (item.getKey().equals(model.getDes_ID())) {
+			if (item.getKey().equals(this.model.getDes_ID())) {
 				cbnDesID.setSelectedItem(item);
 			}
 		}
@@ -97,14 +97,14 @@ public class UpdateEmployee extends JFrame {
 			KeyValue item = new KeyValue(sem.getSecID(),sem.getName());
 
 			cbnSecID.addItem(item);
-			if (item.getKey().equals(model.getSecID())) {
+			if (item.getKey().equals(this.model.getSecID())) {
 				cbnSecID.setSelectedItem(item);
 			}
 		}
-		txtAddress.setText(model.getAddress());
-		txtPhone.setText(model.getPhone());
-		txtFax.setText(model.getFax());
-		txtEmail.setText(model.getEmail());
+		txtAddress.setText(this.model.getAddress());
+		txtPhone.setText(this.model.getPhone());
+		txtFax.setText(this.model.getFax());
+		txtEmail.setText(this.model.getEmail());
 		
 	}
 
@@ -217,6 +217,7 @@ public class UpdateEmployee extends JFrame {
 	private JTextField getTxtEmpname() {
 		if (txtEmpname == null) {
 			txtEmpname = new JTextField();
+			txtEmpname.setEnabled(false);
 			txtEmpname.setLocation(new Point(100, 140));
 			txtEmpname.setSize(new Dimension(200, 25));
 		}

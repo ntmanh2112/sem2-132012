@@ -14,13 +14,14 @@ public class DesignationDAO {
 	public static ArrayList<DesignationModel> getAllDesignation(){
 		ArrayList<DesignationModel> listDesignation = new ArrayList<DesignationModel>();
 		try {
-			String sql = "SELECT * FROM Designation";
+			String sql = "select * from Designation";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				DesignationModel model = new DesignationModel();
 				model.setDesID(rs.getString("DesID"));
 				model.setLayer_ID(rs.getString("Layer_ID"));
 				model.setDesignation(rs.getString("Designation"));
+				
 				listDesignation.add(model);
 			}
 		} catch (SQLException e) {
@@ -37,6 +38,7 @@ public class DesignationDAO {
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
+				model = new DesignationModel();
 				model.setDesID(rs.getString("DesID"));
 				model.setLayer_ID(rs.getString("Layer_ID"));
 				model.setDesignation(rs.getString("Designation"));

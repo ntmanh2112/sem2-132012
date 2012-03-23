@@ -16,12 +16,12 @@ public class DepartmentsDAO {
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				DepartmentsModel model = new DepartmentsModel();
-				model.setDep_ID(rs.getString("Dep_ID"));
-				model.setDep_Name(rs.getString("Dep_Name"));
-				model.setDep_Head(rs.getString("Dep_Head"));
-				model.setLocation(rs.getString("Location"));
-				model.setUp_Dep_No(rs.getString("Up_Dep_No"));
-				model.setDn_Dep_No(rs.getString("Dn_Dep_No"));
+				model.setDep_ID(rs.getString("DEP_ID"));
+				model.setDep_Name(rs.getString("DEP_NAME"));
+				model.setDep_Head(rs.getString("DEP_HEAD"));
+				model.setLocation(rs.getString("LOCATION"));
+				model.setUp_Dep_No(rs.getString("UP_DEP_NO"));
+				model.setDn_Dep_No(rs.getString("DN_DEP_NO"));
 				listDepartments.add(model);
 			}
 		} catch (SQLException e) {
@@ -38,12 +38,13 @@ public class DepartmentsDAO {
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
+				model = new DepartmentsModel();
 				model.setDep_ID(rs.getString("Dep_ID"));
-				model.setDep_Name(rs.getString("Dep_Name"));
-				model.setDep_Head(rs.getString("Dep_Head"));
-				model.setLocation(rs.getString("Location"));
-				model.setUp_Dep_No(rs.getString("Up_Dep_No"));
-				model.setDn_Dep_No(rs.getString("Dn_Dep_No"));
+				model.setDep_Name(rs.getString("DEP_NAME"));
+				model.setDep_Head(rs.getString("DEP_HEAD"));
+				model.setLocation(rs.getString("LOCATION"));
+				model.setUp_Dep_No(rs.getString("UP_DEP_NO"));
+				model.setDn_Dep_No(rs.getString("DN_DEP_NO"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -54,14 +55,16 @@ public class DepartmentsDAO {
 	public static boolean updateDepartment(DepartmentsModel model){
 		Boolean kq = false;
 		try {
-			String sql = "UPDATE Departments SET Dep_Name = ? , Dep_Head = ?, Location = ?, Up_Dep_No = ?, Dn_Dep_No = ? WHERE Dep_ID = ?";
+			String sql = "update departments set DEP_NAME=? , DEP_HEAD=?,LOCATION=?,UP_DEP_NO=?,DN_DEP_NO=? where DEP_ID=?";
+
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getDep_Name());
 			ps.setString(2, model.getDep_Head());
 			ps.setString(3, model.getLocation());
 			ps.setString(4, model.getUp_Dep_No());
 			ps.setString(5, model.getDn_Dep_No());
-			ps.setString(6, model.getDep_ID());	
+			ps.setString(6, model.getDep_ID());
+			
 			ps.executeUpdate();
 			kq = true;
 		} catch (Exception e) {
@@ -70,7 +73,7 @@ public class DepartmentsDAO {
 		}
 			return kq;
 	}
-	public static Boolean insertDepartments(DepartmentsModel model){
+	public static Boolean insertDepartments( DepartmentsModel model){
 		Boolean kq = false;
 		String sql ;
 			try {
@@ -87,13 +90,14 @@ public class DepartmentsDAO {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}		
+			}
+			
 		return kq;
 	}
 	public static Boolean deleteDepartments(DepartmentsModel model){
 		Boolean kq = false;
 		try {
-			String sql = "DELETE  FROM Departments WHERE Dep_ID = ?";
+			String sql = "DELETE  FROM Departments WHERE DEP_ID = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getDep_ID());
 			ps.executeUpdate();
@@ -104,20 +108,20 @@ public class DepartmentsDAO {
 		}
 		return kq;
 	}
-	public static ArrayList<DepartmentsModel> searchDepartments(String Name){
+	public static ArrayList<DepartmentsModel> searchDepartments(String Dep_ID,String Dep_Name,String Dep_Head){
 		ArrayList<DepartmentsModel> listDepartments = new ArrayList<DepartmentsModel>();
 		try {
-			String sql = "SELECT Dep_Name FROM Departments WHERE Dep_Name LIKE '%" +Name+ "%'";
+			String sql = "SELECT Dep_ID,Dep_Name,Dep_Head,Location,Up_Dep_No,Dn_Dep_No FROM Departments WHERE Dep_ID LIKE '%" +Dep_ID+ "%' AND Dep_Name LIKE '%" +Dep_Name+ "%' AND Dep_Head LIKE '%" +Dep_Head+ "%'";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){
 				DepartmentsModel model = new DepartmentsModel();
-				model.setDep_ID(rs.getString("Dep_ID"));
-				model.setDep_Name(rs.getString("Dep_Name"));
-				model.setDep_Head(rs.getString("Dep_Head"));
-				model.setLocation(rs.getString("Location"));
-				model.setUp_Dep_No(rs.getString("Up_Dep_No"));
-				model.setDn_Dep_No(rs.getString("Dn_Dep_No"));
+				model.setDep_ID(rs.getString("DEP_ID"));
+				model.setDep_Name(rs.getString("DEP_NAME"));
+				model.setDep_Head(rs.getString("DEP_HEAD"));
+				model.setLocation(rs.getString("LOCATION"));
+				model.setUp_Dep_No(rs.getString("UP_DEP_NO"));
+				model.setDn_Dep_No(rs.getString("DN_DEP_NO"));
 				listDepartments.add(model);
 			}
 		} catch (SQLException e) {

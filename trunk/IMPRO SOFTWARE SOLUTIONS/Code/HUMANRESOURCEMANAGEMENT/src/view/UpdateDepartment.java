@@ -49,7 +49,7 @@ public class UpdateDepartment extends JFrame {
 	private JLabel jLabel6 = null;
 	private JTextField txtupno = null;
 	private JTextField txtdnno = null;
-	DepartmentsModel model = new DepartmentsModel();
+	DepartmentsModel model = new DepartmentsModel();  //  @jve:decl-index=0:
 
 	/**
 	 * This is the default constructor
@@ -58,9 +58,9 @@ public class UpdateDepartment extends JFrame {
 		super();
 		initialize();
 	}
-	public UpdateDepartment(DepartmentsModel model) {
+	public UpdateDepartment(DepartmentsModel mo) {
 		super();
-		this.model = DepartmentsDAO.getDepartmentsByID(model.getDep_ID());
+		this.model = DepartmentsDAO.getDepartmentsByID(mo.getDep_ID());
 		initialize();
 		txtDeptno.setText(model.getDep_ID());
 		txtDeptname.setText(model.getDep_Name());
@@ -148,6 +148,7 @@ public class UpdateDepartment extends JFrame {
 	private JTextField getTxtDeptno() {
 		if (txtDeptno == null) {
 			txtDeptno = new JTextField();
+			txtDeptno.setEnabled(false);
 			txtDeptno.setLocation(new Point(100, 100));
 			txtDeptno.setSize(new Dimension(200, 25));
 		}
