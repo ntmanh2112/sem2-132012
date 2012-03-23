@@ -51,16 +51,26 @@ public class DepartmentsDAO {
 		}
 		return model;
 	}
-	public static Boolean updateDepartments( DepartmentsModel model){
+	public static boolean updateDepartment(DepartmentsModel model){
 		Boolean kq = false;
-		String sql = "Update NhanVien set DEP_NAME = '" + model.getDep_Name() 
-											+ "',DEP_HEAD = '"+ model.getDep_Head()
-											+"', LOCATION = '"+model.getLocation()
-											+"' , UP_DEP_NO = '"+model.getUp_Dep_No()
-											+"', DN_DEP_NO = '"+model.getDn_Dep_No()
-											+"' where DEP_ID = "+model.getDep_ID();
-		kq=DataUtil.executeNonQuery(sql);
-		return kq;
+		try {
+			String sql = "update departments set DEP_NAME=? , DEP_HEAD=?,LOCATION=?,UP_DEP_NO=?,DN_DEP_NO=? where DEP_ID=?";
+
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, model.getDep_Name());
+			ps.setString(2, model.getDep_Head());
+			ps.setString(3, model.getLocation());
+			ps.setString(4, model.getUp_Dep_No());
+			ps.setString(5, model.getDn_Dep_No());
+			ps.setString(6, model.getDep_ID());
+			
+			ps.executeUpdate();
+			kq = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return kq;
 	}
 	public static Boolean insertDepartments( DepartmentsModel model){
 		Boolean kq = false;
@@ -86,7 +96,7 @@ public class DepartmentsDAO {
 	public static Boolean deleteDepartments(DepartmentsModel model){
 		Boolean kq = false;
 		try {
-			String sql = "DELETE * FROM Departments WHERE DEP_ID = ?";
+			String sql = "DELETE  FROM Departments WHERE DEP_ID = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getDep_ID());
 			ps.executeUpdate();

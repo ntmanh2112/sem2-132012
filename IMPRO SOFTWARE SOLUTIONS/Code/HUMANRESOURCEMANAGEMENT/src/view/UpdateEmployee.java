@@ -56,19 +56,29 @@ public class UpdateEmployee extends JFrame {
 	private JLabel jLabel9 = null;
 	private JComboBox cbnSecID = null;
 	private JComboBox cbnDesID = null;
-	EmployeeModel model = new EmployeeModel();
+	EmployeeModel model = new EmployeeModel();  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
 	 */
 	public UpdateEmployee() {
 		super();
+		
 		initialize();
+	}
+		
+	public UpdateEmployee(EmployeeModel model) {
+		super();
+		this.model = EmployeeDAO.getEmployeeByID(model.getEmID());
+		initialize();
+		txtEmpid.setText(model.getEmID());
+		txtEmpname.setText(model.getName());
 		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
 		for (DepartmentsModel dm : listDepartment) {
 			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
 
 			cbnDeptno.addItem(item);
-			if (item.getKey().equals(model.getDep_ID())) {
+			if (model.getDep_ID() != null
+					&& item.getKey().equals(model.getDep_ID())) {
 				cbnDeptno.setSelectedItem(item);
 			}
 		}
@@ -91,13 +101,11 @@ public class UpdateEmployee extends JFrame {
 				cbnSecID.setSelectedItem(item);
 			}
 		}
-	}
-	public UpdateEmployee(EmployeeModel em) {
-		super();
-		this.model = EmployeeDAO.getEmployeeByID(em.getEmID());
-		initialize();
-		txtEmpid.setText(model.getEmID());
-		txtEmpname.setText(model.getName());
+		txtAddress.setText(model.getAddress());
+		txtPhone.setText(model.getPhone());
+		txtFax.setText(model.getFax());
+		txtEmail.setText(model.getEmail());
+		
 	}
 
 	/**
@@ -194,6 +202,7 @@ public class UpdateEmployee extends JFrame {
 	private JTextField getTxtEmpid() {
 		if (txtEmpid == null) {
 			txtEmpid = new JTextField();
+			txtEmpid.setEnabled(false);
 			txtEmpid.setLocation(new Point(100, 100));
 			txtEmpid.setSize(new Dimension(200, 25));
 		}
@@ -328,7 +337,7 @@ public class UpdateEmployee extends JFrame {
 					Boolean kq = EmployeeDAO.updateEmployee(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Cap Nhat Thân Nhân Thành Công",
+								"Cap Nhat  Thành Công",
 								"Thông Báo",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewEmployee()).setVisible(true);
@@ -355,6 +364,20 @@ public class UpdateEmployee extends JFrame {
 			btnCancel.setSize(new Dimension(98, 34));
 			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Button-Close-icon.png")));
 			btnCancel.setLocation(new Point(364, 312));
+			btnCancel.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Ban co chac muon thoat", "Thong Bao",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						(new ViewEmployee()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
 		return btnCancel;
 	}
@@ -386,27 +409,35 @@ public class UpdateEmployee extends JFrame {
 		}
 		return cbnDesID;
 	}
+
 private Boolean validateModel(EmployeeModel mo) {
-    	
-    	
-    	if( mo.getAddress()== null || mo.getAddress().equals("")){
-    		JOptionPane.showMessageDialog(null, "Address không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    	}
-    	if( mo.getPhone()== null || mo.getPhone().equals("")){
-    		JOptionPane.showMessageDialog(null, "phone không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    	}
-    	if( mo.getFax()== null || mo.getFax().equals("")){
-    		JOptionPane.showMessageDialog(null, "Fax không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    	}
-    	if( mo.getEmail()== null || mo.getEmail().equals("")){
-    		JOptionPane.showMessageDialog(null, "Email không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    	}
-    	
-		return true;
-    	
-    }
+	
+	/*if( mo.getEmID() == null || mo.getEmID().equals("")){ 
+		JOptionPane.showMessageDialog(null, "Mã NV Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		return false;
+	}
+	if( mo.getName() == null || mo.getName().equals("")){ 
+		JOptionPane.showMessageDialog(null, "Tên Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		return false;
+	}*/
+	if( mo.getAddress()== null || mo.getAddress().equals("")){
+		JOptionPane.showMessageDialog(null, "Address không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		return false;
+	}
+	if( mo.getPhone()== null || mo.getPhone().equals("")){
+		JOptionPane.showMessageDialog(null, "phone không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		return false;
+	}
+	if( mo.getFax()== null || mo.getFax().equals("")){
+		JOptionPane.showMessageDialog(null, "Fax không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		return false;
+	}
+	if( mo.getEmail()== null || mo.getEmail().equals("")){
+		JOptionPane.showMessageDialog(null, "Email không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		return false;
+	}
+	
+	return true;
+	
+}
 }  //  @jve:decl-index=0:visual-constraint="10,10"

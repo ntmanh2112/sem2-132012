@@ -23,7 +23,9 @@ import model.DepartmentsModel;
 import model.EmployeeModel;
 import dao.DepartmentsDAO;
 import dao.EmployeeDAO;
+
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -190,7 +192,7 @@ public class ViewEmployee extends JFrame {
 					String manvduocluachon = jTableViewemployee.getValueAt(row, column).toString();
 					EmployeeModel model = new EmployeeModel();
 					model.setEmID(manvduocluachon);
-					(new UpdateEmployee()).setVisible(true);
+					(new UpdateEmployee(model)).setVisible(true);
 					dispose();
 				}
 			});
@@ -211,6 +213,37 @@ public class ViewEmployee extends JFrame {
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnDelete.setLocation(new Point(416, 295));
+			btnDelete.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					EmployeeModel mo = new EmployeeModel();
+					int row = jTableViewemployee.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon xoa","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewemployee.getValueAt(row, column).toString();
+					mo.setEmID(manvduocluachon);
+					int yn = JOptionPane.showConfirmDialog(null, "Ban co chac muon xoa khong","Thong Bao",JOptionPane.OK_CANCEL_OPTION);
+					if(yn == 0){
+						Boolean kq = EmployeeDAO.deleteEmployee(mo);
+						if(kq){
+							loadDataToTable();
+							jTableViewemployee.setModel(new DefaultTableModel(tableData,ColumnName));
+							JOptionPane.showMessageDialog(null, "Delete Thanh cong","thong bao",JOptionPane.INFORMATION_MESSAGE);
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "Delete That bai","thong bao",JOptionPane.WARNING_MESSAGE);
+					
+						}
+					}
+					
+				}
+			});
 		}
 		return btnDelete;
 	}
@@ -304,8 +337,38 @@ public class ViewEmployee extends JFrame {
 			btnSearch.setSize(new Dimension(106, 25));
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.gif")));
 			btnSearch.setLocation(new Point(524, 17));
+			btnSearch.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					loadDataToTableWhenSearch();
+					jTableViewemployee.setModel(new DefaultTableModel(tableData, ColumnName));
+				}
+			});
 		}
 		return btnSearch;
+	}
+	public void loadDataToTableWhenSearch (){
+		String EmID = txtEmpid.getText();
+		String Name = txtEmpname.getText();
+		String Dep_ID = txtDeptid.getText();
+		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.searchEmployee(EmID, Name, Dep_ID);
+		tableData = new String [listEmployee.size()][9];
+		int row = 0;
+		for(EmployeeModel model : listEmployee) {
+			tableData [row][0] = model.getEmID();
+			tableData [row][1] = model.getName();
+			tableData [row][2] = model.getDep_ID();
+			tableData [row][3] = model.getDes_ID();
+			tableData [row][4] = model.getSecID();
+			tableData [row][5] = model.getAddress();
+			tableData [row][6] = model.getPhone();
+			tableData [row][7] = model.getFax();
+			tableData [row][8] = model.getEmail();
+			
+			row ++;
+		}
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
