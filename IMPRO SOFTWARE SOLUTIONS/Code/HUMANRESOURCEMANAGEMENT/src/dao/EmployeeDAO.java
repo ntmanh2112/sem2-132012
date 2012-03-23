@@ -87,7 +87,7 @@ public class EmployeeDAO {
 	public static boolean updateEmployee(EmployeeModel model){
 		Boolean kq = false;
 		try {
-			String sql = "update employee set Name=?,Dep_ID=? , Des_ID=?,SecID=?,Address=?,Phone=?,Fax=?,Email=? where EmID=?";
+			String sql = "UPDATE Employee SET Name = ?, Dep_ID = ? , Des_ID = ?, SecID = ?, Address = ?, Phone = ?, Fax = ?, Email = ? WHERE EmID=?";
 
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			
@@ -114,7 +114,7 @@ public class EmployeeDAO {
 	public static Boolean deleteEmployee(EmployeeModel model){
 		Boolean kq = false;
 		try {
-			String sql = "delete from employee where EmID = ?";
+			String sql = "DELETE FROM Employee WHERE EmID = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getEmID());
 			ps.executeUpdate();
@@ -128,7 +128,7 @@ public class EmployeeDAO {
 	public static ArrayList<EmployeeModel> searchEmployee(String EmID,String Name,String Dep_ID){
 		ArrayList<EmployeeModel> listEmployee = new ArrayList<EmployeeModel>();
 		try {
-			String sql = "SELECT EmID,Name,Dep_ID,Des_ID,SecID,Address,Phone,fax,Email FROM EMPLOYEE WHERE EmID LIKE '%" +EmID+ "%' AND Name LIKE '%" +Name+ "%' AND Dep_ID LIKE '%" +Dep_ID+ "%'";
+			String sql = "SELECT EmID, Name, Dep_ID, Des_ID, SecID, Address, Phone, Fax, Email FROM Employee WHERE EmID LIKE '%" +EmID+ "%' AND Name LIKE '%" +Name+ "%' AND Dep_ID LIKE '%" +Dep_ID+ "%'";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){
