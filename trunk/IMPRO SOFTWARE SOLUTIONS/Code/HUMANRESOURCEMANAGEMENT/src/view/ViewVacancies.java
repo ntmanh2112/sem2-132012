@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import javax.swing.JTextField;
 
 import model.Vacancy_Fill_DetailsModel;
-import model.VacaniesModel;
+import model.VacanciesModel;
 import dao.VacanciesDAO;
 import dao.VacancyFillingDetailsDAO;
 import java.awt.event.KeyEvent;
@@ -118,10 +118,10 @@ public class ViewVacancies extends JFrame {
 		return jTableViewvacancies;
 	}
 	private void loadDataToTable(){
-		ArrayList<VacaniesModel> listVacancies = VacanciesDAO.getAllVacasies();
+		ArrayList<VacanciesModel> listVacancies = VacanciesDAO.getAllVacancies();
 		tableData = new String[listVacancies.size()][9];
 		int row = 0;
-		for (VacaniesModel model:listVacancies){
+		for (VacanciesModel model:listVacancies){
 		tableData [row][0] = model.getVacancy_ID();
 		tableData [row][1] = model.getDep_ID();
 		tableData [row][2] = model.getSecID();

@@ -17,7 +17,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 
-import model.DesigLayerModel;
+import model.DesignLayerModel;
 import model.Vacancy_Fill_DetailsModel;
 import dao.DesignLayerDAO;
 import dao.VacancyFillingDetailsDAO;
@@ -116,10 +116,10 @@ public class ViewDesignationLayer extends JFrame {
 		return jTableViewdesignationlayer;
 	}
 	private void loadDataToTable(){
-		ArrayList<DesigLayerModel> listDesigLayer = DesignLayerDAO.getAllDesigLayer();
+		ArrayList<DesignLayerModel> listDesigLayer = DesignLayerDAO.getAllDesignLayer();
 		tableData = new String[listDesigLayer.size()][7];
 		int row = 0;
-		for (DesigLayerModel model:listDesigLayer){
+		for (DesignLayerModel model:listDesigLayer){
 		tableData [row][0] = model.getLayer_ID();
 		tableData [row][1] = model.getLayer();
 		tableData [row][2] = model.getWeightage();
