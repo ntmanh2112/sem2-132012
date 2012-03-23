@@ -48,7 +48,7 @@ public class EmployeeDAO {
 				model.setName(rs.getString("Name"));
 				model.setDep_ID(rs.getString("Dep_ID"));
 				model.setDes_ID(rs.getString("Des_ID"));
-				model.setSecID(rs.getString("Sec_ID"));
+				model.setSecID(rs.getString("SecID"));
 				model.setAddress(rs.getString("Address"));
 				model.setPhone(rs.getString("Phone"));
 				model.setFax(rs.getString("Fax"));

@@ -1,6 +1,6 @@
 package model;
 
-public class DesigLayerModel {
+public class DesignLayerModel {
 
 	private String Layer_ID;
 	public String getLayer_ID() {

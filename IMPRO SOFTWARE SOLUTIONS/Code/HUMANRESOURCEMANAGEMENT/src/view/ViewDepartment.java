@@ -186,7 +186,7 @@ public class ViewDepartment extends JFrame {
 						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					int column = 1;
+					int column = 0;
 					String manvduocluachon = jTableViewdepartment.getValueAt(row, column).toString();
 					DepartmentsModel model = new DepartmentsModel();
 					model.setDep_ID(manvduocluachon);
@@ -335,8 +335,38 @@ public class ViewDepartment extends JFrame {
 			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/Zoom.png")));
 			btnSearch.setLocation(new Point(554, 17));
+			btnSearch.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					loadDataToTableWhenSearch();
+					jTableViewdepartment.setModel(new DefaultTableModel(tableData, ColumnName));
+				}
+			});
 		}
 		return btnSearch;
+	}
+	public void loadDataToTableWhenSearch (){
+		String Dep_ID = txtDeptid.getText();
+		String Dep_Name = txtDeptname.getText();
+		String Dep_Head = txtDepthead.getText();
+		
+		
+		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.searchDepartments(Dep_ID, Dep_Name, Dep_Head);
+		tableData = new String [listDepartment.size()][6];
+		int row = 0;
+		for(DepartmentsModel model : listDepartment) {
+			tableData [row][0] = model.getDep_ID();
+			tableData [row][1] = model.getDep_Name();
+			tableData [row][2] = model.getDep_Head();
+			tableData [row][3] = model.getLocation();
+			tableData [row][4] = model.getUp_Dep_No();
+			tableData [row][5] = model.getDn_Dep_No();
+			
+			
+			row ++;
+		}
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

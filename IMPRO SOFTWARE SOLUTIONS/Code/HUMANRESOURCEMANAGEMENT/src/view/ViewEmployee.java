@@ -188,7 +188,7 @@ public class ViewEmployee extends JFrame {
 						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					int column = 1;
+					int column = 0;
 					String manvduocluachon = jTableViewemployee.getValueAt(row, column).toString();
 					EmployeeModel model = new EmployeeModel();
 					model.setEmID(manvduocluachon);

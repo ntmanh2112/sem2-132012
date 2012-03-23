@@ -1,6 +1,6 @@
 package model;
 
-public class VacaniesModel {
+public class VacanciesModel {
 	
 	private String Vacancy_ID;
 	public String getVacancy_ID() {
