@@ -21,7 +21,21 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+
+import Common.KeyValue;
+
+import dao.DepartmentsDAO;
+import dao.DesignationDAO;
+import dao.SectionDAO;
+import dao.VacanciesDAO;
+
+import model.DepartmentsModel;
+import model.DesignationModel;
+import model.SectionModel;
+import model.VacanciesModel;
 
 public class UpdateVacancies extends JFrame {
 
@@ -31,11 +45,8 @@ public class UpdateVacancies extends JFrame {
 	private JLabel jLabel1 = null;
 	private JTextField txtVacancyid = null;
 	private JLabel jLabel2 = null;
-	private JComboBox cbnDeptno = null;
 	private JLabel jLabel3 = null;
-	private JComboBox cbnSectionid = null;
 	private JLabel jLabel4 = null;
-	private JComboBox cbnDesignid = null;
 	private JLabel jLabel5 = null;
 	private JTextField txtNoofvavancies = null;
 	private JLabel jLabel6 = null;
@@ -48,12 +59,60 @@ public class UpdateVacancies extends JFrame {
 	private JButton btnSave = null;
 	private JLabel jLabel9 = null;
 	private JTextField txtCreator = null;
+	VacanciesModel model = new VacanciesModel();  //  @jve:decl-index=0:
+	private JComboBox cbnDepID = null;
+	private JComboBox cbnSecID = null;
+	private JComboBox cbnDesID = null;
 	/**
 	 * This is the default constructor
 	 */
 	public UpdateVacancies() {
 		super();
 		initialize();
+		
+	}
+	public UpdateVacancies(VacanciesModel mo) {
+		super();
+		this.model = VacanciesDAO.getVacanciesByID(mo.getVacancy_ID());
+		initialize();
+		txtVacancyid.setText(model.getVacancy_ID());
+		//txtDepID.setText(model.getDep_ID());
+		//txtSecID.setText(model.getSecID());
+		//txtDesID.setText(model.getDesignation_ID());
+		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
+		for (DepartmentsModel dm : listDepartment) {
+			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
+
+			cbnDepID.addItem(item);
+			if (item.getKey().equals(model.getDep_ID())) {
+				cbnDepID.setSelectedItem(item);
+			}
+		}
+		ArrayList<SectionModel> listSec = SectionDAO.getAllSection();
+		for (SectionModel sem : listSec) {
+			KeyValue item = new KeyValue(sem.getSecID(),sem.getName());
+
+			cbnSecID.addItem(item);
+			if (item.getKey().equals(model.getSecID())) {
+				cbnSecID.setSelectedItem(item);
+			}
+		}
+		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
+		for (DesignationModel desm : listDesignation) {
+			KeyValue item = new KeyValue(desm.getDesID(),desm.getDesignation());
+
+			cbnDesID.addItem(item);
+			if (item.getKey().equals(model.getDesignation_ID())) {
+				cbnDesID.setSelectedItem(item);
+			}
+		}
+		
+		
+		txtNoofvavancies.setText(model.getNo_Of_Vacancies());
+		txtStatus.setText(model.getStatus());
+		txtVacancydate.setText(model.getVacancy_Date());
+		txtCreator.setText(model.getCreator());
+		txtPriority.setText(model.getPriority());
 	}
 
 	/**
@@ -124,11 +183,8 @@ public class UpdateVacancies extends JFrame {
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtVacancyid(), null);
 			jContentPane.add(jLabel2, null);
-			jContentPane.add(getCbnDeptno(), null);
 			jContentPane.add(jLabel3, null);
-			jContentPane.add(getCbnSectionid(), null);
 			jContentPane.add(jLabel4, null);
-			jContentPane.add(getCbnDesignid(), null);
 			jContentPane.add(jLabel5, null);
 			jContentPane.add(getTxtNoofvavancies(), null);
 			jContentPane.add(jLabel6, null);
@@ -141,6 +197,9 @@ public class UpdateVacancies extends JFrame {
 			jContentPane.add(getBtnSave(), null);
 			jContentPane.add(jLabel9, null);
 			jContentPane.add(getTxtCreator(), null);
+			jContentPane.add(getCbnDepID(), null);
+			jContentPane.add(getCbnSecID(), null);
+			jContentPane.add(getCbnDesID(), null);
 		}
 		return jContentPane;
 	}
@@ -157,48 +216,6 @@ public class UpdateVacancies extends JFrame {
 			txtVacancyid.setSize(new Dimension(200, 25));
 		}
 		return txtVacancyid;
-	}
-
-	/**
-	 * This method initializes cbnDeptno	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbnDeptno() {
-		if (cbnDeptno == null) {
-			cbnDeptno = new JComboBox();
-			cbnDeptno.setSize(new Dimension(200, 25));
-			cbnDeptno.setLocation(new Point(125, 110));
-		}
-		return cbnDeptno;
-	}
-
-	/**
-	 * This method initializes cbnSectionid	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbnSectionid() {
-		if (cbnSectionid == null) {
-			cbnSectionid = new JComboBox();
-			cbnSectionid.setLocation(new Point(125, 150));
-			cbnSectionid.setSize(new Dimension(200, 25));
-		}
-		return cbnSectionid;
-	}
-
-	/**
-	 * This method initializes cbnDesignid	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbnDesignid() {
-		if (cbnDesignid == null) {
-			cbnDesignid = new JComboBox();
-			cbnDesignid.setSize(new Dimension(200, 25));
-			cbnDesignid.setLocation(new Point(125, 190));
-		}
-		return cbnDesignid;
 	}
 
 	/**
@@ -269,6 +286,47 @@ public class UpdateVacancies extends JFrame {
 			btnAdd.setSize(new Dimension(110, 35));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
 			btnAdd.setLocation(new Point(164, 299));
+			btnAdd.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					VacanciesModel model = new VacanciesModel();
+					model.setVacancy_ID(txtVacancyid.getText().trim());
+					/*model.setDep_ID(txtDepID.getText().trim());
+					model.setSecID(txtSecID.getText().trim());
+					model.setDesignation_ID(txtDesID.getText().trim());*/
+					model.setDep_ID(((KeyValue) cbnDepID.getSelectedItem())
+							.getKey());
+					model.setSecID(((KeyValue) cbnSecID.getSelectedItem())
+							.getKey());
+					model.setDesignation_ID(((KeyValue) cbnDesID.getSelectedItem())
+							.getKey());
+					
+					model.setNo_Of_Vacancies(txtNoofvavancies.getText().trim());
+					model.setStatus(txtStatus.getText().trim());
+					model.setVacancy_Date(txtVacancydate.getText().trim());
+					model.setCreator(txtCreator.getText().trim());
+					model.setPriority(txtPriority.getText().trim());
+					if(!validateModel(model)) {
+						return;
+					}
+					Boolean kq = VacanciesDAO.updateVacancies(model);
+					if (kq) {
+						JOptionPane.showMessageDialog(null,
+								"Update Success ", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewVacancies()).setVisible(true);
+						dispose();
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Update Viên Thất bại", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewVacancies()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -317,5 +375,74 @@ public class UpdateVacancies extends JFrame {
 		}
 		return txtCreator;
 	}
+private Boolean validateModel(VacanciesModel mo) {
+    	
+    	if( mo.getVacancy_ID() == null || mo.getVacancy_ID().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Vacancy_ID Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getNo_Of_Vacancies() == null || mo.getNo_Of_Vacancies().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "No_Of_Vacancies Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getStatus()== null || mo.getStatus().equals("")){
+    		JOptionPane.showMessageDialog(null, "Status Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getVacancy_Date() == null || mo.getVacancy_Date().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Vacancy_Date Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	
+    	if( mo.getCreator() == null || mo.getCreator().equals("")){
+    		JOptionPane.showMessageDialog(null, "Creator Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	
+    	if( mo.getPriority() == null || mo.getPriority().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Priority Không Được Để Trống Và Không Được có chữ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    		
+    	}
+    	
+		return true;
+    	
+    }
+/**
+ * This method initializes cbnDepID	
+ * 	
+ * @return javax.swing.JComboBox	
+ */
+private JComboBox getCbnDepID() {
+	if (cbnDepID == null) {
+		cbnDepID = new JComboBox();
+		cbnDepID.setBounds(new Rectangle(128, 112, 193, 26));
+	}
+	return cbnDepID;
+}
+/**
+ * This method initializes cbnSecID	
+ * 	
+ * @return javax.swing.JComboBox	
+ */
+private JComboBox getCbnSecID() {
+	if (cbnSecID == null) {
+		cbnSecID = new JComboBox();
+		cbnSecID.setBounds(new Rectangle(130, 151, 188, 25));
+	}
+	return cbnSecID;
+}
+/**
+ * This method initializes cbnDesID	
+ * 	
+ * @return javax.swing.JComboBox	
+ */
+private JComboBox getCbnDesID() {
+	if (cbnDesID == null) {
+		cbnDesID = new JComboBox();
+		cbnDesID.setBounds(new Rectangle(130, 188, 187, 31));
+	}
+	return cbnDesID;
+}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

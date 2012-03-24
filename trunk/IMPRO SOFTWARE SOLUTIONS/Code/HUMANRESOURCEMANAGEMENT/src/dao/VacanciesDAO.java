@@ -48,6 +48,7 @@ public class VacanciesDAO {
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
+				model = new VacanciesModel();
 				model.setVacancy_ID(rs.getString("Vacancy_ID"));
 				model.setDep_ID(rs.getString("Dep_ID"));
 				model.setSecID(rs.getString("SecID"));
@@ -67,7 +68,7 @@ public class VacanciesDAO {
 	public static boolean updateVacancies(VacanciesModel model){
 		Boolean kq = false;
 		try {
-			String sql = "UPDATE Vacancies SET Dep_ID = ? , SecID = ?, Designation_ID = ?, No_Of_Vacancies = ?, Status = ?, Vacancy_Date = ?, Creator = ?, Priority = ? WHERE Dep_ID = ?";
+			String sql = "UPDATE Vacancies SET Dep_ID = ? , SecID = ?, Designation_ID = ?, No_Of_Vacancies = ?, Status = ?, Vacancy_Date = ?, Creator = ?, Priority = ? WHERE Vacancy_ID = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getDep_ID());
 			ps.setString(2, model.getSecID());

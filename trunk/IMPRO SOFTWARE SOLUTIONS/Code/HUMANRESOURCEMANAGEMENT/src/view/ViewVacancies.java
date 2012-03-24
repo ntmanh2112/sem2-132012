@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -18,8 +19,11 @@ import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
+import model.DepartmentsModel;
+import model.EmployeeModel;
 import model.Vacancy_Fill_DetailsModel;
 import model.VacanciesModel;
+import dao.EmployeeDAO;
 import dao.VacanciesDAO;
 import dao.VacancyFillingDetailsDAO;
 
@@ -27,6 +31,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Color;
 
 public class ViewVacancies extends JFrame {
@@ -49,6 +55,8 @@ public class ViewVacancies extends JFrame {
 	private JButton btnSearch = null;
 	private String[] ColumnName ={"Vacancy_ID","Dep_ID","SecID","Designation_ID","No_Of_Vacancies","Status","Vacancy_Date","Creator","Priority"};
 	private String[][] tableData;
+	
+	
 
 	/**
 	 * This is the default constructor
@@ -56,6 +64,7 @@ public class ViewVacancies extends JFrame {
 	public ViewVacancies() {
 		super();
 		initialize();
+		
 	}
 
 	/**
@@ -77,7 +86,7 @@ public class ViewVacancies extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(208, 18, 185, 47));
+			jLabel.setBounds(new Rectangle(280, 17, 185, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
 			jLabel.setText("View Vacancies");
@@ -181,7 +190,16 @@ public class ViewVacancies extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					(new UpdateVacancies()).setVisible(true);
+					int row = jTableViewvacancies.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewvacancies.getValueAt(row, column).toString();
+					VacanciesModel model = new VacanciesModel();
+					model.setVacancy_ID(manvduocluachon);
+					(new UpdateVacancies(model)).setVisible(true);
 					dispose();
 				}
 			});
@@ -201,6 +219,36 @@ public class ViewVacancies extends JFrame {
 			btnDelete.setSize(new Dimension(154, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setLocation(new Point(467, 301));
+			btnDelete.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					VacanciesModel mo = new VacanciesModel();
+					int row = jTableViewvacancies.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon xoa","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewvacancies.getValueAt(row, column).toString();
+					mo.setVacancy_ID(manvduocluachon);
+					int yn = JOptionPane.showConfirmDialog(null, "Ban co chac muon xoa khong","Thong Bao",JOptionPane.OK_CANCEL_OPTION);
+					if(yn == 0){
+						Boolean kq = VacanciesDAO.deleteVacancies(mo);
+						if(kq){
+							loadDataToTable();
+							jTableViewvacancies.setModel(new DefaultTableModel(tableData,ColumnName));
+							JOptionPane.showMessageDialog(null, "Delete Thanh cong","thong bao",JOptionPane.INFORMATION_MESSAGE);
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "Delete That bai","thong bao",JOptionPane.WARNING_MESSAGE);
+					
+						}
+					}
+				}
+			});
 		}
 		return btnDelete;
 	}

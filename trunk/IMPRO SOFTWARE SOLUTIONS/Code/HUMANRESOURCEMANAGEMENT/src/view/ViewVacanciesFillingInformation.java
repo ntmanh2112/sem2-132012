@@ -23,6 +23,9 @@ import model.Vacancy_Fill_DetailsModel;
 import dao.EmployeeDAO;
 import dao.VacancyFillingDetailsDAO;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 
 public class ViewVacanciesFillingInformation extends JFrame {
@@ -43,7 +46,7 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtVacancyid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"ID","Vacancy_ID","EmID","Filled_Date","Intake_Details","Status","Creator"};
+	private String[] ColumnName ={"Vacancy_ID","EmID","Filled_Date","Intake_Details","Status","Creator"};
 	private String[][] tableData;
 
 	/**
@@ -60,7 +63,7 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(750, 516);
+		this.setSize(741, 473);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewEmp");
 	}
@@ -117,16 +120,16 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	}
 	private void loadDataToTable(){
 		ArrayList<Vacancy_Fill_DetailsModel> listVacancyFillDetails = VacancyFillingDetailsDAO.getAllVacancyFillDetails();
-		tableData = new String[listVacancyFillDetails.size()][7];
+		tableData = new String[listVacancyFillDetails.size()][6];
 		int row = 0;
 		for (Vacancy_Fill_DetailsModel model:listVacancyFillDetails){
-		tableData [row][0] = model.getID();
-		tableData [row][1] = model.getVacancy_ID();
-		tableData [row][2] = model.getEmID();
-		tableData [row][3] = model.getFilled_Date();
-		tableData [row][4] = model.getIntake_Details();
-		tableData [row][5] = model.getStatus();
-		tableData [row][6] = model.getCreator();
+		//tableData [row][0] = model.getID();
+		tableData [row][0] = model.getVacancy_ID();
+		tableData [row][1] = model.getEmID();
+		tableData [row][2] = model.getFilled_Date();
+		tableData [row][3] = model.getIntake_Details();
+		tableData [row][4] = model.getStatus();
+		tableData [row][5] = model.getCreator();
 		
 		row++;
 		}
@@ -141,9 +144,18 @@ public class ViewVacanciesFillingInformation extends JFrame {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
+			btnAdd.setSize(new Dimension(90, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
-			btnAdd.setLocation(new Point(118, 391));
+			btnAdd.setLocation(new Point(42, 295));
+			btnAdd.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					(new VacanciesFillingInformation()).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -156,10 +168,10 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	private JButton getBtnEdit() {
 		if (btnEdit == null) {
 			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
-			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
-			btnEdit.setLocation(new Point(310, 391));
+			btnEdit.setText("Update");
+			btnEdit.setSize(new Dimension(100, 40));
+			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnEdit.setLocation(new Point(198, 295));
 		}
 		return btnEdit;
 	}
@@ -173,9 +185,9 @@ public class ViewVacanciesFillingInformation extends JFrame {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
 			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
+			btnDelete.setSize(new Dimension(90, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(491, 390));
+			btnDelete.setLocation(new Point(367, 295));
 		}
 		return btnDelete;
 	}
@@ -201,7 +213,7 @@ public class ViewVacanciesFillingInformation extends JFrame {
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setLocation(new Point(28, 291));
+			jPanel.setLocation(new Point(31, 354));
 			jPanel.setSize(new Dimension(678, 59));
 			jPanel.setName("");
 			jPanel.setToolTipText("");

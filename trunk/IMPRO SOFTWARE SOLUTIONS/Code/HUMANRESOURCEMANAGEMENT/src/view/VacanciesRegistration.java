@@ -21,7 +21,21 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import com.toedter.calendar.JDateChooser;
 import javax.swing.ImageIcon;
+
+import model.DepartmentsModel;
+import model.DesignationModel;
+import model.SectionModel;
+import model.VacanciesModel;
+import Common.KeyValue;
+import dao.DepartmentsDAO;
+import dao.DesignationDAO;
+import dao.SectionDAO;
+import dao.VacanciesDAO;
 
 public class VacanciesRegistration extends JFrame {
 
@@ -48,12 +62,42 @@ public class VacanciesRegistration extends JFrame {
 	private JButton btnSave = null;
 	private JLabel jLabel9 = null;
 	private JTextField txtCreator = null;
+	VacanciesModel model = new VacanciesModel();  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
 	 */
 	public VacanciesRegistration() {
 		super();
 		initialize();
+		
+		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
+		for (DepartmentsModel dm : listDepartment) {
+			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
+
+			cbnDeptno.addItem(item);
+			if (item.getKey().equals(model.getDep_ID())) {
+				cbnDeptno.setSelectedItem(item);
+			}
+		}
+		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
+		for (DesignationModel desm : listDesignation) {
+			KeyValue item = new KeyValue(desm.getDesID(),desm.getDesignation());
+
+			cbnDesignid.addItem(item);
+			if (item.getKey().equals(model.getDesignation_ID())) {
+				cbnDesignid.setSelectedItem(item);
+			}
+		}
+		
+		ArrayList<SectionModel> listSec = SectionDAO.getAllSection();
+		for (SectionModel sem : listSec) {
+			KeyValue item = new KeyValue(sem.getSecID(),sem.getName());
+
+			cbnSectionid.addItem(item);
+			if (item.getKey().equals(model.getSecID())) {
+				cbnSectionid.setSelectedItem(item);
+			}
+		}
 	}
 
 	/**
@@ -269,6 +313,43 @@ public class VacanciesRegistration extends JFrame {
 			btnAdd.setSize(new Dimension(95, 35));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
 			btnAdd.setLocation(new Point(164, 299));
+			btnAdd.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					VacanciesModel model = new VacanciesModel();
+					model.setVacancy_ID(txtVacancyid.getText().trim());
+					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
+							.getKey());
+					model.setDesignation_ID(((KeyValue) cbnDesignid.getSelectedItem())
+							.getKey());
+					model.setSecID(((KeyValue) cbnSectionid.getSelectedItem())
+							.getKey());
+					model.setNo_Of_Vacancies(txtNoofvavancies.getText().trim());
+					model.setStatus(txtStatus.getText().trim());
+					model.setVacancy_Date(txtVacancydate.getText().trim());
+					model.setCreator(txtCreator.getText().trim());
+					model.setPriority(txtPriority.getText().trim());
+					if(!validateModel(model)) {
+						return;
+					}
+					Boolean kq = VacanciesDAO.insertVacancies(model);
+					if (kq) {
+						JOptionPane.showMessageDialog(null,
+								"Thêm Nhân Viên Thành Công", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewVacancies()).setVisible(true);
+						dispose();
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Thêm Nhân Viên Thất bại", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewVacancies()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -317,5 +398,38 @@ public class VacanciesRegistration extends JFrame {
 		}
 		return txtCreator;
 	}
+private Boolean validateModel(VacanciesModel mo) {
+    	
+    	if( mo.getVacancy_ID() == null || mo.getVacancy_ID().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Vacancy_ID Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getNo_Of_Vacancies() == null || mo.getNo_Of_Vacancies().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "No_Of_Vacancies Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getStatus()== null || mo.getStatus().equals("")){
+    		JOptionPane.showMessageDialog(null, "Status Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getVacancy_Date() == null || mo.getVacancy_Date().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Vacancy_Date Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	
+    	if( mo.getCreator() == null || mo.getCreator().equals("")){
+    		JOptionPane.showMessageDialog(null, "Creator Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	
+    	if( mo.getPriority() == null || mo.getPriority().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Priority Không Được Để Trống Và Không Được có chữ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    		
+    	}
+    	
+		return true;
+    	
+    }
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

@@ -16,11 +16,11 @@ public class VacancyFillingDetailsDAO {
 	public static ArrayList<Vacancy_Fill_DetailsModel> getAllVacancyFillDetails(){
 		ArrayList<Vacancy_Fill_DetailsModel> listVacancyFillDetails = new ArrayList<Vacancy_Fill_DetailsModel>();
 		try {
-			String sql = "SELECT * FROM Vacancy_Fill_Details";
+			String sql = "SELECT Vacancy_ID,EmID,Filled_Date,Intake_Details,Status,Creator FROM Vacancy_Fill_Details ";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				Vacancy_Fill_DetailsModel model = new Vacancy_Fill_DetailsModel();
-				model.setID(rs.getString("ID"));
+				//model.setID(rs.getString("ID"));
 				model.setVacancy_ID(rs.getString("Vacancy_ID"));
 				model.setEmID(rs.getString("EmID"));
 				model.setFilled_Date(rs.getString("Filled_Date"));
