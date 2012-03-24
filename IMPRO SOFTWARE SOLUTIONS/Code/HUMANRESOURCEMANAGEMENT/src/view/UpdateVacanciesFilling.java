@@ -19,9 +19,8 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
-public class VacanciesFillingInformation extends JFrame {
+public class UpdateVacanciesFilling extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
@@ -45,7 +44,7 @@ public class VacanciesFillingInformation extends JFrame {
 	/**
 	 * This is the default constructor
 	 */
-	public VacanciesFillingInformation() {
+	public UpdateVacanciesFilling() {
 		super();
 		initialize();
 	}
@@ -93,10 +92,10 @@ public class VacanciesFillingInformation extends JFrame {
 			jLabel1.setLocation(new Point(20, 90));
 			jLabel1.setSize(new Dimension(69, 25));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(36, 17, 338, 41));
+			jLabel.setBounds(new Rectangle(19, 17, 373, 41));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
-			jLabel.setText("Add Vacancies Filling Details");
+			jLabel.setText("Update Vacancies Filling Details");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -189,8 +188,7 @@ public class VacanciesFillingInformation extends JFrame {
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(96, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
-			btnAdd.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnAdd.setLocation(new Point(79, 300));
+			btnAdd.setLocation(new Point(78, 300));
 		}
 		return btnAdd;
 	}
@@ -219,8 +217,7 @@ public class VacanciesFillingInformation extends JFrame {
 			btnDelete.setText("Cancel");
 			btnDelete.setSize(new Dimension(97, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/button-cancel-icon.png")));
-			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnDelete.setLocation(new Point(232, 300));
+			btnDelete.setLocation(new Point(231, 300));
 			btnDelete.addActionListener(new ActionListener() {
 				
 				@Override
