@@ -25,6 +25,9 @@ import model.Vacancy_Fill_DetailsModel;
 import dao.EmployeeDAO;
 import dao.SectionDAO;
 import dao.VacancyFillingDetailsDAO;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -49,7 +52,7 @@ public class ViewSection extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtSectionname = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"SecID","Name","Section_Inch","Dep_ID"};
+	private String[] ColumnName ={"SecID","Name","Section_Inch","DepID"};
 	private String[][] tableData;
 
 	/**
@@ -66,6 +69,7 @@ public class ViewSection extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		this.setResizable(false);
 		this.setSize(813, 492);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewSection");
@@ -79,7 +83,7 @@ public class ViewSection extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(222, 18, 154, 47));
+			jLabel.setBounds(new Rectangle(320, 17, 154, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
 			jLabel.setText("View Section");
@@ -129,7 +133,7 @@ public class ViewSection extends JFrame {
 		tableData [row][0] = model.getSecID();
 		tableData [row][1] = model.getName();
 		tableData [row][2] = model.getSection_Inch();
-		tableData [row][3] = model.getDep_ID();
+		tableData [row][3] = model.getDepID();
 				
 		row++;
 		}
@@ -324,8 +328,34 @@ public class ViewSection extends JFrame {
 			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
 			btnSearch.setLocation(new Point(595, 17));
+			btnSearch.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					loadDataToTableWhenSearch();
+					jTableViewsection.setModel(new DefaultTableModel(tableData, ColumnName));
+				}
+			});
 		}
 		return btnSearch;
+	}
+	public void loadDataToTableWhenSearch (){
+		String SecID = txtSectionid.getText();
+		String Name = txtSectionname.getText();
+		String DepID = txtDeptid.getText();
+		ArrayList<SectionModel> listSection = SectionDAO.searchSection(SecID, DepID, Name);
+		tableData = new String [listSection.size()][4];
+		int row = 0;
+		for(SectionModel model : listSection) {
+			tableData [row][0] = model.getSecID();
+			tableData [row][1] = model.getName();
+			tableData [row][2] = model.getSection_Inch();
+			tableData [row][3] = model.getDepID();
+			
+			
+			row ++;
+		}
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

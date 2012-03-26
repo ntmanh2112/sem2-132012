@@ -22,7 +22,7 @@ public class SectionDAO {
 				model.setSecID(rs.getString("SecID"));
 				model.setName(rs.getString("Name"));
 				model.setSection_Inch(rs.getString("Section_Inch"));
-				model.setDep_ID(rs.getString("Dep_No"));
+				model.setDepID(rs.getString("DepID"));
 								
 				listSection.add(model);
 			}
@@ -40,10 +40,11 @@ public class SectionDAO {
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
+				model = new SectionModel();
 				model.setSecID(rs.getString("SecID"));
 				model.setName(rs.getString("Name"));
 				model.setSection_Inch(rs.getString("Section_Inch"));
-				model.setDep_ID(rs.getString("Dep_ID"));
+				model.setDepID(rs.getString("DepID"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -54,12 +55,12 @@ public class SectionDAO {
 	public static boolean updateSection(SectionModel model){
 		Boolean kq = false;
 		try {
-			String sql = "UPDATE Section SET Name = ? , Section_Inch = ?, Dep_ID = ? WHERE SecID=?";
+			String sql = "UPDATE Section SET Name = ? , Section_Inch = ?, DepID = ? WHERE SecID=?";
 
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getName());
 			ps.setString(2, model.getSection_Inch());
-			ps.setString(3, model.getDep_ID());
+			ps.setString(3, model.getDepID());
 			ps.setString(4, model.getSecID());
 			ps.executeUpdate();
 			kq = true;
@@ -78,7 +79,7 @@ public class SectionDAO {
 				ps.setString(1, model.getSecID());
 				ps.setString(2, model.getName());
 				ps.setString(3, model.getSection_Inch());
-				ps.setString(4, model.getDep_ID());
+				ps.setString(4, model.getDepID());
 				ps.executeUpdate();
 				kq = true;
 			} catch (SQLException e) {
@@ -101,10 +102,10 @@ public class SectionDAO {
 		}
 		return kq;
 	}
-	public static ArrayList<SectionModel> searchSection(String Name){
+	public static ArrayList<SectionModel> searchSection(String SecID,String DepID,String Name){
 		ArrayList<SectionModel> listSection = new ArrayList<SectionModel>();
 		try {
-			String sql = "SELECT Name FROM Section WHERE Name LIKE '%" +Name+ "%'";
+			String sql = "SELECT SecID,Name,Section_Inch,DepID FROM Section WHERE SecID LIKE '%" +SecID+ "%' AND Name LIKE '%" +Name+ "%' AND DepID LIKE '%" +DepID+ "%'";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){
@@ -112,7 +113,7 @@ public class SectionDAO {
 				model.setSecID(rs.getString("SecID"));
 				model.setName(rs.getString("Name"));
 				model.setSection_Inch(rs.getString("Section_Inch"));
-				model.setDep_ID(rs.getString("Dep_ID"));
+				model.setDepID(rs.getString("DepID"));
 				listSection.add(model);
 			}
 		} catch (SQLException e) {

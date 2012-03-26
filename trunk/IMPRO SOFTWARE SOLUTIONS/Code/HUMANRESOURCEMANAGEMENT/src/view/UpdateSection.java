@@ -62,13 +62,14 @@ public class UpdateSection extends JFrame {
 		initialize();
 		txtSectionid.setText(this.model.getSecID());
 		txtSectionname.setText(this.model.getName());
+		txtSecincharge.setText(this.model.getSection_Inch());
 		
 		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
 		for (DepartmentsModel dm : listDepartment) {
 			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
 
 			cbnDeptno.addItem(item);
-			if (item.getKey().equals(this.model.getDep_ID())) {
+			if (item.getKey().equals(this.model.getDepID())) {
 				cbnDeptno.setSelectedItem(item);
 			}
 		}
@@ -76,7 +77,7 @@ public class UpdateSection extends JFrame {
 		
 	
 		
-		txtSecincharge.setText(this.model.getSection_Inch());
+		//txtSecincharge.setText(this.model.getSection_Inch());
 		
 		
 	}
@@ -245,7 +246,8 @@ public class UpdateSection extends JFrame {
 					model.setSecID(txtSectionid.getText().trim());
 					model.setName(txtSectionname.getText().trim());
 					model.setSection_Inch(txtSecincharge.getText().trim());
-					model.setDep_ID(cbnDeptno.getSelectedItem().toString());
+					model.setDepID(((KeyValue) cbnDeptno.getSelectedItem())
+							.getKey());
 					if(!validateModel(model)){
 						return;
 					}
@@ -263,31 +265,7 @@ public class UpdateSection extends JFrame {
 				}
 				
 			});
-			btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()");
-					// TODO Auto-generated Event stub actionPerformed()
-					SectionModel model = new SectionModel();
-					model.setSecID(txtSectionid.getText().trim());
-					model.setName(txtSectionname.getText().trim());
-					model.setSection_Inch(txtSecincharge.getText().trim());
-					model.setDep_ID(cbnDeptno.getSelectedItem().toString());
-					if(!validateModel(model)) {
-						
-						return;
-					}
-					Boolean kq = SectionDAO.updateSection(model);
-					if (kq) {
-						JOptionPane.showMessageDialog(null,
-								"Cap Nhat  Thành Công",
-								"Thông Báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewSection()).setVisible(true);
-						dispose();
-
-					}
-				}
-			});
+			
 		}
 		return btnUpdate;
 	}
