@@ -3,17 +3,12 @@ package model;
 public class VacanciesModel {
 	
 	private String Vacancy_ID;
+	
 	public String getVacancy_ID() {
 		return Vacancy_ID;
 	}
 	public void setVacancy_ID(String vacancyID) {
 		Vacancy_ID = vacancyID;
-	}
-	public String getDep_ID() {
-		return Dep_ID;
-	}
-	public void setDep_ID(String depID) {
-		Dep_ID = depID;
 	}
 	public String getSecID() {
 		return SecID;
@@ -57,7 +52,6 @@ public class VacanciesModel {
 	public void setPriority(String priority) {
 		Priority = priority;
 	}
-	private String Dep_ID;
 	private String SecID;
 	private String Designation_ID;
 	private String No_Of_Vacancies;

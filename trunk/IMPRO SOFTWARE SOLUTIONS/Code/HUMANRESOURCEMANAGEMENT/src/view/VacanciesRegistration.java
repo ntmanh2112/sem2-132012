@@ -44,8 +44,6 @@ public class VacanciesRegistration extends JFrame {
 	private JLabel jLabel = null;
 	private JLabel jLabel1 = null;
 	private JTextField txtVacancyid = null;
-	private JLabel jLabel2 = null;
-	private JComboBox cbnDeptno = null;
 	private JLabel jLabel3 = null;
 	private JComboBox cbnSectionid = null;
 	private JLabel jLabel4 = null;
@@ -55,13 +53,14 @@ public class VacanciesRegistration extends JFrame {
 	private JLabel jLabel6 = null;
 	private JTextField txtStatus = null;
 	private JLabel jLabel7 = null;
-	private JTextField txtVacancydate = null;
+	//private JTextField txtVacancydate = null;
 	private JLabel jLabel8 = null;
 	private JTextField txtPriority = null;
 	private JButton btnAdd = null;
 	private JButton btnSave = null;
 	private JLabel jLabel9 = null;
 	private JTextField txtCreator = null;
+	private JDateChooser txtVacancydate = null;
 	VacanciesModel model = new VacanciesModel();  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
@@ -69,14 +68,24 @@ public class VacanciesRegistration extends JFrame {
 	public VacanciesRegistration() {
 		super();
 		initialize();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+		try {
+			txtVacancydate.setDate(sdf.parse("05-25-1980"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
-		for (DepartmentsModel dm : listDepartment) {
-			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
+		
+		
 
-			cbnDeptno.addItem(item);
-			if (item.getKey().equals(model.getDep_ID())) {
-				cbnDeptno.setSelectedItem(item);
+		ArrayList<SectionModel> listSec = SectionDAO.getAllSection();
+		for (SectionModel sem : listSec) {
+			KeyValue item = new KeyValue(sem.getSecID(),sem.getName());
+
+			cbnSectionid.addItem(item);
+			if (item.getKey().equals(model.getSecID())) {
+				cbnSectionid.setSelectedItem(item);
 			}
 		}
 		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
@@ -88,16 +97,6 @@ public class VacanciesRegistration extends JFrame {
 				cbnDesignid.setSelectedItem(item);
 			}
 		}
-		
-		ArrayList<SectionModel> listSec = SectionDAO.getAllSection();
-		for (SectionModel sem : listSec) {
-			KeyValue item = new KeyValue(sem.getSecID(),sem.getName());
-
-			cbnSectionid.addItem(item);
-			if (item.getKey().equals(model.getSecID())) {
-				cbnSectionid.setSelectedItem(item);
-			}
-		}
 	}
 
 	/**
@@ -106,7 +105,7 @@ public class VacanciesRegistration extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(687, 423);
+		this.setSize(687, 359);
 		this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
@@ -138,20 +137,16 @@ public class VacanciesRegistration extends JFrame {
 			jLabel6.setSize(new Dimension(47, 25));
 			jLabel5 = new JLabel();
 			jLabel5.setText("No of Vacancies :");
-			jLabel5.setLocation(new Point(20, 230));
+			jLabel5.setLocation(new Point(20, 190));
 			jLabel5.setSize(new Dimension(100, 30));
 			jLabel4 = new JLabel();
 			jLabel4.setText("Des_ID :");
-			jLabel4.setLocation(new Point(20, 190));
+			jLabel4.setLocation(new Point(20, 150));
 			jLabel4.setSize(new Dimension(54, 25));
 			jLabel3 = new JLabel();
 			jLabel3.setText("Sec_ID :");
-			jLabel3.setLocation(new Point(20, 150));
+			jLabel3.setLocation(new Point(20, 110));
 			jLabel3.setSize(new Dimension(61, 25));
-			jLabel2 = new JLabel();
-			jLabel2.setText("DepID :");
-			jLabel2.setLocation(new Point(20, 110));
-			jLabel2.setSize(new Dimension(47, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("VacancyID :");
 			jLabel1.setSize(new Dimension(74, 25));
@@ -167,8 +162,6 @@ public class VacanciesRegistration extends JFrame {
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtVacancyid(), null);
-			jContentPane.add(jLabel2, null);
-			jContentPane.add(getCbnDeptno(), null);
 			jContentPane.add(jLabel3, null);
 			jContentPane.add(getCbnSectionid(), null);
 			jContentPane.add(jLabel4, null);
@@ -185,6 +178,7 @@ public class VacanciesRegistration extends JFrame {
 			jContentPane.add(getBtnSave(), null);
 			jContentPane.add(jLabel9, null);
 			jContentPane.add(getTxtCreator(), null);
+			jContentPane.add(txtVacancydate, null);
 		}
 		return jContentPane;
 	}
@@ -204,20 +198,6 @@ public class VacanciesRegistration extends JFrame {
 	}
 
 	/**
-	 * This method initializes cbnDeptno	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbnDeptno() {
-		if (cbnDeptno == null) {
-			cbnDeptno = new JComboBox();
-			cbnDeptno.setSize(new Dimension(200, 25));
-			cbnDeptno.setLocation(new Point(125, 110));
-		}
-		return cbnDeptno;
-	}
-
-	/**
 	 * This method initializes cbnSectionid	
 	 * 	
 	 * @return javax.swing.JComboBox	
@@ -225,7 +205,7 @@ public class VacanciesRegistration extends JFrame {
 	private JComboBox getCbnSectionid() {
 		if (cbnSectionid == null) {
 			cbnSectionid = new JComboBox();
-			cbnSectionid.setLocation(new Point(125, 150));
+			cbnSectionid.setLocation(new Point(125, 110));
 			cbnSectionid.setSize(new Dimension(200, 25));
 		}
 		return cbnSectionid;
@@ -240,7 +220,7 @@ public class VacanciesRegistration extends JFrame {
 		if (cbnDesignid == null) {
 			cbnDesignid = new JComboBox();
 			cbnDesignid.setSize(new Dimension(200, 25));
-			cbnDesignid.setLocation(new Point(125, 190));
+			cbnDesignid.setLocation(new Point(125, 150));
 		}
 		return cbnDesignid;
 	}
@@ -253,8 +233,8 @@ public class VacanciesRegistration extends JFrame {
 	private JTextField getTxtNoofvavancies() {
 		if (txtNoofvavancies == null) {
 			txtNoofvavancies = new JTextField();
-			txtNoofvavancies.setLocation(new Point(125, 230));
-			txtNoofvavancies.setSize(new Dimension(200, 30));
+			txtNoofvavancies.setLocation(new Point(125, 190));
+			txtNoofvavancies.setSize(new Dimension(200, 25));
 		}
 		return txtNoofvavancies;
 	}
@@ -278,11 +258,15 @@ public class VacanciesRegistration extends JFrame {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtVacancydate() {
+	private JDateChooser getTxtVacancydate() {
 		if (txtVacancydate == null) {
-			txtVacancydate = new JTextField();
+			txtVacancydate = new JDateChooser();
+			txtVacancydate.setDateFormatString("MM/dd/yyyy");
 			txtVacancydate.setLocation(new Point(450, 110));
 			txtVacancydate.setSize(new Dimension(200, 25));
+			
+
+			txtVacancydate.getDateEditor().setEnabled(false);
 		}
 		return txtVacancydate;
 	}
@@ -310,9 +294,9 @@ public class VacanciesRegistration extends JFrame {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
 			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(95, 35));
+			btnAdd.setSize(new Dimension(104, 35));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
-			btnAdd.setLocation(new Point(164, 299));
+			btnAdd.setLocation(new Point(164, 256));
 			btnAdd.addActionListener(new ActionListener() {
 				
 				@Override
@@ -320,15 +304,16 @@ public class VacanciesRegistration extends JFrame {
 					// TODO Auto-generated method stub
 					VacanciesModel model = new VacanciesModel();
 					model.setVacancy_ID(txtVacancyid.getText().trim());
-					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
+					model.setSecID(((KeyValue) cbnSectionid.getSelectedItem())
 							.getKey());
 					model.setDesignation_ID(((KeyValue) cbnDesignid.getSelectedItem())
 							.getKey());
-					model.setSecID(((KeyValue) cbnSectionid.getSelectedItem())
-							.getKey());
+					
 					model.setNo_Of_Vacancies(txtNoofvavancies.getText().trim());
 					model.setStatus(txtStatus.getText().trim());
-					model.setVacancy_Date(txtVacancydate.getText().trim());
+					//model.setVacancy_Date(txtVacancydate.getText().trim());
+					SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+					model.setVacancy_Date(sdf.format(txtVacancydate.getDate()).trim());
 					model.setCreator(txtCreator.getText().trim());
 					model.setPriority(txtPriority.getText().trim());
 					if(!validateModel(model)) {
@@ -366,7 +351,7 @@ public class VacanciesRegistration extends JFrame {
 			btnSave.setSize(new Dimension(111, 35));
 			btnSave.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnSave.setLocation(new Point(411, 299));
+			btnSave.setLocation(new Point(407, 256));
 			btnSave.addActionListener(new ActionListener() {
 				
 				@Override

@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -43,7 +44,10 @@ public class MainForm extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(585, 350);
+		
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		//this.setSize(585, 350);
+		this.setSize(d);
 		this.setJMenuBar(getJJMenuBar());
 		this.setContentPane(getJContentPane());
 		this.setTitle("MainForm");
