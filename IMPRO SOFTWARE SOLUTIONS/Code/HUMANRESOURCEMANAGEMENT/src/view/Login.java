@@ -51,6 +51,7 @@ public class Login extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		this.setResizable(false);
 		this.setSize(476, 360);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FormLogin");
