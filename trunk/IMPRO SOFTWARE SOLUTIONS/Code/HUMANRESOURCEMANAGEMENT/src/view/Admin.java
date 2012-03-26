@@ -52,7 +52,7 @@ public class Admin extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(785, 466);
+		this.setSize(876, 466);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmAdmin");
 	}
@@ -86,11 +86,11 @@ public class Admin extends JFrame {
 	private JTabbedPane getJpnViewemployee() {
 		if (jpnViewemployee == null) {
 			jpnViewemployee = new JTabbedPane();
-			jpnViewemployee.setBounds(new Rectangle(17, 122, 741, 242));
-			jpnViewemployee.addTab("View Employee", null, getJpnAdmin(), null);
-			jpnViewemployee.addTab("View Layer", null, getJpnViewlayer(), null);
-			jpnViewemployee.addTab("View Department", null, getJpnViewdepartment(), null);
-			jpnViewemployee.addTab("View Section", null, getJpnViewsection(), null);
+			jpnViewemployee.setBounds(new Rectangle(17, 122, 825, 242));
+			jpnViewemployee.addTab("Employee List", null, getJpnAdmin(), null);
+			jpnViewemployee.addTab("Layer List", null, getJpnViewlayer(), null);
+			jpnViewemployee.addTab("Department List", null, getJpnViewdepartment(), null);
+			jpnViewemployee.addTab("Section List", null, getJpnViewsection(), null);
 			jpnViewemployee.addTab("View Account", null, getJpnViewaccount(), null);
 		}
 		return jpnViewemployee;
@@ -336,4 +336,4 @@ public class Admin extends JFrame {
 		return btnExit;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="10,10"
+}  //  @jve:decl-index=0:visual-constraint="4,10"

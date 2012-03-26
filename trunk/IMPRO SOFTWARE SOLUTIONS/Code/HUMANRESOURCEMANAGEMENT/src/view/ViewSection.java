@@ -66,7 +66,7 @@ public class ViewSection extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(634, 492);
+		this.setSize(813, 492);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewSection");
 	}
@@ -103,7 +103,7 @@ public class ViewSection extends JFrame {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(27, 83, 567, 191));
+			jScrollPane.setBounds(new Rectangle(21, 83, 759, 191));
 			jScrollPane.setViewportView(getJTableViewsection());
 		}
 		return jScrollPane;
@@ -143,10 +143,10 @@ public class ViewSection extends JFrame {
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 30));
+			btnAdd.setText("Add Section");
+			btnAdd.setSize(new Dimension(147, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
-			btnAdd.setLocation(new Point(90, 420));
+			btnAdd.setLocation(new Point(60, 304));
 			btnAdd.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
@@ -166,10 +166,10 @@ public class ViewSection extends JFrame {
 	private JButton getBtnEdit() {
 		if (btnEdit == null) {
 			btnEdit = new JButton();
-			btnEdit.setText("Edit");
-			btnEdit.setSize(new Dimension(90, 30));
+			btnEdit.setText("Update Section");
+			btnEdit.setSize(new Dimension(147, 40));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
-			btnEdit.setLocation(new Point(263, 420));
+			btnEdit.setLocation(new Point(274, 304));
 			btnEdit.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
@@ -198,10 +198,10 @@ public class ViewSection extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 30));
+			btnDelete.setText("Delete Section");
+			btnDelete.setSize(new Dimension(147, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(442, 420));
+			btnDelete.setLocation(new Point(478, 304));
 			btnDelete.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
@@ -243,20 +243,20 @@ public class ViewSection extends JFrame {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
 			jLabel3.setText("SectionName");
-			jLabel3.setLocation(new Point(266, 17));
+			jLabel3.setLocation(new Point(371, 17));
 			jLabel3.setSize(new Dimension(77, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("DeptID");
 			jLabel2.setSize(new Dimension(41, 25));
-			jLabel2.setLocation(new Point(9, 59));
+			jLabel2.setLocation(new Point(206, 17));
 			jLabel1 = new JLabel();
 			jLabel1.setText("SectionID");
 			jLabel1.setSize(new Dimension(56, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(564, 104));
+			jPanel.setLocation(new Point(23, 361));
+			jPanel.setSize(new Dimension(757, 60));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtSectionid(), null);
 			jPanel.add(jLabel2, null);
@@ -278,7 +278,7 @@ public class ViewSection extends JFrame {
 		if (txtSectionid == null) {
 			txtSectionid = new JTextField();
 			txtSectionid.setLocation(new Point(88, 17));
-			txtSectionid.setSize(new Dimension(160, 25));
+			txtSectionid.setSize(new Dimension(90, 25));
 		}
 		return txtSectionid;
 	}
@@ -291,8 +291,8 @@ public class ViewSection extends JFrame {
 	private JTextField getTxtDeptid() {
 		if (txtDeptid == null) {
 			txtDeptid = new JTextField();
-			txtDeptid.setLocation(new Point(88, 59));
-			txtDeptid.setSize(new Dimension(160, 25));
+			txtDeptid.setLocation(new Point(257, 17));
+			txtDeptid.setSize(new Dimension(90, 25));
 		}
 		return txtDeptid;
 	}
@@ -305,8 +305,8 @@ public class ViewSection extends JFrame {
 	private JTextField getTxtSectionname() {
 		if (txtSectionname == null) {
 			txtSectionname = new JTextField();
-			txtSectionname.setLocation(new Point(353, 17));
-			txtSectionname.setSize(new Dimension(160, 25));
+			txtSectionname.setLocation(new Point(461, 17));
+			txtSectionname.setSize(new Dimension(90, 25));
 		}
 		return txtSectionname;
 	}
@@ -323,7 +323,7 @@ public class ViewSection extends JFrame {
 			btnSearch.setSize(new Dimension(117, 25));
 			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
-			btnSearch.setLocation(new Point(373, 59));
+			btnSearch.setLocation(new Point(595, 17));
 		}
 		return btnSearch;
 	}
