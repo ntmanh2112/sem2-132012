@@ -197,10 +197,12 @@ public class SectionRegistration extends JFrame {
 			btnCancel.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					int kq = JOptionPane.showConfirmDialog(null,"ban co chac muon thoat khong","thong bao",JOptionPane.OK_CANCEL_OPTION);
-					if(kq == 0)
-					{
-						System.exit(0);
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Ban co chac muon thoat", "Thong Bao",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						(new ViewSection()).setVisible(true);
+						dispose();
 					}
 				}
 			});
@@ -227,7 +229,7 @@ public class SectionRegistration extends JFrame {
 					model.setSecID(txtSectionid.getText().trim());
 					model.setName(txtSectionname.getText().trim());
 					model.setSection_Inch(txtSecincharge.getText().trim());
-					model.setDep_ID(cbnDeptno.getSelectedItem().toString());
+					model.setDepID(cbnDeptno.getSelectedItem().toString());
 					if(!validateModel(model)){
 						return;
 					}

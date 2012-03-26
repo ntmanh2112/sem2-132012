@@ -98,10 +98,10 @@ public class DesignationDAO {
 		}
 		return kq;
 	}
-	public static ArrayList<DesignationModel> searchDesignation(String Name){
+	public static ArrayList<DesignationModel> searchDesignation(String DesID,String Designation){
 		ArrayList<DesignationModel> listDesignation = new ArrayList<DesignationModel>();
 		try {
-			String sql = "SELECT Designation FROM Designation WHERE Designation LIKE '%" +Name+ "%'";
+			String sql = "SELECT DesID,Layer_ID,Designation FROM Designation WHERE DesID LIKE '%" +DesID+ "%' AND Designation LIKE '%" +Designation+ "%'";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){

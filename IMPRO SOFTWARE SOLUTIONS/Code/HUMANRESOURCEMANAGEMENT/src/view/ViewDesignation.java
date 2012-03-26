@@ -23,8 +23,10 @@ import javax.swing.table.DefaultTableModel;
 
 import model.DesignationModel;
 import model.EmployeeModel;
+import model.SectionModel;
 import dao.DesignationDAO;
 import dao.EmployeeDAO;
+import dao.SectionDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -310,8 +312,33 @@ public class ViewDesignation extends JFrame {
 			btnSearch.setSize(new Dimension(100, 25));
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
 			btnSearch.setLocation(new Point(484, 17));
+			btnSearch.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					loadDataToTableWhenSearch();
+					jTableViewdesignation.setModel(new DefaultTableModel(tableData, ColumnName));
+				}
+			});
 		}
 		return btnSearch;
+	}
+	public void loadDataToTableWhenSearch (){
+		String DesID = txtDesignationid.getText();
+		String Designation = txtDesignationname.getText();
+		
+		ArrayList<DesignationModel> listDesignation = DesignationDAO.searchDesignation(DesID, Designation);
+		tableData = new String [listDesignation.size()][3];
+		int row = 0;
+		for(DesignationModel model : listDesignation) {
+			tableData [row][0] = model.getDesID();
+			tableData [row][1] = model.getLayer_ID();
+			tableData [row][2] = model.getDesignation();
+			
+			
+			row ++;
+		}
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

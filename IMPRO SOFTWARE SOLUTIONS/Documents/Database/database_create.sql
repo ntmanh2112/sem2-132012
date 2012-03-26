@@ -54,7 +54,7 @@ CREATE TABLE [Section] (
     [SecID] VARCHAR(10) NOT NULL,
     [Name] VARCHAR(15),
     [Section_Inch] VARCHAR(10),
-    [Dep_No] VARCHAR(10) NOT NULL,
+    [DepID] VARCHAR(10) NOT NULL,
     CONSTRAINT [PK_Section] PRIMARY KEY ([SecID])
 )
 GO
@@ -190,7 +190,7 @@ ALTER TABLE [Employee] ADD CONSTRAINT [Designation_Employee]
 GO
 
 ALTER TABLE [Section] ADD CONSTRAINT [Departments_Section] 
-    FOREIGN KEY ([Dep_No]) REFERENCES [Departments] ([Dep_ID])ON DELETE CASCADE
+    FOREIGN KEY ([DepID]) REFERENCES [Departments] ([Dep_ID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Designation] ADD CONSTRAINT [DesigLayer_Designation] 

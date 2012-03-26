@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
+import model.DesignationModel;
 import model.EmployeeModel;
 import model.Vacancy_Fill_DetailsModel;
 import dao.EmployeeDAO;
@@ -63,6 +65,7 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		this.setResizable(false);
 		this.setSize(741, 473);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewEmp");
@@ -172,6 +175,23 @@ public class ViewVacanciesFillingInformation extends JFrame {
 			btnEdit.setSize(new Dimension(100, 40));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
 			btnEdit.setLocation(new Point(198, 295));
+			btnEdit.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					int row = jTableViewvacanciesfillinginformation.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewvacanciesfillinginformation.getValueAt(row, column).toString();
+					Vacancy_Fill_DetailsModel model = new Vacancy_Fill_DetailsModel();
+					model.setVacancy_ID(manvduocluachon);
+					(new UpdateVacanciesFilling(model)).setVisible(true);
+				}
+			});
 		}
 		return btnEdit;
 	}
