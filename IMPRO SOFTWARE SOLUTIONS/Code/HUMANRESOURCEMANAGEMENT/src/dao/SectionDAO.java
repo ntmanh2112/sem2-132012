@@ -22,7 +22,7 @@ public class SectionDAO {
 				model.setSecID(rs.getString("SecID"));
 				model.setName(rs.getString("Name"));
 				model.setSection_Inch(rs.getString("Section_Inch"));
-				model.setDep_ID(rs.getString("Dep_ID"));
+				model.setDep_ID(rs.getString("Dep_No"));
 								
 				listSection.add(model);
 			}

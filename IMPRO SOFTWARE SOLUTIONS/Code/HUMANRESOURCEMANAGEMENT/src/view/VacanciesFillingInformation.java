@@ -20,6 +20,19 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
+
+import com.toedter.calendar.JDateChooser;
+
+import model.DepartmentsModel;
+import model.EmployeeModel;
+import Common.KeyValue;
+import dao.DepartmentsDAO;
+import dao.EmployeeDAO;
 
 public class VacanciesFillingInformation extends JFrame {
 
@@ -29,18 +42,19 @@ public class VacanciesFillingInformation extends JFrame {
 	private JLabel jLabel1 = null;
 	private JTextField txtVacancyid = null;
 	private JLabel jLabel2 = null;
-	private JTextField txtEmployeeid = null;
 	private JLabel jLabel3 = null;
-	private JTextField txtFilldate = null;
+	private JDateChooser txtFilldate = null;
 	private JLabel jLabel4 = null;
 	private JTextArea jtaIntakedetails = null;
 	private JButton btnAdd = null;
-	
+	//private JDateChooser getTxtFilldate = null;
 	private JButton btnDelete = null;
 	private JLabel jLabel5 = null;
 	private JLabel jLabel6 = null;
 	private JTextField jTextField = null;
 	private JTextField jTextField1 = null;
+	private JComboBox cbnEmID = null;
+	EmployeeModel model = new EmployeeModel();
 
 	/**
 	 * This is the default constructor
@@ -48,6 +62,22 @@ public class VacanciesFillingInformation extends JFrame {
 	public VacanciesFillingInformation() {
 		super();
 		initialize();
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		try {
+			txtFilldate.setDate(sdf.parse("05/25/1980"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
+		for (EmployeeModel em : listEmployee) {
+			KeyValue item = new KeyValue(em.getEmID(),em.getName());
+
+			cbnEmID.addItem(item);
+			if (item.getKey().equals(model.getDep_ID())) {
+				cbnEmID.setSelectedItem(item);
+			}
+		}
 	}
 
 	/**
@@ -56,7 +86,7 @@ public class VacanciesFillingInformation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(428, 408);
+		this.setSize(441, 408);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmVacancyFill");
 	}
@@ -103,7 +133,6 @@ public class VacanciesFillingInformation extends JFrame {
 			jContentPane.add(jLabel1, null);
 			jContentPane.add(getTxtVacancyid(), null);
 			jContentPane.add(jLabel2, null);
-			jContentPane.add(getTxtEmployeeid(), null);
 			jContentPane.add(jLabel3, null);
 			jContentPane.add(getTxtFilldate(), null);
 			jContentPane.add(jLabel4, null);
@@ -115,6 +144,7 @@ public class VacanciesFillingInformation extends JFrame {
 			jContentPane.add(jLabel6, null);
 			jContentPane.add(getJTextField(), null);
 			jContentPane.add(getJTextField1(), null);
+			jContentPane.add(getCbnEmID(), null);
 		}
 		return jContentPane;
 	}
@@ -134,30 +164,19 @@ public class VacanciesFillingInformation extends JFrame {
 	}
 
 	/**
-	 * This method initializes txtEmployeeid	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getTxtEmployeeid() {
-		if (txtEmployeeid == null) {
-			txtEmployeeid = new JTextField();
-			txtEmployeeid.setSize(new Dimension(90, 25));
-			txtEmployeeid.setLocation(new Point(110, 130));
-		}
-		return txtEmployeeid;
-	}
-
-	/**
 	 * This method initializes txtFilldate	
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtFilldate() {
+	private JDateChooser getTxtFilldate() {
 		if (txtFilldate == null) {
-			txtFilldate = new JTextField();
-			txtFilldate.setLocation(new Point(110, 170));
-			txtFilldate.setPreferredSize(new Dimension(4, 20));
+			txtFilldate = new JDateChooser();
+			txtFilldate.setDateFormatString("MM/dd/yyyy");
+			txtFilldate.setLocation(new Point(109, 170));
 			txtFilldate.setSize(new Dimension(90, 25));
+			
+
+			txtFilldate.getDateEditor().setEnabled(false);
 		}
 		return txtFilldate;
 	}
@@ -191,6 +210,14 @@ public class VacanciesFillingInformation extends JFrame {
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
 			btnAdd.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnAdd.setLocation(new Point(79, 300));
+			btnAdd.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -265,6 +292,20 @@ public class VacanciesFillingInformation extends JFrame {
 			jTextField1.setLocation(new Point(311, 170));
 		}
 		return jTextField1;
+	}
+
+	/**
+	 * This method initializes cbnEmID	
+	 * 	
+	 * @return javax.swing.JComboBox	
+	 */
+	private JComboBox getCbnEmID() {
+		if (cbnEmID == null) {
+			cbnEmID = new JComboBox();
+			cbnEmID.setSize(new Dimension(93, 27));
+			cbnEmID.setLocation(new Point(110, 130));
+		}
+		return cbnEmID;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

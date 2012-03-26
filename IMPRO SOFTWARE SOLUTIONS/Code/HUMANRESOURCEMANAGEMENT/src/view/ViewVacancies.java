@@ -50,10 +50,10 @@ public class ViewVacancies extends JFrame {
 	private JTextField txtEmpid = null;
 	private JLabel jLabel2 = null;
 	private JTextField txtSectionid = null;
-	private JLabel jLabel3 = null;
-	private JTextField txtDeptid = null;
+	//private JLabel jLabel3 = null;
+	//private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"Vacancy_ID","Dep_ID","SecID","Designation_ID","No_Of_Vacancies","Status","Vacancy_Date","Creator","Priority"};
+	private String[] ColumnName ={"Vacancy_ID","SecID","Designation_ID","No_Of_Vacancies","Status","Vacancy_Date","Creator","Priority"};
 	private String[][] tableData;
 	
 	
@@ -131,18 +131,18 @@ public class ViewVacancies extends JFrame {
 	}
 	private void loadDataToTable(){
 		ArrayList<VacanciesModel> listVacancies = VacanciesDAO.getAllVacancies();
-		tableData = new String[listVacancies.size()][9];
+		tableData = new String[listVacancies.size()][8];
 		int row = 0;
 		for (VacanciesModel model:listVacancies){
 		tableData [row][0] = model.getVacancy_ID();
-		tableData [row][1] = model.getDep_ID();
-		tableData [row][2] = model.getSecID();
-		tableData [row][3] = model.getDesignation_ID();
-		tableData [row][4] = model.getNo_Of_Vacancies();
-		tableData [row][5] = model.getStatus();
-		tableData [row][6] = model.getVacancy_Date();
-		tableData [row][7] = model.getCreator();
-		tableData [row][8] = model.getPriority();
+		
+		tableData [row][1] = model.getSecID();
+		tableData [row][2] = model.getDesignation_ID();
+		tableData [row][3] = model.getNo_Of_Vacancies();
+		tableData [row][4] = model.getStatus();
+		tableData [row][5] = model.getVacancy_Date();
+		tableData [row][6] = model.getCreator();
+		tableData [row][7] = model.getPriority();
 		
 		row++;
 		}
@@ -260,10 +260,10 @@ public class ViewVacancies extends JFrame {
 	 */
 	private JPanel getJPanel() {
 		if (jPanel == null) {
-			jLabel3 = new JLabel();
-			jLabel3.setText("DepID :");
-			jLabel3.setLocation(new Point(194, 17));
-			jLabel3.setSize(new Dimension(57, 25));
+			//jLabel3 = new JLabel();
+			//jLabel3.setText("DepID :");
+			//jLabel3.setLocation(new Point(194, 17));
+			//jLabel3.setSize(new Dimension(57, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("SectionID :");
 			jLabel2.setSize(new Dimension(64, 25));
@@ -280,8 +280,8 @@ public class ViewVacancies extends JFrame {
 			jPanel.add(getTxtEmpid(), null);
 			jPanel.add(jLabel2, null);
 			jPanel.add(getTxtSectionid(), null);
-			jPanel.add(jLabel3, null);
-			jPanel.add(getTxtDeptid(), null);
+			//jPanel.add(jLabel3, null);
+			//jPanel.add(getTxtDeptid(), null);
 			jPanel.add(getBtnSearch(), null);
 		    jPanel.setBorder(BorderFactory.createEtchedBorder());
 		}
@@ -321,14 +321,7 @@ public class ViewVacancies extends JFrame {
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtDeptid() {
-		if (txtDeptid == null) {
-			txtDeptid = new JTextField();
-			txtDeptid.setLocation(new Point(264, 17));
-			txtDeptid.setSize(new Dimension(90, 25));
-		}
-		return txtDeptid;
-	}
+	
 
 	/**
 	 * This method initializes btnSearch	
@@ -343,8 +336,38 @@ public class ViewVacancies extends JFrame {
 			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
 			btnSearch.setLocation(new Point(581, 17));
+			btnSearch.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					loadDataToTableWhenSearch();
+					jTableViewvacancies.setModel(new DefaultTableModel(tableData, ColumnName));
+				}
+			});
 		}
 		return btnSearch;
+	}
+	public void loadDataToTableWhenSearch (){
+		String Vacancy_ID = txtEmpid.getText();
+		String SecID = txtSectionid.getText();
+		
+		ArrayList<VacanciesModel> listVacancy = VacanciesDAO.searchVacancies(Vacancy_ID, SecID);
+		tableData = new String [listVacancy.size()][8];
+		int row = 0;
+		for(VacanciesModel model : listVacancy) {
+			tableData [row][0] = model.getVacancy_ID();
+			tableData [row][1] = model.getSecID();
+			tableData [row][2] = model.getDesignation_ID();
+			tableData [row][3] = model.getNo_Of_Vacancies();
+			tableData [row][4] = model.getStatus();
+			tableData [row][5] = model.getVacancy_Date();
+			tableData [row][6] = model.getCreator();
+			tableData [row][7] = model.getPriority();
+			
+			
+			row ++;
+		}
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
