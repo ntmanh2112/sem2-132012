@@ -42,10 +42,10 @@ INSERT INTO Assignment VALUES ('D301','F301')
 INSERT INTO Assignment VALUES ('D401','F401')
 
 --vacancy
-INSERT INTO Vacancies VALUES ('V101','P10','S101','D101','1','1','1/1/2012','E101','Max')
-INSERT INTO Vacancies VALUES ('V201','P20','S201','D201','2','2','2/2/2012','E201','Min')
-INSERT INTO Vacancies VALUES ('V301','P30','S301','D301','3','3','3/3/2012','E301','Max')
-INSERT INTO Vacancies VALUES ('V401','P40','S401','D401','4','4','4/4/2012','E401','Min')
+INSERT INTO Vacancies VALUES ('V101','S101','D101','1','1','1/1/2012','E101','Max')
+INSERT INTO Vacancies VALUES ('V201','S201','D201','2','2','2/2/2012','E201','Min')
+INSERT INTO Vacancies VALUES ('V301','S301','D301','3','3','3/3/2012','E301','Max')
+INSERT INTO Vacancies VALUES ('V401','S401','D401','4','4','4/4/2012','E401','Min')
 --vacancy_fill_details
 INSERT INTO Vacancy_Fill_Details VALUES ('V101','E101','01/01/2012','LapTrinh','1','E101')
 INSERT INTO Vacancy_Fill_Details VALUES ('V201','E201','02/02/2012','IT','2','E201')
@@ -57,4 +57,4 @@ INSERT INTO job_rotation VALUES ('E201','truong phong','P20','02/01/2011','','2'
 INSERT INTO job_rotation VALUES ('E301','Pho phong','P30','03/01/2011','','3','ok')
 INSERT INTO job_rotation VALUES ('E401','Nhan vien','P40','04/01/2011','','4','ok')
 --history
-INSERT INTO History VALUES ('E101','D101','10/1/2011','good')
+INSERT INTO History VALUES ('E101','10/1/2011','good')
