@@ -8,10 +8,19 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+
+import dao.SectionDAO;
+
+
+import model.SectionModel;
+
+
 import java.awt.Color;
 
 public class SectionRegistration extends JFrame {
@@ -29,8 +38,8 @@ public class SectionRegistration extends JFrame {
 	private JComboBox cbnDeptno = null;
 	//private JButton btnAdd = null;
 	//private JButton btnEdit = null;
-	private JButton btnDelete = null;
-	private JButton btnSave = null;
+	private JButton btnCancel = null;
+	private JButton btnAdd = null;
 
 	/**
 	 * This is the default constructor
@@ -93,8 +102,8 @@ public class SectionRegistration extends JFrame {
 			jContentPane.add(getCbnDeptno(), null);
 			//jContentPane.add(getBtnAdd(), null);
 			//jContentPane.add(getBtnEdit(), null);
-			jContentPane.add(getBtnDelete(), null);
-			jContentPane.add(getBtnSave(), null);
+			jContentPane.add(getBtnCancel(), null);
+			jContentPane.add(getBtnAdd(), null);
 		}
 		return jContentPane;
 	}
@@ -151,6 +160,10 @@ public class SectionRegistration extends JFrame {
 			cbnDeptno = new JComboBox();
 			cbnDeptno.setLocation(new Point(180, 220));
 			cbnDeptno.setSize(new Dimension(200, 25));
+			cbnDeptno.addItem("P10");
+			cbnDeptno.addItem("P20");
+			cbnDeptno.addItem("P30");
+			cbnDeptno.addItem("P40");
 		}
 		return cbnDeptno;
 	}
@@ -170,35 +183,86 @@ public class SectionRegistration extends JFrame {
 	
 
 	/**
-	 * This method initializes btnDelete	
+	 * This method initializes btnCancel	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnDelete() {
-		if (btnDelete == null) {
-			btnDelete = new JButton();
-			btnDelete.setText("cancel");
-			btnDelete.setSize(new Dimension(98, 34));
-			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
-			btnDelete.setLocation(new Point(269, 287));
+	private JButton getBtnCancel() {
+		if (btnCancel == null) {
+			btnCancel = new JButton();
+			btnCancel.setText("Cancel");
+			btnCancel.setSize(new Dimension(98, 34));
+			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Erase.png")));
+			btnCancel.setLocation(new Point(269, 287));
+			btnCancel.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					int kq = JOptionPane.showConfirmDialog(null,"ban co chac muon thoat khong","thong bao",JOptionPane.OK_CANCEL_OPTION);
+					if(kq == 0)
+					{
+						System.exit(0);
+					}
+				}
+			});
 		}
-		return btnDelete;
+		return btnCancel;
 	}
 
 	/**
-	 * This method initializes btnSave	
+	 * This method initializes btnAdd	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnSave() {
-		if (btnSave == null) {
-			btnSave = new JButton();
-			btnSave.setText("Add");
-			btnSave.setSize(new Dimension(90, 34));
-			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Yes.png")));
-			btnSave.setLocation(new Point(118, 287));
+	private JButton getBtnAdd() {
+		if (btnAdd == null) {
+			btnAdd = new JButton();
+			btnAdd.setText("Add");
+			btnAdd.setSize(new Dimension(90, 34));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Yes.png")));
+			btnAdd.setLocation(new Point(118, 287));
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					SectionModel model = new SectionModel();
+					model.setSecID(txtSectionid.getText().trim());
+					model.setName(txtSectionname.getText().trim());
+					model.setSection_Inch(txtSecincharge.getText().trim());
+					model.setDep_ID(cbnDeptno.getSelectedItem().toString());
+					if(!validateModel(model)){
+						return;
+					}
+					
+					Boolean kq = SectionDAO.insertSection(model);
+					if (kq) {
+						JOptionPane.showMessageDialog(null,
+								"Thêm Section Thành Công", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewSection()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
-		return btnSave;
+		return btnAdd;
 	}
-
+	private Boolean validateModel(SectionModel mo) {
+		if (mo.getSecID() == null || mo.getSecID().equals("")) {
+			JOptionPane.showMessageDialog(null,"Ma section khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if (mo.getName() == null || mo.getName().equals("")) {
+			JOptionPane.showMessageDialog(null,"Ten section khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+		if (mo.getSection_Inch() == null || mo.getSection_Inch().equals("")) {
+			JOptionPane.showMessageDialog(null,"Section incharge khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+	
+	}
+			
+		
+	
 }  //  @jve:decl-index=0:visual-constraint="10,10"

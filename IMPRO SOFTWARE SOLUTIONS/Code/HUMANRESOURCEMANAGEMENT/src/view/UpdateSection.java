@@ -8,11 +8,28 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+
+import Common.KeyValue;
+
+import model.DepartmentsModel;
+import model.DesignationModel;
+import model.EmployeeModel;
+import model.SectionModel;
+
+import dao.DepartmentsDAO;
+import dao.DesignationDAO;
+import dao.EmployeeDAO;
+import dao.SectionDAO;
+
+
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class UpdateSection extends JFrame {
 
@@ -28,7 +45,9 @@ public class UpdateSection extends JFrame {
 	private JLabel jLabel4 = null;
 	private JComboBox cbnDeptno = null;
 	private JButton btnCancel = null;
-	private JButton btnOk = null;
+	private JButton btnUpdate = null;
+	//private SectionModel model;
+	SectionModel model = new SectionModel();
 
 	/**
 	 * This is the default constructor
@@ -36,6 +55,30 @@ public class UpdateSection extends JFrame {
 	public UpdateSection() {
 		super();
 		initialize();
+	}
+	public UpdateSection(SectionModel model) {
+		super();
+		this.model = SectionDAO.getSectionByID(model.getSecID());
+		initialize();
+		txtSectionid.setText(this.model.getSecID());
+		txtSectionname.setText(this.model.getName());
+		
+		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
+		for (DepartmentsModel dm : listDepartment) {
+			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
+
+			cbnDeptno.addItem(item);
+			if (item.getKey().equals(this.model.getDep_ID())) {
+				cbnDeptno.setSelectedItem(item);
+			}
+		}
+		
+		
+	
+		
+		txtSecincharge.setText(this.model.getSection_Inch());
+		
+		
 	}
 
 	/**
@@ -89,7 +132,7 @@ public class UpdateSection extends JFrame {
 			jContentPane.add(jLabel4, null);
 			jContentPane.add(getCbnDeptno(), null);
 			jContentPane.add(getBtnCancel(), null);
-			jContentPane.add(getBtnOk(), null);
+			jContentPane.add(getBtnUpdate(), null);
 		}
 		return jContentPane;
 	}
@@ -102,6 +145,7 @@ public class UpdateSection extends JFrame {
 	private JTextField getTxtSectionid() {
 		if (txtSectionid == null) {
 			txtSectionid = new JTextField();
+			txtSectionid.setEnabled(false);
 			txtSectionid.setSize(new Dimension(200, 25));
 			txtSectionid.setLocation(new Point(150, 100));
 		}
@@ -146,6 +190,7 @@ public class UpdateSection extends JFrame {
 			cbnDeptno = new JComboBox();
 			cbnDeptno.setLocation(new Point(150, 220));
 			cbnDeptno.setSize(new Dimension(200, 25));
+			
 		}
 		return cbnDeptno;
 	}
@@ -162,24 +207,106 @@ public class UpdateSection extends JFrame {
 			btnCancel.setSize(new Dimension(100, 34));
 			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/Button-Close-icon.png")));
 			btnCancel.setLocation(new Point(267, 284));
+			btnCancel.addActionListener(new java.awt.event.ActionListener() {
+				
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Ban co chac muon thoat", "Thong Bao",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						(new ViewSection()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
 		return btnCancel;
 	}
 
 	/**
-	 * This method initializes btnOk	
+	 * This method initializes btnUpdate	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnOk() {
-		if (btnOk == null) {
-			btnOk = new JButton();
-			btnOk.setText("Update");
-			btnOk.setSize(new Dimension(96, 34));
-			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
-			btnOk.setLocation(new Point(108, 284));
+	private JButton getBtnUpdate() {
+		if (btnUpdate == null) {
+			btnUpdate = new JButton();
+			btnUpdate.setText("Update");
+			btnUpdate.setSize(new Dimension(96, 34));
+			btnUpdate.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnUpdate.setLocation(new Point(108, 284));
+			btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					SectionModel model = new SectionModel();
+					model.setSecID(txtSectionid.getText().trim());
+					model.setName(txtSectionname.getText().trim());
+					model.setSection_Inch(txtSecincharge.getText().trim());
+					model.setDep_ID(cbnDeptno.getSelectedItem().toString());
+					if(!validateModel(model)){
+						return;
+					}
+					
+					Boolean kq = SectionDAO.updateSection(model);
+					if (kq) {
+						JOptionPane.showMessageDialog(null,
+								"Cap Nhat Section thanh cong",
+								"Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewSection()).setVisible(true);
+						dispose();
+
+					}
+				}
+				
+			});
+			btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					SectionModel model = new SectionModel();
+					model.setSecID(txtSectionid.getText().trim());
+					model.setName(txtSectionname.getText().trim());
+					model.setSection_Inch(txtSecincharge.getText().trim());
+					model.setDep_ID(cbnDeptno.getSelectedItem().toString());
+					if(!validateModel(model)) {
+						
+						return;
+					}
+					Boolean kq = SectionDAO.updateSection(model);
+					if (kq) {
+						JOptionPane.showMessageDialog(null,
+								"Cap Nhat  Thành Công",
+								"Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewSection()).setVisible(true);
+						dispose();
+
+					}
+				}
+			});
 		}
-		return btnOk;
+		return btnUpdate;
+	}
+	private Boolean validateModel(SectionModel mo) {
+		if (mo.getSecID() == null || mo.getSecID().equals("")) {
+			JOptionPane.showMessageDialog(null,"Ma section khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if (mo.getName() == null || mo.getName().equals("")) {
+			JOptionPane.showMessageDialog(null,"Ten section khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
+		if (mo.getSection_Inch() == null || mo.getSection_Inch().equals("")) {
+			JOptionPane.showMessageDialog(null,"Section incharge khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+	
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

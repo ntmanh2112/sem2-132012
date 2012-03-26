@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -18,12 +19,16 @@ import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
+import model.EmployeeModel;
 import model.SectionModel;
 import model.Vacancy_Fill_DetailsModel;
+import dao.EmployeeDAO;
 import dao.SectionDAO;
 import dao.VacancyFillingDetailsDAO;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Color;
 
 public class ViewSection extends JFrame {
@@ -61,7 +66,7 @@ public class ViewSection extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(634, 516);
+		this.setSize(634, 492);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewSection");
 	}
@@ -142,6 +147,13 @@ public class ViewSection extends JFrame {
 			btnAdd.setSize(new Dimension(90, 30));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
 			btnAdd.setLocation(new Point(90, 420));
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					(new SectionRegistration()).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -158,6 +170,22 @@ public class ViewSection extends JFrame {
 			btnEdit.setSize(new Dimension(90, 30));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
 			btnEdit.setLocation(new Point(263, 420));
+			btnEdit.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					int row = jTableViewsection.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewsection.getValueAt(row, column).toString();
+					SectionModel model = new SectionModel();
+					model.setSecID(manvduocluachon);
+					(new UpdateSection(model)).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnEdit;
 	}
@@ -174,6 +202,34 @@ public class ViewSection extends JFrame {
 			btnDelete.setSize(new Dimension(90, 30));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setLocation(new Point(442, 420));
+			btnDelete.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					SectionModel mo = new SectionModel();
+					int row = jTableViewsection.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon xoa","thong bao",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String masectionduocluachon = jTableViewsection.getValueAt(row, column).toString();
+					mo.setSecID(masectionduocluachon);
+					int yn = JOptionPane.showConfirmDialog(null, "Ban co chac muon xoa khong","Thong Bao",JOptionPane.OK_CANCEL_OPTION);
+					if(yn == 0){
+						Boolean kq = SectionDAO.deleteSection(mo);
+						if(kq){
+							loadDataToTable();
+							jTableViewsection.setModel(new DefaultTableModel(tableData,ColumnName));
+							JOptionPane.showMessageDialog(null, "Delete Thanh cong","thong bao",JOptionPane.INFORMATION_MESSAGE);
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "Delete That bai","thong bao",JOptionPane.WARNING_MESSAGE);
+					
+						}
+					}
+				}
+			});
 		}
 		return btnDelete;
 	}
