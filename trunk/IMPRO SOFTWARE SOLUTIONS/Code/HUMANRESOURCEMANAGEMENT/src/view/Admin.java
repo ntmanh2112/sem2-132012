@@ -13,7 +13,12 @@ import java.awt.GridBagConstraints;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
+
+import model.EmployeeModel;
+import dao.EmployeeDAO;
+
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Admin extends JFrame {
 
@@ -37,6 +42,8 @@ public class Admin extends JFrame {
 	private JTable jTableViewaccount = null;
 	private JLabel jLabel = null;
 	private JButton btnExit = null;
+	private String[] ColumnName ={"ID","Name","Dep_ID","Des_ID","Sec_ID","Address","Phone","Fax","Email"};
+	private String[][] tableData;
 
 	/**
 	 * This is the default constructor
@@ -52,7 +59,7 @@ public class Admin extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(876, 466);
+		this.setSize(876, 564);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmAdmin");
 	}
@@ -135,11 +142,29 @@ public class Admin extends JFrame {
 	 * @return javax.swing.JTable	
 	 */
 	private JTable getJTableViewemployee() {
+		//loadDataToTable();
 		if (jTableViewemployee == null) {
 			jTableViewemployee = new JTable();
 		}
 		return jTableViewemployee;
 	}
+	private void loadDataToTable(){
+		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
+		tableData = new String[listEmployee.size()][9];
+		int row = 0;
+		for (EmployeeModel model:listEmployee){
+		tableData [row][0] = model.getEmID();
+		tableData [row][1] = model.getName();
+		tableData [row][2] = model.getDep_ID();
+		tableData [row][3] = model.getDes_ID();
+		tableData [row][4] = model.getSecID();
+		tableData [row][5] = model.getAddress();
+		tableData [row][6] = model.getPhone();
+		tableData [row][7] = model.getFax();
+		tableData [row][8] = model.getEmail();
+		row++;
+		}
+		}
 
 	/**
 	 * This method initializes jpnViewlayer	
@@ -329,7 +354,7 @@ public class Admin extends JFrame {
 	private JButton getBtnExit() {
 		if (btnExit == null) {
 			btnExit = new JButton();
-			btnExit.setLocation(new Point(338, 378));
+			btnExit.setLocation(new Point(363, 485));
 			btnExit.setText("Exit");
 			btnExit.setSize(new Dimension(90, 30));
 		}

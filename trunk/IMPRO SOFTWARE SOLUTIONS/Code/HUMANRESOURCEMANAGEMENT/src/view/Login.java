@@ -9,6 +9,8 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 import java.awt.Point;
 import javax.swing.JPasswordField;
@@ -16,6 +18,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 
@@ -51,6 +55,7 @@ public class Login extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		//this.setUndecorated(true); 
 		this.setResizable(false);
 		this.setSize(476, 360);
 		this.setContentPane(getJContentPane());
