@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Toolkit;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -88,6 +89,10 @@ public class UpdateSection extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-485)/2, (wndSize.height-414)/2);
 		this.setSize(485, 414);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmUpdateSection");

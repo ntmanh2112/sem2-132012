@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -51,7 +52,7 @@ public class MainForm extends JFrame {
 	private JMenuItem jMenuItemViewinformation = null;
 	private JMenuItem jMenuItemUpdateinformation = null;
 	private JMenuItem jMenuItemSearchemployee = null;
-	//private image img = null;
+	private Image img = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -66,10 +67,13 @@ public class MainForm extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		//this.setSize(585, 350);
-		this.setSize(d);
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setLocation((wndSize.width-1300)/2, (wndSize.height-650)/2);
+		//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setResizable(false);
+		this.setSize(1300, 650);
+		//this.setSize(d);
 		this.setJMenuBar(getJJMenuBar());
 		this.setContentPane(getJContentPane());
 		this.setTitle("MainForm");
@@ -84,13 +88,20 @@ public class MainForm extends JFrame {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			/*jContentPane.setBackground(SystemColor.activeCaption);
-			 BufferedImage image = null;
+			
+			//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+			jContentPane.setBackground(SystemColor.activeCaption);
+			 BufferedImage bf = null;
 			 try {
-				 image = ImageIO.read(new File("images/A013.jpg"));
+				 bf = ImageIO.read(new File("images/A013.jpg"));
 				 } catch (IOException e) {
 					 e.printStackTrace();  
-				} */
+				} 
+				 ImagePanel imgBackground = new ImagePanel(bf,1300,650);
+				 imgBackground.setLocation(0, 0);
+				 imgBackground.setSize(1300,650);
+				 jContentPane.add(imgBackground, null);
+				 //this.setSize(d);
 			//jContentPane = new ImagePanel(image,Double.valueOf(dim.getWidth()).intValue(),Double.valueOf(dim.getHeight()).intValue());
 		}
 		return jContentPane;
@@ -123,7 +134,7 @@ public class MainForm extends JFrame {
 			jMenuAdmin.setText("Admin");
 			jMenuAdmin.add(getJMenuItemViewemployee());
 			jMenuAdmin.add(getJMenuItemViewdepartment());
-			jMenuAdmin.add(getJMenuItemViewdepartmentdependencies());
+			//jMenuAdmin.add(getJMenuItemViewdepartmentdependencies());
 			jMenuAdmin.add(getJMenuItemViewsection());
 			jMenuAdmin.add(getJMenuItemViewvacancies());
 			jMenuAdmin.add(getJMenuItemViewvacanciesfillinginfo());
@@ -297,22 +308,7 @@ public class MainForm extends JFrame {
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemViewdepartmentdependencies() {
-		if (jMenuItemViewdepartmentdependencies == null) {
-			jMenuItemViewdepartmentdependencies = new JMenuItem();
-			jMenuItemViewdepartmentdependencies.setText("View Department Dependencies");
-			jMenuItemViewdepartmentdependencies
-					.addActionListener(new java.awt.event.ActionListener() {
-						public void actionPerformed(java.awt.event.ActionEvent e) {
-							System.out.println("actionPerformed()"); 
-							// TODO Auto-generated Event stub actionPerformed()
-							(new ViewDepartmentDependencies()).setVisible(true);
-							
-						}
-					});
-		}
-		return jMenuItemViewdepartmentdependencies;
-	}
+	
 
 	/**
 	 * This method initializes jMenuItemViewdesignation	

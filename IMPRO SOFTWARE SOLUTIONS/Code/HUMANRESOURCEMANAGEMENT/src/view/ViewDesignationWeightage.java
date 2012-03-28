@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
@@ -50,6 +51,9 @@ public class ViewDesignationWeightage extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setLocation((wndSize.width-650)/2, (wndSize.height-516)/2);
 		this.setSize(650, 516);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewEmp");

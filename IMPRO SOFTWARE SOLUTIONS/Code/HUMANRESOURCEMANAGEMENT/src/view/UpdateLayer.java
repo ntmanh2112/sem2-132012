@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Point;
@@ -54,6 +56,10 @@ public class UpdateLayer extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-436)/2, (wndSize.height-353)/2);
 		this.setSize(436, 353);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");

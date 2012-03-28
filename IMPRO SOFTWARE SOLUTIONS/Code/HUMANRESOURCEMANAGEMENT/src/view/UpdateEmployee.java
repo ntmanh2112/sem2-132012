@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Toolkit;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -114,6 +115,10 @@ public class UpdateEmployee extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-660)/2, (wndSize.height-417)/2);
 		this.setSize(660, 417);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmUpdateEmployee");

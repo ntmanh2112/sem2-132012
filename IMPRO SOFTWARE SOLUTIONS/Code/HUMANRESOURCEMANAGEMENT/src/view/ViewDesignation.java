@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -65,6 +66,10 @@ public class ViewDesignation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-701)/2, (wndSize.height-466)/2);
 		this.setSize(701, 466);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmViewDesign");
