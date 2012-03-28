@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -65,6 +66,10 @@ public class ViewVacanciesFillingInformation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();  
+		this.setResizable(false);
+		Dimension wndSize = theKit.getScreenSize();
+		this.setLocation((wndSize.width-741)/2, (wndSize.height-473)/2);
 		this.setResizable(false);
 		this.setSize(741, 473);
 		this.setContentPane(getJContentPane());

@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -78,6 +80,10 @@ public class UpdateDesignation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-343)/2, (wndSize.height-330)/2);
 		this.setSize(343, 330);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmDesign");

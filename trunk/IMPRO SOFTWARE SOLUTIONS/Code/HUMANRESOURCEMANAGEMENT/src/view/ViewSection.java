@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -69,6 +70,10 @@ public class ViewSection extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-813)/2, (wndSize.height-492)/2);
 		this.setResizable(false);
 		this.setSize(813, 492);
 		this.setContentPane(getJContentPane());

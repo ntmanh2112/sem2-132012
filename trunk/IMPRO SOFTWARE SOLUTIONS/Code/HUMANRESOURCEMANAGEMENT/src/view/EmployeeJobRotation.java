@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Toolkit;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -47,6 +49,10 @@ public class EmployeeJobRotation extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-471)/2, (wndSize.height-445)/2);
 		this.setSize(471, 445);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmJobRotation");

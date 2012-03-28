@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Toolkit;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -45,6 +47,10 @@ public class DesignationLayerRegistration extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-464)/2, (wndSize.height-353)/2);
 		this.setSize(464, 353);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmPosDesign");
