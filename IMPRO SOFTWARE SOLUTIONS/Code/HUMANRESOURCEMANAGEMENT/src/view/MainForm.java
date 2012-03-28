@@ -24,11 +24,33 @@ public class MainForm extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
 	private JMenuBar jJMenuBar = null;
-	private JMenu jMenuMaster = null;
-	private JMenu jMenuOrgdetail = null;
-	private JMenu jMenuWeightage = null;
-	private JMenu jMenuAuthentication = null;
-	private JMenu jMenuReports = null;
+	private JMenu jMenuAdmin = null;
+	private JMenu jMenuHrmanager = null;
+	private JMenu jMenuDepartmentmanager = null;
+	private JMenu jMenuEmployee = null;
+	private JMenuItem jMenuItemViewemployee = null;
+	private JMenuItem jMenuItemViewdepartment = null;
+	private JMenuItem jMenuItemViewsection = null;
+	private JMenuItem jMenuItemViewvacancies = null;
+	private JMenuItem jMenuItemViewvacanciesfillinginfo = null;
+	private JMenuItem jMenuItemViewdepartmentdependencies = null;
+	private JMenuItem jMenuItemViewdesignation = null;
+	private JMenuItem jMenuItemViewdesignationlayer = null;
+	private JMenuItem jMenuItemViewdesignationweightage = null;
+	private JMenuItem jMenuItemCreateaccount = null;
+	private JMenuItem jMenuItemHrviewdepartment = null;
+	private JMenuItem jMenuItemHrviewemployee = null;
+	private JMenuItem jMenuItemHrviewsection = null;
+	private JMenuItem jMenuItemHrrotateemployee = null;
+	private JMenuItem jMenuItemHrprocessvacancy = null;
+	private JMenuItem jMenuItemHrviewreport = null;
+	private JMenuItem jMenuItemDmviewemployee = null;
+	private JMenuItem jMenuItemDmviewsection = null;
+	private JMenuItem jMenuItemDmmanagevacancy = null;
+	private JMenuItem jMenuItemDmviewreport = null;
+	private JMenuItem jMenuItemViewinformation = null;
+	private JMenuItem jMenuItemUpdateinformation = null;
+	private JMenuItem jMenuItemSearchemployee = null;
 	//private image img = null;
 	/**
 	 * This is the default constructor
@@ -82,78 +104,458 @@ public class MainForm extends JFrame {
 	private JMenuBar getJJMenuBar() {
 		if (jJMenuBar == null) {
 			jJMenuBar = new JMenuBar();
-			jJMenuBar.add(getJMenuMaster());
-			jJMenuBar.add(getJMenuOrgdetail());
-			jJMenuBar.add(getJMenuWeightage());
-			jJMenuBar.add(getJMenuAuthentication());
-			jJMenuBar.add(getJMenuReports());
+			jJMenuBar.add(getJMenuAdmin());
+			jJMenuBar.add(getJMenuHrmanager());
+			jJMenuBar.add(getJMenuDepartmentmanager());
+			jJMenuBar.add(getJMenuEmployee());
 		}
 		return jJMenuBar;
 	}
 
 	/**
-	 * This method initializes jMenuMaster	
+	 * This method initializes jMenuAdmin	
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJMenuMaster() {
-		if (jMenuMaster == null) {
-			jMenuMaster = new JMenu();
-			jMenuMaster.setText("Master");
+	private JMenu getJMenuAdmin() {
+		if (jMenuAdmin == null) {
+			jMenuAdmin = new JMenu();
+			jMenuAdmin.setText("Admin");
+			jMenuAdmin.add(getJMenuItemViewemployee());
+			jMenuAdmin.add(getJMenuItemViewdepartment());
+			jMenuAdmin.add(getJMenuItemViewdepartmentdependencies());
+			jMenuAdmin.add(getJMenuItemViewsection());
+			jMenuAdmin.add(getJMenuItemViewvacancies());
+			jMenuAdmin.add(getJMenuItemViewvacanciesfillinginfo());
+			jMenuAdmin.add(getJMenuItemViewdesignation());
+			jMenuAdmin.add(getJMenuItemViewdesignationlayer());
+			jMenuAdmin.add(getJMenuItemViewdesignationweightage());
+			jMenuAdmin.add(getJMenuItemCreateaccount());
 		}
-		return jMenuMaster;
+		return jMenuAdmin;
 	}
 
 	/**
-	 * This method initializes jMenuOrgdetail	
+	 * This method initializes jMenuHrmanager	
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJMenuOrgdetail() {
-		if (jMenuOrgdetail == null) {
-			jMenuOrgdetail = new JMenu();
-			jMenuOrgdetail.setText("Org.Detail");
+	private JMenu getJMenuHrmanager() {
+		if (jMenuHrmanager == null) {
+			jMenuHrmanager = new JMenu();
+			jMenuHrmanager.setText("HR Manager");
+			jMenuHrmanager.add(getJMenuItemHrviewdepartment());
+			jMenuHrmanager.add(getJMenuItemHrviewemployee());
+			jMenuHrmanager.add(getJMenuItemHrviewsection());
+			jMenuHrmanager.add(getJMenuItemHrrotateemployee());
+			jMenuHrmanager.add(getJMenuItemHrprocessvacancy());
+			jMenuHrmanager.add(getJMenuItemHrviewreport());
 		}
-		return jMenuOrgdetail;
+		return jMenuHrmanager;
 	}
 
 	/**
-	 * This method initializes jMenuWeightage	
+	 * This method initializes jMenuDepartmentmanager	
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJMenuWeightage() {
-		if (jMenuWeightage == null) {
-			jMenuWeightage = new JMenu();
-			jMenuWeightage.setText("Weightage");
+	private JMenu getJMenuDepartmentmanager() {
+		if (jMenuDepartmentmanager == null) {
+			jMenuDepartmentmanager = new JMenu();
+			jMenuDepartmentmanager.setText("Department Manager");
+			jMenuDepartmentmanager.add(getJMenuItemDmviewemployee());
+			jMenuDepartmentmanager.add(getJMenuItemDmviewsection());
+			jMenuDepartmentmanager.add(getJMenuItemDmmanagevacancy());
+			jMenuDepartmentmanager.add(getJMenuItemDmviewreport());
 		}
-		return jMenuWeightage;
+		return jMenuDepartmentmanager;
 	}
 
 	/**
-	 * This method initializes jMenuAuthentication	
+	 * This method initializes jMenuEmployee	
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJMenuAuthentication() {
-		if (jMenuAuthentication == null) {
-			jMenuAuthentication = new JMenu();
-			jMenuAuthentication.setText("Authentication");
+	private JMenu getJMenuEmployee() {
+		if (jMenuEmployee == null) {
+			jMenuEmployee = new JMenu();
+			jMenuEmployee.setText("Employee");
+			jMenuEmployee.add(getJMenuItemViewinformation());
+			jMenuEmployee.add(getJMenuItemUpdateinformation());
+			jMenuEmployee.add(getJMenuItemSearchemployee());
 		}
-		return jMenuAuthentication;
+		return jMenuEmployee;
 	}
 
 	/**
-	 * This method initializes jMenuReports	
+	 * This method initializes jMenuItemViewemployee	
 	 * 	
-	 * @return javax.swing.JMenu	
+	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenu getJMenuReports() {
-		if (jMenuReports == null) {
-			jMenuReports = new JMenu();
-			jMenuReports.setText("Reports");
+	private JMenuItem getJMenuItemViewemployee() {
+		if (jMenuItemViewemployee == null) {
+			jMenuItemViewemployee = new JMenuItem();
+			jMenuItemViewemployee.setText("View Employee");
+			jMenuItemViewemployee.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewEmployee()).setVisible(true);
+					
+				}
+			});
 		}
-		return jMenuReports;
+		return jMenuItemViewemployee;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewdepartment	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewdepartment() {
+		if (jMenuItemViewdepartment == null) {
+			jMenuItemViewdepartment = new JMenuItem();
+			jMenuItemViewdepartment.setText("View Department");
+			jMenuItemViewdepartment.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewDepartment()).setVisible(true);
+					
+				}
+			});
+		}
+		return jMenuItemViewdepartment;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewsection	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewsection() {
+		if (jMenuItemViewsection == null) {
+			jMenuItemViewsection = new JMenuItem();
+			jMenuItemViewsection.setText("View Section");
+			jMenuItemViewsection.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewSection()).setVisible(true);
+					
+				}
+			});
+		}
+		return jMenuItemViewsection;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewvacancies	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewvacancies() {
+		if (jMenuItemViewvacancies == null) {
+			jMenuItemViewvacancies = new JMenuItem();
+			jMenuItemViewvacancies.setText("View Vacancies");
+			jMenuItemViewvacancies.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewVacancies()).setVisible(true);
+				}
+			});
+		}
+		return jMenuItemViewvacancies;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewvacanciesfillinginfo	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewvacanciesfillinginfo() {
+		if (jMenuItemViewvacanciesfillinginfo == null) {
+			jMenuItemViewvacanciesfillinginfo = new JMenuItem();
+			jMenuItemViewvacanciesfillinginfo.setText("View Vacancies Details");
+			jMenuItemViewvacanciesfillinginfo
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							System.out.println("actionPerformed()");
+							// TODO Auto-generated Event stub actionPerformed()
+							(new ViewVacanciesFillingInformation()).setVisible(true);
+							
+						}
+					});
+		}
+		return jMenuItemViewvacanciesfillinginfo;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewdepartmentdependencies	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewdepartmentdependencies() {
+		if (jMenuItemViewdepartmentdependencies == null) {
+			jMenuItemViewdepartmentdependencies = new JMenuItem();
+			jMenuItemViewdepartmentdependencies.setText("View Department Dependencies");
+			jMenuItemViewdepartmentdependencies
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							System.out.println("actionPerformed()"); 
+							// TODO Auto-generated Event stub actionPerformed()
+							(new ViewDepartmentDependencies()).setVisible(true);
+							
+						}
+					});
+		}
+		return jMenuItemViewdepartmentdependencies;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewdesignation	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewdesignation() {
+		if (jMenuItemViewdesignation == null) {
+			jMenuItemViewdesignation = new JMenuItem();
+			jMenuItemViewdesignation.setText("View Designation");
+			jMenuItemViewdesignation.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewDesignation()).setVisible(true);
+				}
+			});
+		}
+		return jMenuItemViewdesignation;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewdesignationlayer	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewdesignationlayer() {
+		if (jMenuItemViewdesignationlayer == null) {
+			jMenuItemViewdesignationlayer = new JMenuItem();
+			jMenuItemViewdesignationlayer.setText("View Designation Layer");
+			jMenuItemViewdesignationlayer
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							System.out.println("actionPerformed()");
+							// TODO Auto-generated Event stub actionPerformed()
+							(new ViewDesignationLayer()).setVisible(true);
+						}
+					});
+		}
+		return jMenuItemViewdesignationlayer;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewdesignationweightage	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewdesignationweightage() {
+		if (jMenuItemViewdesignationweightage == null) {
+			jMenuItemViewdesignationweightage = new JMenuItem();
+			jMenuItemViewdesignationweightage.setText("View Designation Weightage");
+			jMenuItemViewdesignationweightage
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							System.out.println("actionPerformed()");
+							// TODO Auto-generated Event stub actionPerformed()
+							(new ViewDesignationWeightage()).setVisible(true);
+						}
+					});
+		}
+		return jMenuItemViewdesignationweightage;
+	}
+
+	/**
+	 * This method initializes jMenuItemCreateaccount	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemCreateaccount() {
+		if (jMenuItemCreateaccount == null) {
+			jMenuItemCreateaccount = new JMenuItem();
+			jMenuItemCreateaccount.setText("Create Account");
+		}
+		return jMenuItemCreateaccount;
+	}
+
+	/**
+	 * This method initializes jMenuItemHrviewdepartment	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemHrviewdepartment() {
+		if (jMenuItemHrviewdepartment == null) {
+			jMenuItemHrviewdepartment = new JMenuItem();
+			jMenuItemHrviewdepartment.setText("View Department");
+		}
+		return jMenuItemHrviewdepartment;
+	}
+
+	/**
+	 * This method initializes jMenuItemHrviewemployee	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemHrviewemployee() {
+		if (jMenuItemHrviewemployee == null) {
+			jMenuItemHrviewemployee = new JMenuItem();
+			jMenuItemHrviewemployee.setText("View Employee");
+		}
+		return jMenuItemHrviewemployee;
+	}
+
+	/**
+	 * This method initializes jMenuItemHrviewsection	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemHrviewsection() {
+		if (jMenuItemHrviewsection == null) {
+			jMenuItemHrviewsection = new JMenuItem();
+			jMenuItemHrviewsection.setText("View Section");
+		}
+		return jMenuItemHrviewsection;
+	}
+
+	/**
+	 * This method initializes jMenuItemHrrotateemployee	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemHrrotateemployee() {
+		if (jMenuItemHrrotateemployee == null) {
+			jMenuItemHrrotateemployee = new JMenuItem();
+			jMenuItemHrrotateemployee.setText("Rotate Employee");
+		}
+		return jMenuItemHrrotateemployee;
+	}
+
+	/**
+	 * This method initializes jMenuItemHrprocessvacancy	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemHrprocessvacancy() {
+		if (jMenuItemHrprocessvacancy == null) {
+			jMenuItemHrprocessvacancy = new JMenuItem();
+			jMenuItemHrprocessvacancy.setText("Process Vacancy");
+		}
+		return jMenuItemHrprocessvacancy;
+	}
+
+	/**
+	 * This method initializes jMenuItemHrviewreport	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemHrviewreport() {
+		if (jMenuItemHrviewreport == null) {
+			jMenuItemHrviewreport = new JMenuItem();
+			jMenuItemHrviewreport.setText("View Report");
+		}
+		return jMenuItemHrviewreport;
+	}
+
+	/**
+	 * This method initializes jMenuItemDmviewemployee	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemDmviewemployee() {
+		if (jMenuItemDmviewemployee == null) {
+			jMenuItemDmviewemployee = new JMenuItem();
+			jMenuItemDmviewemployee.setText("View Employee");
+		}
+		return jMenuItemDmviewemployee;
+	}
+
+	/**
+	 * This method initializes jMenuItemDmviewsection	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemDmviewsection() {
+		if (jMenuItemDmviewsection == null) {
+			jMenuItemDmviewsection = new JMenuItem();
+			jMenuItemDmviewsection.setText("View Section");
+		}
+		return jMenuItemDmviewsection;
+	}
+
+	/**
+	 * This method initializes jMenuItemDmmanagevacancy	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemDmmanagevacancy() {
+		if (jMenuItemDmmanagevacancy == null) {
+			jMenuItemDmmanagevacancy = new JMenuItem();
+			jMenuItemDmmanagevacancy.setText("Manage Vacancy");
+		}
+		return jMenuItemDmmanagevacancy;
+	}
+
+	/**
+	 * This method initializes jMenuItemDmviewreport	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemDmviewreport() {
+		if (jMenuItemDmviewreport == null) {
+			jMenuItemDmviewreport = new JMenuItem();
+			jMenuItemDmviewreport.setText("View Report");
+		}
+		return jMenuItemDmviewreport;
+	}
+
+	/**
+	 * This method initializes jMenuItemViewinformation	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemViewinformation() {
+		if (jMenuItemViewinformation == null) {
+			jMenuItemViewinformation = new JMenuItem();
+			jMenuItemViewinformation.setText("View Information");
+		}
+		return jMenuItemViewinformation;
+	}
+
+	/**
+	 * This method initializes jMenuItemUpdateinformation	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemUpdateinformation() {
+		if (jMenuItemUpdateinformation == null) {
+			jMenuItemUpdateinformation = new JMenuItem();
+			jMenuItemUpdateinformation.setText("Update Information");
+		}
+		return jMenuItemUpdateinformation;
+	}
+
+	/**
+	 * This method initializes jMenuItemSearchemployee	
+	 * 	
+	 * @return javax.swing.JMenuItem	
+	 */
+	private JMenuItem getJMenuItemSearchemployee() {
+		if (jMenuItemSearchemployee == null) {
+			jMenuItemSearchemployee = new JMenuItem();
+			jMenuItemSearchemployee.setText("Search Employee");
+		}
+		return jMenuItemSearchemployee;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
