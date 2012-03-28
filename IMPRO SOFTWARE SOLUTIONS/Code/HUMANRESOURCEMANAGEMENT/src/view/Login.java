@@ -18,6 +18,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -165,6 +166,8 @@ public class Login extends JFrame {
 			btnLogin.setBackground(new Color(0, 109, 255));
 			btnLogin.setIcon(new ImageIcon(getClass().getResource("/images/Yes.png")));
 			btnLogin.setLocation(new Point(90, 230));
+			
+			
 			btnLogin.addActionListener(new ActionListener() {
 				
 				@Override
@@ -183,9 +186,22 @@ public class Login extends JFrame {
 					}
 				}
 			});
-		}
+			}
+		
 		return btnLogin;
 	}
+	/*private void txtNoiDungActionPerformed(java.awt.event.ActionEvent evt) {
+        //this.btnLogin.requestFocus();
+		this.btnLogin;
+    }  */
+	
+	/*private void formKeyPressed(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER)
+        {
+            btnLogin.requestFocus();
+            
+        }
+  } */
 
 	/**
 	 * This method initializes btnCancel	
