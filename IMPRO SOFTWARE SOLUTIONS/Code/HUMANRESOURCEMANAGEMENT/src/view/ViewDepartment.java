@@ -183,7 +183,7 @@ public class ViewDepartment extends JFrame {
 					// TODO Auto-generated method stub
 					int row = jTableViewdepartment.getSelectedRow();
 					if(row== -1){
-						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "You not choose to edit the line","Notice",JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					int column = 0;
@@ -220,22 +220,22 @@ public class ViewDepartment extends JFrame {
 					DepartmentsModel mo = new DepartmentsModel();
 					int row = jTableViewdepartment.getSelectedRow();
 					if(row== -1){
-						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon xoa","thong bao",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "You not choose to delete the line","Notice",JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					int column = 0;
 					String manvduocluachon = jTableViewdepartment.getValueAt(row, column).toString();
 					mo.setDep_ID(manvduocluachon);
-					int yn = JOptionPane.showConfirmDialog(null, "Ban co chac muon xoa khong","Thong Bao",JOptionPane.OK_CANCEL_OPTION);
+					int yn = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Notice",JOptionPane.OK_CANCEL_OPTION);
 					if(yn == 0){
 						Boolean kq = DepartmentsDAO.deleteDepartments(mo);
 						if(kq){
 							loadDataToTable();
 							jTableViewdepartment.setModel(new DefaultTableModel(tableData,ColumnName));
-							JOptionPane.showMessageDialog(null, "Delete Success","thong bao",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Delete Success","Notice",JOptionPane.INFORMATION_MESSAGE);
 							
 						}else {
-							JOptionPane.showMessageDialog(null, "Delete That bai","thong bao",JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Delete failed","Notice",JOptionPane.WARNING_MESSAGE);
 					
 						}
 					}

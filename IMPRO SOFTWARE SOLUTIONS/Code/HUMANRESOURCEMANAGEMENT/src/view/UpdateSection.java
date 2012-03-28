@@ -255,18 +255,12 @@ public class UpdateSection extends JFrame {
 					Boolean kq = SectionDAO.updateSection(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Cap Nhat Section thanh cong",
-								"Thông Báo",
+								"Update success",
+								"Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewSection()).setVisible(true);
 						dispose();
 
-					}else{
-						JOptionPane.showMessageDialog(null,
-								"Update Viên Th?t b?i", "Thông Báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewVacancies()).setVisible(true);
-						dispose();
 					}
 				}
 				
@@ -277,16 +271,16 @@ public class UpdateSection extends JFrame {
 	}
 	private Boolean validateModel(SectionModel mo) {
 		if (mo.getSecID() == null || mo.getSecID().equals("")) {
-			JOptionPane.showMessageDialog(null,"Ma section khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null," SecID invalid","Notice",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		if (mo.getName() == null || mo.getName().equals("")) {
-			JOptionPane.showMessageDialog(null,"Ten section khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,"SecName invalid","Notice",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		
 		if (mo.getSection_Inch() == null || mo.getSection_Inch().equals("")) {
-			JOptionPane.showMessageDialog(null,"Section incharge khong hop le","thong bao",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,"Section incharge invalid","Notice",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 		return true;

@@ -181,15 +181,9 @@ public class UpdateDesignation extends JFrame {
 					Boolean kq = DesignationDAO.updateDesignation(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Update Thành Công", "Thông Báo",
+								"Update success", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewDesignation()).setVisible(true);
-						dispose();
-					}else{
-						JOptionPane.showMessageDialog(null,
-								"Update Viên Th?t b?i", "Thông Báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewVacancies()).setVisible(true);
 						dispose();
 					}
 				}
@@ -216,7 +210,7 @@ public class UpdateDesignation extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					int kg = JOptionPane.showConfirmDialog(null,
-							"Ban co chac muon thoat", "Thong Bao",
+							"Are you sure you want to exit", "Notice",
 							JOptionPane.OK_CANCEL_OPTION);
 					if (kg == 0) {
 						(new ViewDesignation()).setVisible(true);
@@ -230,15 +224,15 @@ public class UpdateDesignation extends JFrame {
 
 	public Boolean validateModel(DesignationModel mo){
 		if( mo.getDesID() == null || mo.getDesID().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Mã DEP_ID Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, " DEP_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
 		if( mo.getLayer_ID() == null || mo.getLayer_ID().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Mã LAYER_ID Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, " LAYER_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
 		if( mo.getDesignation() == null || mo.getDesignation().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Designation Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Designation invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
 		return true;

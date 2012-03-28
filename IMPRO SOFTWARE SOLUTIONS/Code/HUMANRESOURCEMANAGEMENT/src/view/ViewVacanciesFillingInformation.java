@@ -182,7 +182,7 @@ public class ViewVacanciesFillingInformation extends JFrame {
 					// TODO Auto-generated method stub
 					int row = jTableViewvacanciesfillinginformation.getSelectedRow();
 					if(row== -1){
-						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "You not choose to edit the line","Notice",JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					int column = 0;
