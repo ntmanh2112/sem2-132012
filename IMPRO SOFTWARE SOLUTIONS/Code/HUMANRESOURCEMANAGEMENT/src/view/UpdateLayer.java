@@ -17,8 +17,15 @@ import javax.swing.JEditorPane;
 import javax.swing.JTabbedPane;
 import java.awt.Panel;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+
 import javax.swing.JToolBar;
 import javax.swing.JOptionPane;
+
+import model.DepartmentsModel;
+import model.DesignLayerModel;
+import dao.DepartmentsDAO;
+import dao.DesignLayerDAO;
 
 public class UpdateLayer extends JFrame {
 
@@ -139,6 +146,22 @@ public class UpdateLayer extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
+private Boolean validateModel(DesignLayerModel mo) {
+    	
+    	if( mo.getLayer_ID() == null || mo.getLayer_ID().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Mã LAYER_ID Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getLayer() == null || mo.getLayer().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Layer Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getWeightage()== null || mo.getWeightage().equals("")){
+    		JOptionPane.showMessageDialog(null, "Weightage không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	return true;
+}
 	private JButton getBtnDongy() {
 		if (btnDongy == null) {
 			btnDongy = new JButton();
@@ -146,6 +169,33 @@ public class UpdateLayer extends JFrame {
 			btnDongy.setLocation(new Point(79, 237));
 			btnDongy.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
 			btnDongy.setSize(new Dimension(95, 34));
+			btnDongy.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					DesignLayerModel model = new DesignLayerModel();
+					model.setLayer_ID(txtID.getText().trim());
+					model.setLayer(txtLayer.getText().trim());
+					model.setWeightage(txtWeightage.getText().trim());
+					if(!validateModel(model)) {
+						
+						return;
+					}
+					Boolean kq = DesignLayerDAO.updateDesignLayer(model);
+					if (kq) {
+						JOptionPane.showMessageDialog(null,
+								"Update Thành Công", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewDesignationLayer()).setVisible(true);
+						dispose();
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Update Viên Th?t b?i", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewVacancies()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
 		return btnDongy;
 	}
@@ -162,6 +212,18 @@ public class UpdateLayer extends JFrame {
 			btnCancel.setLocation(new Point(240, 237));
 			btnCancel.setIcon(new ImageIcon(getClass().getResource("/images/button-cancel-icon.png")));
 			btnCancel.setSize(new Dimension(98, 34));
+			btnCancel.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Ban co chac muon thoat", "Thong Bao",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						(new ViewDesignationLayer()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
 		return btnCancel;
 	}

@@ -185,6 +185,12 @@ public class UpdateDesignation extends JFrame {
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewDesignation()).setVisible(true);
 						dispose();
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Update Viên Th?t b?i", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewVacancies()).setVisible(true);
+						dispose();
 					}
 				}
 			});
