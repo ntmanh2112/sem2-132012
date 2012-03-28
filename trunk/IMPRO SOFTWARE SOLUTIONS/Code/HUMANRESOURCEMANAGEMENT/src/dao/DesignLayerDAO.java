@@ -17,7 +17,7 @@ public class DesignLayerDAO {
 	public static ArrayList<DesignLayerModel> getAllDesignLayer(){
 		ArrayList<DesignLayerModel> listDesignLayer = new ArrayList<DesignLayerModel>();
 		try {
-			String sql = "SELECT * FROM Designlayer";
+			String sql = "SELECT * FROM Desiglayer";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				DesignLayerModel model = new DesignLayerModel();
