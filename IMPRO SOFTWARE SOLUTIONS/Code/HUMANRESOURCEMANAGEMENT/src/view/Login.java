@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
 import dao.AccountDAO;
 
 import model.AccountModel;
+import model.VacanciesModel;
 
 public class Login extends JFrame {
 
@@ -41,6 +42,7 @@ public class Login extends JFrame {
 	//private JTextField txtAcclevel = null;
 	private JButton btnLogin = null;
 	private JButton btnCancel = null;
+	AccountModel model = new AccountModel();  //  @jve:decl-index=0:
 
 	/**
 	 * This is the default constructor
@@ -172,11 +174,14 @@ public class Login extends JFrame {
 				
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
+					
 					// TODO Auto-generated method stub
 					String EmID = txtUserid.getText();
 					
 					String Password = txtPassword.getText();
+					
 					AccountModel model = AccountDAO.getAccountNEW(EmID, Password);
+					
 					if (model == null) {
 						JOptionPane.showMessageDialog(null, "Login failed");
 					}else {
@@ -184,6 +189,7 @@ public class Login extends JFrame {
 						(new MainForm()).setVisible(true);
 						hide();
 					}
+					
 				}
 			});
 			}
@@ -232,5 +238,6 @@ public class Login extends JFrame {
 		}
 		return btnCancel;
 	}
+
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
