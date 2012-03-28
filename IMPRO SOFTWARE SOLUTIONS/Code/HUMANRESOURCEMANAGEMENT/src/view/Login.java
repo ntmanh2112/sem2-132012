@@ -56,9 +56,12 @@ public class Login extends JFrame {
 	 */
 	private void initialize() {
 		//this.setUndecorated(true); 
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setLocation((wndSize.width-476)/2, (wndSize.height-360)/2);
 		this.setResizable(false);
 		//this.setLocation(h);
-		this.setLocation(new Point(0, 0));
+		//this.setLocation(new Point(0, 0));
 		this.setSize(476, 360);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FormLogin");
