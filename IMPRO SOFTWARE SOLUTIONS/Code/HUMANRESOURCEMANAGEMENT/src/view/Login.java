@@ -123,6 +123,7 @@ public class Login extends JFrame {
 	private JTextField getTxtUserid() {
 		if (txtUserid == null) {
 			txtUserid = new JTextField();
+			txtUserid.setText("E101");
 			txtUserid.setSize(new Dimension(200, 25));
 			txtUserid.setLocation(new Point(179, 99));
 		}
@@ -137,6 +138,7 @@ public class Login extends JFrame {
 	private JPasswordField getTxtPassword() {
 		if (txtPassword == null) {
 			txtPassword = new JPasswordField();
+			txtPassword.setText("thanh");
 			txtPassword.setLocation(new Point(179, 150));
 			txtPassword.setSize(new Dimension(200, 25));
 		}
