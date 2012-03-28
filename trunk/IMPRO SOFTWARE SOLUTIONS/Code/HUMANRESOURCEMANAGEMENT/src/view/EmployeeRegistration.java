@@ -336,7 +336,7 @@ public class EmployeeRegistration extends JFrame {
 						Boolean kq = EmployeeDAO.insertEmployee(model);
 						if (kq) {
 							JOptionPane.showMessageDialog(null,
-									"Thêm Nhân Viên Thành Công", "Thông Báo",
+									"Add successful employee", "Notice",
 									JOptionPane.INFORMATION_MESSAGE);
 							(new ViewEmployee()).setVisible(true);
 							dispose();
@@ -366,7 +366,7 @@ public class EmployeeRegistration extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					int kg = JOptionPane.showConfirmDialog(null,
-							"Ban co chac muon thoat", "Thong Bao",
+							"Are you sure you want to exit", "Notice",
 							JOptionPane.OK_CANCEL_OPTION);
 					if (kg == 0) {
 						(new ViewEmployee()).setVisible(true);
@@ -409,27 +409,27 @@ public class EmployeeRegistration extends JFrame {
 private Boolean validateModel(EmployeeModel mo) {
     	
     	if( mo.getEmID() == null || mo.getEmID().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Mã NV Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "EmpId invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getName() == null || mo.getName().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Tên Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "EmpName invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getAddress()== null || mo.getAddress().equals("")){
-    		JOptionPane.showMessageDialog(null, "Address không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Address invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getPhone()== null || mo.getPhone().equals("")){
-    		JOptionPane.showMessageDialog(null, "phone không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getFax()== null || mo.getFax().equals("")){
-    		JOptionPane.showMessageDialog(null, "Fax không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Fax invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getEmail()== null || mo.getEmail().equals("")){
-    		JOptionPane.showMessageDialog(null, "Email không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Email invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	

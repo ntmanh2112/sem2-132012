@@ -228,15 +228,9 @@ public class UpdateDepartment extends JFrame {
 					Boolean kq = DepartmentsDAO.updateDepartment(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Update Thành Công", "Thông Báo",
+								"Update success", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewDepartment()).setVisible(true);
-						dispose();
-					}else{
-						JOptionPane.showMessageDialog(null,
-								"Update Viên Th?t b?i", "Thông Báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewVacancies()).setVisible(true);
 						dispose();
 					}
 				}
@@ -277,7 +271,7 @@ public class UpdateDepartment extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					int kg = JOptionPane.showConfirmDialog(null,
-							"Ban co chac muon thoat", "Thong Bao",
+							"Are you sure you want to exit", "Notice",
 							JOptionPane.OK_CANCEL_OPTION);
 					if (kg == 0) {
 						(new ViewDepartment()).setVisible(true);
@@ -346,27 +340,27 @@ public class UpdateDepartment extends JFrame {
 private Boolean validateModel(DepartmentsModel mo) {
     	
     	if( mo.getDep_ID() == null || mo.getDep_ID().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Mã DEP_ID Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, " DEP_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getDep_Name() == null || mo.getDep_Name().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "DEP_NAME Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "DEP_NAME invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getDep_Head()== null || mo.getDep_Head().equals("")){
-    		JOptionPane.showMessageDialog(null, "DEP_HEAD không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "DEP_HEAD invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getLocation()== null || mo.getLocation().equals("")){
-    		JOptionPane.showMessageDialog(null, "LOCATION không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "LOCATION invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getUp_Dep_No()== null || mo.getUp_Dep_No().equals("")){
-    		JOptionPane.showMessageDialog(null, "UP_DEP_NO không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "UP_DEP_NO invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getDn_Dep_No()== null || mo.getDn_Dep_No().equals("")){
-    		JOptionPane.showMessageDialog(null, "DN_DEP_NO không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "DN_DEP_NO invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	

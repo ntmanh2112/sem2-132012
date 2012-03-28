@@ -30,12 +30,10 @@ import com.toedter.calendar.JDateChooser;
 
 import model.DepartmentsModel;
 import model.EmployeeModel;
-import model.VacanciesModel;
 import model.Vacancy_Fill_DetailsModel;
 import Common.KeyValue;
 import dao.DepartmentsDAO;
 import dao.EmployeeDAO;
-import dao.VacanciesDAO;
 import dao.VacancyFillingDetailsDAO;
 
 public class UpdateVacanciesFilling extends JFrame {
@@ -218,39 +216,10 @@ public class UpdateVacanciesFilling extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-private Boolean validateModel(Vacancy_Fill_DetailsModel mo) {
-    	
-    	if( mo.getVacancy_ID() == null || mo.getVacancy_ID().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Vacancy_ID Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    	}
-    	if( mo.getFilled_Date() == null || mo.getFilled_Date().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Fill-Date Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    	}
-    	if( mo.getStatus()== null || mo.getStatus().equals("")){
-    		JOptionPane.showMessageDialog(null, "Status Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    	}
-    	
-    	if( mo.getCreator() == null || mo.getCreator().equals("")){
-    		JOptionPane.showMessageDialog(null, "Creator Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    	}
-    	
-    	if( mo.getIntake_Details() == null || mo.getIntake_Details().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "IntakeDetails Không Được Để Trống Và Không Được có chữ","Thông Báo",JOptionPane.ERROR_MESSAGE);
-    		return false;
-    		
-    	}
-    	
-		return true;
-    	
-    }
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setText("Update");
+			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(96, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
 			btnAdd.setMnemonic(KeyEvent.VK_UNDEFINED);
@@ -260,32 +229,7 @@ private Boolean validateModel(Vacancy_Fill_DetailsModel mo) {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
-					Vacancy_Fill_DetailsModel model = new Vacancy_Fill_DetailsModel();
-					model.setVacancy_ID(txtVacancyid.getText().trim());	
-					model.setEmID(((KeyValue) cbnEmID.getSelectedItem())
-							.getKey());
-					SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
-					model.setFilled_Date(sdf.format(txtFilldate.getDate()).trim());
-					model.setCreator(jTextField1.getText().trim());
-					model.setStatus(jTextField.getText().trim());
-					model.setIntake_Details(jtaIntakedetails.getText().trim());
-					if(!validateModel(model)) {
-						return;
-					}
-					Boolean kq = VacancyFillingDetailsDAO.updateVacancy_Fill_Details(model);
-					if (kq) {
-						JOptionPane.showMessageDialog(null,
-								"Update Success ", "Thông Báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewVacancies()).setVisible(true);
-						dispose();
-					}else{
-						JOptionPane.showMessageDialog(null,
-								"Update Viên Th?t b?i", "Thông Báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewVacancies()).setVisible(true);
-						dispose();
-					}
+					
 				}
 			});
 		}
@@ -324,7 +268,7 @@ private Boolean validateModel(Vacancy_Fill_DetailsModel mo) {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					int kg = JOptionPane.showConfirmDialog(null,
-							"Ban co chac muon thoat", "Thong Bao",
+							"Are you sure you want to exit", "Notice",
 							JOptionPane.OK_CANCEL_OPTION);
 					if (kg == 0) {
 						(new ViewVacanciesFillingInformation()).setVisible(true);

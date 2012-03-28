@@ -341,13 +341,13 @@ public class UpdateVacancies extends JFrame {
 					Boolean kq = VacanciesDAO.updateVacancies(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Update Success ", "Thông Báo",
+								"Update Success ", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewVacancies()).setVisible(true);
 						dispose();
 					}else{
 						JOptionPane.showMessageDialog(null,
-								"Update Viên Th?t b?i", "Thông Báo",
+								"Update failed", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewVacancies()).setVisible(true);
 						dispose();
@@ -377,7 +377,7 @@ public class UpdateVacancies extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					int kg = JOptionPane.showConfirmDialog(null,
-							"Ban co chac muon thoat", "Thong Bao",
+							"Are you sure you want to exit", "Notice",
 							JOptionPane.OK_CANCEL_OPTION);
 					if (kg == 0) {
 						(new ViewVacancies()).setVisible(true);
@@ -405,29 +405,29 @@ public class UpdateVacancies extends JFrame {
 private Boolean validateModel(VacanciesModel mo) {
     	
     	if( mo.getVacancy_ID() == null || mo.getVacancy_ID().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Vacancy_ID Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Vacancy_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getNo_Of_Vacancies() == null || mo.getNo_Of_Vacancies().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "No_Of_Vacancies Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "No_Of_Vacancies invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getStatus()== null || mo.getStatus().equals("")){
-    		JOptionPane.showMessageDialog(null, "Status Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Status invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	if( mo.getVacancy_Date() == null || mo.getVacancy_Date().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Vacancy_Date Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Vacancy_Date invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	
     	if( mo.getCreator() == null || mo.getCreator().equals("")){
-    		JOptionPane.showMessageDialog(null, "Creator Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Creator invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
     	
     	if( mo.getPriority() == null || mo.getPriority().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Priority Không Được Để Trống Và Không Được có chữ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Priority not empty and not hava character","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     		
     	}

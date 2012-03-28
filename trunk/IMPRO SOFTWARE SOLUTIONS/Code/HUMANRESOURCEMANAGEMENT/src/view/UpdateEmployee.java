@@ -312,7 +312,7 @@ public class UpdateEmployee extends JFrame {
 			btnOk.setText("Update");
 			btnOk.setSize(new Dimension(105, 34));
 			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
-			btnOk.setLocation(new Point(209, 312));
+			btnOk.setLocation(new Point(177, 312));
 			btnOk.addActionListener(new ActionListener() {
 				
 				@Override
@@ -338,18 +338,12 @@ public class UpdateEmployee extends JFrame {
 					Boolean kq = EmployeeDAO.updateEmployee(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Cap Nhat  Thành Công",
-								"Thông Báo",
+								"Update success",
+								"Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewEmployee()).setVisible(true);
 						dispose();
 
-					}else{
-						JOptionPane.showMessageDialog(null,
-								"Update Viên Th?t b?i", "Thông Báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewVacancies()).setVisible(true);
-						dispose();
 					}
 
 					
@@ -377,7 +371,7 @@ public class UpdateEmployee extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					int kg = JOptionPane.showConfirmDialog(null,
-							"Ban co chac muon thoat", "Thong Bao",
+							"Are you sure you want to exit", "Notice",
 							JOptionPane.OK_CANCEL_OPTION);
 					if (kg == 0) {
 						(new ViewEmployee()).setVisible(true);
@@ -428,19 +422,19 @@ private Boolean validateModel(EmployeeModel mo) {
 		return false;
 	}*/
 	if( mo.getAddress()== null || mo.getAddress().equals("")){
-		JOptionPane.showMessageDialog(null, "Address không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Address invalid","Notice",JOptionPane.ERROR_MESSAGE);
 		return false;
 	}
 	if( mo.getPhone()== null || mo.getPhone().equals("")){
-		JOptionPane.showMessageDialog(null, "phone không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
 		return false;
 	}
 	if( mo.getFax()== null || mo.getFax().equals("")){
-		JOptionPane.showMessageDialog(null, "Fax không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Fax invalid","Notice",JOptionPane.ERROR_MESSAGE);
 		return false;
 	}
 	if( mo.getEmail()== null || mo.getEmail().equals("")){
-		JOptionPane.showMessageDialog(null, "Email không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Email invalid","Notice",JOptionPane.ERROR_MESSAGE);
 		return false;
 	}
 	

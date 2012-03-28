@@ -192,7 +192,7 @@ public class ViewVacancies extends JFrame {
 					// TODO Auto-generated method stub
 					int row = jTableViewvacancies.getSelectedRow();
 					if(row== -1){
-						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon Edit","thong bao",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "You not choose to edit the line","Notice",JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					int column = 0;
@@ -228,22 +228,22 @@ public class ViewVacancies extends JFrame {
 					VacanciesModel mo = new VacanciesModel();
 					int row = jTableViewvacancies.getSelectedRow();
 					if(row== -1){
-						JOptionPane.showMessageDialog(null, "Ban chua chon dong muon xoa","thong bao",JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "You not choose to delete the line","Notice",JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 					int column = 0;
 					String manvduocluachon = jTableViewvacancies.getValueAt(row, column).toString();
 					mo.setVacancy_ID(manvduocluachon);
-					int yn = JOptionPane.showConfirmDialog(null, "Ban co chac muon xoa khong","Thong Bao",JOptionPane.OK_CANCEL_OPTION);
+					int yn = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Notice",JOptionPane.OK_CANCEL_OPTION);
 					if(yn == 0){
 						Boolean kq = VacanciesDAO.deleteVacancies(mo);
 						if(kq){
 							loadDataToTable();
 							jTableViewvacancies.setModel(new DefaultTableModel(tableData,ColumnName));
-							JOptionPane.showMessageDialog(null, "Delete Thanh cong","thong bao",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Delete success","Notice",JOptionPane.INFORMATION_MESSAGE);
 							
 						}else {
-							JOptionPane.showMessageDialog(null, "Delete That bai","thong bao",JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Delete failed","Notice",JOptionPane.WARNING_MESSAGE);
 					
 						}
 					}
