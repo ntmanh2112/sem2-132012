@@ -206,7 +206,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewemployee() {
 		if (jMenuItemViewemployee == null) {
 			jMenuItemViewemployee = new JMenuItem();
-			jMenuItemViewemployee.setText("View Employee");
+			jMenuItemViewemployee.setText("Management Employee");
 			jMenuItemViewemployee.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); 
@@ -227,7 +227,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewdepartment() {
 		if (jMenuItemViewdepartment == null) {
 			jMenuItemViewdepartment = new JMenuItem();
-			jMenuItemViewdepartment.setText("View Department");
+			jMenuItemViewdepartment.setText("Management Department");
 			jMenuItemViewdepartment.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); 
@@ -248,7 +248,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewsection() {
 		if (jMenuItemViewsection == null) {
 			jMenuItemViewsection = new JMenuItem();
-			jMenuItemViewsection.setText("View Section");
+			jMenuItemViewsection.setText("Management Section");
 			jMenuItemViewsection.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); 
@@ -269,7 +269,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewvacancies() {
 		if (jMenuItemViewvacancies == null) {
 			jMenuItemViewvacancies = new JMenuItem();
-			jMenuItemViewvacancies.setText("View Vacancies");
+			jMenuItemViewvacancies.setText("Management Vacancies");
 			jMenuItemViewvacancies.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); 
@@ -289,7 +289,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewvacanciesfillinginfo() {
 		if (jMenuItemViewvacanciesfillinginfo == null) {
 			jMenuItemViewvacanciesfillinginfo = new JMenuItem();
-			jMenuItemViewvacanciesfillinginfo.setText("View Vacancies Details");
+			jMenuItemViewvacanciesfillinginfo.setText("Management Vacancies Filling Details");
 			jMenuItemViewvacanciesfillinginfo
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
