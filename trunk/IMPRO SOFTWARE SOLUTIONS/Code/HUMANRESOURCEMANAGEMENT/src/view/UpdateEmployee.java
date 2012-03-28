@@ -312,7 +312,7 @@ public class UpdateEmployee extends JFrame {
 			btnOk.setText("Update");
 			btnOk.setSize(new Dimension(105, 34));
 			btnOk.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
-			btnOk.setLocation(new Point(177, 312));
+			btnOk.setLocation(new Point(209, 312));
 			btnOk.addActionListener(new ActionListener() {
 				
 				@Override
@@ -344,6 +344,12 @@ public class UpdateEmployee extends JFrame {
 						(new ViewEmployee()).setVisible(true);
 						dispose();
 
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Update Viên Th?t b?i", "Thông Báo",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewVacancies()).setVisible(true);
+						dispose();
 					}
 
 					
