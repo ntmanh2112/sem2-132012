@@ -15,6 +15,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -380,7 +382,15 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemCreateaccount() {
 		if (jMenuItemCreateaccount == null) {
 			jMenuItemCreateaccount = new JMenuItem();
-			jMenuItemCreateaccount.setText("Create Account");
+			jMenuItemCreateaccount.setText("Management Account");
+			jMenuItemCreateaccount.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					(new ViewAccount()).setVisible(true);
+				}
+			});
 		}
 		return jMenuItemCreateaccount;
 	}
