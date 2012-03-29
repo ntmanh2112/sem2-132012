@@ -36,7 +36,7 @@ import dao.EmployeeDAO;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class AddUser extends JFrame {
+public class UpdateAccount extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
@@ -44,29 +44,36 @@ public class AddUser extends JFrame {
 	private JLabel jLabel2 = null;
 	private JPasswordField txtPassword = null;
 	private JLabel jLabel3 = null;
-	private JComboBox cbnEmployeeid = null;
 	private JLabel jLabel4 = null;
 	private JComboBox cbnAcclevel = null;
 	private JButton btnAdd = null;
 	private JButton btnDelete = null;
 	AccountModel model = new AccountModel();  //  @jve:decl-index=0:
+	private JTextField txtEmID = null;
 
 	/**
 	 * This is the default constructor
 	 */
-	public AddUser() {
+	public UpdateAccount() {
 		super();
+		initialize();		
+	}
+	public UpdateAccount(AccountModel mo){
+		super();
+		this.model = AccountDAO.getAccountByID(mo.getUserID());
 		initialize();
-		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
+		/*ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
 		for (EmployeeModel em : listEmployee) {
-			KeyValue item = new KeyValue(em.getEmID(),em.getName());
+			KeyValue item = new KeyValue(em.getName(),em.getEmID());
 
 			cbnEmployeeid.addItem(item);
 			if (item.getKey().equals(model.getEmID())) {
 				cbnEmployeeid.setSelectedItem(item);
 			}
-		}
-		ArrayList<DesignationModel> listdesig = DesignationDAO.getAllDesignation();
+		}*/
+		txtEmID.setText(model.getEmID());
+		txtPassword.setText(model.getPassword());
+		/*ArrayList<DesignationModel> listdesig = DesignationDAO.getAllDesignation();
 		for (DesignationModel dm : listdesig) {
 			KeyValue item = new KeyValue(dm.getDesignation(),dm.getLayer_ID());
 
@@ -74,7 +81,7 @@ public class AddUser extends JFrame {
 			if (item.getKey().equals(model.getAcc_level())) {
 				cbnAcclevel.setSelectedItem(item);
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -112,10 +119,10 @@ public class AddUser extends JFrame {
 			jLabel2.setLocation(new Point(20, 130));
 			jLabel2.setSize(new Dimension(68, 25));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(88, 9, 225, 48));
+			jLabel.setBounds(new Rectangle(82, 9, 251, 48));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
-			jLabel.setText("Add UserAccount ");
+			jLabel.setText("Update UserAccount ");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -123,11 +130,11 @@ public class AddUser extends JFrame {
 			jContentPane.add(jLabel2, null);
 			jContentPane.add(getTxtPassword(), null);
 			jContentPane.add(jLabel3, null);
-			jContentPane.add(getCbnEmployeeid(), null);
 			jContentPane.add(jLabel4, null);
 			jContentPane.add(getCbnAcclevel(), null);
 			jContentPane.add(getBtnAdd(), null);
 			jContentPane.add(getBtnDelete(), null);
+			jContentPane.add(getTxtEmID(), null);
 		}
 		return jContentPane;
 	}
@@ -144,20 +151,6 @@ public class AddUser extends JFrame {
 			txtPassword.setSize(new Dimension(200, 25));
 		}
 		return txtPassword;
-	}
-
-	/**
-	 * This method initializes cbnEmployeeid	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbnEmployeeid() {
-		if (cbnEmployeeid == null) {
-			cbnEmployeeid = new JComboBox();
-			cbnEmployeeid.setSize(new Dimension(200, 25));
-			cbnEmployeeid.setLocation(new Point(130, 90));
-		}
-		return cbnEmployeeid;
 	}
 
 	/**
@@ -192,26 +185,25 @@ public class AddUser extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					AccountModel model = new AccountModel();
-					
-					model.setEmID(((KeyValue) cbnEmployeeid.getSelectedItem())
-							.getKey());
+					//model.setUserID(userID);
+					model.setEmID(txtEmID.getText().trim());
 					model.setPassword(txtPassword.getText().trim());
-					model.setAcc_level(((KeyValue) cbnAcclevel.getSelectedItem())
-							.getKey());
+					/*model.setAcc_level(((KeyValue) cbnAcclevel.getSelectedItem())
+							.getKey());*/
 					if(!validateModel(model)) {
 						
 						return;
 					}
-					Boolean kq = AccountDAO.insertAccount(model);
+					Boolean kq = AccountDAO.updateAccount(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Add successful Account", "Notice",
+								"Update successful Account", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewEmployee()).setVisible(true);
 						dispose();
 					}else {
 						JOptionPane.showMessageDialog(null,
-								"Add failure Account", "Notice",
+								"Update failure Account", "Notice",
 								JOptionPane.ERROR_MESSAGE);
 						(new ViewAccount()).setVisible(true);
 						dispose();
@@ -261,6 +253,19 @@ private Boolean validateModel(AccountModel mo) {
     	
     	return true;
     	
+}
+/**
+ * This method initializes txtEmID	
+ * 	
+ * @return javax.swing.JTextField	
+ */
+private JTextField getTxtEmID() {
+	if (txtEmID == null) {
+		txtEmID = new JTextField();
+		txtEmID.setSize(new Dimension(200, 25));
+		txtEmID.setLocation(new Point(130, 90));
+	}
+	return txtEmID;
 }
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
