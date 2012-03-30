@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-03-30 08:33                                */
+/* Created on:            2012-03-30 10:55                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -176,7 +176,6 @@ CREATE TABLE [Account] (
     [UserID] INTEGER IDENTITY(0,1) NOT NULL,
     [EmID] VARCHAR(10) NOT NULL,
     [Password] NVARCHAR(40),
-    [Acc_Level] NUMERIC,
     CONSTRAINT [PK_Account] PRIMARY KEY ([UserID])
 )
 GO
@@ -186,11 +185,11 @@ GO
 /* ---------------------------------------------------------------------- */
 
 ALTER TABLE [Employee] ADD CONSTRAINT [Designation_Employee] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID]) ON DELETE CASCADE
+    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Section] ADD CONSTRAINT [Departments_Section] 
-    FOREIGN KEY ([DepID]) REFERENCES [Departments] ([Dep_ID]) ON DELETE CASCADE
+    FOREIGN KEY ([DepID]) REFERENCES [Departments] ([Dep_ID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Designation] ADD CONSTRAINT [DesigLayer_Designation] 

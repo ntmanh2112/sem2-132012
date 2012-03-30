@@ -133,7 +133,7 @@ public class ViewAccount extends JFrame {
 		tableData [row][0] = model.getEmID();
 		tableData [row][1] = model.getPassword();
 		
-		tableData [row][2] = model.getAcc_level();
+		
 		
 		row++;
 		}

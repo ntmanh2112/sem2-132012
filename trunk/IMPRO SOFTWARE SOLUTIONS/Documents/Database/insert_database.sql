@@ -24,7 +24,10 @@ INSERT INTO Employee VALUES ('E201','hung','P20','D201','S201','dongthap','09066
 INSERT INTO Employee VALUES ('E301','quang','P30','D301','S301','hcm','0909090909','56789','quang@gmail.com')
 INSERT INTO Employee VALUES ('E401','C.Thanh','P40','D401','S401','Tphcm','0988765432','34567','camthanh@gmail.com')
 --Account
-INSERT INTO Account VALUES ('E101','thanh',1)
+INSERT INTO Account VALUES ('E101','thanh')
+INSERT INTO Account VALUES ('E201','hung')
+INSERT INTO Account VALUES ('E301','quang')
+INSERT INTO Account VALUES ('E401','cthanh')
 
 
 --funtion

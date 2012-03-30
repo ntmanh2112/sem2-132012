@@ -21,13 +21,8 @@ public class AccountModel {
 	public void setPassword(String password) {
 		Password = password;
 	}
-	public String getAcc_level() {
-		return Acc_level;
-	}
-	public void setAcc_level(String accLevel) {
-		Acc_level = accLevel;
-	}
+	
 	private String EmID;
 	private String Password;
-	private String Acc_level;
+	
 }

@@ -2,6 +2,13 @@ package model;
 
 public class EmployeeModel {
 	private String EmID;
+	private String Password;
+	public String getPassword() {
+		return Password;
+	}
+	public void setPassword(String password) {
+		Password = password;
+	}
 	public String getEmID() {
 		return EmID;
 	}
