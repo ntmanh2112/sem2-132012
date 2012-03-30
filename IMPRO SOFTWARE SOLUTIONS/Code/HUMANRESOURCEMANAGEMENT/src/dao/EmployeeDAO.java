@@ -15,6 +15,7 @@ public class EmployeeDAO {
 		ArrayList<EmployeeModel> listEmployee = new ArrayList<EmployeeModel>();
 		try {
 			String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID, A.SecID, A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID";
+			
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				EmployeeModel model = new EmployeeModel();
@@ -40,7 +41,8 @@ public class EmployeeDAO {
 	public static EmployeeModel getEmployeeByID(String id){
 		EmployeeModel model = null;
 		try {
-			String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID, A.SecID, A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID WHERE EmID =?";
+			//String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID, A.SecID, A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID";
+			String sql = "select *  from employee AS A inner join account AS B on A.EmID =  B.EmID where A.EmID = ? ";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -55,6 +57,7 @@ public class EmployeeDAO {
 				model.setPhone(rs.getString("Phone"));
 				model.setFax(rs.getString("Fax"));
 				model.setEmail(rs.getString("Email"));
+				model.setPassword(rs.getString("Password"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -64,7 +67,7 @@ public class EmployeeDAO {
 	}
 	
 	public static Boolean insertUsingStore(EmployeeModel model) {
-		Boolean result = false;
+		Boolean kq = false;
 		
 		try {
 			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_INSERT_EMPLOYEE(?,?,?,?,?,?,?,?,?,?)}");
@@ -79,17 +82,17 @@ public class EmployeeDAO {
 			csmt.setString("Email", model.getEmail());
 			csmt.setString("Password", model.getPassword());
 			
-			csmt.executeQuery();
-			result = true;
+			csmt.executeUpdate();
+			kq = true;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return result;
+		return kq;
 	}
 	
-	public static Boolean insertEmployee( EmployeeModel model){
+	/*public static Boolean insertEmployee( EmployeeModel model){
 		Boolean kq = false;
 		String sql ;
 			try {
@@ -112,11 +115,11 @@ public class EmployeeDAO {
 			}
 			
 		return kq;
-}
-	public static boolean updateEmployee(EmployeeModel model){
+}*/
+	/*public static boolean updateEmployee(EmployeeModel model){
 		Boolean kq = false;
 		try {
-			String sql = "UPDATE Employee SET Name = ?, Dep_ID = ? , Des_ID = ?, SecID = ?, Address = ?, Phone = ?, Fax = ?, Email = ? WHERE EmID=?";
+			String sql = "UPDATE Employee SET Name = ?, Dep_ID = ? , Des_ID = ?, SecID = ?, Address = ?, Phone = ?, Fax = ?, Email = ?,Password = ? WHERE EmID=?";
 
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			
@@ -128,7 +131,8 @@ public class EmployeeDAO {
 			ps.setString(6, model.getPhone());
 			ps.setString(7, model.getFax());
 			ps.setString(8, model.getEmail());
-			ps.setString(9, model.getEmID());
+			ps.setString(9, model.getPassword());
+			ps.setString(10, model.getEmID());
 			
 			
 			
@@ -139,6 +143,31 @@ public class EmployeeDAO {
 			e.printStackTrace();
 		}
 			return kq;
+	}*/
+	public static Boolean UpdateUsingStore(EmployeeModel model) {
+		Boolean kq = false;
+		
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_UPDATE_EMPLOYEE(?,?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("EmID", model.getEmID());
+			csmt.setString("Name", model.getName());
+			csmt.setString("Dep_ID", model.getDep_ID());
+			csmt.setString("Des_ID", model.getDes_ID());
+			csmt.setString("SecID", model.getSecID());
+			csmt.setString("Address", model.getAddress());
+			csmt.setString("Phone", model.getPhone());
+			csmt.setString("Fax", model.getFax());
+			csmt.setString("Email", model.getEmail());
+			csmt.setString("Password", model.getPassword());
+			
+			csmt.executeUpdate();
+			kq = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return kq;
 	}
 	public static Boolean deleteEmployee(EmployeeModel model){
 		Boolean kq = false;
