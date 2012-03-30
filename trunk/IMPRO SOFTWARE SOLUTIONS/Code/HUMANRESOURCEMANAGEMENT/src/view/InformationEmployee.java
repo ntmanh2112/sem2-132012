@@ -7,25 +7,30 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
-import java.awt.Point;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JButton;
+import java.awt.Point;
+import java.awt.GridBagLayout;
+import javax.swing.JTextField;
 
 public class InformationEmployee extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
 	private JLabel jLabel = null;
-	private JLabel jLabel1 = null;
-	private JTextField txtName = null;
-	private JLabel jLabel2 = null;
-	private JTextField txtAddress = null;
-	private JLabel jLabel3 = null;
-	private JTextField txtPhone = null;
-	private JLabel jLabel4 = null;
-	private JTextField txtEmail = null;
+	private JScrollPane jScrollPane = null;
+	private JTable jTableInformation = null;
 	private JButton btnUpdate = null;
 	private JButton btnExit = null;
+	private JPanel jPanel = null;
+	private JLabel jLabel1 = null;
+	private JTextField txtEmid = null;
+	private JLabel jLabel2 = null;
+	private JTextField txtName = null;
+	private JLabel jLabel3 = null;
+	private JTextField txtDeptid = null;
+	private JButton btnSearch = null;
 
 	/**
 	 * This is the default constructor
@@ -41,7 +46,7 @@ public class InformationEmployee extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(383, 358);
+		this.setSize(646, 432);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -53,97 +58,45 @@ public class InformationEmployee extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
-			jLabel4 = new JLabel();
-			jLabel4.setText("Email");
-			jLabel4.setSize(new Dimension(32, 30));
-			jLabel4.setLocation(new Point(15, 220));
-			jLabel3 = new JLabel();
-			jLabel3.setText("Phone");
-			jLabel3.setLocation(new Point(15, 170));
-			jLabel3.setSize(new Dimension(38, 30));
-			jLabel2 = new JLabel();
-			jLabel2.setText("Address");
-			jLabel2.setLocation(new Point(15, 120));
-			jLabel2.setSize(new Dimension(48, 30));
-			jLabel1 = new JLabel();
-			jLabel1.setText("Name");
-			jLabel1.setSize(new Dimension(36, 30));
-			jLabel1.setLocation(new Point(15, 70));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(122, 9, 135, 41));
+			jLabel.setBounds(new Rectangle(247, 16, 137, 48));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setText("Information");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
-			jContentPane.add(jLabel1, null);
-			jContentPane.add(getTxtName(), null);
-			jContentPane.add(jLabel2, null);
-			jContentPane.add(getTxtAddress(), null);
-			jContentPane.add(jLabel3, null);
-			jContentPane.add(getTxtPhone(), null);
-			jContentPane.add(jLabel4, null);
-			jContentPane.add(getTxtEmail(), null);
+			jContentPane.add(getJScrollPane(), null);
 			jContentPane.add(getBtnUpdate(), null);
 			jContentPane.add(getBtnExit(), null);
+			jContentPane.add(getJPanel(), null);
 		}
 		return jContentPane;
 	}
 
 	/**
-	 * This method initializes txtName	
+	 * This method initializes jScrollPane	
 	 * 	
-	 * @return javax.swing.JTextField	
+	 * @return javax.swing.JScrollPane	
 	 */
-	private JTextField getTxtName() {
-		if (txtName == null) {
-			txtName = new JTextField();
-			txtName.setLocation(new Point(100, 70));
-			txtName.setSize(new Dimension(200, 30));
+	private JScrollPane getJScrollPane() {
+		if (jScrollPane == null) {
+			jScrollPane = new JScrollPane();
+			jScrollPane.setBounds(new Rectangle(10, 83, 619, 161));
+			jScrollPane.setViewportView(getJTableInformation());
 		}
-		return txtName;
+		return jScrollPane;
 	}
 
 	/**
-	 * This method initializes txtAddress	
+	 * This method initializes jTableInformation	
 	 * 	
-	 * @return javax.swing.JTextField	
+	 * @return javax.swing.JTable	
 	 */
-	private JTextField getTxtAddress() {
-		if (txtAddress == null) {
-			txtAddress = new JTextField();
-			txtAddress.setLocation(new Point(100, 120));
-			txtAddress.setSize(new Dimension(200, 30));
+	private JTable getJTableInformation() {
+		if (jTableInformation == null) {
+			jTableInformation = new JTable();
 		}
-		return txtAddress;
-	}
-
-	/**
-	 * This method initializes txtPhone	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getTxtPhone() {
-		if (txtPhone == null) {
-			txtPhone = new JTextField();
-			txtPhone.setSize(new Dimension(200, 30));
-			txtPhone.setLocation(new Point(100, 170));
-		}
-		return txtPhone;
-	}
-
-	/**
-	 * This method initializes txtEmail	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getTxtEmail() {
-		if (txtEmail == null) {
-			txtEmail = new JTextField();
-			txtEmail.setLocation(new Point(100, 220));
-			txtEmail.setSize(new Dimension(200, 30));
-		}
-		return txtEmail;
+		return jTableInformation;
 	}
 
 	/**
@@ -156,15 +109,7 @@ public class InformationEmployee extends JFrame {
 			btnUpdate = new JButton();
 			btnUpdate.setText("Update");
 			btnUpdate.setSize(new Dimension(90, 30));
-			btnUpdate.setLocation(new Point(60, 272));
-			btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()");
-					// TODO Auto-generated Event stub actionPerformed()
-					(new UpdateInformation()).setVisible(true);
-					dispose();
-				}
-			});
+			btnUpdate.setLocation(new Point(180, 265));
 		}
 		return btnUpdate;
 	}
@@ -179,9 +124,99 @@ public class InformationEmployee extends JFrame {
 			btnExit = new JButton();
 			btnExit.setText("Exit");
 			btnExit.setSize(new Dimension(90, 30));
-			btnExit.setLocation(new Point(203, 272));
+			btnExit.setLocation(new Point(383, 265));
 		}
 		return btnExit;
 	}
 
-}  //  @jve:decl-index=0:visual-constraint="6,7"
+	/**
+	 * This method initializes jPanel	
+	 * 	
+	 * @return javax.swing.JPanel	
+	 */
+	private JPanel getJPanel() {
+		if (jPanel == null) {
+			jLabel3 = new JLabel();
+			jLabel3.setText("DeptID");
+			jLabel3.setLocation(new Point(347, 23));
+			jLabel3.setSize(new Dimension(38, 30));
+			jLabel2 = new JLabel();
+			jLabel2.setText("Name");
+			jLabel2.setSize(new Dimension(36, 30));
+			jLabel2.setLocation(new Point(184, 23));
+			jLabel1 = new JLabel();
+			jLabel1.setText("EmID");
+			jLabel1.setSize(new Dimension(33, 30));
+			jLabel1.setLocation(new Point(6, 23));
+			jPanel = new JPanel();
+			jPanel.setLayout(null);
+			jPanel.setBounds(new Rectangle(9, 310, 619, 76));
+			jPanel.add(jLabel1, null);
+			jPanel.add(getTxtEmid(), null);
+			jPanel.add(jLabel2, null);
+			jPanel.add(getTxtName(), null);
+			jPanel.add(jLabel3, null);
+			jPanel.add(getTxtDeptid(), null);
+			jPanel.add(getBtnSearch(), null);
+		}
+		return jPanel;
+	}
+
+	/**
+	 * This method initializes txtEmid	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtEmid() {
+		if (txtEmid == null) {
+			txtEmid = new JTextField();
+			txtEmid.setLocation(new Point(45, 23));
+			txtEmid.setSize(new Dimension(134, 30));
+		}
+		return txtEmid;
+	}
+
+	/**
+	 * This method initializes txtName	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtName() {
+		if (txtName == null) {
+			txtName = new JTextField();
+			txtName.setSize(new Dimension(118, 30));
+			txtName.setLocation(new Point(225, 23));
+		}
+		return txtName;
+	}
+
+	/**
+	 * This method initializes txtDeptid	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtDeptid() {
+		if (txtDeptid == null) {
+			txtDeptid = new JTextField();
+			txtDeptid.setLocation(new Point(389, 23));
+			txtDeptid.setSize(new Dimension(118, 30));
+		}
+		return txtDeptid;
+	}
+
+	/**
+	 * This method initializes btnSearch	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBtnSearch() {
+		if (btnSearch == null) {
+			btnSearch = new JButton();
+			btnSearch.setText("Search");
+			btnSearch.setSize(new Dimension(90, 30));
+			btnSearch.setLocation(new Point(516, 23));
+		}
+		return btnSearch;
+	}
+
+}  //  @jve:decl-index=0:visual-constraint="10,10"
