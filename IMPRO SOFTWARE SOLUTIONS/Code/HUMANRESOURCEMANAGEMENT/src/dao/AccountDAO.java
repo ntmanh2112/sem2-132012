@@ -29,7 +29,7 @@ public class AccountDAO {
 				model.setUserID(rs.getString("UserID"));
 				model.setPassword(rs.getString("Password"));
 				model.setEmID(rs.getString("EmID"));
-				model.setAcc_level(rs.getString("Acc_level"));
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -49,7 +49,7 @@ public class AccountDAO {
 				model.setUserID(rs.getString("UserID"));
 				model.setPassword(rs.getString("Password"));
 				model.setEmID(rs.getString("EmID"));
-				model.setAcc_level(rs.getString("Acc_Level"));
+				
 				
 				listAccount.add(model);
 			}
@@ -70,7 +70,7 @@ public class AccountDAO {
 				model.setUserID(rs.getString("UserID"));
 				model.setEmID(rs.getString("EmID"));
 				model.setPassword(rs.getString("Password"));
-				model.setAcc_level(rs.getString("Acc_Level"));
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -82,12 +82,12 @@ public class AccountDAO {
 		Boolean kq = false;
 		String sql ;
 			try {
-				sql = "INSERT INTO Account VALUES (?,?,?,?)";
+				sql = "INSERT INTO Account VALUES (?,?,?)";
 				PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 				ps.setString(1, model.getUserID());
 				ps.setString(2, model.getEmID());
 				ps.setString(3, model.getPassword());
-				ps.setString(4, model.getAcc_level());
+				
 				ps.executeUpdate();
 				kq = true;
 			} catch (SQLException e) {
@@ -99,11 +99,11 @@ public class AccountDAO {
 	public static boolean updateAccount(AccountModel model){
 		Boolean kq = false;
 		try {
-			String sql = "UPDATE Account SET EmID = ?,Password = ? ,Acc_Level = ? WHERE UserID = ?";
+			String sql = "UPDATE Account SET EmID = ?,Password = ?  WHERE UserID = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getEmID());
 			ps.setString(2, model.getPassword());
-			ps.setString(3, model.getAcc_level());
+			
 			ps.setString(4, model.getEmID());
 			ps.executeUpdate();
 			kq = true;

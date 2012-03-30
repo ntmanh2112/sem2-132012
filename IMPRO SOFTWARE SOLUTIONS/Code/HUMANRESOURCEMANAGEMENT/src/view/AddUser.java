@@ -66,15 +66,7 @@ public class AddUser extends JFrame {
 				cbnEmployeeid.setSelectedItem(item);
 			}
 		}
-		ArrayList<DesignationModel> listdesig = DesignationDAO.getAllDesignation();
-		for (DesignationModel dm : listdesig) {
-			KeyValue item = new KeyValue(dm.getDesignation(),dm.getLayer_ID());
-
-			cbnAcclevel.addItem(item);
-			if (item.getKey().equals(model.getAcc_level())) {
-				cbnAcclevel.setSelectedItem(item);
-			}
-		}
+		
 	}
 
 	/**
@@ -196,8 +188,7 @@ public class AddUser extends JFrame {
 					model.setEmID(((KeyValue) cbnEmployeeid.getSelectedItem())
 							.getKey());
 					model.setPassword(txtPassword.getText().trim());
-					model.setAcc_level(((KeyValue) cbnAcclevel.getSelectedItem())
-							.getKey());
+					
 					if(!validateModel(model)) {
 						
 						return;

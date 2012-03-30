@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,12 +14,13 @@ public class EmployeeDAO {
 	public static ArrayList<EmployeeModel> getAllEmployee(){
 		ArrayList<EmployeeModel> listEmployee = new ArrayList<EmployeeModel>();
 		try {
-			String sql = "SELECT * FROM Employee";
+			String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID, A.SecID, A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				EmployeeModel model = new EmployeeModel();
 				model.setEmID(rs.getString("EmID"));
 				model.setName(rs.getString("Name"));
+				model.setPassword(rs.getString("Password"));
 				model.setDep_ID(rs.getString("Dep_ID"));
 				model.setDes_ID(rs.getString("Des_ID"));
 				model.setSecID(rs.getString("SecID"));
@@ -38,7 +40,7 @@ public class EmployeeDAO {
 	public static EmployeeModel getEmployeeByID(String id){
 		EmployeeModel model = null;
 		try {
-			String sql = "SELECT * FROM EMPLOYEE WHERE EmID =?";
+			String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID, A.SecID, A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID WHERE EmID =?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -60,6 +62,33 @@ public class EmployeeDAO {
 		}
 		return model;
 	}
+	
+	public static Boolean insertUsingStore(EmployeeModel model) {
+		Boolean result = false;
+		
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_INSERT_EMPLOYEE(?,?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("EmID", model.getEmID());
+			csmt.setString("Name", model.getName());
+			csmt.setString("Dep_ID", model.getDep_ID());
+			csmt.setString("Des_ID", model.getDes_ID());
+			csmt.setString("SecID", model.getSecID());
+			csmt.setString("Address", model.getAddress());
+			csmt.setString("Phone", model.getPhone());
+			csmt.setString("Fax", model.getFax());
+			csmt.setString("Email", model.getEmail());
+			csmt.setString("Password", model.getPassword());
+			
+			csmt.executeQuery();
+			result = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	public static Boolean insertEmployee( EmployeeModel model){
 		Boolean kq = false;
 		String sql ;

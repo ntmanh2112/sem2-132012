@@ -128,18 +128,19 @@ public class ViewEmployee extends JFrame {
 	}
 	private void loadDataToTable(){
 		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
-		tableData = new String[listEmployee.size()][9];
+		tableData = new String[listEmployee.size()][10];
 		int row = 0;
 		for (EmployeeModel model:listEmployee){
 		tableData [row][0] = model.getEmID();
 		tableData [row][1] = model.getName();
-		tableData [row][2] = model.getDep_ID();
-		tableData [row][3] = model.getDes_ID();
-		tableData [row][4] = model.getSecID();
-		tableData [row][5] = model.getAddress();
-		tableData [row][6] = model.getPhone();
-		tableData [row][7] = model.getFax();
-		tableData [row][8] = model.getEmail();
+		tableData [row][2] = model.getPassword();
+		tableData [row][3] = model.getDep_ID();
+		tableData [row][4] = model.getDes_ID();
+		tableData [row][5] = model.getSecID();
+		tableData [row][6] = model.getAddress();
+		tableData [row][7] = model.getPhone();
+		tableData [row][8] = model.getFax();
+		tableData [row][9] = model.getEmail();
 		row++;
 		}
 		}
