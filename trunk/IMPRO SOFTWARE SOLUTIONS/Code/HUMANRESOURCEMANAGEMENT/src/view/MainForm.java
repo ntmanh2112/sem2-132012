@@ -52,8 +52,6 @@ public class MainForm extends JFrame {
 	private JMenuItem jMenuItemDmmanagevacancy = null;
 	private JMenuItem jMenuItemDmviewreport = null;
 	private JMenuItem jMenuItemViewinformation = null;
-	private JMenuItem jMenuItemUpdateinformation = null;
-	private JMenuItem jMenuItemSearchemployee = null;
 	private Image img = null;
 	/**
 	 * This is the default constructor
@@ -194,8 +192,6 @@ public class MainForm extends JFrame {
 			jMenuEmployee = new JMenu();
 			jMenuEmployee.setText("Employee");
 			jMenuEmployee.add(getJMenuItemViewinformation());
-			jMenuEmployee.add(getJMenuItemUpdateinformation());
-			jMenuEmployee.add(getJMenuItemSearchemployee());
 		}
 		return jMenuEmployee;
 	}
@@ -404,6 +400,14 @@ public class MainForm extends JFrame {
 		if (jMenuItemHrviewdepartment == null) {
 			jMenuItemHrviewdepartment = new JMenuItem();
 			jMenuItemHrviewdepartment.setText("View Department");
+			jMenuItemHrviewdepartment
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							System.out.println("actionPerformed()");
+							// TODO Auto-generated Event stub actionPerformed()
+							(new ViewDepartment()).setVisible(true);
+						}
+					});
 		}
 		return jMenuItemHrviewdepartment;
 	}
@@ -417,6 +421,13 @@ public class MainForm extends JFrame {
 		if (jMenuItemHrviewemployee == null) {
 			jMenuItemHrviewemployee = new JMenuItem();
 			jMenuItemHrviewemployee.setText("View Employee");
+			jMenuItemHrviewemployee.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewEmployee()).setVisible(true);
+				}
+			});
 		}
 		return jMenuItemHrviewemployee;
 	}
@@ -430,6 +441,13 @@ public class MainForm extends JFrame {
 		if (jMenuItemHrviewsection == null) {
 			jMenuItemHrviewsection = new JMenuItem();
 			jMenuItemHrviewsection.setText("View Section");
+			jMenuItemHrviewsection.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewSection()).setVisible(true);
+				}
+			});
 		}
 		return jMenuItemHrviewsection;
 	}
@@ -443,6 +461,14 @@ public class MainForm extends JFrame {
 		if (jMenuItemHrrotateemployee == null) {
 			jMenuItemHrrotateemployee = new JMenuItem();
 			jMenuItemHrrotateemployee.setText("Rotate Employee");
+			jMenuItemHrrotateemployee
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							System.out.println("actionPerformed()"); 
+							// TODO Auto-generated Event stub actionPerformed()
+							(new EmployeeJobRotation()).setVisible(true);
+						}
+					});
 		}
 		return jMenuItemHrrotateemployee;
 	}
@@ -456,6 +482,14 @@ public class MainForm extends JFrame {
 		if (jMenuItemHrprocessvacancy == null) {
 			jMenuItemHrprocessvacancy = new JMenuItem();
 			jMenuItemHrprocessvacancy.setText("Process Vacancy");
+			jMenuItemHrprocessvacancy
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(java.awt.event.ActionEvent e) {
+							System.out.println("actionPerformed()");
+							// TODO Auto-generated Event stub actionPerformed()
+							(new ViewVacancies()).setVisible(true);
+						}
+					});
 		}
 		return jMenuItemHrprocessvacancy;
 	}
@@ -469,6 +503,13 @@ public class MainForm extends JFrame {
 		if (jMenuItemHrviewreport == null) {
 			jMenuItemHrviewreport = new JMenuItem();
 			jMenuItemHrviewreport.setText("View Report");
+			jMenuItemHrviewreport.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					//(new view)
+				}
+			});
 		}
 		return jMenuItemHrviewreport;
 	}
@@ -482,6 +523,13 @@ public class MainForm extends JFrame {
 		if (jMenuItemDmviewemployee == null) {
 			jMenuItemDmviewemployee = new JMenuItem();
 			jMenuItemDmviewemployee.setText("View Employee");
+			jMenuItemDmviewemployee.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewEmployee()).setVisible(true);
+				}
+			});
 		}
 		return jMenuItemDmviewemployee;
 	}
@@ -495,6 +543,13 @@ public class MainForm extends JFrame {
 		if (jMenuItemDmviewsection == null) {
 			jMenuItemDmviewsection = new JMenuItem();
 			jMenuItemDmviewsection.setText("View Section");
+			jMenuItemDmviewsection.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewSection()).setVisible(true);
+				}
+			});
 		}
 		return jMenuItemDmviewsection;
 	}
@@ -508,6 +563,13 @@ public class MainForm extends JFrame {
 		if (jMenuItemDmmanagevacancy == null) {
 			jMenuItemDmmanagevacancy = new JMenuItem();
 			jMenuItemDmmanagevacancy.setText("Manage Vacancy");
+			jMenuItemDmmanagevacancy.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					(new ViewVacancies()).setVisible(true);
+				}
+			});
 		}
 		return jMenuItemDmmanagevacancy;
 	}
@@ -534,34 +596,15 @@ public class MainForm extends JFrame {
 		if (jMenuItemViewinformation == null) {
 			jMenuItemViewinformation = new JMenuItem();
 			jMenuItemViewinformation.setText("View Information");
+			jMenuItemViewinformation.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					(new InformationEmployee()).setVisible(true);
+				}
+			});
 		}
 		return jMenuItemViewinformation;
-	}
-
-	/**
-	 * This method initializes jMenuItemUpdateinformation	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJMenuItemUpdateinformation() {
-		if (jMenuItemUpdateinformation == null) {
-			jMenuItemUpdateinformation = new JMenuItem();
-			jMenuItemUpdateinformation.setText("Update Information");
-		}
-		return jMenuItemUpdateinformation;
-	}
-
-	/**
-	 * This method initializes jMenuItemSearchemployee	
-	 * 	
-	 * @return javax.swing.JMenuItem	
-	 */
-	private JMenuItem getJMenuItemSearchemployee() {
-		if (jMenuItemSearchemployee == null) {
-			jMenuItemSearchemployee = new JMenuItem();
-			jMenuItemSearchemployee.setText("Search Employee");
-		}
-		return jMenuItemSearchemployee;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
