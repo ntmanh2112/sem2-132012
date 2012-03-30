@@ -18,6 +18,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 
@@ -354,6 +356,27 @@ public class UpdateEmployee extends JFrame {
 					
 				}
 			});
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					validateEmail(txtEmail.getText());
+				}
+			});
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					validatePhone(txtPhone.getText());
+				}
+			});
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					validateFax(txtFax.getText());
+				}
+			});
 		}
 		return btnOk;
 	}
@@ -446,4 +469,40 @@ private Boolean validateModel(EmployeeModel mo) {
 	return true;
 	
 }
+public boolean  validateEmail(String input){
+	boolean kq = true;
+	String regex = "[a-zA-Z0-9]@";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "Email invalid");
+	return kq;
+	}
+public boolean  validatePhone(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, " Phone Invalid");
+	return kq;
+	}
+public boolean  validateFax(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, " Fax Invalid");
+	return kq;
+	}
 }  //  @jve:decl-index=0:visual-constraint="10,10"

@@ -19,6 +19,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.ImageIcon;
 
 import Common.KeyValue;
@@ -33,7 +36,6 @@ import model.DepartmentsModel;
 import model.DesignationModel;
 import model.EmployeeModel;
 import model.SectionModel;
-import javax.swing.JPasswordField;
 
 public class EmployeeRegistration extends JFrame {
 
@@ -61,8 +63,6 @@ public class EmployeeRegistration extends JFrame {
 	private JComboBox cbnSecID = null;
 	private JComboBox cbnDesID = null;
 	EmployeeModel model = new EmployeeModel();  //  @jve:decl-index=0:
-	private JLabel jLabel10 = null;
-	private JPasswordField jbfPassword = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -133,38 +133,34 @@ public class EmployeeRegistration extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
-			jLabel10 = new JLabel();
-			jLabel10.setText("Password :");
-			jLabel10.setLocation(new Point(20, 180));
-			jLabel10.setSize(new Dimension(64, 25));
 			jLabel9 = new JLabel();
 			jLabel9.setText("SecID");
 			jLabel9.setSize(new Dimension(58, 25));
-			jLabel9.setLocation(new Point(345, 100));
+			jLabel9.setLocation(new Point(20, 257));
 			jLabel8 = new JLabel();
 			jLabel8.setText("Email :");
-			jLabel8.setLocation(new Point(345, 260));
+			jLabel8.setLocation(new Point(350, 220));
 			jLabel8.setSize(new Dimension(38, 25));
 			jLabel7 = new JLabel();
 			jLabel7.setText("Fax :");
-			jLabel7.setLocation(new Point(345, 220));
+			jLabel7.setLocation(new Point(350, 180));
 			jLabel7.setSize(new Dimension(30, 25));
 			jLabel6 = new JLabel();
 			jLabel6.setText("Phone :");
 			jLabel6.setSize(new Dimension(52, 25));
-			jLabel6.setLocation(new Point(345, 180));
+			jLabel6.setLocation(new Point(350, 140));
 			jLabel5 = new JLabel();
 			jLabel5.setText("Address");
 			jLabel5.setSize(new Dimension(55, 25));
-			jLabel5.setLocation(new Point(345, 140));
+			jLabel5.setLocation(new Point(350, 100));
 			jLabel4 = new JLabel();
 			jLabel4.setText("DesignID :");
-			jLabel4.setLocation(new Point(20, 260));
+			jLabel4.setLocation(new Point(20, 220));
 			jLabel4.setSize(new Dimension(56, 25));
 			jLabel3 = new JLabel();
 			jLabel3.setText("DepID :");
 			jLabel3.setSize(new Dimension(50, 25));
-			jLabel3.setLocation(new Point(20, 220));
+			jLabel3.setLocation(new Point(20, 180));
 			jLabel2 = new JLabel();
 			jLabel2.setText("EmpName :");
 			jLabel2.setLocation(new Point(20, 140));
@@ -201,8 +197,6 @@ public class EmployeeRegistration extends JFrame {
 			jContentPane.add(jLabel9, null);
 			jContentPane.add(getCbnSecID(), null);
 			jContentPane.add(getCbnDesID(), null);
-			jContentPane.add(jLabel10, null);
-			jContentPane.add(getJbfPassword(), null);
 		}
 		return jContentPane;
 	}
@@ -243,7 +237,7 @@ public class EmployeeRegistration extends JFrame {
 	private JComboBox getCbnDeptno() {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
-			cbnDeptno.setLocation(new Point(100, 220));
+			cbnDeptno.setLocation(new Point(100, 180));
 			cbnDeptno.setSize(new Dimension(200, 25));
 		}
 		return cbnDeptno;
@@ -264,7 +258,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtAddress() {
 		if (txtAddress == null) {
 			txtAddress = new JTextField();
-			txtAddress.setLocation(new Point(430, 140));
+			txtAddress.setLocation(new Point(430, 100));
 			txtAddress.setSize(new Dimension(200, 25));
 		}
 		return txtAddress;
@@ -278,7 +272,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtPhone() {
 		if (txtPhone == null) {
 			txtPhone = new JTextField();
-			txtPhone.setLocation(new Point(430, 180));
+			txtPhone.setLocation(new Point(430, 140));
 			txtPhone.setSize(new Dimension(200, 25));
 		}
 		return txtPhone;
@@ -292,7 +286,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtFax() {
 		if (txtFax == null) {
 			txtFax = new JTextField();
-			txtFax.setLocation(new Point(430, 220));
+			txtFax.setLocation(new Point(430, 180));
 			txtFax.setSize(new Dimension(200, 25));
 		}
 		return txtFax;
@@ -307,7 +301,7 @@ public class EmployeeRegistration extends JFrame {
 		if (txtEmail == null) {
 			txtEmail = new JTextField();
 			txtEmail.setSize(new Dimension(200, 25));
-			txtEmail.setLocation(new Point(430, 260));
+			txtEmail.setLocation(new Point(430, 220));
 		}
 		return txtEmail;
 	}
@@ -332,7 +326,6 @@ public class EmployeeRegistration extends JFrame {
 					EmployeeModel model = new EmployeeModel();
 					model.setEmID(txtEmpid.getText().trim());
 					model.setName(txtEmpname.getText().trim());
-					model.setPassword(jbfPassword.getText().trim());
 					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
 							.getKey());
 					model.setDes_ID(((KeyValue) cbnDesID.getSelectedItem())
@@ -348,7 +341,7 @@ public class EmployeeRegistration extends JFrame {
 						return;
 					}
 
-						Boolean kq = EmployeeDAO.insertUsingStore(model);
+						Boolean kq = EmployeeDAO.insertEmployee(model);
 						if (kq) {
 							JOptionPane.showMessageDialog(null,
 									"Add successful employee", "Notice",
@@ -357,6 +350,27 @@ public class EmployeeRegistration extends JFrame {
 							dispose();
 						}
 					
+				}
+			});
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					validateEmail(txtEmail.getText());
+				}
+		});
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					validatePhone(txtPhone.getText());
+				}
+			});
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					validateFax(txtFax.getText());
 				}
 			});
 		}
@@ -403,7 +417,7 @@ public class EmployeeRegistration extends JFrame {
 		if (cbnSecID == null) {
 			cbnSecID = new JComboBox();
 			cbnSecID.setSize(new Dimension(200, 24));
-			cbnSecID.setLocation(new Point(430, 100));
+			cbnSecID.setLocation(new Point(100, 260));
 		}
 		return cbnSecID;
 	}
@@ -417,7 +431,7 @@ public class EmployeeRegistration extends JFrame {
 		if (cbnDesID == null) {
 			cbnDesID = new JComboBox();
 			cbnDesID.setSize(new Dimension(200, 23));
-			cbnDesID.setLocation(new Point(100, 260));
+			cbnDesID.setLocation(new Point(100, 220));
 		}
 		return cbnDesID;
 	}
@@ -451,19 +465,40 @@ private Boolean validateModel(EmployeeModel mo) {
 		return true;
     	
     }
-
-/**
- * This method initializes jbfPassword	
- * 	
- * @return javax.swing.JPasswordField	
- */
-private JPasswordField getJbfPassword() {
-	if (jbfPassword == null) {
-		jbfPassword = new JPasswordField();
-		jbfPassword.setSize(new Dimension(197, 25));
-		jbfPassword.setLocation(new Point(100, 180));
+public boolean  validateEmail(String input){
+	boolean kq = true;
+	String regex = "[a-zA-Z0-9]@";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
 	}
-	return jbfPassword;
-}
-
+	JOptionPane.showMessageDialog(null, "Email invalid");
+	return kq;
+	}
+public boolean  validatePhone(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, " Phone Invalid");
+	return kq;
+	}
+public boolean  validateFax(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, " Fax Invalid");
+	return kq;
+	}
 }  //  @jve:decl-index=0:visual-constraint="10,10"

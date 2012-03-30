@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 
@@ -241,6 +243,20 @@ public class UpdateDepartment extends JFrame {
 					}
 				}
 			});
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()");
+					// TODO Auto-generated Event stub actionPerformed()
+					validateDeptno(txtupno.getText());
+				}
+			});
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					validateDeptno(txtdnno.getText());
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -373,5 +389,17 @@ private Boolean validateModel(DepartmentsModel mo) {
 		return true;
     	
     }
+public boolean  validateDeptno(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		JOptionPane.showMessageDialog(null, "OK");
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "UP(DN)_Dep_No must be number");
+	return kq;
+	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
