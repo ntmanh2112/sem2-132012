@@ -36,6 +36,7 @@ import model.DepartmentsModel;
 import model.DesignationModel;
 import model.EmployeeModel;
 import model.SectionModel;
+import javax.swing.JPasswordField;
 
 public class EmployeeRegistration extends JFrame {
 
@@ -63,6 +64,8 @@ public class EmployeeRegistration extends JFrame {
 	private JComboBox cbnSecID = null;
 	private JComboBox cbnDesID = null;
 	EmployeeModel model = new EmployeeModel();  //  @jve:decl-index=0:
+	private JLabel jLabel10 = null;
+	private JPasswordField txtpassword = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -133,34 +136,38 @@ public class EmployeeRegistration extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel10 = new JLabel();
+			jLabel10.setText("Password :");
+			jLabel10.setLocation(new Point(20, 180));
+			jLabel10.setSize(new Dimension(69, 25));
 			jLabel9 = new JLabel();
 			jLabel9.setText("SecID");
 			jLabel9.setSize(new Dimension(58, 25));
-			jLabel9.setLocation(new Point(20, 257));
+			jLabel9.setLocation(new Point(345, 100));
 			jLabel8 = new JLabel();
 			jLabel8.setText("Email :");
-			jLabel8.setLocation(new Point(350, 220));
+			jLabel8.setLocation(new Point(345, 260));
 			jLabel8.setSize(new Dimension(38, 25));
 			jLabel7 = new JLabel();
 			jLabel7.setText("Fax :");
-			jLabel7.setLocation(new Point(350, 180));
+			jLabel7.setLocation(new Point(345, 220));
 			jLabel7.setSize(new Dimension(30, 25));
 			jLabel6 = new JLabel();
 			jLabel6.setText("Phone :");
 			jLabel6.setSize(new Dimension(52, 25));
-			jLabel6.setLocation(new Point(350, 140));
+			jLabel6.setLocation(new Point(345, 180));
 			jLabel5 = new JLabel();
 			jLabel5.setText("Address");
 			jLabel5.setSize(new Dimension(55, 25));
-			jLabel5.setLocation(new Point(350, 100));
+			jLabel5.setLocation(new Point(345, 140));
 			jLabel4 = new JLabel();
 			jLabel4.setText("DesignID :");
-			jLabel4.setLocation(new Point(20, 220));
+			jLabel4.setLocation(new Point(20, 260));
 			jLabel4.setSize(new Dimension(56, 25));
 			jLabel3 = new JLabel();
 			jLabel3.setText("DepID :");
 			jLabel3.setSize(new Dimension(50, 25));
-			jLabel3.setLocation(new Point(20, 180));
+			jLabel3.setLocation(new Point(20, 220));
 			jLabel2 = new JLabel();
 			jLabel2.setText("EmpName :");
 			jLabel2.setLocation(new Point(20, 140));
@@ -197,6 +204,8 @@ public class EmployeeRegistration extends JFrame {
 			jContentPane.add(jLabel9, null);
 			jContentPane.add(getCbnSecID(), null);
 			jContentPane.add(getCbnDesID(), null);
+			jContentPane.add(jLabel10, null);
+			jContentPane.add(getTxtpassword(), null);
 		}
 		return jContentPane;
 	}
@@ -237,7 +246,7 @@ public class EmployeeRegistration extends JFrame {
 	private JComboBox getCbnDeptno() {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
-			cbnDeptno.setLocation(new Point(100, 180));
+			cbnDeptno.setLocation(new Point(100, 220));
 			cbnDeptno.setSize(new Dimension(200, 25));
 		}
 		return cbnDeptno;
@@ -258,7 +267,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtAddress() {
 		if (txtAddress == null) {
 			txtAddress = new JTextField();
-			txtAddress.setLocation(new Point(430, 100));
+			txtAddress.setLocation(new Point(430, 140));
 			txtAddress.setSize(new Dimension(200, 25));
 		}
 		return txtAddress;
@@ -272,7 +281,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtPhone() {
 		if (txtPhone == null) {
 			txtPhone = new JTextField();
-			txtPhone.setLocation(new Point(430, 140));
+			txtPhone.setLocation(new Point(430, 180));
 			txtPhone.setSize(new Dimension(200, 25));
 		}
 		return txtPhone;
@@ -286,7 +295,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtFax() {
 		if (txtFax == null) {
 			txtFax = new JTextField();
-			txtFax.setLocation(new Point(430, 180));
+			txtFax.setLocation(new Point(430, 220));
 			txtFax.setSize(new Dimension(200, 25));
 		}
 		return txtFax;
@@ -301,7 +310,7 @@ public class EmployeeRegistration extends JFrame {
 		if (txtEmail == null) {
 			txtEmail = new JTextField();
 			txtEmail.setSize(new Dimension(200, 25));
-			txtEmail.setLocation(new Point(430, 220));
+			txtEmail.setLocation(new Point(430, 260));
 		}
 		return txtEmail;
 	}
@@ -326,6 +335,7 @@ public class EmployeeRegistration extends JFrame {
 					EmployeeModel model = new EmployeeModel();
 					model.setEmID(txtEmpid.getText().trim());
 					model.setName(txtEmpname.getText().trim());
+					
 					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
 							.getKey());
 					model.setDes_ID(((KeyValue) cbnDesID.getSelectedItem())
@@ -336,15 +346,22 @@ public class EmployeeRegistration extends JFrame {
 					model.setPhone(txtPhone.getText().trim());
 					model.setFax(txtFax.getText().trim());
 					model.setEmail(txtEmail.getText().trim());
+					model.setPassword(txtpassword.getText().trim());
 					if(!validateModel(model)) {
 						
 						return;
 					}
 
-						Boolean kq = EmployeeDAO.insertEmployee(model);
+						Boolean kq = EmployeeDAO.insertUsingStore(model);
 						if (kq) {
 							JOptionPane.showMessageDialog(null,
 									"Add successful employee", "Notice",
+									JOptionPane.INFORMATION_MESSAGE);
+							(new ViewEmployee()).setVisible(true);
+							dispose();
+						}else {
+							JOptionPane.showMessageDialog(null,
+									"Add that bai ", "Notice",
 									JOptionPane.INFORMATION_MESSAGE);
 							(new ViewEmployee()).setVisible(true);
 							dispose();
@@ -417,7 +434,7 @@ public class EmployeeRegistration extends JFrame {
 		if (cbnSecID == null) {
 			cbnSecID = new JComboBox();
 			cbnSecID.setSize(new Dimension(200, 24));
-			cbnSecID.setLocation(new Point(100, 260));
+			cbnSecID.setLocation(new Point(430, 100));
 		}
 		return cbnSecID;
 	}
@@ -431,7 +448,7 @@ public class EmployeeRegistration extends JFrame {
 		if (cbnDesID == null) {
 			cbnDesID = new JComboBox();
 			cbnDesID.setSize(new Dimension(200, 23));
-			cbnDesID.setLocation(new Point(100, 220));
+			cbnDesID.setLocation(new Point(100, 260));
 		}
 		return cbnDesID;
 	}
@@ -501,4 +518,18 @@ public boolean  validateFax(String input){
 	JOptionPane.showMessageDialog(null, " Fax Invalid");
 	return kq;
 	}
+
+/**
+ * This method initializes txtpassword	
+ * 	
+ * @return javax.swing.JPasswordField	
+ */
+private JPasswordField getTxtpassword() {
+	if (txtpassword == null) {
+		txtpassword = new JPasswordField();
+		txtpassword.setSize(new Dimension(200, 25));
+		txtpassword.setLocation(new Point(100, 180));
+	}
+	return txtpassword;
+}
 }  //  @jve:decl-index=0:visual-constraint="10,10"
