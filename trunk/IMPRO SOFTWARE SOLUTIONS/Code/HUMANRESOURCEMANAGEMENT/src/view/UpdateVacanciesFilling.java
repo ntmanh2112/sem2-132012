@@ -73,13 +73,6 @@ public class UpdateVacanciesFilling extends JFrame {
 		initialize();
 		
 		txtVacancyid.setText(model.getVacancy_ID());
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-		try {
-			txtFilldate.setDate(sdf.parse("05/25/1980"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
 		for (EmployeeModel em : listEmployee) {
 			KeyValue item = new KeyValue(em.getEmID(),em.getName());
@@ -89,6 +82,14 @@ public class UpdateVacanciesFilling extends JFrame {
 				cbnEmID.setSelectedItem(item);
 			}
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		try {
+			txtFilldate.setDate(sdf.parse("05/25/1980"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		jtaIntakedetails.setText(model.getIntake_Details());
 		jTextField.setText(model.getStatus());
 		jTextField1.setText(model.getCreator());
