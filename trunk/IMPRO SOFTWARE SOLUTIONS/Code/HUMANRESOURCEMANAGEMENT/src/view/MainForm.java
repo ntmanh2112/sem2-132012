@@ -287,13 +287,13 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewvacanciesfillinginfo() {
 		if (jMenuItemViewvacanciesfillinginfo == null) {
 			jMenuItemViewvacanciesfillinginfo = new JMenuItem();
-			jMenuItemViewvacanciesfillinginfo.setText("Management Vacancies Filling Details");
+			jMenuItemViewvacanciesfillinginfo.setText("Management Division Employee");
 			jMenuItemViewvacanciesfillinginfo
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
 							System.out.println("actionPerformed()");
 							// TODO Auto-generated Event stub actionPerformed()
-							(new ViewVacanciesFillingInformation()).setVisible(true);
+							(new DiviseEmployee()).setVisible(true);
 							
 						}
 					});

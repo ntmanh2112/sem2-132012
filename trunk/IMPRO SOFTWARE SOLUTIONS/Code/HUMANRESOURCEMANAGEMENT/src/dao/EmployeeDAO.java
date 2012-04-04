@@ -14,7 +14,7 @@ public class EmployeeDAO {
 	public static ArrayList<EmployeeModel> getAllEmployee(){
 		ArrayList<EmployeeModel> listEmployee = new ArrayList<EmployeeModel>();
 		try {
-			String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID, A.SecID, A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID";
+			String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID,  A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID";
 			
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
@@ -24,7 +24,7 @@ public class EmployeeDAO {
 				model.setPassword(rs.getString("Password"));
 				model.setDep_ID(rs.getString("Dep_ID"));
 				model.setDes_ID(rs.getString("Des_ID"));
-				model.setSecID(rs.getString("SecID"));
+				
 				model.setAddress(rs.getString("Address"));
 				model.setPhone(rs.getString("Phone"));
 				model.setFax(rs.getString("Fax"));
@@ -52,7 +52,7 @@ public class EmployeeDAO {
 				model.setName(rs.getString("Name"));
 				model.setDep_ID(rs.getString("Dep_ID"));
 				model.setDes_ID(rs.getString("Des_ID"));
-				model.setSecID(rs.getString("SecID"));
+				
 				model.setAddress(rs.getString("Address"));
 				model.setPhone(rs.getString("Phone"));
 				model.setFax(rs.getString("Fax"));
@@ -75,7 +75,7 @@ public class EmployeeDAO {
 			csmt.setString("Name", model.getName());
 			csmt.setString("Dep_ID", model.getDep_ID());
 			csmt.setString("Des_ID", model.getDes_ID());
-			csmt.setString("SecID", model.getSecID());
+			
 			csmt.setString("Address", model.getAddress());
 			csmt.setString("Phone", model.getPhone());
 			csmt.setString("Fax", model.getFax());
@@ -148,12 +148,12 @@ public class EmployeeDAO {
 		Boolean kq = false;
 		
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_UPDATE_EMPLOYEE(?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_UPDATE_EMPLOYEE(?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("EmID", model.getEmID());
 			csmt.setString("Name", model.getName());
 			csmt.setString("Dep_ID", model.getDep_ID());
 			csmt.setString("Des_ID", model.getDes_ID());
-			csmt.setString("SecID", model.getSecID());
+			
 			csmt.setString("Address", model.getAddress());
 			csmt.setString("Phone", model.getPhone());
 			csmt.setString("Fax", model.getFax());
@@ -186,7 +186,7 @@ public class EmployeeDAO {
 	public static ArrayList<EmployeeModel> searchEmployee(String EmID,String Name,String Dep_ID){
 		ArrayList<EmployeeModel> listEmployee = new ArrayList<EmployeeModel>();
 		try {
-			String sql = "SELECT EmID, Name, Dep_ID, Des_ID, SecID, Address, Phone, Fax, Email FROM Employee WHERE EmID LIKE '%" +EmID+ "%' AND Name LIKE '%" +Name+ "%' AND Dep_ID LIKE '%" +Dep_ID+ "%'";
+			String sql = "SELECT EmID, Name, Dep_ID, Des_ID, Address, Phone, Fax, Email FROM Employee WHERE EmID LIKE '%" +EmID+ "%' AND Name LIKE '%" +Name+ "%' AND Dep_ID LIKE '%" +Dep_ID+ "%'";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){
@@ -195,7 +195,7 @@ public class EmployeeDAO {
 				model.setName(rs.getString("Name"));
 				model.setDep_ID(rs.getString("Dep_ID"));
 				model.setDes_ID(rs.getString("Des_ID"));
-				model.setSecID(rs.getString("SecID"));
+				
 				model.setAddress(rs.getString("Address"));
 				model.setPhone(rs.getString("Phone"));
 				model.setFax(rs.getString("Fax"));
