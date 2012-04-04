@@ -9,9 +9,9 @@ public class DataUtil {
 	
 	// Khai bao 4 bien
 	public static Connection conn;
-	public static String DATA = "jdbc:sqlserver://LETHANH-PC; DATABASENAME = QUANLYNHANSU";
+	public static String DATA = "jdbc:sqlserver://ADMIN-PC; DATABASENAME = QUANLYNHANSU";
 	public static String USER_NAME = "sa";
-	public static String PASSWORD = "1111984";
+	public static String PASSWORD = "123456";
 	
 	// Ham dung de tao cau noi den SQL Server
 	public static void connect(){

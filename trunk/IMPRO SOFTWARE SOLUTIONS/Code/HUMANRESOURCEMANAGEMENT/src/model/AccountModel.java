@@ -3,6 +3,17 @@ package model;
 public class AccountModel {
 
 	private String UserID;
+	private String EmID;
+	private String Password;
+	private String DesignationID;
+	
+	
+	public String getDesignationID(){
+		return DesignationID;
+	}
+	public void setDesignationID(String designationID){
+		DesignationID = designationID;
+	}
 	public String getUserID() {
 		return UserID;
 	}
@@ -21,8 +32,4 @@ public class AccountModel {
 	public void setPassword(String password) {
 		Password = password;
 	}
-	
-	private String EmID;
-	private String Password;
-	
 }

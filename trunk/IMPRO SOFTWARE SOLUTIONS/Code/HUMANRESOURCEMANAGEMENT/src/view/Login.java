@@ -218,7 +218,7 @@ public class Login extends JFrame {
 			JOptionPane.showMessageDialog(null, "Login failed");
 		}else {
 			
-			(new MainForm()).setVisible(true);
+			(new MainForm(model)).setVisible(true);
 			hide();
 		}
 	}
