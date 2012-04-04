@@ -167,7 +167,7 @@ public class MainForm extends JFrame {
 			} 
 			if(desID.equals("D201")){
 				jJMenuBar.add(getJMenuHrmanager());
-				jJMenuBar.add(getJMenuDepartmentmanager());
+				//jJMenuBar.add(getJMenuDepartmentmanager()); bo? cai nay dung ko
 				jJMenuBar.add(getJMenuEmployee());
 			} 
 			if(desID.equals("D301")){
