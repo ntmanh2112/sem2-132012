@@ -114,9 +114,9 @@ public class DiviseEmployee extends JFrame {
 		return jContentPane;
 	}
 	private void loadData() {
-		String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+		String Emid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
 		
-		ArrayList<EmployeeModel> listRightDivision = DivisionDAO.searchemployeeindivision(secid);
+		ArrayList<EmployeeModel> listRightDivision = DivisionDAO.searchemployeeindivision(Emid);
 			
 		DefaultListModel contentList = new DefaultListModel();
 		for (EmployeeModel mo : listRightDivision) {
@@ -124,7 +124,7 @@ public class DiviseEmployee extends JFrame {
 		}
 		getJListEmployeeinvolved().setModel(contentList);
 		
-		ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemloyeenotindivision(secid);
+		ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemloyeenotindivision(Emid);
 		
 		DefaultListModel content = new DefaultListModel();
 		for (EmployeeModel mo : listLeftDivision) {
@@ -159,10 +159,12 @@ public class DiviseEmployee extends JFrame {
 	 * @return javax.swing.JList	
 	 */
 	private JList getJListEmployeenotinvolved() {
+		//loadData();
 		if (jListEmployeenotinvolved == null) {
 			jListEmployeenotinvolved = new JList();
 			jListEmployeenotinvolved.setBounds(new Rectangle(13, 148, 318, 241));
 			jListEmployeenotinvolved.setBorder(BorderFactory.createEtchedBorder());
+		
 		}
 		return jListEmployeenotinvolved;
 	}
@@ -173,6 +175,7 @@ public class DiviseEmployee extends JFrame {
 	 * @return javax.swing.JList	
 	 */
 	private JList getJListEmployeeinvolved() {
+		//loadData();
 		if (jListEmployeeinvolved == null) {
 			jListEmployeeinvolved = new JList();
 			jListEmployeeinvolved.setSize(new Dimension(318, 241));

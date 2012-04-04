@@ -32,22 +32,22 @@ public class DivisionDAO {
 		}
 		return listDivision;
 	}
-	public static ArrayList<EmployeeModel> searchemployeeindivision(String secid){
+	public static ArrayList<EmployeeModel> searchemployeeindivision(String Emid){
 		ArrayList<EmployeeModel>listRightDivision = new ArrayList<EmployeeModel>();
 			
 		try {
 			CallableStatement cs = DataUtil.getConnection().prepareCall("{call SP_SEARCHEMPLOYEEINDIVISION(?)}");
-			cs.setString("SECID", secid);
+			cs.setString("EmID", Emid);
 			ResultSet rs = cs.executeQuery();
 			while(rs.next()){
 				
 				EmployeeModel model = new EmployeeModel();
 				model.setEmID(rs.getString("EmID"));
 				model.setName(rs.getString("Name"));
-				model.setPassword(rs.getString("Password"));
+				//model.setPassword(rs.getString("Password"));
 				model.setDep_ID(rs.getString("Dep_ID"));
 				model.setDes_ID(rs.getString("Des_ID"));
-				model.setSecID(rs.getString("SecID"));
+				
 				model.setAddress(rs.getString("Address"));
 				model.setPhone(rs.getString("Phone"));
 				model.setFax(rs.getString("Fax"));
@@ -62,22 +62,22 @@ public class DivisionDAO {
 		
 		return listRightDivision;
 	}
-	public static ArrayList<EmployeeModel> searchemloyeenotindivision(String secid){
+	public static ArrayList<EmployeeModel> searchemloyeenotindivision(String Emid){
 		ArrayList<EmployeeModel>listLeftDivision = new ArrayList<EmployeeModel>();
 			
 		try {
 			CallableStatement cs = DataUtil.getConnection().prepareCall("{call SP_SEARCHEMPLOYEENOTINDIVISION(?)}");
-			cs.setString("SECID", secid);
+			cs.setString("EmID", Emid);
 			ResultSet rs = cs.executeQuery();
 			while(rs.next()){
 				
 				EmployeeModel model = new EmployeeModel();
 				model.setEmID(rs.getString("EmID"));
 				model.setName(rs.getString("Name"));
-				model.setPassword(rs.getString("Password"));
+				//model.setPassword(rs.getString("Password"));
 				model.setDep_ID(rs.getString("Dep_ID"));
 				model.setDes_ID(rs.getString("Des_ID"));
-				model.setSecID(rs.getString("SecID"));
+				//model.setSecID(rs.getString("SecID"));
 				model.setAddress(rs.getString("Address"));
 				model.setPhone(rs.getString("Phone"));
 				model.setFax(rs.getString("Fax"));
