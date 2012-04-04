@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-03-30 10:55                                */
+/* Created on:            2012-04-04 09:26                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -37,7 +37,6 @@ CREATE TABLE [Employee] (
     [Name] VARCHAR(10),
     [Dep_ID] VARCHAR(40) NOT NULL,
     [Des_ID] VARCHAR(10) NOT NULL,
-    [SecID] VARCHAR(10),
     [Address] VARCHAR(50),
     [Phone] VARCHAR(15),
     [Fax] VARCHAR(15),
@@ -106,18 +105,15 @@ CREATE TABLE [Vacancies] (
 GO
 
 /* ---------------------------------------------------------------------- */
-/* Add table "Vacancy_Fill_Details"                                       */
+/* Add table "Division"                                                   */
 /* ---------------------------------------------------------------------- */
 
-CREATE TABLE [Vacancy_Fill_Details] (
+CREATE TABLE [Division] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Vacancy_ID] VARCHAR(10) NOT NULL,
     [EmID] VARCHAR(10),
-    [Filled_Date] DATETIME,
-    [Intake_Details] VARCHAR(50),
-    [Status] VARCHAR(10),
-    [Creator] VARCHAR(20),
-    CONSTRAINT [PK_Vacancy_Fill_Details] PRIMARY KEY ([ID])
+    [SecID] VARCHAR(10),
+    CONSTRAINT [PK_Division] PRIMARY KEY ([ID])
 )
 GO
 
@@ -185,7 +181,7 @@ GO
 /* ---------------------------------------------------------------------- */
 
 ALTER TABLE [Employee] ADD CONSTRAINT [Designation_Employee] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])ON DELETE CASCADE
+    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID]) ON DELETE CASCADE
 GO
 
 ALTER TABLE [Section] ADD CONSTRAINT [Departments_Section] 
@@ -204,11 +200,11 @@ ALTER TABLE [Vacancies] ADD CONSTRAINT [Section_Vacancies]
     FOREIGN KEY ([SecID]) REFERENCES [Section] ([SecID])ON DELETE CASCADE
 GO
 
-ALTER TABLE [Vacancy_Fill_Details] ADD CONSTRAINT [Vacancies_Vacancy_Fill_Details] 
+ALTER TABLE [Division] ADD CONSTRAINT [Vacancies_Division] 
     FOREIGN KEY ([Vacancy_ID]) REFERENCES [Vacancies] ([Vacancy_ID])ON DELETE CASCADE
 GO
 
-ALTER TABLE [Vacancy_Fill_Details] ADD CONSTRAINT [Employee_Vacancy_Fill_Details] 
+ALTER TABLE [Division] ADD CONSTRAINT [Employee_Division] 
     FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
 GO
 
