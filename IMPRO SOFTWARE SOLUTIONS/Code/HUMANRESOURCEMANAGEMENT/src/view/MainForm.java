@@ -14,6 +14,9 @@ import java.awt.Rectangle;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import model.AccountModel;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,7 +63,14 @@ public class MainForm extends JFrame {
 		super();
 		initialize();
 	}
-
+	/**
+	 * This is the default constructor
+	 * Input AccountModel
+	 */
+	public MainForm(AccountModel model) {
+		super();
+		initialize(model);
+	}
 	/**
 	 * This method initializes this
 	 * 
@@ -75,6 +85,24 @@ public class MainForm extends JFrame {
 		this.setSize(1300, 650);
 		//this.setSize(d);
 		this.setJMenuBar(getJJMenuBar());
+		this.setContentPane(getJContentPane());
+		this.setTitle("MainForm");
+	}
+	/**
+	 * This method initializes this
+	 * Input AccountModel
+	 * 
+	 * @return void
+	 */
+	private void initialize(AccountModel model) {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setLocation((wndSize.width-1300)/2, (wndSize.height-650)/2);
+		//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setResizable(false);
+		this.setSize(1300, 650);
+		//this.setSize(d);
+		this.setJMenuBar(getJJMenuBar(model));
 		this.setContentPane(getJContentPane());
 		this.setTitle("MainForm");
 	}
@@ -122,7 +150,36 @@ public class MainForm extends JFrame {
 		}
 		return jJMenuBar;
 	}
-
+	/**
+	 * This method initializes jJMenuBar	
+	 * Input AccountModel
+	 * @return javax.swing.JMenuBar	
+	 */
+	private JMenuBar getJJMenuBar(AccountModel model) {
+		if (jJMenuBar == null) {
+			jJMenuBar = new JMenuBar();
+			String desID = model.getDesignationID();
+			if(desID.equals("D101")){
+				jJMenuBar.add(getJMenuAdmin());
+				jJMenuBar.add(getJMenuHrmanager());
+				jJMenuBar.add(getJMenuDepartmentmanager());
+				jJMenuBar.add(getJMenuEmployee());
+			} 
+			if(desID.equals("D201")){
+				jJMenuBar.add(getJMenuHrmanager());
+				jJMenuBar.add(getJMenuDepartmentmanager());
+				jJMenuBar.add(getJMenuEmployee());
+			} 
+			if(desID.equals("D301")){
+				jJMenuBar.add(getJMenuDepartmentmanager());
+				jJMenuBar.add(getJMenuEmployee());
+			} 
+			if(desID.equals("D401")){
+				jJMenuBar.add(getJMenuEmployee());
+			} 
+		}
+		return jJMenuBar;
+	}
 	/**
 	 * This method initializes jMenuAdmin	
 	 * 	

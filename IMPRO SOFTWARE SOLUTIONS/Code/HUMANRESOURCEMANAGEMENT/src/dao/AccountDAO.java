@@ -17,7 +17,8 @@ public class AccountDAO {
 	public static AccountModel getAccountNEW(String EmID, String password) {
 		AccountModel model = null;
 		try {
-			String sql = "select * from Account where EmID = ? AND Password = ?";
+			String sql = "select A.*, B.Des_ID from Account A INNER JOIN Employee B on A.EmID=B.EmID "
+						+" where A.EmID = ? AND A.Password = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, EmID);
 			ps.setString(2, password);
@@ -25,11 +26,10 @@ public class AccountDAO {
 			
 			if(rs.next()) {
 				model = new AccountModel();
-				
 				model.setUserID(rs.getString("UserID"));
 				model.setPassword(rs.getString("Password"));
 				model.setEmID(rs.getString("EmID"));
-				
+				model.setDesignationID(rs.getString("Des_ID"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
