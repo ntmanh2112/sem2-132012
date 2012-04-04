@@ -129,6 +129,16 @@ public class Login extends JFrame {
 			txtUserid.setText("E101");
 			txtUserid.setSize(new Dimension(200, 25));
 			txtUserid.setLocation(new Point(179, 99));
+			txtUserid.addKeyListener(new java.awt.event.KeyAdapter() {
+				public void keyReleased(java.awt.event.KeyEvent e) {
+					System.out.println("keyReleased()"); // TODO Auto-generated Event stub keyReleased()
+					if (e.getKeyCode() == 10) {
+						
+						//JOptionPane.showMessageDialog(null, "ok");
+						xuLyAction();
+					}
+				}
+			});
 		}
 		return txtUserid;
 	}
@@ -144,6 +154,17 @@ public class Login extends JFrame {
 			txtPassword.setText("thanh");
 			txtPassword.setLocation(new Point(179, 150));
 			txtPassword.setSize(new Dimension(200, 25));
+			txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+				public void keyReleased(java.awt.event.KeyEvent e) {
+					System.out.println("keyReleased()"); // TODO Auto-generated Event stub keyReleased()
+					//JOptionPane.showMessageDialog(null, e.getKeyCode());
+					if (e.getKeyCode() == 10) {
+							
+						//JOptionPane.showMessageDialog(null, "ok");
+						xuLyAction();
+					}
+				}
+			});
 		}
 		return txtPassword;
 	}
@@ -176,26 +197,30 @@ public class Login extends JFrame {
 				public void actionPerformed(ActionEvent arg0) {
 					
 					// TODO Auto-generated method stub
-					String EmID = txtUserid.getText();
-				
-					
-					String Password = txtPassword.getText();
-					
-					AccountModel model = AccountDAO.getAccountNEW(EmID, Password);
-					
-					if (model == null) {
-						JOptionPane.showMessageDialog(null, "Login failed");
-					}else {
-						
-						(new MainForm()).setVisible(true);
-						hide();
-					}
+					xuLyAction();
 					
 				}
 			});
 			}
 		
 		return btnLogin;
+	}
+	
+	private void xuLyAction() {
+		String EmID = txtUserid.getText();
+		
+		
+		String Password = txtPassword.getText();
+		
+		AccountModel model = AccountDAO.getAccountNEW(EmID, Password);
+		
+		if (model == null) {
+			JOptionPane.showMessageDialog(null, "Login failed");
+		}else {
+			
+			(new MainForm()).setVisible(true);
+			hide();
+		}
 	}
 	/*private void txtNoiDungActionPerformed(java.awt.event.ActionEvent evt) {
         //this.btnLogin.requestFocus();

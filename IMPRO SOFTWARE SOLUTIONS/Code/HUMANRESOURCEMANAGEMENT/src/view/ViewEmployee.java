@@ -51,7 +51,7 @@ public class ViewEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"ID","Name","Dep_ID","Des_ID","Sec_ID","Address","Phone","Fax","Email"};
+	private String[] ColumnName ={"ID","Name","Dep_ID","Des_ID","Address","Phone","Fax","Email"};
 	private String[][] tableData;
 	/**
 	 * This is the default constructor
@@ -128,7 +128,7 @@ public class ViewEmployee extends JFrame {
 	}
 	private void loadDataToTable(){
 		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
-		tableData = new String[listEmployee.size()][9];
+		tableData = new String[listEmployee.size()][8];
 		int row = 0;
 		for (EmployeeModel model:listEmployee){
 		tableData [row][0] = model.getEmID();
@@ -136,11 +136,11 @@ public class ViewEmployee extends JFrame {
 		//tableData [row][2] = model.getPassword();
 		tableData [row][2] = model.getDep_ID();
 		tableData [row][3] = model.getDes_ID();
-		tableData [row][4] = model.getSecID();
-		tableData [row][5] = model.getAddress();
-		tableData [row][6] = model.getPhone();
-		tableData [row][7] = model.getFax();
-		tableData [row][8] = model.getEmail();
+		
+		tableData [row][4] = model.getAddress();
+		tableData [row][5] = model.getPhone();
+		tableData [row][6] = model.getFax();
+		tableData [row][7] = model.getEmail();
 		
 		row++;
 		}
@@ -361,18 +361,18 @@ public class ViewEmployee extends JFrame {
 		String Name = txtEmpname.getText();
 		String Dep_ID = txtDeptid.getText();
 		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.searchEmployee(EmID, Name, Dep_ID);
-		tableData = new String [listEmployee.size()][9];
+		tableData = new String [listEmployee.size()][8];
 		int row = 0;
 		for(EmployeeModel model : listEmployee) {
 			tableData [row][0] = model.getEmID();
 			tableData [row][1] = model.getName();
 			tableData [row][2] = model.getDep_ID();
 			tableData [row][3] = model.getDes_ID();
-			tableData [row][4] = model.getSecID();
-			tableData [row][5] = model.getAddress();
-			tableData [row][6] = model.getPhone();
-			tableData [row][7] = model.getFax();
-			tableData [row][8] = model.getEmail();
+			
+			tableData [row][4] = model.getAddress();
+			tableData [row][5] = model.getPhone();
+			tableData [row][6] = model.getFax();
+			tableData [row][7] = model.getEmail();
 			
 			row ++;
 		}

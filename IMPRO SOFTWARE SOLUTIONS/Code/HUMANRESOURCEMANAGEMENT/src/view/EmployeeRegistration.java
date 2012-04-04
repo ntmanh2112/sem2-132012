@@ -60,8 +60,6 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField txtEmail = null;
 	private JButton btnOk = null;
 	private JButton btnCancel = null;
-	private JLabel jLabel9 = null;
-	private JComboBox cbnSecID = null;
 	private JComboBox cbnDesID = null;
 	EmployeeModel model = new EmployeeModel();  //  @jve:decl-index=0:
 	private JLabel jLabel10 = null;
@@ -91,15 +89,7 @@ public class EmployeeRegistration extends JFrame {
 			}
 		}
 		
-		ArrayList<SectionModel> listSec = SectionDAO.getAllSection();
-		for (SectionModel sem : listSec) {
-			KeyValue item = new KeyValue(sem.getSecID(),sem.getName());
-
-			cbnSecID.addItem(item);
-			if (item.getKey().equals(model.getSecID())) {
-				cbnSecID.setSelectedItem(item);
-			}
-		}
+		
 			
 				
 				
@@ -140,26 +130,22 @@ public class EmployeeRegistration extends JFrame {
 			jLabel10.setText("Password :");
 			jLabel10.setLocation(new Point(20, 180));
 			jLabel10.setSize(new Dimension(69, 25));
-			jLabel9 = new JLabel();
-			jLabel9.setText("SecID");
-			jLabel9.setSize(new Dimension(58, 25));
-			jLabel9.setLocation(new Point(345, 100));
 			jLabel8 = new JLabel();
 			jLabel8.setText("Email :");
-			jLabel8.setLocation(new Point(345, 260));
+			jLabel8.setLocation(new Point(345, 220));
 			jLabel8.setSize(new Dimension(38, 25));
 			jLabel7 = new JLabel();
 			jLabel7.setText("Fax :");
-			jLabel7.setLocation(new Point(345, 220));
+			jLabel7.setLocation(new Point(345, 180));
 			jLabel7.setSize(new Dimension(30, 25));
 			jLabel6 = new JLabel();
 			jLabel6.setText("Phone :");
 			jLabel6.setSize(new Dimension(52, 25));
-			jLabel6.setLocation(new Point(345, 180));
+			jLabel6.setLocation(new Point(345, 140));
 			jLabel5 = new JLabel();
 			jLabel5.setText("Address");
 			jLabel5.setSize(new Dimension(55, 25));
-			jLabel5.setLocation(new Point(345, 140));
+			jLabel5.setLocation(new Point(345, 100));
 			jLabel4 = new JLabel();
 			jLabel4.setText("DesignID :");
 			jLabel4.setLocation(new Point(20, 260));
@@ -201,8 +187,6 @@ public class EmployeeRegistration extends JFrame {
 			jContentPane.add(getTxtEmail(), null);
 			jContentPane.add(getBtnOk(), null);
 			jContentPane.add(getBtnCancel(), null);
-			jContentPane.add(jLabel9, null);
-			jContentPane.add(getCbnSecID(), null);
 			jContentPane.add(getCbnDesID(), null);
 			jContentPane.add(jLabel10, null);
 			jContentPane.add(getTxtpassword(), null);
@@ -267,7 +251,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtAddress() {
 		if (txtAddress == null) {
 			txtAddress = new JTextField();
-			txtAddress.setLocation(new Point(430, 140));
+			txtAddress.setLocation(new Point(430, 100));
 			txtAddress.setSize(new Dimension(200, 25));
 		}
 		return txtAddress;
@@ -281,7 +265,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtPhone() {
 		if (txtPhone == null) {
 			txtPhone = new JTextField();
-			txtPhone.setLocation(new Point(430, 180));
+			txtPhone.setLocation(new Point(430, 140));
 			txtPhone.setSize(new Dimension(200, 25));
 		}
 		return txtPhone;
@@ -295,7 +279,7 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField getTxtFax() {
 		if (txtFax == null) {
 			txtFax = new JTextField();
-			txtFax.setLocation(new Point(430, 220));
+			txtFax.setLocation(new Point(430, 180));
 			txtFax.setSize(new Dimension(200, 25));
 		}
 		return txtFax;
@@ -310,7 +294,7 @@ public class EmployeeRegistration extends JFrame {
 		if (txtEmail == null) {
 			txtEmail = new JTextField();
 			txtEmail.setSize(new Dimension(200, 25));
-			txtEmail.setLocation(new Point(430, 260));
+			txtEmail.setLocation(new Point(430, 220));
 		}
 		return txtEmail;
 	}
@@ -340,8 +324,7 @@ public class EmployeeRegistration extends JFrame {
 							.getKey());
 					model.setDes_ID(((KeyValue) cbnDesID.getSelectedItem())
 							.getKey());
-					model.setSecID(((KeyValue) cbnSecID.getSelectedItem())
-							.getKey());
+					
 					model.setAddress(txtAddress.getText().trim());
 					model.setPhone(txtPhone.getText().trim());
 					model.setFax(txtFax.getText().trim());
@@ -423,20 +406,6 @@ public class EmployeeRegistration extends JFrame {
 			});
 		}
 		return btnCancel;
-	}
-
-	/**
-	 * This method initializes cbnSecID	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbnSecID() {
-		if (cbnSecID == null) {
-			cbnSecID = new JComboBox();
-			cbnSecID.setSize(new Dimension(200, 24));
-			cbnSecID.setLocation(new Point(430, 100));
-		}
-		return cbnSecID;
 	}
 
 	/**

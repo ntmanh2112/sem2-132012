@@ -33,12 +33,7 @@ public class EmployeeModel {
 	public void setDes_ID(String desID) {
 		Des_ID = desID;
 	}
-	public String getSecID() {
-		return SecID;
-	}
-	public void setSecID(String secID) {
-		SecID = secID;
-	}
+	
 	public String getAddress() {
 		return Address;
 	}
@@ -66,7 +61,7 @@ public class EmployeeModel {
 	private String Name;
 	private String Dep_ID;
 	private String Des_ID;
-	private String SecID;
+
 	private String Address;
 	private String Phone;
 	private String Fax;
