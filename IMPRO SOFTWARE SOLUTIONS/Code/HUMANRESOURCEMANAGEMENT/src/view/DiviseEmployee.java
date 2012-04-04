@@ -8,11 +8,23 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
+import Common.KeyValue;
+
+import dao.DivisionDAO;
+import dao.SectionDAO;
+
+import model.DivisionModel;
+import model.EmployeeModel;
+import model.SectionModel;
 
 public class DiviseEmployee extends JFrame {
 
@@ -20,7 +32,7 @@ public class DiviseEmployee extends JFrame {
 	private JPanel jContentPane = null;
 	private JLabel jLabel = null;
 	private JLabel jLabel1 = null;
-	private JComboBox cbnProjectname = null;
+	private JComboBox cbnSectionname = null;
 	private JLabel jLabel2 = null;
 	private JList jListEmployeenotinvolved = null;
 	private JList jListEmployeeinvolved = null;
@@ -30,6 +42,7 @@ public class DiviseEmployee extends JFrame {
 	private JButton btn3 = null;
 	private JButton btn4 = null;
 	private JButton btnPrint = null;
+	SectionModel model = new SectionModel();  //  @jve:decl-index=0:
 
 	/**
 	 * This is the default constructor
@@ -37,6 +50,16 @@ public class DiviseEmployee extends JFrame {
 	public DiviseEmployee() {
 		super();
 		initialize();
+		ArrayList<SectionModel> listSection = SectionDAO.getAllSection();
+		for (SectionModel section : listSection) {
+			KeyValue item = new KeyValue(section.getSecID(), section.getName());
+
+			cbnSectionname.addItem(item);
+		}
+	}
+	public DiviseEmployee(EmployeeModel mo) {
+		super();
+		initialize();;
 	}
 
 	/**
@@ -66,7 +89,7 @@ public class DiviseEmployee extends JFrame {
 			jLabel2.setSize(new Dimension(130, 30));
 			jLabel2.setLocation(new Point(95, 113));
 			jLabel1 = new JLabel();
-			jLabel1.setText("ProjectName");
+			jLabel1.setText("SectionName");
 			jLabel1.setSize(new Dimension(76, 30));
 			jLabel1.setLocation(new Point(137, 72));
 			jLabel = new JLabel();
@@ -77,7 +100,7 @@ public class DiviseEmployee extends JFrame {
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
-			jContentPane.add(getCbnProjectname(), null);
+			jContentPane.add(getCbnSectionname(), null);
 			jContentPane.add(jLabel2, null);
 			jContentPane.add(getJListEmployeenotinvolved(), null);
 			jContentPane.add(getJListEmployeeinvolved(), null);
@@ -90,19 +113,44 @@ public class DiviseEmployee extends JFrame {
 		}
 		return jContentPane;
 	}
+	private void loadData() {
+		String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+		
+		ArrayList<EmployeeModel> listRightDivision = DivisionDAO.searchemployeeindivision(secid);
+			
+		DefaultListModel contentList = new DefaultListModel();
+		for (EmployeeModel mo : listRightDivision) {
+			contentList.addElement(mo.getName());
+		}
+		getJListEmployeeinvolved().setModel(contentList);
+		
+		ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemloyeenotindivision(secid);
+		
+		DefaultListModel content = new DefaultListModel();
+		for (EmployeeModel mo : listLeftDivision) {
+			content.addElement(mo.getName());
+		}
+		getJListEmployeenotinvolved().setModel(content);
+	}
 
 	/**
 	 * This method initializes cbnProjectname	
 	 * 	
 	 * @return javax.swing.JComboBox	
 	 */
-	private JComboBox getCbnProjectname() {
-		if (cbnProjectname == null) {
-			cbnProjectname = new JComboBox();
-			cbnProjectname.setLocation(new Point(276, 72));
-			cbnProjectname.setSize(new Dimension(225, 30));
+	private JComboBox getCbnSectionname() {
+		if (cbnSectionname == null) {
+			cbnSectionname = new JComboBox();
+			cbnSectionname.setLocation(new Point(276, 72));
+			cbnSectionname.setSize(new Dimension(225, 30));
+			cbnSectionname.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					loadData();
+				}
+			});
 		}
-		return cbnProjectname;
+		return cbnSectionname;
 	}
 
 	/**
@@ -145,6 +193,30 @@ public class DiviseEmployee extends JFrame {
 			btn1.setLocation(new Point(345, 161));
 			btn1.setText(">");
 			btn1.setSize(new Dimension(90, 30));
+			btn1.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					// TODO Auto-generated Event stub actionPerformed()
+					int row = getJListEmployeenotinvolved().getSelectedIndex();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Please choose one employee you want to divise","Notice",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					String emid = getJListEmployeenotinvolved().getSelectedValue().toString().split("-")[0];
+					String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+					//JOptionPane.showMessageDialog(null, "Tiến hành phân công đề án :" + madean + " Cho nhân viên : "+ manv);
+					DivisionModel model = new DivisionModel();
+					model.setVacancy_ID("");
+					model.setEmID(emid);
+					model.setSecID(secid);
+					Boolean kq = DivisionDAO.insertDivision(model);
+					loadData();
+					if (kq) {
+						JOptionPane.showMessageDialog(null, "Devise " + secid + " for employee : "+ emid + "successful");
+					}
+						
+					
+				}
+			});
 		}
 		return btn1;
 	}
@@ -160,6 +232,31 @@ public class DiviseEmployee extends JFrame {
 			btn2.setLocation(new Point(345, 211));
 			btn2.setText(">>");
 			btn2.setSize(new Dimension(90, 30));
+			btn2.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					int size =  (getJListEmployeenotinvolved().getModel()).getSize();
+					if(size == 0) {
+						JOptionPane.showMessageDialog(null, "Nothing to divise");
+						return ;
+					}
+					for (int i = 0; i< size; i++) {
+						String emid = (getJListEmployeenotinvolved().getModel()).getElementAt(i).toString().split("-")[0];
+						String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+						
+						DivisionModel mo = new DivisionModel();
+						mo.setVacancy_ID("");
+						mo.setEmID(emid);
+						mo.setSecID(secid);
+						
+						DivisionDAO.insertDivision(mo);
+						
+					}
+				
+				loadData();
+				JOptionPane.showMessageDialog(null, "Devise all successfull");
+			}
+			});
 		}
 		return btn2;
 	}
@@ -175,6 +272,28 @@ public class DiviseEmployee extends JFrame {
 			btn3.setLocation(new Point(345, 261));
 			btn3.setText("<");
 			btn3.setSize(new Dimension(90, 30));
+			btn3.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					int row = getJListEmployeeinvolved().getSelectedIndex();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "Please choose one employee to delete","Notice",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					String emid = getJListEmployeeinvolved().getSelectedValue().toString().split("-")[0];
+					String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+					
+					DivisionModel model = new DivisionModel();
+					model.setVacancy_ID("");
+					model.setEmID(emid);
+					model.setSecID(secid);
+					
+					Boolean kq = DivisionDAO.deleteDivision(model);
+					loadData();
+					if (kq) {
+						JOptionPane.showMessageDialog(null, "Delete :" + emid + " from section : "+ secid + "successful");
+					}
+				}
+			});
 		}
 		return btn3;
 	}
@@ -190,6 +309,30 @@ public class DiviseEmployee extends JFrame {
 			btn4.setLocation(new Point(345, 311));
 			btn4.setText("<<");
 			btn4.setSize(new Dimension(90, 30));
+			btn4.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					int size = (getJListEmployeeinvolved().getModel()).getSize();
+					if(size == 0) {
+						JOptionPane.showMessageDialog(null, "Không có gì để xóa");
+						return ;
+					}
+					for (int i = 0; i< size; i++) {
+						String emid = (getJListEmployeeinvolved().getModel()).getElementAt(i).toString().split("-")[0];
+						String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+						
+						DivisionModel mo = new DivisionModel();
+						mo.setVacancy_ID("");
+						mo.setEmID(emid);
+						mo.setSecID(secid);
+						
+						DivisionDAO.deleteDivision(mo);
+						
+					}
+					loadData();
+					JOptionPane.showMessageDialog(null, "Delete all successfull");
+				}
+			});
 		}
 		return btn4;
 	}
