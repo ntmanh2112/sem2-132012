@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -68,6 +69,10 @@ public class DiviseEmployee extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setResizable(false);
+		this.setLocation((wndSize.width-804)/2, (wndSize.height-489)/2);
 		this.setSize(804, 489);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
@@ -114,9 +119,9 @@ public class DiviseEmployee extends JFrame {
 		return jContentPane;
 	}
 	private void loadData() {
-		String Emid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+		String SecID = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
 		
-		ArrayList<EmployeeModel> listRightDivision = DivisionDAO.searchemployeeindivision(Emid);
+		ArrayList<EmployeeModel> listRightDivision = DivisionDAO.searchemployeeindivision(SecID);
 			
 		DefaultListModel contentList = new DefaultListModel();
 		for (EmployeeModel mo : listRightDivision) {
@@ -124,13 +129,13 @@ public class DiviseEmployee extends JFrame {
 		}
 		getJListEmployeeinvolved().setModel(contentList);
 		
-		ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemloyeenotindivision(Emid);
+		/*ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemloyeenotindivision(SecID);
 		
 		DefaultListModel content = new DefaultListModel();
 		for (EmployeeModel mo : listLeftDivision) {
 			content.addElement(mo.getName());
 		}
-		getJListEmployeenotinvolved().setModel(content);
+		getJListEmployeenotinvolved().setModel(content);*/
 	}
 
 	/**
