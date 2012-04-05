@@ -70,7 +70,7 @@ public class EmployeeDAO {
 		Boolean kq = false;
 		
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_INSERT_EMPLOYEE(?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_INSERT_EMPLOYEE(?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("EmID", model.getEmID());
 			csmt.setString("Name", model.getName());
 			csmt.setString("Dep_ID", model.getDep_ID());
