@@ -122,13 +122,18 @@ public class DiviseEmployee extends JFrame {
 		String SecID = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
 		
 		ArrayList<EmployeeModel> listRightDivision = DivisionDAO.searchemployeeindivision(SecID);
-			
+		ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemployeenotindivision(SecID);
 		DefaultListModel contentList = new DefaultListModel();
 		for (EmployeeModel mo : listRightDivision) {
 			contentList.addElement(mo.getName());
 		}
 		getJListEmployeeinvolved().setModel(contentList);
 		
+		contentList = new DefaultListModel();
+		for (EmployeeModel mo : listLeftDivision) {
+			contentList.addElement(mo.getName());
+		}
+		getJListEmployeenotinvolved().setModel(contentList);
 		/*ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemloyeenotindivision(SecID);
 		
 		DefaultListModel content = new DefaultListModel();

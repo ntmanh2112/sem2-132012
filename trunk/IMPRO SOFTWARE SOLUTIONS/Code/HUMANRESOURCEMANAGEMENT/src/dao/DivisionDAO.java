@@ -45,13 +45,13 @@ public class DivisionDAO {
 				model.setEmID(rs.getString("EmID"));
 				model.setName(rs.getString("Name"));
 				//model.setPassword(rs.getString("Password"));
-				model.setDep_ID(rs.getString("Dep_ID"));
-				model.setDes_ID(rs.getString("Des_ID"));
+				model.setDep_ID(rs.getString("DEP_ID"));
+				model.setDes_ID(rs.getString("SECID"));
 				
-				model.setAddress(rs.getString("Address"));
-				model.setPhone(rs.getString("Phone"));
-				model.setFax(rs.getString("Fax"));
-				model.setEmail(rs.getString("Email"));
+				//model.setAddress(rs.getString("Address"));
+				//model.setPhone(rs.getString("Phone"));
+				//model.setFax(rs.getString("Fax"));
+				//model.setEmail(rs.getString("Email"));
 				listRightDivision.add(model);
 			}
 		} catch (SQLException e) {
@@ -62,7 +62,37 @@ public class DivisionDAO {
 		
 		return listRightDivision;
 	}
-	public static ArrayList<EmployeeModel> searchemloyeenotindivision(String Emid){
+	public static ArrayList<EmployeeModel> searchemployeenotindivision(String SecID){
+		ArrayList<EmployeeModel>listRightDivision = new ArrayList<EmployeeModel>();
+			
+		try {
+			CallableStatement cs = DataUtil.getConnection().prepareCall("{call SP_SEARCHEMPLOYEENOTINDIVISION(?)}");
+			cs.setString("SecID",SecID );
+			ResultSet rs = cs.executeQuery();
+			while(rs.next()){
+				
+				EmployeeModel model = new EmployeeModel();
+				model.setEmID(rs.getString("EmID"));
+				model.setName(rs.getString("Name"));
+				//model.setPassword(rs.getString("Password"));
+				model.setDep_ID(rs.getString("DEP_ID"));
+				model.setDes_ID(rs.getString("SECID"));
+				
+				//model.setAddress(rs.getString("Address"));
+				//model.setPhone(rs.getString("Phone"));
+				//model.setFax(rs.getString("Fax"));
+				//model.setEmail(rs.getString("Email"));
+				listRightDivision.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return listRightDivision;
+	}
+	/*public static ArrayList<EmployeeModel> searchemloyeenotindivision(String Emid){
 		ArrayList<EmployeeModel>listLeftDivision = new ArrayList<EmployeeModel>();
 			
 		try {
@@ -91,7 +121,7 @@ public class DivisionDAO {
 		
 		
 		return listLeftDivision;
-	}
+	}*/
 	
 	public static Boolean insertDivision(DivisionModel model){
 		Boolean kq = false;
