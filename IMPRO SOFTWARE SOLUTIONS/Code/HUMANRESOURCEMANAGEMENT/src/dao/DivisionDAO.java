@@ -32,12 +32,12 @@ public class DivisionDAO {
 		}
 		return listDivision;
 	}
-	public static ArrayList<EmployeeModel> searchemployeeindivision(String Emid){
+	public static ArrayList<EmployeeModel> searchemployeeindivision(String SecID){
 		ArrayList<EmployeeModel>listRightDivision = new ArrayList<EmployeeModel>();
 			
 		try {
 			CallableStatement cs = DataUtil.getConnection().prepareCall("{call SP_SEARCHEMPLOYEEINDIVISION(?)}");
-			cs.setString("EmID", Emid);
+			cs.setString("SecID",SecID );
 			ResultSet rs = cs.executeQuery();
 			while(rs.next()){
 				

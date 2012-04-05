@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-04-04 09:26                                */
+/* Created on:            2012-04-05 09:49                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -35,7 +35,7 @@ GO
 CREATE TABLE [Employee] (
     [EmID] VARCHAR(10) NOT NULL,
     [Name] VARCHAR(10),
-    [Dep_ID] VARCHAR(40) NOT NULL,
+    [Dep_ID] VARCHAR(10) NOT NULL,
     [Des_ID] VARCHAR(10) NOT NULL,
     [Address] VARCHAR(50),
     [Phone] VARCHAR(15),
@@ -64,7 +64,7 @@ GO
 
 CREATE TABLE [Designation] (
     [DesID] VARCHAR(10) NOT NULL,
-    [Layer_ID] VARCHAR(10),
+    [Layer_ID] VARCHAR(10) NOT NULL,
     [Designation] VARCHAR(15),
     CONSTRAINT [PK_Designation] PRIMARY KEY ([DesID])
 )
@@ -111,7 +111,7 @@ GO
 CREATE TABLE [Division] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Vacancy_ID] VARCHAR(10) NOT NULL,
-    [EmID] VARCHAR(10),
+    [EmID] VARCHAR(10) NOT NULL,
     [SecID] VARCHAR(10),
     CONSTRAINT [PK_Division] PRIMARY KEY ([ID])
 )
@@ -157,7 +157,7 @@ GO
 
 CREATE TABLE [History] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
-    [EmID] VARCHAR(10),
+    [EmID] VARCHAR(10) NOT NULL,
     [Date_action] DATETIME,
     [Action] VARCHAR(20),
     CONSTRAINT [PK_History] PRIMARY KEY ([ID])
@@ -172,7 +172,7 @@ CREATE TABLE [Account] (
     [UserID] INTEGER IDENTITY(0,1) NOT NULL,
     [EmID] VARCHAR(10) NOT NULL,
     [Password] NVARCHAR(40),
-    CONSTRAINT [PK_Account] PRIMARY KEY ([UserID])
+    CONSTRAINT [PK_Account] PRIMARY KEY ([UserID], [EmID])
 )
 GO
 
@@ -180,46 +180,46 @@ GO
 /* Foreign key constraints                                                */
 /* ---------------------------------------------------------------------- */
 
+ALTER TABLE [Employee] ADD CONSTRAINT [Departments_Employee] 
+    FOREIGN KEY ([Dep_ID]) REFERENCES [Departments] ([Dep_ID])
+GO
+
 ALTER TABLE [Employee] ADD CONSTRAINT [Designation_Employee] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID]) ON DELETE CASCADE
+    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])
 GO
 
 ALTER TABLE [Section] ADD CONSTRAINT [Departments_Section] 
-    FOREIGN KEY ([DepID]) REFERENCES [Departments] ([Dep_ID])ON DELETE CASCADE
+    FOREIGN KEY ([DepID]) REFERENCES [Departments] ([Dep_ID])
 GO
 
 ALTER TABLE [Designation] ADD CONSTRAINT [DesigLayer_Designation] 
-    FOREIGN KEY ([Layer_ID]) REFERENCES [DesigLayer] ([Layer_ID])ON DELETE CASCADE
+    FOREIGN KEY ([Layer_ID]) REFERENCES [DesigLayer] ([Layer_ID])
 GO
 
 ALTER TABLE [Job_rotation] ADD CONSTRAINT [Employee_Job_rotation] 
-    FOREIGN KEY ([Em_ID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
-GO
-
-ALTER TABLE [Vacancies] ADD CONSTRAINT [Section_Vacancies] 
-    FOREIGN KEY ([SecID]) REFERENCES [Section] ([SecID])ON DELETE CASCADE
+    FOREIGN KEY ([Em_ID]) REFERENCES [Employee] ([EmID])
 GO
 
 ALTER TABLE [Division] ADD CONSTRAINT [Vacancies_Division] 
-    FOREIGN KEY ([Vacancy_ID]) REFERENCES [Vacancies] ([Vacancy_ID])ON DELETE CASCADE
+    FOREIGN KEY ([Vacancy_ID]) REFERENCES [Vacancies] ([Vacancy_ID])
 GO
 
 ALTER TABLE [Division] ADD CONSTRAINT [Employee_Division] 
-    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
-GO
-
-ALTER TABLE [Assignment] ADD CONSTRAINT [Functions_Assignment] 
-    FOREIGN KEY ([Fun_ID]) REFERENCES [Functions] ([ID])ON DELETE CASCADE
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
 GO
 
 ALTER TABLE [Assignment] ADD CONSTRAINT [Designation_Assignment] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])ON DELETE CASCADE
+    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])
+GO
+
+ALTER TABLE [Assignment] ADD CONSTRAINT [Functions_Assignment] 
+    FOREIGN KEY ([Fun_ID]) REFERENCES [Functions] ([ID])
 GO
 
 ALTER TABLE [History] ADD CONSTRAINT [Employee_History] 
-    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
 GO
 
 ALTER TABLE [Account] ADD CONSTRAINT [Employee_Account] 
-    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
 GO
