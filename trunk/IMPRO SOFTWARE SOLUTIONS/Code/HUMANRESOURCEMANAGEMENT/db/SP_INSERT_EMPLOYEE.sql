@@ -1,7 +1,7 @@
 CREATE PROC sp_INSERT_EMPLOYEE
 	@EmID	varchar(10),
 	@Name	varchar(10),
-	@Dep_ID	varchar(40),
+	@SecID	varchar(40),
 	@Des_ID	varchar(10),
 	
 	@Address	varchar(50),
@@ -15,7 +15,7 @@ BEGIN
 	VALUES (
 		@EmID,
 		@Name,
-		@Dep_ID,
+		@SecID,
 		@Des_ID,
 		
 		@Address,

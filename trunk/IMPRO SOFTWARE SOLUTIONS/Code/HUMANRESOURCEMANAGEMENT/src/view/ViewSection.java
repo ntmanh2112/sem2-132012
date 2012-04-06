@@ -138,7 +138,7 @@ public class ViewSection extends JFrame {
 		tableData [row][0] = model.getSecID();
 		tableData [row][1] = model.getName();
 		tableData [row][2] = model.getSection_Inch();
-		tableData [row][3] = model.getDepID();
+		tableData [row][3] = model.getDep_ID();
 				
 		row++;
 		}
@@ -356,7 +356,7 @@ public class ViewSection extends JFrame {
 			tableData [row][0] = model.getSecID();
 			tableData [row][1] = model.getName();
 			tableData [row][2] = model.getSection_Inch();
-			tableData [row][3] = model.getDepID();
+			tableData [row][3] = model.getDep_ID();
 			
 			
 			row ++;

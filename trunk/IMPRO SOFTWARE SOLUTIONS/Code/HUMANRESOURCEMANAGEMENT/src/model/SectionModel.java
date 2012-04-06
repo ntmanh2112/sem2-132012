@@ -21,13 +21,13 @@ public class SectionModel {
 	public void setSection_Inch(String sectionInch) {
 		Section_Inch = sectionInch;
 	}
-	public String getDepID() {
-		return DepID;
+	public String getDep_ID() {
+		return Dep_ID;
 	}
-	public void setDepID(String depID) {
-		DepID = depID;
+	public void setDep_ID(String depID) {
+		Dep_ID = depID;
 	}
 	private String Name;
 	private String Section_Inch;
-	private String DepID;
+	private String Dep_ID;
 }

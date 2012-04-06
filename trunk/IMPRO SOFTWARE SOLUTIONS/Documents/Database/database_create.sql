@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-04-05 09:49                                */
+/* Created on:            2012-04-06 08:52                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -35,7 +35,7 @@ GO
 CREATE TABLE [Employee] (
     [EmID] VARCHAR(10) NOT NULL,
     [Name] VARCHAR(10),
-    [Dep_ID] VARCHAR(10) NOT NULL,
+    [SecID] VARCHAR(10),
     [Des_ID] VARCHAR(10) NOT NULL,
     [Address] VARCHAR(50),
     [Phone] VARCHAR(15),
@@ -53,7 +53,7 @@ CREATE TABLE [Section] (
     [SecID] VARCHAR(10) NOT NULL,
     [Name] VARCHAR(15),
     [Section_Inch] VARCHAR(10),
-    [DepID] VARCHAR(10) NOT NULL,
+    [Dep_ID] VARCHAR(10) NOT NULL,
     CONSTRAINT [PK_Section] PRIMARY KEY ([SecID])
 )
 GO
@@ -112,7 +112,7 @@ CREATE TABLE [Division] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Vacancy_ID] VARCHAR(10) NOT NULL,
     [EmID] VARCHAR(10) NOT NULL,
-    [SecID] VARCHAR(10),
+    [SecID] VARCHAR(10) NOT NULL,
     CONSTRAINT [PK_Division] PRIMARY KEY ([ID])
 )
 GO
@@ -172,7 +172,7 @@ CREATE TABLE [Account] (
     [UserID] INTEGER IDENTITY(0,1) NOT NULL,
     [EmID] VARCHAR(10) NOT NULL,
     [Password] NVARCHAR(40),
-    CONSTRAINT [PK_Account] PRIMARY KEY ([UserID], [EmID])
+    CONSTRAINT [PK_Account] PRIMARY KEY ([UserID])
 )
 GO
 
@@ -180,46 +180,46 @@ GO
 /* Foreign key constraints                                                */
 /* ---------------------------------------------------------------------- */
 
-ALTER TABLE [Employee] ADD CONSTRAINT [Departments_Employee] 
-    FOREIGN KEY ([Dep_ID]) REFERENCES [Departments] ([Dep_ID])
+ALTER TABLE [Employee] ADD CONSTRAINT [Designation_Employee] 
+    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])ON DELETE CASCADE
 GO
 
-ALTER TABLE [Employee] ADD CONSTRAINT [Designation_Employee] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])
+ALTER TABLE [Employee] ADD CONSTRAINT [Section_Employee] 
+    FOREIGN KEY ([SecID]) REFERENCES [Section] ([SecID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Section] ADD CONSTRAINT [Departments_Section] 
-    FOREIGN KEY ([DepID]) REFERENCES [Departments] ([Dep_ID])
+    FOREIGN KEY ([Dep_ID]) REFERENCES [Departments] ([Dep_ID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Designation] ADD CONSTRAINT [DesigLayer_Designation] 
-    FOREIGN KEY ([Layer_ID]) REFERENCES [DesigLayer] ([Layer_ID])
+    FOREIGN KEY ([Layer_ID]) REFERENCES [DesigLayer] ([Layer_ID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Job_rotation] ADD CONSTRAINT [Employee_Job_rotation] 
-    FOREIGN KEY ([Em_ID]) REFERENCES [Employee] ([EmID])
+    FOREIGN KEY ([Em_ID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Division] ADD CONSTRAINT [Vacancies_Division] 
-    FOREIGN KEY ([Vacancy_ID]) REFERENCES [Vacancies] ([Vacancy_ID])
+    FOREIGN KEY ([Vacancy_ID]) REFERENCES [Vacancies] ([Vacancy_ID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Division] ADD CONSTRAINT [Employee_Division] 
-    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Assignment] ADD CONSTRAINT [Designation_Assignment] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])
+    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Assignment] ADD CONSTRAINT [Functions_Assignment] 
-    FOREIGN KEY ([Fun_ID]) REFERENCES [Functions] ([ID])
+    FOREIGN KEY ([Fun_ID]) REFERENCES [Functions] ([ID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [History] ADD CONSTRAINT [Employee_History] 
-    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Account] ADD CONSTRAINT [Employee_Account] 
-    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])
+    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
 GO

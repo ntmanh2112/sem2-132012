@@ -51,7 +51,7 @@ public class ViewEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"ID","Name","Dep_ID","Des_ID","Address","Phone","Fax","Email"};
+	private String[] ColumnName ={"ID","Name","sECid","Des_ID","Address","Phone","Fax","Email"};
 	private String[][] tableData;
 	/**
 	 * This is the default constructor
@@ -134,7 +134,7 @@ public class ViewEmployee extends JFrame {
 		tableData [row][0] = model.getEmID();
 		tableData [row][1] = model.getName();
 		//tableData [row][2] = model.getPassword();
-		tableData [row][2] = model.getDep_ID();
+		tableData [row][2] = model.getSecID();
 		tableData [row][3] = model.getDes_ID();
 		
 		tableData [row][4] = model.getAddress();
@@ -366,7 +366,7 @@ public class ViewEmployee extends JFrame {
 		for(EmployeeModel model : listEmployee) {
 			tableData [row][0] = model.getEmID();
 			tableData [row][1] = model.getName();
-			tableData [row][2] = model.getDep_ID();
+			tableData [row][2] = model.getSecID();
 			tableData [row][3] = model.getDes_ID();
 			
 			tableData [row][4] = model.getAddress();

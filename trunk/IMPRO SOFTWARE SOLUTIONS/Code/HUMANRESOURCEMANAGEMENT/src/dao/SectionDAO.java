@@ -22,7 +22,7 @@ public class SectionDAO {
 				model.setSecID(rs.getString("SecID"));
 				model.setName(rs.getString("Name"));
 				model.setSection_Inch(rs.getString("Section_Inch"));
-				model.setDepID(rs.getString("DepID"));
+				model.setDep_ID(rs.getString("Dep_ID"));
 								
 				listSection.add(model);
 			}
@@ -44,7 +44,7 @@ public class SectionDAO {
 				model.setSecID(rs.getString("SecID"));
 				model.setName(rs.getString("Name"));
 				model.setSection_Inch(rs.getString("Section_Inch"));
-				model.setDepID(rs.getString("DepID"));
+				model.setDep_ID(rs.getString("DepID"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -60,7 +60,7 @@ public class SectionDAO {
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getName());
 			ps.setString(2, model.getSection_Inch());
-			ps.setString(3, model.getDepID());
+			ps.setString(3, model.getDep_ID());
 			ps.setString(4, model.getSecID());
 			ps.executeUpdate();
 			kq = true;
@@ -79,7 +79,7 @@ public class SectionDAO {
 				ps.setString(1, model.getSecID());
 				ps.setString(2, model.getName());
 				ps.setString(3, model.getSection_Inch());
-				ps.setString(4, model.getDepID());
+				ps.setString(4, model.getDep_ID());
 				ps.executeUpdate();
 				kq = true;
 			} catch (SQLException e) {
@@ -113,7 +113,7 @@ public class SectionDAO {
 				model.setSecID(rs.getString("SecID"));
 				model.setName(rs.getString("Name"));
 				model.setSection_Inch(rs.getString("Section_Inch"));
-				model.setDepID(rs.getString("DepID"));
+				model.setDep_ID(rs.getString("Dep_ID"));
 				listSection.add(model);
 			}
 		} catch (SQLException e) {

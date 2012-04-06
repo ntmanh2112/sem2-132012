@@ -70,7 +70,7 @@ public class UpdateSection extends JFrame {
 			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
 
 			cbnDeptno.addItem(item);
-			if (item.getKey().equals(this.model.getDepID())) {
+			if (item.getKey().equals(this.model.getDep_ID())) {
 				cbnDeptno.setSelectedItem(item);
 			}
 		}
@@ -251,7 +251,7 @@ public class UpdateSection extends JFrame {
 					model.setSecID(txtSectionid.getText().trim());
 					model.setName(txtSectionname.getText().trim());
 					model.setSection_Inch(txtSecincharge.getText().trim());
-					model.setDepID(((KeyValue) cbnDeptno.getSelectedItem())
+					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
 							.getKey());
 					if(!validateModel(model)){
 						return;

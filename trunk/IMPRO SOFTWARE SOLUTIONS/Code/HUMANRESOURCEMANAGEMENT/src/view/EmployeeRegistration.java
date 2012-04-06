@@ -47,8 +47,6 @@ public class EmployeeRegistration extends JFrame {
 	private JTextField txtEmpid = null;
 	private JLabel jLabel2 = null;
 	private JTextField txtEmpname = null;
-	private JLabel jLabel3 = null;
-	private JComboBox cbnDeptno = null;
 	private JLabel jLabel4 = null;
 	private JLabel jLabel5 = null;
 	private JTextField txtAddress = null;
@@ -70,15 +68,7 @@ public class EmployeeRegistration extends JFrame {
 	public EmployeeRegistration() {
 		super();
 		initialize();
-		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.getAllDepartments();
-		for (DepartmentsModel dm : listDepartment) {
-			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_Name());
-
-			cbnDeptno.addItem(item);
-			if (item.getKey().equals(model.getDep_ID())) {
-				cbnDeptno.setSelectedItem(item);
-			}
-		}
+		
 		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
 		for (DesignationModel desm : listDesignation) {
 			KeyValue item = new KeyValue(desm.getDesID(),desm.getDesignation());
@@ -148,12 +138,8 @@ public class EmployeeRegistration extends JFrame {
 			jLabel5.setLocation(new Point(345, 100));
 			jLabel4 = new JLabel();
 			jLabel4.setText("DesignID :");
-			jLabel4.setLocation(new Point(20, 260));
+			jLabel4.setLocation(new Point(20, 220));
 			jLabel4.setSize(new Dimension(56, 25));
-			jLabel3 = new JLabel();
-			jLabel3.setText("DepID :");
-			jLabel3.setSize(new Dimension(50, 25));
-			jLabel3.setLocation(new Point(20, 220));
 			jLabel2 = new JLabel();
 			jLabel2.setText("EmpName :");
 			jLabel2.setLocation(new Point(20, 140));
@@ -174,8 +160,6 @@ public class EmployeeRegistration extends JFrame {
 			jContentPane.add(getTxtEmpid(), null);
 			jContentPane.add(jLabel2, null);
 			jContentPane.add(getTxtEmpname(), null);
-			jContentPane.add(jLabel3, null);
-			jContentPane.add(getCbnDeptno(), null);
 			jContentPane.add(jLabel4, null);
 			jContentPane.add(jLabel5, null);
 			jContentPane.add(getTxtAddress(), null);
@@ -221,27 +205,6 @@ public class EmployeeRegistration extends JFrame {
 		}
 		return txtEmpname;
 	}
-
-	/**
-	 * This method initializes cbnDeptno	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getCbnDeptno() {
-		if (cbnDeptno == null) {
-			cbnDeptno = new JComboBox();
-			cbnDeptno.setLocation(new Point(100, 220));
-			cbnDeptno.setSize(new Dimension(200, 25));
-		}
-		return cbnDeptno;
-	}
-
-	/**
-	 * This method initializes txtDesignid	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	
 
 	/**
 	 * This method initializes txtAddress	
@@ -320,8 +283,7 @@ public class EmployeeRegistration extends JFrame {
 					model.setEmID(txtEmpid.getText().trim());
 					model.setName(txtEmpname.getText().trim());
 					
-					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
-							.getKey());
+					
 					model.setDes_ID(((KeyValue) cbnDesID.getSelectedItem())
 							.getKey());
 					
@@ -417,7 +379,7 @@ public class EmployeeRegistration extends JFrame {
 		if (cbnDesID == null) {
 			cbnDesID = new JComboBox();
 			cbnDesID.setSize(new Dimension(200, 23));
-			cbnDesID.setLocation(new Point(100, 260));
+			cbnDesID.setLocation(new Point(100, 220));
 		}
 		return cbnDesID;
 	}
