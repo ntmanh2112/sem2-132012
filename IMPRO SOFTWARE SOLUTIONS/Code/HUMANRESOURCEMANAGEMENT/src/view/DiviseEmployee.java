@@ -216,7 +216,7 @@ public class DiviseEmployee extends JFrame {
 					}
 					String emid = getJListEmployeenotinvolved().getSelectedValue().toString().split("-")[0];
 					String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
-					//JOptionPane.showMessageDialog(null, "Tiến hành phân công đề án :" + madean + " Cho nhân viên : "+ manv);
+					JOptionPane.showMessageDialog(null, "Tiến hành phân công đề án :" + secid + " Cho nhân viên : "+ emid);
 					DivisionModel model = new DivisionModel();
 					model.setVacancy_ID("");
 					model.setEmID(emid);

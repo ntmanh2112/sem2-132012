@@ -14,7 +14,7 @@ public class EmployeeDAO {
 	public static ArrayList<EmployeeModel> getAllEmployee(){
 		ArrayList<EmployeeModel> listEmployee = new ArrayList<EmployeeModel>();
 		try {
-			String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID,  A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID";
+			String sql = "SELECT A.EmID, A.Name, B.Password, A.SecID, A.Des_ID,  A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID";
 			
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
@@ -22,7 +22,7 @@ public class EmployeeDAO {
 				model.setEmID(rs.getString("EmID"));
 				model.setName(rs.getString("Name"));
 				model.setPassword(rs.getString("Password"));
-				model.setDep_ID(rs.getString("Dep_ID"));
+				model.setSecID(rs.getString("SecID"));
 				model.setDes_ID(rs.getString("Des_ID"));
 				
 				model.setAddress(rs.getString("Address"));
@@ -50,7 +50,7 @@ public class EmployeeDAO {
 				model = new EmployeeModel();
 				model.setEmID(rs.getString("EmID"));
 				model.setName(rs.getString("Name"));
-				model.setDep_ID(rs.getString("Dep_ID"));
+				model.setSecID(rs.getString("SecID"));
 				model.setDes_ID(rs.getString("Des_ID"));
 				
 				model.setAddress(rs.getString("Address"));
@@ -73,7 +73,7 @@ public class EmployeeDAO {
 			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_INSERT_EMPLOYEE(?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("EmID", model.getEmID());
 			csmt.setString("Name", model.getName());
-			csmt.setString("Dep_ID", model.getDep_ID());
+			csmt.setString("SecID", model.getSecID());
 			csmt.setString("Des_ID", model.getDes_ID());
 			
 			csmt.setString("Address", model.getAddress());
@@ -151,7 +151,7 @@ public class EmployeeDAO {
 			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_UPDATE_EMPLOYEE(?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("EmID", model.getEmID());
 			csmt.setString("Name", model.getName());
-			csmt.setString("Dep_ID", model.getDep_ID());
+			csmt.setString("SecID", model.getSecID());
 			csmt.setString("Des_ID", model.getDes_ID());
 			
 			csmt.setString("Address", model.getAddress());
@@ -193,7 +193,7 @@ public class EmployeeDAO {
 				EmployeeModel model = new EmployeeModel();
 				model.setEmID(rs.getString("EmID"));
 				model.setName(rs.getString("Name"));
-				model.setDep_ID(rs.getString("Dep_ID"));
+				model.setSecID(rs.getString("SecID"));
 				model.setDes_ID(rs.getString("Des_ID"));
 				
 				model.setAddress(rs.getString("Address"));

@@ -234,7 +234,7 @@ public class SectionRegistration extends JFrame {
 					model.setSecID(txtSectionid.getText().trim());
 					model.setName(txtSectionname.getText().trim());
 					model.setSection_Inch(txtSecincharge.getText().trim());
-					model.setDepID(cbnDeptno.getSelectedItem().toString());
+					model.setDep_ID(cbnDeptno.getSelectedItem().toString());
 					if(!validateModel(model)){
 						return;
 					}

@@ -2,7 +2,7 @@
 CREATE PROC sp_UPDATE_EMPLOYEE
 	@EmID	varchar(10),
 	@Name	varchar(10),
-	@Dep_ID	varchar(40),
+	@SecID	varchar(40),
 	@Des_ID	varchar(10),
 	
 	@Address	varchar(50),
@@ -16,7 +16,7 @@ BEGIN
 	SET 
 		EmID = @EmID,
 		Name = @Name,
-		Dep_ID = @Dep_ID,
+		SecID = @SecID,
 		Des_ID = @Des_ID,
 		
 		Address = @Address,

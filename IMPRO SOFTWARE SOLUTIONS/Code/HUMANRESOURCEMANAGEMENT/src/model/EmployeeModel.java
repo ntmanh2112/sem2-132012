@@ -2,18 +2,17 @@ package model;
 
 public class EmployeeModel {
 	private String EmID;
-	private String Password;
-	public String getPassword() {
-		return Password;
-	}
-	public void setPassword(String password) {
-		Password = password;
-	}
 	public String getEmID() {
 		return EmID;
 	}
 	public void setEmID(String emID) {
 		EmID = emID;
+	}
+	public String getPassword() {
+		return Password;
+	}
+	public void setPassword(String password) {
+		Password = password;
 	}
 	public String getName() {
 		return Name;
@@ -21,11 +20,11 @@ public class EmployeeModel {
 	public void setName(String name) {
 		Name = name;
 	}
-	public String getDep_ID() {
-		return Dep_ID;
+	public String getSecID() {
+		return SecID;
 	}
-	public void setDep_ID(String depID) {
-		Dep_ID = depID;
+	public void setSecID(String secID) {
+		SecID = secID;
 	}
 	public String getDes_ID() {
 		return Des_ID;
@@ -33,7 +32,6 @@ public class EmployeeModel {
 	public void setDes_ID(String desID) {
 		Des_ID = desID;
 	}
-	
 	public String getAddress() {
 		return Address;
 	}
@@ -58,8 +56,10 @@ public class EmployeeModel {
 	public void setEmail(String email) {
 		Email = email;
 	}
+	private String Password;
+	
 	private String Name;
-	private String Dep_ID;
+	private String SecID;
 	private String Des_ID;
 
 	private String Address;
