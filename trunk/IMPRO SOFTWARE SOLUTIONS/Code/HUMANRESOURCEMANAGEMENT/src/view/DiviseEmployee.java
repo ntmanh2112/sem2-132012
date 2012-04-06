@@ -43,9 +43,6 @@ public class DiviseEmployee extends JFrame {
 	private JList jListEmployeeinvolved = null;
 	private JLabel jLabel3 = null;
 	private JButton btn1 = null;
-	private JButton btn2 = null;
-	private JButton btn3 = null;
-	private JButton btn4 = null;
 	private JButton btnPrint = null;
 	SectionModel model = new SectionModel();  //  @jve:decl-index=0:
 	private JLabel jLabel4 = null;
@@ -127,9 +124,6 @@ public class DiviseEmployee extends JFrame {
 			jContentPane.add(getJListEmployeeinvolved(), null);
 			jContentPane.add(jLabel3, null);
 			jContentPane.add(getBtn1(), null);
-			jContentPane.add(getBtn2(), null);
-			jContentPane.add(getBtn3(), null);
-			jContentPane.add(getBtn4(), null);
 			jContentPane.add(getBtnPrint(), null);
 			jContentPane.add(jLabel4, null);
 			jContentPane.add(getCbnVacancy(), null);
@@ -229,7 +223,7 @@ public class DiviseEmployee extends JFrame {
 	private JButton getBtn1() {
 		if (btn1 == null) {
 			btn1 = new JButton();
-			btn1.setLocation(new Point(347, 204));
+			btn1.setLocation(new Point(350, 254));
 			btn1.setText(">");
 			btn1.setSize(new Dimension(90, 30));
 			btn1.addActionListener(new java.awt.event.ActionListener() {
@@ -265,122 +259,6 @@ public class DiviseEmployee extends JFrame {
 	}
 
 	/**
-	 * This method initializes btn2	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtn2() {
-		if (btn2 == null) {
-			btn2 = new JButton();
-			btn2.setLocation(new Point(345, 253));
-			btn2.setText(">>");
-			btn2.setSize(new Dimension(90, 30));
-			btn2.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					int size =  (getJListEmployeenotinvolved().getModel()).getSize();
-					if(size == 0) {
-						JOptionPane.showMessageDialog(null, "Nothing to divise");
-						return ;
-					}
-					for (int i = 0; i< size; i++) {
-						String emid = (getJListEmployeenotinvolved().getModel()).getElementAt(i).toString().split("-")[0];
-						String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
-						
-						DivisionModel mo = new DivisionModel();
-						mo.setVacancy_ID("");
-						
-						mo.setSecID(secid);
-						
-						DivisionDAO.insertDivision(mo);
-						
-					}
-				
-				loadData();
-				JOptionPane.showMessageDialog(null, "Devise all successfull");
-			}
-			});
-		}
-		return btn2;
-	}
-
-	/**
-	 * This method initializes btn3	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtn3() {
-		if (btn3 == null) {
-			btn3 = new JButton();
-			btn3.setLocation(new Point(346, 318));
-			btn3.setText("<");
-			btn3.setSize(new Dimension(90, 30));
-			btn3.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					int row = getJListEmployeeinvolved().getSelectedIndex();
-					if(row== -1){
-						JOptionPane.showMessageDialog(null, "Please choose one employee to delete","Notice",JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-					String emid = getJListEmployeeinvolved().getSelectedValue().toString().split("-")[0];
-					String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
-					
-					DivisionModel model = new DivisionModel();
-					model.setVacancy_ID("");
-					
-					model.setSecID(secid);
-					
-					Boolean kq = DivisionDAO.deleteDivision(model);
-					loadData();
-					if (kq) {
-						JOptionPane.showMessageDialog(null, "Delete :" + emid + " from section : "+ secid + "successful");
-					}
-				}
-			});
-		}
-		return btn3;
-	}
-
-	/**
-	 * This method initializes btn4	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtn4() {
-		if (btn4 == null) {
-			btn4 = new JButton();
-			btn4.setLocation(new Point(347, 364));
-			btn4.setText("<<");
-			btn4.setSize(new Dimension(90, 30));
-			btn4.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					int size = (getJListEmployeeinvolved().getModel()).getSize();
-					if(size == 0) {
-						JOptionPane.showMessageDialog(null, "Không có gì để xóa");
-						return ;
-					}
-					for (int i = 0; i< size; i++) {
-						String emid = (getJListEmployeeinvolved().getModel()).getElementAt(i).toString().split("-")[0];
-						String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
-						
-						DivisionModel mo = new DivisionModel();
-						mo.setVacancy_ID("");
-						
-						mo.setSecID(secid);
-						
-						DivisionDAO.deleteDivision(mo);
-						
-					}
-					loadData();
-					JOptionPane.showMessageDialog(null, "Delete all successfull");
-				}
-			});
-		}
-		return btn4;
-	}
-
-	/**
 	 * This method initializes btnPrint	
 	 * 	
 	 * @return javax.swing.JButton	
@@ -388,7 +266,7 @@ public class DiviseEmployee extends JFrame {
 	private JButton getBtnPrint() {
 		if (btnPrint == null) {
 			btnPrint = new JButton();
-			btnPrint.setBounds(new Rectangle(332, 426, 121, 38));
+			btnPrint.setBounds(new Rectangle(342, 376, 106, 38));
 			btnPrint.setText("Print");
 		}
 		return btnPrint;
