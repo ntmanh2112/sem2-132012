@@ -4,6 +4,7 @@ public class VacanciesModel {
 	
 	private String Vacancy_ID;
 	
+
 	public String getVacancy_ID() {
 		return Vacancy_ID;
 	}
@@ -21,6 +22,12 @@ public class VacanciesModel {
 	}
 	public void setDesignation_ID(String designationID) {
 		Designation_ID = designationID;
+	}
+	public String getInterpretation() {
+		return interpretation;
+	}
+	public void setInterpretation(String interpretation) {
+		this.interpretation = interpretation;
 	}
 	public String getNo_Of_Vacancies() {
 		return No_Of_Vacancies;
@@ -54,6 +61,7 @@ public class VacanciesModel {
 	}
 	private String SecID;
 	private String Designation_ID;
+	private String interpretation;
 	private String No_Of_Vacancies;
 	private String Status;
 	private String Vacancy_Date;

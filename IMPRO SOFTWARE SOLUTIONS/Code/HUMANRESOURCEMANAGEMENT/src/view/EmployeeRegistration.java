@@ -62,12 +62,23 @@ public class EmployeeRegistration extends JFrame {
 	EmployeeModel model = new EmployeeModel();  //  @jve:decl-index=0:
 	private JLabel jLabel10 = null;
 	private JPasswordField txtpassword = null;
+	private JLabel jLabel3 = null;
+	private JComboBox cbnSecID = null;
 	/**
 	 * This is the default constructor
 	 */
 	public EmployeeRegistration() {
 		super();
 		initialize();
+		ArrayList<SectionModel> listSection = SectionDAO.getAllSection();
+		for (SectionModel desm : listSection) {
+			KeyValue item = new KeyValue(desm.getSecID(),desm.getName());
+
+			cbnSecID.addItem(item);
+			if (item.getKey().equals(model.getSecID())) {
+				cbnSecID.setSelectedItem(item);
+			}
+		}
 		
 		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
 		for (DesignationModel desm : listDesignation) {
@@ -116,6 +127,10 @@ public class EmployeeRegistration extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel3 = new JLabel();
+			jLabel3.setText("SecID :");
+			jLabel3.setLocation(new Point(20, 220));
+			jLabel3.setSize(new Dimension(64, 25));
 			jLabel10 = new JLabel();
 			jLabel10.setText("Password :");
 			jLabel10.setLocation(new Point(20, 180));
@@ -138,7 +153,7 @@ public class EmployeeRegistration extends JFrame {
 			jLabel5.setLocation(new Point(345, 100));
 			jLabel4 = new JLabel();
 			jLabel4.setText("DesignID :");
-			jLabel4.setLocation(new Point(20, 220));
+			jLabel4.setLocation(new Point(20, 260));
 			jLabel4.setSize(new Dimension(56, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("EmpName :");
@@ -174,6 +189,8 @@ public class EmployeeRegistration extends JFrame {
 			jContentPane.add(getCbnDesID(), null);
 			jContentPane.add(jLabel10, null);
 			jContentPane.add(getTxtpassword(), null);
+			jContentPane.add(jLabel3, null);
+			jContentPane.add(getCbnSecID(), null);
 		}
 		return jContentPane;
 	}
@@ -282,7 +299,8 @@ public class EmployeeRegistration extends JFrame {
 					EmployeeModel model = new EmployeeModel();
 					model.setEmID(txtEmpid.getText().trim());
 					model.setName(txtEmpname.getText().trim());
-					
+					model.setSecID(((KeyValue) cbnSecID.getSelectedItem())
+							.getKey());
 					
 					model.setDes_ID(((KeyValue) cbnDesID.getSelectedItem())
 							.getKey());
@@ -379,7 +397,7 @@ public class EmployeeRegistration extends JFrame {
 		if (cbnDesID == null) {
 			cbnDesID = new JComboBox();
 			cbnDesID.setSize(new Dimension(200, 23));
-			cbnDesID.setLocation(new Point(100, 220));
+			cbnDesID.setLocation(new Point(100, 260));
 		}
 		return cbnDesID;
 	}
@@ -462,5 +480,19 @@ private JPasswordField getTxtpassword() {
 		txtpassword.setLocation(new Point(100, 180));
 	}
 	return txtpassword;
+}
+
+/**
+ * This method initializes cbnSecID	
+ * 	
+ * @return javax.swing.JComboBox	
+ */
+private JComboBox getCbnSecID() {
+	if (cbnSecID == null) {
+		cbnSecID = new JComboBox();
+		cbnSecID.setSize(new Dimension(200, 25));
+		cbnSecID.setLocation(new Point(100, 220));
+	}
+	return cbnSecID;
 }
 }  //  @jve:decl-index=0:visual-constraint="10,10"

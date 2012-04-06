@@ -32,6 +32,49 @@ public class SectionDAO {
 		}
 		return listSection;
 	}
+	public static ArrayList<SectionModel> getListSection(){
+		ArrayList<SectionModel> listSection = new ArrayList<SectionModel>();
+		try {
+			String sql = "SELECT * FROM Section Where SecID <> 'S001'";
+
+			ResultSet rs = DataUtil.executeQuery(sql);
+			while (rs.next()){
+				SectionModel model = new SectionModel();
+				model.setSecID(rs.getString("SecID"));
+				model.setName(rs.getString("Name"));
+				model.setSection_Inch(rs.getString("Section_Inch"));
+				model.setDep_ID(rs.getString("Dep_ID"));
+								
+				listSection.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listSection;
+	}
+	public static ArrayList<SectionModel> getListSectionForDivision(){
+		ArrayList<SectionModel> listSection = new ArrayList<SectionModel>();
+		try {
+			String sql = "SELECT * FROM Section Where SecID IN (SELECT SecID FROM Division)";
+
+			ResultSet rs = DataUtil.executeQuery(sql);
+			while (rs.next()){
+				SectionModel model = new SectionModel();
+				model.setSecID(rs.getString("SecID"));
+				model.setName(rs.getString("Name"));
+				model.setSection_Inch(rs.getString("Section_Inch"));
+				model.setDep_ID(rs.getString("Dep_ID"));
+								
+				listSection.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listSection;
+	}
+	
 	public static SectionModel getSectionByID(String id){
 		SectionModel model = null;
 		try {

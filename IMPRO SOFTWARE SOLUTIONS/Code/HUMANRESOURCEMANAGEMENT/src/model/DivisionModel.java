@@ -1,13 +1,7 @@
 package model;
 
 public class DivisionModel {
-	private String EmID;
-	public String getEmID() {
-		return EmID;
-	}
-	public void setEmID(String emID) {
-		EmID = emID;
-	}
+	
 	public String getVacancy_ID() {
 		return Vacancy_ID;
 	}
@@ -22,4 +16,18 @@ public class DivisionModel {
 	}
 	private String Vacancy_ID;
 	private String SecID;
+	private String id;
+	private String Interpretation_Vacancy;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getInterpretation_Vacancy() {
+		return Interpretation_Vacancy;
+	}
+	public void setInterpretation_Vacancy(String interpretationVacancy) {
+		Interpretation_Vacancy = interpretationVacancy;
+	}
 }

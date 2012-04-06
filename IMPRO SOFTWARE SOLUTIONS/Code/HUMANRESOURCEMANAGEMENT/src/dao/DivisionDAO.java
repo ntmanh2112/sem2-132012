@@ -12,6 +12,7 @@ import util.DataUtil;
 
 import model.EmployeeModel;
 import model.DivisionModel;
+import model.SectionModel;
 
 public class DivisionDAO {
 	public static ArrayList<DivisionModel> getAll() {
@@ -21,8 +22,8 @@ public class DivisionDAO {
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while(rs.next()) {
 				DivisionModel  model = new DivisionModel();
+				model.setId(rs.getString("ID"));
 				model.setVacancy_ID(rs.getString("VACANCY_ID"));
-				model.setEmID(rs.getString("EMID"));
 				model.setSecID(rs.getString("SECID"));
 				listDivision.add(model);
 			}
@@ -32,6 +33,29 @@ public class DivisionDAO {
 		}
 		return listDivision;
 	}
+	
+	public static ArrayList<DivisionModel> getListDivisionBySecID(String secID) {
+		ArrayList<DivisionModel> listDivision = new ArrayList<DivisionModel>();
+		try {
+			String sql = "SELECT A.*,B.Interpretation FROM Division A INNER JOIN Vacancies B on A.Vacancy_ID=B.Vacancy_ID WHERE A.SecID=?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, secID);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				DivisionModel  model = new DivisionModel();
+				model.setId(rs.getString("ID"));
+				model.setVacancy_ID(rs.getString("VACANCY_ID"));
+				model.setSecID(rs.getString("SECID"));
+				model.setInterpretation_Vacancy(rs.getString("Interpretation"));
+				listDivision.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listDivision;
+	}
+	
 	public static ArrayList<EmployeeModel> searchemployeeindivision(String SecID){
 		ArrayList<EmployeeModel>listRightDivision = new ArrayList<EmployeeModel>();
 			
@@ -123,37 +147,66 @@ public class DivisionDAO {
 		return listLeftDivision;
 	}*/
 	
-	public static Boolean insertDivision(DivisionModel model){
+	public static void updateEmployeeToSection(String emID, String secID, String divisionID){
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_EmployeeToSection(?,?,?)}");
+			csmt.setString("EmID", emID);
+			csmt.setString("SecID", secID);
+			csmt.setString("DivisionID", divisionID);
+			csmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static boolean updateDivision(DivisionModel model){
 		Boolean kq = false;
-		String sql ;
-			try {
-				sql = "INSERT INTO DIVISION VALUES (?,?,?)";
-				PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
-				ps.setString(1, model.getVacancy_ID());
-				ps.setString(2, model.getEmID());
-				ps.setString(3, model.getSecID());
-				
-				ps.executeUpdate();
-				kq = true;
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			String sql = "UPDATE Employee SET SECID = ? WHERE EmID=?";
+
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1,model.getSecID());
 			
-		return kq;	
-}
+			
+			ps.executeUpdate();
+			kq = true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return kq;
+	}
 	public static Boolean deleteDivision(DivisionModel model){
 		Boolean kq = false;
 		try {
-			String sql = "delete from Division where EmID = ?";
+			String sql = "delete from Division where SecID = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
-			ps.setString(1, model.getEmID());
+			ps.setString(1, model.getSecID());
+			
 			ps.executeUpdate();
 			kq = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return kq;
+	}
+	public static Boolean insertDivision(DivisionModel model){
+		Boolean kq = false;
+		String sql ;
+			try {
+				sql = "INSERT INTO Division VALUES (?,?)";
+				PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+				ps.setString(1, model.getVacancy_ID());
+			
+				ps.setString(2, model.getSecID());
+				
+				ps.executeUpdate();
+				kq = true;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
 		return kq;
 	}
 }
