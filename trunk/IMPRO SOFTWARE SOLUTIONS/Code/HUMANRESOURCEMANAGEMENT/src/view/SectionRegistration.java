@@ -16,13 +16,18 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
+import Common.KeyValue;
+
+import dao.DepartmentsDAO;
 import dao.SectionDAO;
 
 
+import model.DepartmentsModel;
 import model.SectionModel;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 public class SectionRegistration extends JFrame {
 
@@ -41,6 +46,7 @@ public class SectionRegistration extends JFrame {
 	//private JButton btnEdit = null;
 	private JButton btnCancel = null;
 	private JButton btnAdd = null;
+	DepartmentsModel model = new DepartmentsModel();  //  @jve:decl-index=0:
 
 	/**
 	 * This is the default constructor
@@ -48,6 +54,15 @@ public class SectionRegistration extends JFrame {
 	public SectionRegistration() {
 		super();
 		initialize();
+		ArrayList<DepartmentsModel> listdepartments = DepartmentsDAO.getAllDepartments();
+		for (DepartmentsModel desm : listdepartments) {
+			KeyValue item = new KeyValue(desm.getDep_ID(),desm.getDep_Name());
+
+			cbnDeptno.addItem(item);
+			if (item.getKey().equals(model.getDep_ID())) {
+				cbnDeptno.setSelectedItem(item);
+			}
+		}
 	}
 
 	/**
@@ -165,10 +180,7 @@ public class SectionRegistration extends JFrame {
 			cbnDeptno = new JComboBox();
 			cbnDeptno.setLocation(new Point(180, 220));
 			cbnDeptno.setSize(new Dimension(200, 25));
-			cbnDeptno.addItem("P10");
-			cbnDeptno.addItem("P20");
-			cbnDeptno.addItem("P30");
-			cbnDeptno.addItem("P40");
+			
 		}
 		return cbnDeptno;
 	}
@@ -234,7 +246,8 @@ public class SectionRegistration extends JFrame {
 					model.setSecID(txtSectionid.getText().trim());
 					model.setName(txtSectionname.getText().trim());
 					model.setSection_Inch(txtSecincharge.getText().trim());
-					model.setDep_ID(cbnDeptno.getSelectedItem().toString());
+					model.setDep_ID(((KeyValue) cbnDeptno.getSelectedItem())
+							.getKey());
 					if(!validateModel(model)){
 						return;
 					}

@@ -1,3 +1,4 @@
+--drop PROC sp_INSERT_EMPLOYEE
 CREATE PROC sp_INSERT_EMPLOYEE
 	@EmID	varchar(10),
 	@Name	varchar(10),

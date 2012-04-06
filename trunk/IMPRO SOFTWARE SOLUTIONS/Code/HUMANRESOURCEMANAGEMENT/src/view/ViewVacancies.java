@@ -54,7 +54,7 @@ public class ViewVacancies extends JFrame {
 	//private JLabel jLabel3 = null;
 	//private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"Vacancy_ID","SecID","Designation_ID","No_Of_Vacancies","Status","Vacancy_Date","Creator","Priority"};
+	private String[] ColumnName ={"Vacancy_ID","SecID","Designation_ID","Interpretation","No_Of_Vacancies","Status","Vacancy_Date","Creator","Priority"};
 	private String[][] tableData;
 	
 	
@@ -136,18 +136,19 @@ public class ViewVacancies extends JFrame {
 	}
 	private void loadDataToTable(){
 		ArrayList<VacanciesModel> listVacancies = VacanciesDAO.getAllVacancies();
-		tableData = new String[listVacancies.size()][8];
+		tableData = new String[listVacancies.size()][9];
 		int row = 0;
 		for (VacanciesModel model:listVacancies){
 		tableData [row][0] = model.getVacancy_ID();
 		
 		tableData [row][1] = model.getSecID();
 		tableData [row][2] = model.getDesignation_ID();
-		tableData [row][3] = model.getNo_Of_Vacancies();
-		tableData [row][4] = model.getStatus();
-		tableData [row][5] = model.getVacancy_Date();
-		tableData [row][6] = model.getCreator();
-		tableData [row][7] = model.getPriority();
+		tableData [row][3] = model.getInterpretation();
+		tableData [row][4] = model.getNo_Of_Vacancies();
+		tableData [row][5] = model.getStatus();
+		tableData [row][6] = model.getVacancy_Date();
+		tableData [row][7] = model.getCreator();
+		tableData [row][8] = model.getPriority();
 		
 		row++;
 		}

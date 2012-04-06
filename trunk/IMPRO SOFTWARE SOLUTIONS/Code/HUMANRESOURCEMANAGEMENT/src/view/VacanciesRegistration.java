@@ -64,6 +64,8 @@ public class VacanciesRegistration extends JFrame {
 	private JTextField txtCreator = null;
 	private JDateChooser txtVacancydate = null;
 	VacanciesModel model = new VacanciesModel();  //  @jve:decl-index=0:
+	private JLabel jLabel2 = null;
+	private JTextField txtinterpretation = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -111,7 +113,7 @@ public class VacanciesRegistration extends JFrame {
 		Dimension wndSize = theKit.getScreenSize();
 		this.setResizable(false);
 		this.setLocation((wndSize.width-687)/2, (wndSize.height-359)/2);
-		this.setSize(687, 359);
+		this.setSize(714, 410);
 		this.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
@@ -125,25 +127,28 @@ public class VacanciesRegistration extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel2 = new JLabel();
+			jLabel2.setBounds(new Rectangle(18, 184, 91, 30));
+			jLabel2.setText("Interpretation :");
 			jLabel9 = new JLabel();
 			jLabel9.setText("Creator :");
-			jLabel9.setLocation(new Point(361, 150));
+			jLabel9.setLocation(new Point(361, 190));
 			jLabel9.setSize(new Dimension(64, 25));
 			jLabel8 = new JLabel();
 			jLabel8.setText("Priority :");
-			jLabel8.setLocation(new Point(362, 190));
+			jLabel8.setLocation(new Point(362, 230));
 			jLabel8.setSize(new Dimension(49, 25));
 			jLabel7 = new JLabel();
 			jLabel7.setText("VacancyDate :");
-			jLabel7.setLocation(new Point(361, 110));
+			jLabel7.setLocation(new Point(361, 150));
 			jLabel7.setSize(new Dimension(85, 25));
 			jLabel6 = new JLabel();
 			jLabel6.setText("Status :");
-			jLabel6.setLocation(new Point(361, 70));
+			jLabel6.setLocation(new Point(361, 110));
 			jLabel6.setSize(new Dimension(47, 25));
 			jLabel5 = new JLabel();
 			jLabel5.setText("No of Vacancies :");
-			jLabel5.setLocation(new Point(20, 190));
+			jLabel5.setLocation(new Point(361, 70));
 			jLabel5.setSize(new Dimension(100, 30));
 			jLabel4 = new JLabel();
 			jLabel4.setText("Des_ID :");
@@ -184,6 +189,8 @@ public class VacanciesRegistration extends JFrame {
 			jContentPane.add(getBtnSave(), null);
 			jContentPane.add(jLabel9, null);
 			jContentPane.add(getTxtCreator(), null);
+			jContentPane.add(jLabel2, null);
+			jContentPane.add(getTxtinterpretation(), null);
 			jContentPane.add(txtVacancydate, null);
 		}
 		return jContentPane;
@@ -239,7 +246,7 @@ public class VacanciesRegistration extends JFrame {
 	private JTextField getTxtNoofvavancies() {
 		if (txtNoofvavancies == null) {
 			txtNoofvavancies = new JTextField();
-			txtNoofvavancies.setLocation(new Point(125, 190));
+			txtNoofvavancies.setLocation(new Point(465, 70));
 			txtNoofvavancies.setSize(new Dimension(200, 25));
 		}
 		return txtNoofvavancies;
@@ -253,7 +260,7 @@ public class VacanciesRegistration extends JFrame {
 	private JTextField getTxtStatus() {
 		if (txtStatus == null) {
 			txtStatus = new JTextField();
-			txtStatus.setLocation(new Point(450, 70));
+			txtStatus.setLocation(new Point(465, 110));
 			txtStatus.setSize(new Dimension(200, 25));
 		}
 		return txtStatus;
@@ -268,7 +275,7 @@ public class VacanciesRegistration extends JFrame {
 		if (txtVacancydate == null) {
 			txtVacancydate = new JDateChooser();
 			txtVacancydate.setDateFormatString("MM/dd/yyyy");
-			txtVacancydate.setLocation(new Point(450, 110));
+			txtVacancydate.setLocation(new Point(465, 150));
 			txtVacancydate.setSize(new Dimension(200, 25));
 			
 
@@ -286,7 +293,7 @@ public class VacanciesRegistration extends JFrame {
 		if (txtPriority == null) {
 			txtPriority = new JTextField();
 			txtPriority.setSize(new Dimension(200, 25));
-			txtPriority.setLocation(new Point(450, 190));
+			txtPriority.setLocation(new Point(465, 230));
 		}
 		return txtPriority;
 	}
@@ -302,7 +309,7 @@ public class VacanciesRegistration extends JFrame {
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(104, 35));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
-			btnAdd.setLocation(new Point(164, 256));
+			btnAdd.setLocation(new Point(164, 297));
 			btnAdd.addActionListener(new ActionListener() {
 				
 				@Override
@@ -314,7 +321,7 @@ public class VacanciesRegistration extends JFrame {
 							.getKey());
 					model.setDesignation_ID(((KeyValue) cbnDesignid.getSelectedItem())
 							.getKey());
-					
+					model.setInterpretation(txtinterpretation.getText().trim());
 					model.setNo_Of_Vacancies(txtNoofvavancies.getText().trim());
 					model.setStatus(txtStatus.getText().trim());
 					//model.setVacancy_Date(txtVacancydate.getText().trim());
@@ -357,7 +364,7 @@ public class VacanciesRegistration extends JFrame {
 			btnSave.setSize(new Dimension(111, 35));
 			btnSave.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSave.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnSave.setLocation(new Point(407, 256));
+			btnSave.setLocation(new Point(406, 296));
 			btnSave.addActionListener(new ActionListener() {
 				
 				@Override
@@ -385,7 +392,7 @@ public class VacanciesRegistration extends JFrame {
 		if (txtCreator == null) {
 			txtCreator = new JTextField();
 			txtCreator.setSize(new Dimension(200, 25));
-			txtCreator.setLocation(new Point(450, 150));
+			txtCreator.setLocation(new Point(465, 190));
 		}
 		return txtCreator;
 	}
@@ -422,5 +429,18 @@ private Boolean validateModel(VacanciesModel mo) {
 		return true;
     	
     }
+
+/**
+ * This method initializes txtinterpretation	
+ * 	
+ * @return javax.swing.JTextField	
+ */
+private JTextField getTxtinterpretation() {
+	if (txtinterpretation == null) {
+		txtinterpretation = new JTextField();
+		txtinterpretation.setBounds(new Rectangle(128, 187, 194, 72));
+	}
+	return txtinterpretation;
+}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
