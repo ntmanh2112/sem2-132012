@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -189,15 +191,17 @@ public class MainForm extends JFrame {
 		if (jMenuAdmin == null) {
 			jMenuAdmin = new JMenu();
 			jMenuAdmin.setText("Admin");
-			jMenuAdmin.add(getJMenuItemViewemployee());
 			jMenuAdmin.add(getJMenuItemViewdepartment());
-			//jMenuAdmin.add(getJMenuItemViewdepartmentdependencies());
 			jMenuAdmin.add(getJMenuItemViewsection());
+			jMenuAdmin.add(getJMenuItemViewemployee());
+			jMenuAdmin.add(getJMenuItemViewdesignation());
+			//jMenuAdmin.add(getJMenuItemViewdepartmentdependencies());
+			
 			jMenuAdmin.add(getJMenuItemViewvacancies());
 			jMenuAdmin.add(getJMenuItemViewvacanciesfillinginfo());
-			jMenuAdmin.add(getJMenuItemViewdesignation());
+			
 			jMenuAdmin.add(getJMenuItemViewdesignationlayer());
-			jMenuAdmin.add(getJMenuItemViewdesignationweightage());
+			//jMenuAdmin.add(getJMenuItemViewdesignationweightage());
 			jMenuAdmin.add(getJMenuItemCreateaccount());
 		}
 		return jMenuAdmin;
@@ -261,6 +265,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewemployee() {
 		if (jMenuItemViewemployee == null) {
 			jMenuItemViewemployee = new JMenuItem();
+			ImageIcon imnew = new ImageIcon("images/People.png");
+			jMenuItemViewemployee.setIcon(imnew);
 			jMenuItemViewemployee.setText("Management Employee");
 			jMenuItemViewemployee.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -282,6 +288,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewdepartment() {
 		if (jMenuItemViewdepartment == null) {
 			jMenuItemViewdepartment = new JMenuItem();
+			ImageIcon imnew = new ImageIcon("images/Script.png");
+			jMenuItemViewdepartment.setIcon(imnew);
 			jMenuItemViewdepartment.setText("Management Department");
 			jMenuItemViewdepartment.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -303,6 +311,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewsection() {
 		if (jMenuItemViewsection == null) {
 			jMenuItemViewsection = new JMenuItem();
+			ImageIcon imnew = new ImageIcon("images/Table.png");
+			jMenuItemViewsection.setIcon(imnew);
 			jMenuItemViewsection.setText("Management Section");
 			jMenuItemViewsection.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -324,6 +334,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewvacancies() {
 		if (jMenuItemViewvacancies == null) {
 			jMenuItemViewvacancies = new JMenuItem();
+			ImageIcon imnew = new ImageIcon("images/Wallet.png");
+			jMenuItemViewvacancies.setIcon(imnew);
 			jMenuItemViewvacancies.setText("Management Vacancies");
 			jMenuItemViewvacancies.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -344,7 +356,9 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewvacanciesfillinginfo() {
 		if (jMenuItemViewvacanciesfillinginfo == null) {
 			jMenuItemViewvacanciesfillinginfo = new JMenuItem();
-			jMenuItemViewvacanciesfillinginfo.setText("Management Division Employee");
+			ImageIcon imnew = new ImageIcon("images/Trash.png");
+			jMenuItemViewvacanciesfillinginfo.setIcon(imnew);
+			jMenuItemViewvacanciesfillinginfo.setText("Vacancies filling Employee");
 			jMenuItemViewvacanciesfillinginfo
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -373,6 +387,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewdesignation() {
 		if (jMenuItemViewdesignation == null) {
 			jMenuItemViewdesignation = new JMenuItem();
+			ImageIcon imnew = new ImageIcon("images/Boss.png");
+			jMenuItemViewdesignation.setIcon(imnew);
 			jMenuItemViewdesignation.setText("View Designation");
 			jMenuItemViewdesignation.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -393,6 +409,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewdesignationlayer() {
 		if (jMenuItemViewdesignationlayer == null) {
 			jMenuItemViewdesignationlayer = new JMenuItem();
+			ImageIcon imnew = new ImageIcon("images/3d bar chart.png");
+			jMenuItemViewdesignationlayer.setIcon(imnew);
 			jMenuItemViewdesignationlayer.setText("View Designation Layer");
 			jMenuItemViewdesignationlayer
 					.addActionListener(new java.awt.event.ActionListener() {
@@ -411,21 +429,7 @@ public class MainForm extends JFrame {
 	 * 	
 	 * @return javax.swing.JMenuItem	
 	 */
-	private JMenuItem getJMenuItemViewdesignationweightage() {
-		if (jMenuItemViewdesignationweightage == null) {
-			jMenuItemViewdesignationweightage = new JMenuItem();
-			jMenuItemViewdesignationweightage.setText("View Designation Weightage");
-			jMenuItemViewdesignationweightage
-					.addActionListener(new java.awt.event.ActionListener() {
-						public void actionPerformed(java.awt.event.ActionEvent e) {
-							System.out.println("actionPerformed()");
-							// TODO Auto-generated Event stub actionPerformed()
-							(new ViewDesignationWeightage()).setVisible(true);
-						}
-					});
-		}
-		return jMenuItemViewdesignationweightage;
-	}
+	
 
 	/**
 	 * This method initializes jMenuItemCreateaccount	
@@ -435,6 +439,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemCreateaccount() {
 		if (jMenuItemCreateaccount == null) {
 			jMenuItemCreateaccount = new JMenuItem();
+			ImageIcon imnew = new ImageIcon("images/User group.png");
+			jMenuItemCreateaccount.setIcon(imnew);
 			jMenuItemCreateaccount.setText("Management Account");
 			jMenuItemCreateaccount.addActionListener(new ActionListener() {
 				

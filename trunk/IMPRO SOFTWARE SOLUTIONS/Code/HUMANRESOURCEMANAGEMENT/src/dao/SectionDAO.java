@@ -57,7 +57,7 @@ public class SectionDAO {
 		ArrayList<SectionModel> listSection = new ArrayList<SectionModel>();
 		try {
 			String sql = "SELECT * FROM Section Where SecID IN (SELECT SecID FROM Division)";
-
+			//String sql = "SELECT * FROM Division Where SecID IN (SELECT SecID FROM Section)";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				SectionModel model = new SectionModel();
