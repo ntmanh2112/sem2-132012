@@ -30,6 +30,8 @@ import model.DivisionModel;
 import model.EmployeeModel;
 import model.SectionModel;
 import model.VacanciesModel;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class DiviseEmployee extends JFrame {
 
@@ -96,7 +98,7 @@ public class DiviseEmployee extends JFrame {
 		if (jContentPane == null) {
 			jLabel4 = new JLabel();
 			jLabel4.setText("Vacancy_ID");
-			jLabel4.setLocation(new Point(137, 110));
+			jLabel4.setLocation(new Point(226, 109));
 			jLabel4.setSize(new Dimension(82, 25));
 			jLabel3 = new JLabel();
 			jLabel3.setText("Employee Involved");
@@ -109,10 +111,11 @@ public class DiviseEmployee extends JFrame {
 			jLabel1 = new JLabel();
 			jLabel1.setText("SectionName");
 			jLabel1.setSize(new Dimension(76, 25));
-			jLabel1.setLocation(new Point(137, 72));
+			jLabel1.setLocation(new Point(224, 72));
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(291, 13, 228, 36));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+			jLabel.setForeground(Color.red);
 			jLabel.setText("Division Employee");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -171,7 +174,7 @@ public class DiviseEmployee extends JFrame {
 	private JComboBox getCbnSectionname() {
 		if (cbnSectionname == null) {
 			cbnSectionname = new JComboBox();
-			cbnSectionname.setLocation(new Point(276, 72));
+			cbnSectionname.setLocation(new Point(368, 72));
 			cbnSectionname.setSize(new Dimension(200, 25));
 			cbnSectionname.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -224,7 +227,8 @@ public class DiviseEmployee extends JFrame {
 		if (btn1 == null) {
 			btn1 = new JButton();
 			btn1.setLocation(new Point(350, 254));
-			btn1.setText(">");
+			btn1.setText("");
+			btn1.setIcon(new ImageIcon(getClass().getResource("/images/Forward.png")));
 			btn1.setSize(new Dimension(90, 30));
 			btn1.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -266,7 +270,8 @@ public class DiviseEmployee extends JFrame {
 	private JButton getBtnPrint() {
 		if (btnPrint == null) {
 			btnPrint = new JButton();
-			btnPrint.setBounds(new Rectangle(342, 376, 106, 38));
+			btnPrint.setBounds(new Rectangle(339, 376, 106, 38));
+			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
 			btnPrint.setText("Print");
 		}
 		return btnPrint;
@@ -280,7 +285,7 @@ public class DiviseEmployee extends JFrame {
 		if (cbnVacancy == null) {
 			cbnVacancy = new JComboBox();
 			cbnVacancy.setSize(new Dimension(200, 25));
-			cbnVacancy.setLocation(new Point(276, 110));
+			cbnVacancy.setLocation(new Point(369, 110));
 			cbnVacancy.addActionListener(new ActionListener() {
 				
 				@Override

@@ -7,12 +7,25 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Rectangle;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+import java.awt.Color;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import javax.swing.border.EtchedBorder;
+
+import model.DesignationModel;
+import model.EmployeeModel;
+import dao.DesignationDAO;
+import dao.EmployeeDAO;
 
 public class InformationEmployee extends JFrame {
 
@@ -31,6 +44,8 @@ public class InformationEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
+	private String[] ColumnName ={"EmID","Name","Password","SecID","Des_ID","Address","Phone","Fax","Email"};
+	private String[][] tableData;
 
 	/**
 	 * This is the default constructor
@@ -46,7 +61,12 @@ public class InformationEmployee extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(646, 432);
+		Toolkit theKit = this.getToolkit();   
+		Dimension wndSize = theKit.getScreenSize();
+		this.setLocation((wndSize.width-646)/2, (wndSize.height-650)/2);
+		//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setResizable(false);
+		this.setSize(646, 455);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -59,9 +79,10 @@ public class InformationEmployee extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(247, 16, 137, 48));
+			jLabel.setBounds(new Rectangle(180, 16, 264, 48));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-			jLabel.setText("Information");
+			jLabel.setForeground(Color.red);
+			jLabel.setText("Information Employee");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -93,11 +114,30 @@ public class InformationEmployee extends JFrame {
 	 * @return javax.swing.JTable	
 	 */
 	private JTable getJTableInformation() {
+		loadDataToTable();
 		if (jTableInformation == null) {
-			jTableInformation = new JTable();
+			jTableInformation = new JTable(tableData,ColumnName);
 		}
 		return jTableInformation;
 	}
+	private void loadDataToTable(){
+		ArrayList<EmployeeModel> listemployee = EmployeeDAO.getAllEmployee();
+		tableData = new String[listemployee.size()][9];
+		int row = 0;
+		for (EmployeeModel model:listemployee){
+			tableData [row][0] = model.getEmID();
+			tableData [row][1] = model.getName();
+			tableData [row][2] = model.getPassword();
+			tableData [row][3] = model.getSecID();
+			tableData [row][4] = model.getDes_ID();
+			tableData [row][5] = model.getAddress();
+			tableData [row][6] = model.getPhone();
+			tableData [row][7] = model.getFax();
+			tableData [row][8] = model.getEmail();
+		
+		row++;
+		}
+		}
 
 	/**
 	 * This method initializes btnUpdate	
@@ -108,8 +148,9 @@ public class InformationEmployee extends JFrame {
 		if (btnUpdate == null) {
 			btnUpdate = new JButton();
 			btnUpdate.setText("Update");
-			btnUpdate.setSize(new Dimension(90, 30));
-			btnUpdate.setLocation(new Point(180, 265));
+			btnUpdate.setSize(new Dimension(101, 44));
+			btnUpdate.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnUpdate.setLocation(new Point(158, 331));
 		}
 		return btnUpdate;
 	}
@@ -123,8 +164,9 @@ public class InformationEmployee extends JFrame {
 		if (btnExit == null) {
 			btnExit = new JButton();
 			btnExit.setText("Exit");
-			btnExit.setSize(new Dimension(90, 30));
-			btnExit.setLocation(new Point(383, 265));
+			btnExit.setSize(new Dimension(98, 43));
+			btnExit.setIcon(new ImageIcon(getClass().getResource("/images/Exit.png")));
+			btnExit.setLocation(new Point(358, 331));
 		}
 		return btnExit;
 	}
@@ -137,20 +179,21 @@ public class InformationEmployee extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("DeptID");
-			jLabel3.setLocation(new Point(347, 23));
-			jLabel3.setSize(new Dimension(38, 30));
+			jLabel3.setText("DepID :");
+			jLabel3.setLocation(new Point(330, 15));
+			jLabel3.setSize(new Dimension(48, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("Name");
-			jLabel2.setSize(new Dimension(36, 30));
-			jLabel2.setLocation(new Point(184, 23));
+			jLabel2.setText("Name :");
+			jLabel2.setSize(new Dimension(49, 25));
+			jLabel2.setLocation(new Point(168, 14));
 			jLabel1 = new JLabel();
-			jLabel1.setText("EmID");
-			jLabel1.setSize(new Dimension(33, 30));
-			jLabel1.setLocation(new Point(6, 23));
+			jLabel1.setText("EmID :");
+			jLabel1.setSize(new Dimension(42, 25));
+			jLabel1.setLocation(new Point(6, 14));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setBounds(new Rectangle(9, 310, 619, 76));
+			jPanel.setBounds(new Rectangle(11, 254, 616, 55));
+			jPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtEmid(), null);
 			jPanel.add(jLabel2, null);
@@ -170,8 +213,8 @@ public class InformationEmployee extends JFrame {
 	private JTextField getTxtEmid() {
 		if (txtEmid == null) {
 			txtEmid = new JTextField();
-			txtEmid.setLocation(new Point(45, 23));
-			txtEmid.setSize(new Dimension(134, 30));
+			txtEmid.setLocation(new Point(48, 14));
+			txtEmid.setSize(new Dimension(90, 25));
 		}
 		return txtEmid;
 	}
@@ -184,8 +227,8 @@ public class InformationEmployee extends JFrame {
 	private JTextField getTxtName() {
 		if (txtName == null) {
 			txtName = new JTextField();
-			txtName.setSize(new Dimension(118, 30));
-			txtName.setLocation(new Point(225, 23));
+			txtName.setSize(new Dimension(90, 25));
+			txtName.setLocation(new Point(218, 14));
 		}
 		return txtName;
 	}
@@ -198,8 +241,8 @@ public class InformationEmployee extends JFrame {
 	private JTextField getTxtDeptid() {
 		if (txtDeptid == null) {
 			txtDeptid = new JTextField();
-			txtDeptid.setLocation(new Point(389, 23));
-			txtDeptid.setSize(new Dimension(118, 30));
+			txtDeptid.setLocation(new Point(380, 15));
+			txtDeptid.setSize(new Dimension(90, 25));
 		}
 		return txtDeptid;
 	}
@@ -213,8 +256,9 @@ public class InformationEmployee extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(90, 30));
-			btnSearch.setLocation(new Point(516, 23));
+			btnSearch.setSize(new Dimension(96, 25));
+			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.gif")));
+			btnSearch.setLocation(new Point(510, 14));
 		}
 		return btnSearch;
 	}
