@@ -332,7 +332,7 @@ public class VacanciesRegistration extends JFrame {
 					if(!validateModel(model)) {
 						return;
 					}
-					Boolean kq = VacanciesDAO.insertVacancies(model);
+					Boolean kq = VacanciesDAO.insertUsingStore(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
 								"Add successful employee", "Notice",

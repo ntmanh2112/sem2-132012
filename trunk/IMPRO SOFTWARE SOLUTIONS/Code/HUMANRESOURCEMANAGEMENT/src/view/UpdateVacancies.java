@@ -352,7 +352,7 @@ public class UpdateVacancies extends JFrame {
 					if(!validateModel(model)) {
 						return;
 					}
-					Boolean kq = VacanciesDAO.updateVacancies(model);
+					Boolean kq = VacanciesDAO.UpdateUsingStore(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
 								"Update Success ", "Notice",
