@@ -56,7 +56,7 @@ public class DiviseEmployee extends JFrame {
 	public DiviseEmployee() {
 		super();
 		initialize();
-		ArrayList<SectionModel> listSection = SectionDAO.getListSectionForDivision();
+		ArrayList<SectionModel> listSection = SectionDAO.getListSection();
 		for (SectionModel section : listSection) {
 			KeyValue item = new KeyValue(section.getSecID(), section.getName());
 

@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.text.html.ListView;
 
 import model.DepartmentsModel;
+import model.EmployeeModel;
 import model.VacanciesModel;
 import model.VacanciesModel;
 
@@ -91,6 +93,31 @@ public class VacanciesDAO {
 		}
 			return kq;
 	}
+	public static Boolean UpdateUsingStore(VacanciesModel model) {
+		Boolean kq = false;
+		
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_UPDATEVACANCIESTODIVISION(?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("Vacancy_ID", model.getVacancy_ID());
+			csmt.setString("SecID", model.getSecID());
+			csmt.setString("Designation_ID", model.getDesignation_ID());
+			csmt.setString("Interpretation", model.getInterpretation());
+			
+			csmt.setString("No_Of_Vacancies", model.getNo_Of_Vacancies());
+			csmt.setString("Status", model.getStatus());
+			csmt.setString("Vacancy_Date", model.getVacancy_Date());
+			csmt.setString("Creator", model.getCreator());
+			csmt.setString("Priority", model.getPriority());
+			
+			csmt.executeUpdate();
+			kq = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return kq;
+	}
 	public static Boolean insertVacancies(VacanciesModel model){
 		Boolean kq = false;
 		String sql ;
@@ -112,6 +139,31 @@ public class VacanciesDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
+		return kq;
+	}
+	public static Boolean insertUsingStore(VacanciesModel model) {
+		Boolean kq = false;
+		
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_VACANCIESTODIVISION(?,?,?,?,?,?,?,?,?)}");
+			csmt.setString("Vacancy_ID", model.getVacancy_ID());
+			csmt.setString("SecID", model.getSecID());
+			csmt.setString("Designation_ID", model.getDesignation_ID());
+			csmt.setString("Interpretation", model.getInterpretation());
+			
+			csmt.setString("No_Of_Vacancies", model.getNo_Of_Vacancies());
+			csmt.setString("Status", model.getStatus());
+			csmt.setString("Vacancy_Date", model.getVacancy_Date());
+			csmt.setString("Creator", model.getCreator());
+			csmt.setString("Priority", model.getPriority());
+			
+			csmt.executeUpdate();
+			kq = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return kq;
 	}
 	public static Boolean deleteVacancies(VacanciesModel model){
