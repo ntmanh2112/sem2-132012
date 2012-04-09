@@ -37,7 +37,8 @@ public class DivisionDAO {
 	public static ArrayList<DivisionModel> getListDivisionBySecID(String secID) {
 		ArrayList<DivisionModel> listDivision = new ArrayList<DivisionModel>();
 		try {
-			String sql = "SELECT A.*,B.Interpretation FROM Division A INNER JOIN Vacancies B on A.Vacancy_ID=B.Vacancy_ID WHERE A.SecID=?";
+			//String sql = "SELECT A.*,B.Interpretation FROM Division A INNER JOIN Vacancies B on A.Vacancy_ID=B.Vacancy_ID WHERE A.SecID=?";
+			String sql = "SELECT * FROM Vacancies WHERE SecID =?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, secID);
 			ResultSet rs = ps.executeQuery();

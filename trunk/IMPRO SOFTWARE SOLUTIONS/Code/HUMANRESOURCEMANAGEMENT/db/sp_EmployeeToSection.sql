@@ -12,7 +12,8 @@ BEGIN
 	IF EXISTS (SELECT * FROM Employee WHERE EmID=@EmID)
 	BEGIN
 		UPDATE Employee SET SecID=@SecID WHERE EmID=@EmID
-		DELETE FROM Division WHERE ID=@DivisionID
+		--UPDATE Vacancies SET SecID=@SecID WHERE EmID=@EmID
+		--DELETE FROM Division WHERE ID=@DivisionID
 	END
 
 END

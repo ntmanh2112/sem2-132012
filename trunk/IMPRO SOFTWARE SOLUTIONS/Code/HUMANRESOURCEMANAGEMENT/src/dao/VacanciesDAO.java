@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.text.html.ListView;
 
 import model.DepartmentsModel;
+import model.DivisionModel;
 import model.EmployeeModel;
 import model.VacanciesModel;
 import model.VacanciesModel;
@@ -50,6 +51,33 @@ public class VacanciesDAO {
 			String sql = "SELECT * FROM Vacancies WHERE Vacancy_ID =?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				model = new VacanciesModel();
+				model.setVacancy_ID(rs.getString("Vacancy_ID"));
+				//model.setDep_ID(rs.getString("Dep_ID"));
+				model.setSecID(rs.getString("SecID"));
+				model.setDesignation_ID(rs.getString("Designation_ID"));
+				model.setInterpretation(rs.getString("Interpretation"));
+				model.setNo_Of_Vacancies(rs.getString("No_Of_Vacancies"));
+				model.setStatus(rs.getString("Status"));
+				model.setVacancy_Date(rs.getString("Vacancy_Date"));
+				model.setCreator(rs.getString("Creator"));
+				model.setPriority(rs.getString("Priority"));
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return model;
+	}
+	public static VacanciesModel getSectionByID(String SecID){
+		ArrayList<VacanciesModel> listVacancy = new ArrayList<VacanciesModel>();
+		VacanciesModel model = null;
+		try {
+			String sql = "SELECT * FROM Vacancies WHERE SecID =?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, SecID);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				model = new VacanciesModel();

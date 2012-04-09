@@ -44,7 +44,7 @@ public class InformationEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"EmID","Name","Password","SecID","Des_ID","Address","Phone","Fax","Email"};
+	private String[] ColumnName ={"EmID","Name","SecID","Des_ID","Address","Phone","Fax","Email"};
 	private String[][] tableData;
 
 	/**
@@ -63,7 +63,7 @@ public class InformationEmployee extends JFrame {
 	private void initialize() {
 		Toolkit theKit = this.getToolkit();   
 		Dimension wndSize = theKit.getScreenSize();
-		this.setLocation((wndSize.width-646)/2, (wndSize.height-650)/2);
+		this.setLocation((wndSize.width-646)/2, (wndSize.height-455)/2);
 		//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setResizable(false);
 		this.setSize(646, 455);
@@ -127,13 +127,13 @@ public class InformationEmployee extends JFrame {
 		for (EmployeeModel model:listemployee){
 			tableData [row][0] = model.getEmID();
 			tableData [row][1] = model.getName();
-			tableData [row][2] = model.getPassword();
-			tableData [row][3] = model.getSecID();
-			tableData [row][4] = model.getDes_ID();
-			tableData [row][5] = model.getAddress();
-			tableData [row][6] = model.getPhone();
-			tableData [row][7] = model.getFax();
-			tableData [row][8] = model.getEmail();
+			//tableData [row][2] = model.getPassword();
+			tableData [row][2] = model.getSecID();
+			tableData [row][3] = model.getDes_ID();
+			tableData [row][4] = model.getAddress();
+			tableData [row][5] = model.getPhone();
+			tableData [row][6] = model.getFax();
+			tableData [row][7] = model.getEmail();
 		
 		row++;
 		}
