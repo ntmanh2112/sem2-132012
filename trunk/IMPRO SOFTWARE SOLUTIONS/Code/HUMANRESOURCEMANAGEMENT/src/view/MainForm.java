@@ -462,6 +462,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrviewdepartment() {
 		if (jMenuItemHrviewdepartment == null) {
 			jMenuItemHrviewdepartment = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Forward.png");
+			jMenuItemHrviewdepartment.setIcon(img);
 			jMenuItemHrviewdepartment.setText("View Department");
 			jMenuItemHrviewdepartment
 					.addActionListener(new java.awt.event.ActionListener() {
@@ -483,6 +485,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrviewemployee() {
 		if (jMenuItemHrviewemployee == null) {
 			jMenuItemHrviewemployee = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Forward.png");
+			jMenuItemHrviewemployee.setIcon(img);
 			jMenuItemHrviewemployee.setText("View Employee");
 			jMenuItemHrviewemployee.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -503,6 +507,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrviewsection() {
 		if (jMenuItemHrviewsection == null) {
 			jMenuItemHrviewsection = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Forward.png");
+			jMenuItemHrviewsection.setIcon(img);
 			jMenuItemHrviewsection.setText("View Section");
 			jMenuItemHrviewsection.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -523,6 +529,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrrotateemployee() {
 		if (jMenuItemHrrotateemployee == null) {
 			jMenuItemHrrotateemployee = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Forward.png");
+			jMenuItemHrrotateemployee.setIcon(img);
 			jMenuItemHrrotateemployee.setText("Rotate Employee");
 			jMenuItemHrrotateemployee
 					.addActionListener(new java.awt.event.ActionListener() {
@@ -544,6 +552,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrprocessvacancy() {
 		if (jMenuItemHrprocessvacancy == null) {
 			jMenuItemHrprocessvacancy = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Forward.png");
+			jMenuItemHrprocessvacancy.setIcon(img);
 			jMenuItemHrprocessvacancy.setText("Process Vacancy");
 			jMenuItemHrprocessvacancy
 					.addActionListener(new java.awt.event.ActionListener() {
@@ -565,6 +575,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrviewreport() {
 		if (jMenuItemHrviewreport == null) {
 			jMenuItemHrviewreport = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Forward.png");
+			jMenuItemHrviewreport.setIcon(img);
 			jMenuItemHrviewreport.setText("View Report");
 			jMenuItemHrviewreport.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -585,6 +597,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemDmviewemployee() {
 		if (jMenuItemDmviewemployee == null) {
 			jMenuItemDmviewemployee = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Yes.png");
+			jMenuItemDmviewemployee.setIcon(img);
 			jMenuItemDmviewemployee.setText("View Employee");
 			jMenuItemDmviewemployee.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -605,6 +619,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemDmviewsection() {
 		if (jMenuItemDmviewsection == null) {
 			jMenuItemDmviewsection = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Yes.png");
+			jMenuItemDmviewsection.setIcon(img);
 			jMenuItemDmviewsection.setText("View Section");
 			jMenuItemDmviewsection.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -625,6 +641,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemDmmanagevacancy() {
 		if (jMenuItemDmmanagevacancy == null) {
 			jMenuItemDmmanagevacancy = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Yes.png");
+			jMenuItemDmmanagevacancy.setIcon(img);
 			jMenuItemDmmanagevacancy.setText("Manage Vacancy");
 			jMenuItemDmmanagevacancy.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -645,6 +663,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemDmviewreport() {
 		if (jMenuItemDmviewreport == null) {
 			jMenuItemDmviewreport = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/Yes.png");
+			jMenuItemDmviewreport.setIcon(img);
 			jMenuItemDmviewreport.setText("View Report");
 		}
 		return jMenuItemDmviewreport;
@@ -658,6 +678,8 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewinformation() {
 		if (jMenuItemViewinformation == null) {
 			jMenuItemViewinformation = new JMenuItem();
+			ImageIcon img = new ImageIcon("images/View.png");
+			jMenuItemViewinformation.setIcon(img);
 			jMenuItemViewinformation.setText("View Information");
 			jMenuItemViewinformation.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
