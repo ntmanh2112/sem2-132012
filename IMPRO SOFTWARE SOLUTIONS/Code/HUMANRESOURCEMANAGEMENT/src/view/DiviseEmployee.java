@@ -62,10 +62,16 @@ public class DiviseEmployee extends JFrame {
 
 			cbnSectionname.addItem(item);
 		}
-		/*ArrayList<VacanciesModel> listvacancy = VacanciesDAO.getAllVacancies();
+		ArrayList<VacanciesModel> listvacancy = VacanciesDAO.getAllVacancies();
 		for (VacanciesModel vacncy : listvacancy) {
 			KeyValue item = new KeyValue(vacncy.getVacancy_ID(), vacncy.getInterpretation());
-
+			
+			cbnVacancy.addItem(item);
+			//cbnVacancy.removeAllItems();
+		}
+		//cbnVacancy.removeAllItems();
+		/*for (DivisionModel division : listDivision) {
+			KeyValue item = new KeyValue(division.getId(),division.getInterpretation_Vacancy());
 			cbnVacancy.addItem(item);
 		}*/
 	}
@@ -139,7 +145,7 @@ public class DiviseEmployee extends JFrame {
 		
 		ArrayList<EmployeeModel> listRightDivision = DivisionDAO.searchemployeeindivision(SecID);
 		ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemployeenotindivision(SecID);
-		ArrayList<DivisionModel> listDivision = DivisionDAO.getListDivisionBySecID(SecID);
+		//ArrayList<DivisionModel> listDivision = DivisionDAO.getListDivisionBySecID(SecID);
 		DefaultListModel contentList = new DefaultListModel();
 		for (EmployeeModel mo : listRightDivision) {
 			contentList.addElement(mo.getName() + "---" + mo.getEmID());
@@ -151,11 +157,11 @@ public class DiviseEmployee extends JFrame {
 			contentList.addElement(mo.getName() + "---" + mo.getEmID());
 		}
 		getJListEmployeenotinvolved().setModel(contentList);
-		cbnVacancy.removeAllItems();
+		/*cbnVacancy.removeAllItems();
 		for (DivisionModel division : listDivision) {
 			KeyValue item = new KeyValue(division.getId(),division.getInterpretation_Vacancy());
 			cbnVacancy.addItem(item);
-		}
+		}*/
 		
 		/*ArrayList<EmployeeModel> listLeftDivision = DivisionDAO.searchemloyeenotindivision(SecID);
 		
@@ -178,10 +184,17 @@ public class DiviseEmployee extends JFrame {
 			cbnSectionname.setSize(new Dimension(200, 25));
 			cbnSectionname.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					
+					
+					KeyValue val = (KeyValue) cbnSectionname.getSelectedItem();
+					/*String Vacancy_ID = ((KeyValue)cbnVacancy.getSelectedItem()).getKey();
+					String SecID = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+					VacanciesDAO.getSectionByID(SecID);*/
+					//ArrayList<VacanciesModel> listDivision = VacanciesDAO.getSectionByID(SecID);
 					loadData();
 				}
 			});
+			
 		}
 		return cbnSectionname;
 	}
@@ -238,12 +251,13 @@ public class DiviseEmployee extends JFrame {
 						JOptionPane.showMessageDialog(null, "Please choose one employee you want to divise","Notice",JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					String divisionID = ((KeyValue)cbnVacancy.getSelectedItem()).getKey();
+					//String divisionID = ((KeyValue)cbnVacancy.getSelectedItem()).getKey();
+					String Vacancy_ID = ((KeyValue)cbnVacancy.getSelectedItem()).getKey();
 					String emid = getJListEmployeenotinvolved().getSelectedValue().toString().split("---")[1];
 					String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
 					JOptionPane.showMessageDialog(null, "Tiến hành phân công đề án :" + secid + " Cho nhân viên : "+ emid);
 					//System.out.println(emid+"-"+secid+"-"+divisionID);
-					DivisionDAO.updateEmployeeToSection(emid, secid, divisionID);
+					DivisionDAO.updateEmployeeToSection(emid, secid, Vacancy_ID);
 					loadData();
 					/*DivisionModel model = new DivisionModel();
 					model.setVacancy_ID(VacancyID);
