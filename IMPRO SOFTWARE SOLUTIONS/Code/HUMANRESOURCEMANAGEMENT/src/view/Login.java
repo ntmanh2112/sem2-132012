@@ -24,6 +24,8 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
 
+import Common.Constants;
+
 import dao.AccountDAO;
 
 import model.AccountModel;
@@ -217,7 +219,7 @@ public class Login extends JFrame {
 		if (model == null) {
 			JOptionPane.showMessageDialog(null, "Login failed");
 		}else {
-			
+			Constants.userLogin = model;
 			(new MainForm(model)).setVisible(true);
 			hide();
 		}

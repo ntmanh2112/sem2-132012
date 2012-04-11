@@ -9,7 +9,6 @@ import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Toolkit;
 
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -17,8 +16,6 @@ import java.awt.Point;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -47,7 +44,7 @@ public class InformationEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"EmID","Name","SecID","Des_ID","Address","Phone","Fax","Email"};
+	private String[] ColumnName ={"EmID","Name","Password","SecID","Des_ID","Address","Phone","Fax","Email"};
 	private String[][] tableData;
 
 	/**
@@ -66,7 +63,7 @@ public class InformationEmployee extends JFrame {
 	private void initialize() {
 		Toolkit theKit = this.getToolkit();   
 		Dimension wndSize = theKit.getScreenSize();
-		this.setLocation((wndSize.width-646)/2, (wndSize.height-455)/2);
+		this.setLocation((wndSize.width-646)/2, (wndSize.height-650)/2);
 		//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setResizable(false);
 		this.setSize(646, 455);
@@ -130,13 +127,13 @@ public class InformationEmployee extends JFrame {
 		for (EmployeeModel model:listemployee){
 			tableData [row][0] = model.getEmID();
 			tableData [row][1] = model.getName();
-			//tableData [row][2] = model.getPassword();
-			tableData [row][2] = model.getSecID();
-			tableData [row][3] = model.getDes_ID();
-			tableData [row][4] = model.getAddress();
-			tableData [row][5] = model.getPhone();
-			tableData [row][6] = model.getFax();
-			tableData [row][7] = model.getEmail();
+			tableData [row][2] = model.getPassword();
+			tableData [row][3] = model.getSecID();
+			tableData [row][4] = model.getDes_ID();
+			tableData [row][5] = model.getAddress();
+			tableData [row][6] = model.getPhone();
+			tableData [row][7] = model.getFax();
+			tableData [row][8] = model.getEmail();
 		
 		row++;
 		}
@@ -170,20 +167,6 @@ public class InformationEmployee extends JFrame {
 			btnExit.setSize(new Dimension(98, 43));
 			btnExit.setIcon(new ImageIcon(getClass().getResource("/images/Exit.png")));
 			btnExit.setLocation(new Point(358, 331));
-			btnExit.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					int kg = JOptionPane.showConfirmDialog(null,
-							"Are you sure you want to exit", "Notice",
-							JOptionPane.OK_CANCEL_OPTION);
-					if (kg == 0) {
-						
-						dispose();
-					}
-				}
-			});
 		}
 		return btnExit;
 	}
