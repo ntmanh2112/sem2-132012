@@ -34,6 +34,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
+import Common.Constants;
+
 import java.awt.Color;
 
 public class ViewVacancies extends JFrame {
@@ -65,6 +67,11 @@ public class ViewVacancies extends JFrame {
 	public ViewVacancies() {
 		super();
 		initialize();
+		if (Constants.userLogin.getDesignationID().equals("D201")) {
+			btnAdd.setEnabled(false);
+			btnEdit.setEnabled(false);
+			btnDelete.setEnabled(false);
+		}
 		
 	}
 

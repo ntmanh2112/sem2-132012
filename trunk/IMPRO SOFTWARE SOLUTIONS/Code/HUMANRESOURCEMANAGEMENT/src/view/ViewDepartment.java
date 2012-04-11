@@ -32,6 +32,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
+import Common.Constants;
+
 import java.awt.Color;
 
 public class ViewDepartment extends JFrame {
@@ -60,7 +62,12 @@ public class ViewDepartment extends JFrame {
 	public ViewDepartment() {
 		super();
 		initialize();
-		this.setVisible(true);
+		//this.setVisible(true);
+		if (Constants.userLogin.getDesignationID().equals("D201")) {
+			btnAdd.setEnabled(false);
+			btnEdit.setEnabled(false);
+			btnDelete.setEnabled(false);
+		}
 	}
 
 	/**

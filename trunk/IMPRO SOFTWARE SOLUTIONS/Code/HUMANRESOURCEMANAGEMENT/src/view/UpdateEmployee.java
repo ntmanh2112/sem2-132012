@@ -23,6 +23,7 @@ import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 
+import Common.Constants;
 import Common.KeyValue;
 import dao.DepartmentsDAO;
 import dao.DesignationDAO;
@@ -34,6 +35,8 @@ import model.DesignationModel;
 import model.EmployeeModel;
 import model.SectionModel;
 import javax.swing.JPasswordField;
+
+import com.steadystate.css.ParseException;
 
 public class UpdateEmployee extends JFrame {
 
@@ -66,14 +69,28 @@ public class UpdateEmployee extends JFrame {
 	 */
 	public UpdateEmployee() {
 		super();
-		
 		initialize();
+		//this.txtpassword.setEnabled(false);
+		/*if (Constants.userLogin.getEmID().equals("EmID")) {
+			try {
+				txtpassword.setEnabled(true);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
 	}
 		
 	public UpdateEmployee(EmployeeModel model) {
 		super();
 		this.model = EmployeeDAO.getEmployeeByID(model.getEmID());
 		initialize();
+		
+		if (!model.getEmID().equals(Constants.userLogin.getEmID())) {
+			txtpassword.setEnabled(false);
+		}
+		
+		
 		txtEmpid.setText(this.model.getEmID());
 		txtEmpname.setText(this.model.getName());
 		ArrayList<SectionModel> listSection = SectionDAO.getAllSection();
