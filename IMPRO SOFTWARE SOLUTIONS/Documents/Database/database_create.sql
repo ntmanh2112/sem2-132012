@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-04-06 08:52                                */
+/* Created on:            2012-04-06 13:20                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -95,6 +95,7 @@ CREATE TABLE [Vacancies] (
     [Vacancy_ID] VARCHAR(10) NOT NULL,
     [SecID] VARCHAR(10),
     [Designation_ID] VARCHAR(10),
+    [Interpretation] NVARCHAR(40),
     [No_Of_Vacancies] NUMERIC(10),
     [Status] VARCHAR(10),
     [Vacancy_Date] DATETIME,
@@ -111,7 +112,6 @@ GO
 CREATE TABLE [Division] (
     [ID] INTEGER IDENTITY(0,1) NOT NULL,
     [Vacancy_ID] VARCHAR(10) NOT NULL,
-    [EmID] VARCHAR(10) NOT NULL,
     [SecID] VARCHAR(10) NOT NULL,
     CONSTRAINT [PK_Division] PRIMARY KEY ([ID])
 )
@@ -204,8 +204,8 @@ ALTER TABLE [Division] ADD CONSTRAINT [Vacancies_Division]
     FOREIGN KEY ([Vacancy_ID]) REFERENCES [Vacancies] ([Vacancy_ID])ON DELETE CASCADE
 GO
 
-ALTER TABLE [Division] ADD CONSTRAINT [Employee_Division] 
-    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
+ALTER TABLE [Division] ADD CONSTRAINT [Section_Division] 
+    FOREIGN KEY ([SecID]) REFERENCES [Section] ([SecID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Assignment] ADD CONSTRAINT [Designation_Assignment] 
