@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import model.AccountModel;
 
@@ -58,6 +59,8 @@ public class MainForm extends JFrame {
 	private JMenuItem jMenuItemDmviewreport = null;
 	private JMenuItem jMenuItemViewinformation = null;
 	private Image img = null;
+	
+	private JMenu jMenuHelp = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -149,6 +152,8 @@ public class MainForm extends JFrame {
 			jJMenuBar.add(getJMenuHrmanager());
 			jJMenuBar.add(getJMenuDepartmentmanager());
 			jJMenuBar.add(getJMenuEmployee());
+				jJMenuBar.add(getJMenuHelp());
+		
 		}
 		return jJMenuBar;
 	}
@@ -166,18 +171,22 @@ public class MainForm extends JFrame {
 				jJMenuBar.add(getJMenuHrmanager());
 				jJMenuBar.add(getJMenuDepartmentmanager());
 				jJMenuBar.add(getJMenuEmployee());
+				jJMenuBar.add(getJMenuHelp());
 			} 
 			if(desID.equals("D201")){
 				jJMenuBar.add(getJMenuHrmanager());
 				//jJMenuBar.add(getJMenuDepartmentmanager()); bo? cai nay dung ko
 				jJMenuBar.add(getJMenuEmployee());
+				jJMenuBar.add(getJMenuHelp());
 			} 
 			if(desID.equals("D301")){
 				jJMenuBar.add(getJMenuDepartmentmanager());
 				jJMenuBar.add(getJMenuEmployee());
+				jJMenuBar.add(getJMenuHelp());
 			} 
 			if(desID.equals("D401")){
 				jJMenuBar.add(getJMenuEmployee());
+				jJMenuBar.add(getJMenuHelp());
 			} 
 		}
 		return jJMenuBar;
@@ -256,6 +265,9 @@ public class MainForm extends JFrame {
 		}
 		return jMenuEmployee;
 	}
+	
+	
+	
 
 	/**
 	 * This method initializes jMenuItemViewemployee	
@@ -691,5 +703,18 @@ public class MainForm extends JFrame {
 		}
 		return jMenuItemViewinformation;
 	}
+	/**
+	 * This method initializes jMenuHelp	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJMenuHelp() {
+		if (jMenuHelp == null) {
+			jMenuHelp = new JMenu();
+			jMenuHelp.setText("Help");
+		}
+		return jMenuHelp;
+	}
+	
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

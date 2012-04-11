@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Toolkit;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import java.awt.Point;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -167,6 +170,20 @@ public class InformationEmployee extends JFrame {
 			btnExit.setSize(new Dimension(98, 43));
 			btnExit.setIcon(new ImageIcon(getClass().getResource("/images/Exit.png")));
 			btnExit.setLocation(new Point(358, 331));
+			btnExit.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to exit", "Notice",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						
+						dispose();
+					}
+				}
+			});
 		}
 		return btnExit;
 	}
