@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.Toolkit;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -18,6 +19,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +39,7 @@ import model.DesignationModel;
 import model.EmployeeModel;
 import model.SectionModel;
 import javax.swing.JPasswordField;
+import javax.swing.text.MaskFormatter;
 
 public class EmployeeRegistration extends JFrame {
 
@@ -215,11 +218,12 @@ public class EmployeeRegistration extends JFrame {
 	 * @return javax.swing.JTextField	
 	 */
 	private JTextField getTxtEmpname() {
-		if (txtEmpname == null) {
+	
 			txtEmpname = new JTextField();
 			txtEmpname.setLocation(new Point(100, 140));
 			txtEmpname.setSize(new Dimension(200, 25));
-		}
+			
+			
 		return txtEmpname;
 	}
 
@@ -230,9 +234,11 @@ public class EmployeeRegistration extends JFrame {
 	 */
 	private JTextField getTxtAddress() {
 		if (txtAddress == null) {
+			
 			txtAddress = new JTextField();
 			txtAddress.setLocation(new Point(430, 100));
 			txtAddress.setSize(new Dimension(200, 25));
+			
 		}
 		return txtAddress;
 	}
@@ -247,6 +253,8 @@ public class EmployeeRegistration extends JFrame {
 			txtPhone = new JTextField();
 			txtPhone.setLocation(new Point(430, 140));
 			txtPhone.setSize(new Dimension(200, 25));
+			
+				
 		}
 		return txtPhone;
 	}
@@ -309,12 +317,26 @@ public class EmployeeRegistration extends JFrame {
 					model.setPhone(txtPhone.getText().trim());
 					model.setFax(txtFax.getText().trim());
 					model.setEmail(txtEmail.getText().trim());
+				//validateEmail(txtEmail.getText());
 					model.setPassword(txtpassword.getText().trim());
 					if(!validateModel(model)) {
 						
 						return;
 					}
-
+					//validateEmail(txtEmail.getText());
+					if(!validateEmail(txtEmail.getText())) {
+						
+						return;
+					}
+					//validateEmName(txtEmpname.getText());
+					if(!validateEmName(txtEmpname.getText())) {
+						
+						return;
+					}
+					if(!validatePhone(txtPhone.getText())) {
+						
+						return;
+					}
 						Boolean kq = EmployeeDAO.insertUsingStore(model);
 						if (kq) {
 							JOptionPane.showMessageDialog(null,
@@ -332,7 +354,7 @@ public class EmployeeRegistration extends JFrame {
 					
 				}
 			});
-			btnOk.addActionListener(new java.awt.event.ActionListener() {
+			/*btnOk.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
 					// TODO Auto-generated Event stub actionPerformed()
@@ -352,7 +374,7 @@ public class EmployeeRegistration extends JFrame {
 					// TODO Auto-generated Event stub actionPerformed()
 					validateFax(txtFax.getText());
 				}
-			});
+			});*/
 		}
 		return btnOk;
 	}
@@ -404,12 +426,25 @@ public class EmployeeRegistration extends JFrame {
 private Boolean validateModel(EmployeeModel mo) {
     	
     	if( mo.getEmID() == null || mo.getEmID().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "EmpId invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "EmID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if (EmployeeDAO.getEmployeeByID(mo.getEmID()) != null) {
+			JOptionPane.showMessageDialog(null, "Already exists","Notice",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+    	
+    	
     	if( mo.getName() == null || mo.getName().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "EmpName invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "EmName invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
+    	}
+    	if(mo.getName().equals("[a-zA-Z]")){
+    		JOptionPane.showMessageDialog(null, "EmName invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}else{
+    		JOptionPane.showMessageDialog(null, "names not numbers","Notice",JOptionPane.ERROR_MESSAGE);
+    		
     	}
     	if( mo.getAddress()== null || mo.getAddress().equals("")){
     		JOptionPane.showMessageDialog(null, "Address invalid","Notice",JOptionPane.ERROR_MESSAGE);
@@ -418,6 +453,13 @@ private Boolean validateModel(EmployeeModel mo) {
     	if( mo.getPhone()== null || mo.getPhone().equals("")){
     		JOptionPane.showMessageDialog(null, "Phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
+    	}
+    	if(mo.getPhone().equals("[0-9]")){
+    		JOptionPane.showMessageDialog(null, "Phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}else{
+    		JOptionPane.showMessageDialog(null, "Is the phone number","Notice",JOptionPane.ERROR_MESSAGE);
+    		
     	}
     	if( mo.getFax()== null || mo.getFax().equals("")){
     		JOptionPane.showMessageDialog(null, "Fax invalid","Notice",JOptionPane.ERROR_MESSAGE);
@@ -431,9 +473,10 @@ private Boolean validateModel(EmployeeModel mo) {
 		return true;
     	
     }
+
 public boolean  validateEmail(String input){
 	boolean kq = true;
-	String regex = "[a-zA-Z0-9]@";
+	String regex = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	Pattern pat = Pattern.compile(regex);
 	Matcher mat = pat.matcher(input);
 	if(mat.find()){
@@ -443,30 +486,31 @@ public boolean  validateEmail(String input){
 	JOptionPane.showMessageDialog(null, "Email invalid");
 	return kq;
 	}
+public boolean  validateEmName(String input){
+	boolean kq = true;
+	String regex = "^[_A-Za-z]$";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "EmName invalid");
+	return true;
+	}
 public boolean  validatePhone(String input){
 	boolean kq = true;
-	String regex = "[0-9]";
+	String regex = "^[_0-9]$";
 	Pattern pat = Pattern.compile(regex);
 	Matcher mat = pat.matcher(input);
 	if(mat.find()){
 		
 		return true;
 	}
-	JOptionPane.showMessageDialog(null, " Phone Invalid");
-	return kq;
+	JOptionPane.showMessageDialog(null, "Phone invalid");
+	return true;
 	}
-public boolean  validateFax(String input){
-	boolean kq = true;
-	String regex = "[0-9]";
-	Pattern pat = Pattern.compile(regex);
-	Matcher mat = pat.matcher(input);
-	if(mat.find()){
-		
-		return true;
-	}
-	JOptionPane.showMessageDialog(null, " Fax Invalid");
-	return kq;
-	}
+
 
 /**
  * This method initializes txtpassword	

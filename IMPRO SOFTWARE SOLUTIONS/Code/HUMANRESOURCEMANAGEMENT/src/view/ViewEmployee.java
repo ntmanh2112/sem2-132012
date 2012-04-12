@@ -53,7 +53,7 @@ public class ViewEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"ID","Name","sECid","Des_ID","Address","Phone","Fax","Email"};
+	private String[] ColumnName ={"ID","Name","SecID","Des_ID","Address","Phone","Fax","Email"};
 	private String[][] tableData;
 	/**
 	 * This is the default constructor

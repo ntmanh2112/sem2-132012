@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.awt.Font;
 import java.awt.Toolkit;
 
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 import javax.swing.border.EtchedBorder;
+
+import Common.Constants;
 
 import model.DesignationModel;
 import model.EmployeeModel;
@@ -44,7 +47,7 @@ public class InformationEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"EmID","Name","Password","SecID","Des_ID","Address","Phone","Fax","Email"};
+	private String[] ColumnName ={"EmID","Name","SecID","Des_ID","Address","Phone","Fax","Email"};
 	private String[][] tableData;
 
 	/**
@@ -63,10 +66,10 @@ public class InformationEmployee extends JFrame {
 	private void initialize() {
 		Toolkit theKit = this.getToolkit();   
 		Dimension wndSize = theKit.getScreenSize();
-		this.setLocation((wndSize.width-646)/2, (wndSize.height-650)/2);
+		this.setLocation((wndSize.width-846)/2, (wndSize.height-455)/2);
 		//Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setResizable(false);
-		this.setSize(646, 455);
+		this.setSize(846, 455);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -79,10 +82,10 @@ public class InformationEmployee extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(180, 16, 264, 48));
+			jLabel.setBounds(new Rectangle(280, 15, 264, 48));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
-			jLabel.setText("Information Employee");
+			jLabel.setText("Employee Information ");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -102,7 +105,7 @@ public class InformationEmployee extends JFrame {
 	private JScrollPane getJScrollPane() {
 		if (jScrollPane == null) {
 			jScrollPane = new JScrollPane();
-			jScrollPane.setBounds(new Rectangle(10, 83, 619, 161));
+			jScrollPane.setBounds(new Rectangle(10, 83, 818, 161));
 			jScrollPane.setViewportView(getJTableInformation());
 		}
 		return jScrollPane;
@@ -122,18 +125,18 @@ public class InformationEmployee extends JFrame {
 	}
 	private void loadDataToTable(){
 		ArrayList<EmployeeModel> listemployee = EmployeeDAO.getAllEmployee();
-		tableData = new String[listemployee.size()][9];
+		tableData = new String[listemployee.size()][8];
 		int row = 0;
 		for (EmployeeModel model:listemployee){
 			tableData [row][0] = model.getEmID();
 			tableData [row][1] = model.getName();
-			tableData [row][2] = model.getPassword();
-			tableData [row][3] = model.getSecID();
-			tableData [row][4] = model.getDes_ID();
-			tableData [row][5] = model.getAddress();
-			tableData [row][6] = model.getPhone();
-			tableData [row][7] = model.getFax();
-			tableData [row][8] = model.getEmail();
+			//tableData [row][2] = model.getPassword();
+			tableData [row][2] = model.getSecID();
+			tableData [row][3] = model.getDes_ID();
+			tableData [row][4] = model.getAddress();
+			tableData [row][5] = model.getPhone();
+			tableData [row][6] = model.getFax();
+			tableData [row][7] = model.getEmail();
 		
 		row++;
 		}
@@ -147,10 +150,37 @@ public class InformationEmployee extends JFrame {
 	private JButton getBtnUpdate() {
 		if (btnUpdate == null) {
 			btnUpdate = new JButton();
-			btnUpdate.setText("Update");
-			btnUpdate.setSize(new Dimension(101, 44));
-			btnUpdate.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
-			btnUpdate.setLocation(new Point(158, 331));
+			btnUpdate.setText("Edit");
+			btnUpdate.setSize(new Dimension(111, 44));
+			btnUpdate.setIcon(new ImageIcon(getClass().getResource("/images/Edit Profile.png")));
+			btnUpdate.setLocation(new Point(185, 331));
+			btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					int row = jTableInformation.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "You not choose to edit the line","Notice",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					
+					int column = 0;
+					String manvduocluachon = jTableInformation.getValueAt(row, column).toString();
+					EmployeeModel model = new EmployeeModel();
+					model.setEmID(manvduocluachon);
+					//(new UpdateInformation(model)).setVisible(true);
+					//dispose();
+					if (!model.getEmID().equals(Constants.userLogin.getEmID())) {
+						//txtpassword.setEnabled(false);
+						JOptionPane.showMessageDialog(null, "You can not edit other information","Notice",JOptionPane.ERROR_MESSAGE);
+						//(new InformationEmployee()).setVisible(true);
+						//dispose();
+					}else{
+						(new UpdateInformation(model)).setVisible(true);
+						dispose();
+					}
+				}
+				
+			});
 		}
 		return btnUpdate;
 	}
@@ -166,7 +196,7 @@ public class InformationEmployee extends JFrame {
 			btnExit.setText("Exit");
 			btnExit.setSize(new Dimension(98, 43));
 			btnExit.setIcon(new ImageIcon(getClass().getResource("/images/Exit.png")));
-			btnExit.setLocation(new Point(358, 331));
+			btnExit.setLocation(new Point(517, 331));
 		}
 		return btnExit;
 	}
@@ -180,19 +210,19 @@ public class InformationEmployee extends JFrame {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
 			jLabel3.setText("DepID :");
-			jLabel3.setLocation(new Point(330, 15));
+			jLabel3.setLocation(new Point(419, 14));
 			jLabel3.setSize(new Dimension(48, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("Name :");
 			jLabel2.setSize(new Dimension(49, 25));
-			jLabel2.setLocation(new Point(168, 14));
+			jLabel2.setLocation(new Point(222, 14));
 			jLabel1 = new JLabel();
 			jLabel1.setText("EmID :");
 			jLabel1.setSize(new Dimension(42, 25));
 			jLabel1.setLocation(new Point(6, 14));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setBounds(new Rectangle(11, 254, 616, 55));
+			jPanel.setBounds(new Rectangle(11, 254, 812, 55));
 			jPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtEmid(), null);
@@ -213,7 +243,7 @@ public class InformationEmployee extends JFrame {
 	private JTextField getTxtEmid() {
 		if (txtEmid == null) {
 			txtEmid = new JTextField();
-			txtEmid.setLocation(new Point(48, 14));
+			txtEmid.setLocation(new Point(79, 14));
 			txtEmid.setSize(new Dimension(90, 25));
 		}
 		return txtEmid;
@@ -228,7 +258,7 @@ public class InformationEmployee extends JFrame {
 		if (txtName == null) {
 			txtName = new JTextField();
 			txtName.setSize(new Dimension(90, 25));
-			txtName.setLocation(new Point(218, 14));
+			txtName.setLocation(new Point(296, 13));
 		}
 		return txtName;
 	}
@@ -241,7 +271,7 @@ public class InformationEmployee extends JFrame {
 	private JTextField getTxtDeptid() {
 		if (txtDeptid == null) {
 			txtDeptid = new JTextField();
-			txtDeptid.setLocation(new Point(380, 15));
+			txtDeptid.setLocation(new Point(480, 15));
 			txtDeptid.setSize(new Dimension(90, 25));
 		}
 		return txtDeptid;
@@ -258,7 +288,7 @@ public class InformationEmployee extends JFrame {
 			btnSearch.setText("Search");
 			btnSearch.setSize(new Dimension(96, 25));
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.gif")));
-			btnSearch.setLocation(new Point(510, 14));
+			btnSearch.setLocation(new Point(610, 14));
 		}
 		return btnSearch;
 	}

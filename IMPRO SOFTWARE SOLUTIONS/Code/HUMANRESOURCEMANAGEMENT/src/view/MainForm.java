@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import model.AccountModel;
 
@@ -58,6 +59,7 @@ public class MainForm extends JFrame {
 	private JMenuItem jMenuItemDmviewreport = null;
 	private JMenuItem jMenuItemViewinformation = null;
 	private Image img = null;
+	private JMenu jMenuExit = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -149,6 +151,7 @@ public class MainForm extends JFrame {
 			jJMenuBar.add(getJMenuHrmanager());
 			jJMenuBar.add(getJMenuDepartmentmanager());
 			jJMenuBar.add(getJMenuEmployee());
+			jJMenuBar.add(getJMenuExit());
 		}
 		return jJMenuBar;
 	}
@@ -163,21 +166,25 @@ public class MainForm extends JFrame {
 			String desID = model.getDesignationID();
 			if(desID.equals("D101")){
 				jJMenuBar.add(getJMenuAdmin());
-				jJMenuBar.add(getJMenuHrmanager());
-				jJMenuBar.add(getJMenuDepartmentmanager());
-				jJMenuBar.add(getJMenuEmployee());
+				//jJMenuBar.add(getJMenuHrmanager());
+				//jJMenuBar.add(getJMenuDepartmentmanager());
+				//jJMenuBar.add(getJMenuEmployee());
+				jJMenuBar.add(getJMenuExit());
 			} 
 			if(desID.equals("D201")){
 				jJMenuBar.add(getJMenuHrmanager());
+				jJMenuBar.add(getJMenuExit());
 				//jJMenuBar.add(getJMenuDepartmentmanager()); bo? cai nay dung ko
-				jJMenuBar.add(getJMenuEmployee());
+				//jJMenuBar.add(getJMenuEmployee());
 			} 
 			if(desID.equals("D301")){
 				jJMenuBar.add(getJMenuDepartmentmanager());
-				jJMenuBar.add(getJMenuEmployee());
+				//jJMenuBar.add(getJMenuEmployee());
+				jJMenuBar.add(getJMenuExit());
 			} 
 			if(desID.equals("D401")){
 				jJMenuBar.add(getJMenuEmployee());
+				jJMenuBar.add(getJMenuExit());
 			} 
 		}
 		return jJMenuBar;
@@ -690,6 +697,30 @@ public class MainForm extends JFrame {
 			});
 		}
 		return jMenuItemViewinformation;
+	}
+	/**
+	 * This method initializes jMenuExit	
+	 * 	
+	 * @return javax.swing.JMenu	
+	 */
+	private JMenu getJMenuExit() {
+		if (jMenuExit == null) {
+			jMenuExit = new JMenu();
+			jMenuExit.setText("Exit");
+			jMenuExit.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to exit", "Notice",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						(new Login()).setVisible(true);
+						dispose();
+					}
+				}
+			});
+		}
+		return jMenuExit;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
