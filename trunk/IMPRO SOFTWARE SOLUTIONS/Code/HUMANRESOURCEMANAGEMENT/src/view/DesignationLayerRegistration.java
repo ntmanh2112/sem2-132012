@@ -11,12 +11,26 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+
+import model.DesignLayerModel;
+import model.DesignationModel;
+import model.EmployeeModel;
+import model.SectionModel;
+import Common.KeyValue;
+import dao.DesignationDAO;
+import dao.EmployeeDAO;
+import dao.SectionDAO;
+
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DesignationLayerRegistration extends JFrame {
 
@@ -39,7 +53,17 @@ public class DesignationLayerRegistration extends JFrame {
 	public DesignationLayerRegistration() {
 		super();
 		initialize();
+		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
+		for (DesignationModel desm : listDesignation) {
+			KeyValue item = new KeyValue(desm.getDesID(),desm.getDesignation());
+
+			cbnDesignationid.addItem(item);
+			if (item.getKey().equals(desm.getDesID())) {
+				cbnDesignationid.setSelectedItem(item);
+			}
+		}
 	}
+	
 
 	/**
 	 * This method initializes this
@@ -152,6 +176,33 @@ public class DesignationLayerRegistration extends JFrame {
 			btnAdd.setSize(new Dimension(90, 30));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
 			btnAdd.setLocation(new Point(29, 243));
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					 // TODO Auto-generated Event stub actionPerformed()
+					DesignLayerModel model = new DesignLayerModel();
+					model.setLayer(txtLayer.getText().trim());
+					model.setWeightage(txtWeightage.getText().trim());
+					model.setDes_ID(((KeyValue) cbnDesignationid.getSelectedItem())
+							.getKey());
+					
+					if(!validateModel(model)) {
+						
+						return;
+					}
+				}
+			});
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					validateLayer(txtLayer.getText());
+				}
+			});
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					validateWeightage(txtWeightage.getText());
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -204,5 +255,42 @@ public class DesignationLayerRegistration extends JFrame {
 		}
 		return btnDelete;
 	}
+private Boolean validateModel(DesignLayerModel mo) {
+    	
+    	if( mo.getLayer() == null || mo.getLayer().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Layer invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getWeightage() == null || mo.getWeightage().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Weightage invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	return true;
+	}
+public boolean  validateLayer(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "Layer invalid");
+	return kq;
+	}
+public boolean  validateWeightage(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "Weightage invalid");
+	return kq;
+	}
+}
 
-}  //  @jve:decl-index=0:visual-constraint="11,10"
+  //  @jve:decl-index=0:visual-constraint="11,10"

@@ -348,11 +348,11 @@ public class UpdateEmployee extends JFrame {
 			});
 			btnOk.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); 
-					// TODO Auto-generated Event stub actionPerformed()
-					validateEmail(txtEmail.getText());
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					validateEmName(txtEmpname.getText());
 				}
 			});
+			
 			btnOk.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
@@ -365,6 +365,13 @@ public class UpdateEmployee extends JFrame {
 					System.out.println("actionPerformed()"); 
 					// TODO Auto-generated Event stub actionPerformed()
 					validateFax(txtFax.getText());
+				}
+			});
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
+					validateEmail(txtEmail.getText());
 				}
 			});
 		}
@@ -445,16 +452,16 @@ private Boolean validateModel(EmployeeModel mo) {
 	return true;
 	
 }
-public boolean  validateEmail(String input){
+public boolean  validateEmName(String input){
 	boolean kq = true;
-	String regex = "[a-zA-Z0-9]@";
+	String regex = "[0-9]";
 	Pattern pat = Pattern.compile(regex);
 	Matcher mat = pat.matcher(input);
 	if(mat.find()){
 		
 		return true;
 	}
-	JOptionPane.showMessageDialog(null, "Email invalid");
+	JOptionPane.showMessageDialog(null, "EmName Invalid");
 	return kq;
 	}
 public boolean  validatePhone(String input){
@@ -481,7 +488,18 @@ public boolean  validateFax(String input){
 	JOptionPane.showMessageDialog(null, " Fax Invalid");
 	return kq;
 	}
-
+public boolean  validateEmail(String input){
+	boolean kq = true;
+	String regex = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "Email invalid");
+	return kq;
+	}
 /**
  * This method initializes txtpassword	
  * 	

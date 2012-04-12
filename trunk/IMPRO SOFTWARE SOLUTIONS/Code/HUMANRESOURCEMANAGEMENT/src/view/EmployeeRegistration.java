@@ -354,7 +354,7 @@ public class EmployeeRegistration extends JFrame {
 					
 				}
 			});
-			/*btnOk.addActionListener(new java.awt.event.ActionListener() {
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
 					// TODO Auto-generated Event stub actionPerformed()
@@ -372,9 +372,16 @@ public class EmployeeRegistration extends JFrame {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); 
 					// TODO Auto-generated Event stub actionPerformed()
+					validateEmName(txtEmpname.getText());
+				}
+			});
+			btnOk.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); 
+					// TODO Auto-generated Event stub actionPerformed()
 					validateFax(txtFax.getText());
 				}
-			});*/
+			});
 		}
 		return btnOk;
 	}
@@ -454,7 +461,7 @@ private Boolean validateModel(EmployeeModel mo) {
     		JOptionPane.showMessageDialog(null, "Phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
-    	if(mo.getPhone().equals("[0-9]")){
+    	if(mo.getPhone().equals("")){
     		JOptionPane.showMessageDialog(null, "Phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}else{
@@ -473,7 +480,44 @@ private Boolean validateModel(EmployeeModel mo) {
 		return true;
     	
     }
+public boolean  validateEmName(String input){
+	boolean kq = true;
+	String regex = "[A-Za-z]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "EmName invalid");
+	return kq;
+	}
 
+
+public boolean  validatePhone(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "Phone invalid");
+	return kq;
+	}
+public boolean  validateFax(String input){
+	boolean kq = true;
+	String regex = "[0-9]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "Fax invalid");
+	return kq;
+	}
 public boolean  validateEmail(String input){
 	boolean kq = true;
 	String regex = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -486,31 +530,6 @@ public boolean  validateEmail(String input){
 	JOptionPane.showMessageDialog(null, "Email invalid");
 	return kq;
 	}
-public boolean  validateEmName(String input){
-	boolean kq = true;
-	String regex = "^[_A-Za-z]$";
-	Pattern pat = Pattern.compile(regex);
-	Matcher mat = pat.matcher(input);
-	if(mat.find()){
-		
-		return true;
-	}
-	JOptionPane.showMessageDialog(null, "EmName invalid");
-	return true;
-	}
-public boolean  validatePhone(String input){
-	boolean kq = true;
-	String regex = "^[_0-9]$";
-	Pattern pat = Pattern.compile(regex);
-	Matcher mat = pat.matcher(input);
-	if(mat.find()){
-		
-		return true;
-	}
-	JOptionPane.showMessageDialog(null, "Phone invalid");
-	return true;
-	}
-
 
 /**
  * This method initializes txtpassword	

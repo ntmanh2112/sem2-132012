@@ -21,7 +21,7 @@ public class DesignLayerDAO {
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				DesignLayerModel model = new DesignLayerModel();
-				model.setLayer_ID(rs.getString("Layer_ID"));
+				model.setDes_ID(rs.getString("Des_ID"));
 				model.setLayer(rs.getString("Layer"));
 				model.setWeightage(rs.getString("Weightage"));
 				
@@ -41,7 +41,7 @@ public class DesignLayerDAO {
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				model.setLayer_ID(rs.getString("layer_ID"));
+				model.setDes_ID(rs.getString("Des_ID"));
 				model.setLayer(rs.getString("Layer"));
 				model.setWeightage(rs.getString("Weightage"));
 			}
@@ -58,7 +58,7 @@ public class DesignLayerDAO {
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getLayer());
 			ps.setString(2, model.getWeightage());
-			ps.setString(3, model.getLayer_ID());	
+			ps.setString(3, model.getDes_ID());	
 			ps.executeUpdate();
 			kq = true;
 		} catch (Exception e) {
@@ -73,7 +73,7 @@ public class DesignLayerDAO {
 			try {
 				sql = "INSERT INTO DesignLayer VALUES (?,?,?)";
 				PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
-				ps.setString(1, model.getLayer_ID());
+				ps.setString(1, model.getDes_ID());
 				ps.setString(2, model.getLayer());
 				ps.setString(3, model.getWeightage());
 				ps.executeUpdate();
@@ -89,7 +89,7 @@ public class DesignLayerDAO {
 		try {
 			String sql = "DELETE  FROM DesignLayer WHERE Layer_ID = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
-			ps.setString(1, model.getLayer_ID());
+			ps.setString(1, model.getDes_ID());
 			ps.executeUpdate();
 			kq = true;
 		} catch (SQLException e) {
@@ -106,7 +106,7 @@ public class DesignLayerDAO {
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){
 				DesignLayerModel model = new DesignLayerModel();
-				model.setLayer_ID(rs.getString("Layer_ID"));
+				model.setDes_ID(rs.getString("Des_ID"));
 				model.setLayer(rs.getString("Layer"));
 				model.setWeightage(rs.getString("Weightage"));
 				listDesignLayer.add(model);
