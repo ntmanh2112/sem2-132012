@@ -72,10 +72,10 @@ public class VacanciesDAO {
 		return model;
 	}
 	public static VacanciesModel getSectionByID(String SecID){
-		ArrayList<VacanciesModel> listVacancy = new ArrayList<VacanciesModel>();
+		//ArrayList<VacanciesModel> listVacancy = new ArrayList<VacanciesModel>();
 		VacanciesModel model = null;
 		try {
-			String sql = "SELECT * FROM Vacancies WHERE SecID =?";
+			String sql = "select SecID,Interpretation from vacancies where SecID=?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, SecID);
 			ResultSet rs = ps.executeQuery();
