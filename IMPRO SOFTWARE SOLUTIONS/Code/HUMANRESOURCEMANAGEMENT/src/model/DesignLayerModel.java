@@ -1,13 +1,12 @@
 package model;
 
 public class DesignLayerModel {
-
-	private String Layer_ID;
-	public String getLayer_ID() {
-		return Layer_ID;
+	private String Des_ID;
+	public String getDes_ID() {
+		return Des_ID;
 	}
-	public void setLayer_ID(String layerID) {
-		Layer_ID = layerID;
+	public void setDes_ID(String desID) {
+		Des_ID = desID;
 	}
 	public String getLayer() {
 		return Layer;

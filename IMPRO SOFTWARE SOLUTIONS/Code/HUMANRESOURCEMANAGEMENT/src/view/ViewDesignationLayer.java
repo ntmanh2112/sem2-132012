@@ -125,7 +125,7 @@ public class ViewDesignationLayer extends JFrame {
 		tableData = new String[listDesigLayer.size()][7];
 		int row = 0;
 		for (DesignLayerModel model:listDesigLayer){
-		tableData [row][0] = model.getLayer_ID();
+		tableData [row][0] = model.getDes_ID();
 		tableData [row][1] = model.getLayer();
 		tableData [row][2] = model.getWeightage();
 		
