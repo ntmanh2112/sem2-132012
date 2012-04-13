@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JTextField;
 
@@ -25,12 +27,22 @@ import dao.EmployeeDAO;
 
 import model.DepartmentsModel;
 import model.EmployeeModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+
+import util.DataUtil;
 
 import Common.Constants;
 
@@ -51,11 +63,10 @@ public class ViewDepartment extends JFrame {
 	private JTextField txtDeptid = null;
 	private JLabel jLabel2 = null;
 	private JTextField txtDeptname = null;
-	private JLabel jLabel3 = null;
-	private JTextField txtDepthead = null;
 	private JButton btnSearch = null;
 	private String[] ColumnName ={"ID","Name","Dep_Head","Location","Up_Dep_No","Dn_Dep_No"};
 	private String[][] tableData;
+	private JButton btnPrint = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -106,6 +117,7 @@ public class ViewDepartment extends JFrame {
 			jContentPane.add(getBtnEdit(), null);
 			jContentPane.add(getBtnDelete(), null);
 			jContentPane.add(getJPanel(), null);
+			jContentPane.add(getBtnPrint(), null);
 		}
 		return jContentPane;
 	}
@@ -162,7 +174,7 @@ public class ViewDepartment extends JFrame {
 			btnAdd.setText("Add Department");
 			btnAdd.setSize(new Dimension(153, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
-			btnAdd.setLocation(new Point(60, 293));
+			btnAdd.setLocation(new Point(29, 293));
 			btnAdd.addActionListener(new ActionListener() {
 				
 				@Override
@@ -187,7 +199,7 @@ public class ViewDepartment extends JFrame {
 			btnEdit.setText("Update Department");
 			btnEdit.setSize(new Dimension(170, 40));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
-			btnEdit.setLocation(new Point(271, 291));
+			btnEdit.setLocation(new Point(213, 292));
 			btnEdit.addActionListener(new ActionListener() {
 				
 				@Override
@@ -222,7 +234,7 @@ public class ViewDepartment extends JFrame {
 			btnDelete.setSize(new Dimension(166, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnDelete.setLocation(new Point(484, 293));
+			btnDelete.setLocation(new Point(419, 293));
 			btnDelete.addActionListener(new ActionListener() {
 				
 				@Override
@@ -264,10 +276,6 @@ public class ViewDepartment extends JFrame {
 	 */
 	private JPanel getJPanel() {
 		if (jPanel == null) {
-			jLabel3 = new JLabel();
-			jLabel3.setText("DeptHead :");
-			jLabel3.setLocation(new Point(362, 17));
-			jLabel3.setSize(new Dimension(64, 25));
 			jLabel2 = new JLabel();
 			jLabel2.setText("DeptName :");
 			jLabel2.setSize(new Dimension(70, 25));
@@ -279,13 +287,11 @@ public class ViewDepartment extends JFrame {
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(53, 357));
-			jPanel.setSize(new Dimension(688, 58));
+			jPanel.setSize(new Dimension(526, 58));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtDeptid(), null);
 			jPanel.add(jLabel2, null);
 			jPanel.add(getTxtDeptname(), null);
-			jPanel.add(jLabel3, null);
-			jPanel.add(getTxtDepthead(), null);
 			jPanel.add(getBtnSearch(), null);
 		    jPanel.setBorder(BorderFactory.createEtchedBorder());
 		}
@@ -321,20 +327,6 @@ public class ViewDepartment extends JFrame {
 	}
 
 	/**
-	 * This method initializes txtDepthead	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getTxtDepthead() {
-		if (txtDepthead == null) {
-			txtDepthead = new JTextField();
-			txtDepthead.setLocation(new Point(438, 17));
-			txtDepthead.setSize(new Dimension(90, 25));
-		}
-		return txtDepthead;
-	}
-
-	/**
 	 * This method initializes btnSearch	
 	 * 	
 	 * @return javax.swing.JButton	
@@ -346,7 +338,7 @@ public class ViewDepartment extends JFrame {
 			btnSearch.setSize(new Dimension(95, 25));
 			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/Zoom.png")));
-			btnSearch.setLocation(new Point(554, 17));
+			btnSearch.setLocation(new Point(394, 16));
 			btnSearch.addActionListener(new ActionListener() {
 				
 				@Override
@@ -362,10 +354,10 @@ public class ViewDepartment extends JFrame {
 	public void loadDataToTableWhenSearch (){
 		String Dep_ID = txtDeptid.getText();
 		String Dep_Name = txtDeptname.getText();
-		String Dep_Head = txtDepthead.getText();
 		
 		
-		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.searchDepartments(Dep_ID, Dep_Name, Dep_Head);
+		
+		ArrayList<DepartmentsModel> listDepartment = DepartmentsDAO.searchDepartments(Dep_ID, Dep_Name);
 		tableData = new String [listDepartment.size()][6];
 		int row = 0;
 		for(DepartmentsModel model : listDepartment) {
@@ -379,6 +371,41 @@ public class ViewDepartment extends JFrame {
 			
 			row ++;
 		}
+	}
+
+	/**
+	 * This method initializes btnPrint	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBtnPrint() {
+		if (btnPrint == null) {
+			btnPrint = new JButton();
+			btnPrint.setText("Print");
+			btnPrint.setSize(new Dimension(143, 40));
+			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
+			btnPrint.setLocation(new Point(616, 293));
+			btnPrint.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					Map parameters = new HashMap();
+					parameters.put("Dep_ID", txtDeptid.getText().trim());
+					parameters.put("Dep_Name", txtDeptname.getText().trim());
+					
+					
+					try {
+						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reportDepartment.jrxml");
+						JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DataUtil.getConnection());
+						JasperViewer.viewReport(jasperPrint,false);
+					} catch (JRException a) {
+						// TODO Auto-generated catch block
+						a.printStackTrace();
+					}
+				}
+			});
+		}
+		return btnPrint;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

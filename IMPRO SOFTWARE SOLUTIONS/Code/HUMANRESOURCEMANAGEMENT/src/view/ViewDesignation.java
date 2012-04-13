@@ -22,6 +22,16 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import util.DataUtil;
+
 import model.DesignationModel;
 import model.EmployeeModel;
 import model.SectionModel;
@@ -33,6 +43,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewDesignation extends JFrame {
 
@@ -52,6 +64,7 @@ public class ViewDesignation extends JFrame {
 	private JButton btnSearch = null;
 	private String[] ColumnName ={"DesID","Layer_ID","Designation"};
 	private String[][] tableData;
+	private JButton btnPrint = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -95,6 +108,7 @@ public class ViewDesignation extends JFrame {
 			jContentPane.add(getBtnEdit(), null);
 			jContentPane.add(getBtnDelete(), null);
 			jContentPane.add(getJPanel(), null);
+			jContentPane.add(getBtnPrint(), null);
 		}
 		return jContentPane;
 	}
@@ -152,7 +166,7 @@ public class ViewDesignation extends JFrame {
 			btnAdd.setFont(new Font("Dialog", Font.BOLD, 12));
 			btnAdd.setHorizontalTextPosition(SwingConstants.TRAILING);
 			btnAdd.setHorizontalAlignment(SwingConstants.TRAILING);
-			btnAdd.setLocation(new Point(43, 300));
+			btnAdd.setLocation(new Point(28, 300));
 			btnAdd.addActionListener(new ActionListener() {
 				
 				@Override
@@ -177,7 +191,7 @@ public class ViewDesignation extends JFrame {
 			btnEdit.setText("Update Designation");
 			btnEdit.setSize(new Dimension(169, 40));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
-			btnEdit.setLocation(new Point(226, 300));
+			btnEdit.setLocation(new Point(196, 300));
 			btnEdit.addActionListener(new ActionListener() {
 				
 				@Override
@@ -213,7 +227,7 @@ public class ViewDesignation extends JFrame {
 			btnDelete.setSize(new Dimension(165, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnDelete.setLocation(new Point(424, 300));
+			btnDelete.setLocation(new Point(378, 300));
 			btnDelete.addActionListener(new ActionListener() {
 				
 				@Override
@@ -344,6 +358,41 @@ public class ViewDesignation extends JFrame {
 			
 			row ++;
 		}
+	}
+
+	/**
+	 * This method initializes btnPrint	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBtnPrint() {
+		if (btnPrint == null) {
+			btnPrint = new JButton();
+			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
+			btnPrint.setLocation(new Point(569, 300));
+			btnPrint.setSize(new Dimension(103, 40));
+			btnPrint.setText("Print");
+			btnPrint.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					Map parameters = new HashMap();
+					parameters.put("DesID", txtDesignationid.getText().trim());
+					parameters.put("Designation", txtDesignationname.getText().trim());
+					
+					
+					try {
+						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reportDesignation.jrxml");
+						JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DataUtil.getConnection());
+						JasperViewer.viewReport(jasperPrint,false);
+					} catch (JRException a) {
+						// TODO Auto-generated catch block
+						a.printStackTrace();
+					}
+				}
+			});
+		}
+		return btnPrint;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

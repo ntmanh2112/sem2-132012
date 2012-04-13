@@ -120,10 +120,10 @@ public class DesignLayerDAO {
 		}
 		return kq;
 	}
-	public static ArrayList<DesignLayerModel> searchDesignLayer(String num){
+	public static ArrayList<DesignLayerModel> searchDesignLayer(String Layer_ID, String Layer){
 		ArrayList<DesignLayerModel> listDesignLayer = new ArrayList<DesignLayerModel>();
 		try {
-			String sql = "SELECT Layer FROM DesignLayer WHERE Layer LIKE '%" +num+ "%'";
+			String sql = "SELECT Layer_ID, Layer,Weightage FROM DesigLayer WHERE Layer_ID LIKE '%" +Layer_ID+ "%' AND Layer LIKE '%" +Layer+ "%'";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){

@@ -17,6 +17,8 @@ import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JTextField;
 
@@ -24,6 +26,14 @@ import model.DepartmentsModel;
 import model.EmployeeModel;
 import model.Vacancy_Fill_DetailsModel;
 import model.VacanciesModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import dao.EmployeeDAO;
 import dao.VacanciesDAO;
 import dao.VacancyFillingDetailsDAO;
@@ -33,6 +43,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+
+import util.DataUtil;
 
 import Common.Constants;
 
@@ -50,7 +62,7 @@ public class ViewVacancies extends JFrame {
 	private JButton btnDelete = null;
 	private JPanel jPanel = null;
 	private JLabel jLabel1 = null;
-	private JTextField txtEmpid = null;
+	private JTextField txtVacancyID = null;
 	private JLabel jLabel2 = null;
 	private JTextField txtSectionid = null;
 	//private JLabel jLabel3 = null;
@@ -58,6 +70,7 @@ public class ViewVacancies extends JFrame {
 	private JButton btnSearch = null;
 	private String[] ColumnName ={"Vacancy_ID","SecID","Designation_ID","Interpretation","No_Of_Vacancies","Status","Vacancy_Date","Creator","Priority"};
 	private String[][] tableData;
+	private JButton btnPrint = null;
 	
 	
 
@@ -110,6 +123,7 @@ public class ViewVacancies extends JFrame {
 			jContentPane.add(getBtnEdit(), null);
 			jContentPane.add(getBtnDelete(), null);
 			jContentPane.add(getJPanel(), null);
+			jContentPane.add(getBtnPrint(), null);
 		}
 		return jContentPane;
 	}
@@ -172,7 +186,7 @@ public class ViewVacancies extends JFrame {
 			btnAdd.setText("Add Vacancies");
 			btnAdd.setSize(new Dimension(140, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
-			btnAdd.setLocation(new Point(59, 301));
+			btnAdd.setLocation(new Point(30, 300));
 			btnAdd.addActionListener(new ActionListener() {
 				
 				@Override
@@ -197,7 +211,7 @@ public class ViewVacancies extends JFrame {
 			btnEdit.setText("Update Vacancies");
 			btnEdit.setSize(new Dimension(159, 40));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
-			btnEdit.setLocation(new Point(255, 301));
+			btnEdit.setLocation(new Point(214, 301));
 			btnEdit.addActionListener(new ActionListener() {
 				
 				@Override
@@ -231,7 +245,7 @@ public class ViewVacancies extends JFrame {
 			btnDelete.setText("Delete Vacancies");
 			btnDelete.setSize(new Dimension(154, 40));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(467, 301));
+			btnDelete.setLocation(new Point(426, 301));
 			btnDelete.addActionListener(new ActionListener() {
 				
 				@Override
@@ -280,7 +294,7 @@ public class ViewVacancies extends JFrame {
 			jLabel2 = new JLabel();
 			jLabel2.setText("SectionID :");
 			jLabel2.setSize(new Dimension(64, 25));
-			jLabel2.setLocation(new Point(371, 17));
+			jLabel2.setLocation(new Point(212, 17));
 			jLabel1 = new JLabel();
 			jLabel1.setText("VacancyID :");
 			jLabel1.setSize(new Dimension(68, 25));
@@ -288,9 +302,9 @@ public class ViewVacancies extends JFrame {
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(28, 363));
-			jPanel.setSize(new Dimension(737, 61));
+			jPanel.setSize(new Dimension(575, 61));
 			jPanel.add(jLabel1, null);
-			jPanel.add(getTxtEmpid(), null);
+			jPanel.add(getTxtVacancyID(), null);
 			jPanel.add(jLabel2, null);
 			jPanel.add(getTxtSectionid(), null);
 			//jPanel.add(jLabel3, null);
@@ -302,17 +316,17 @@ public class ViewVacancies extends JFrame {
 	}
 
 	/**
-	 * This method initializes txtEmpid	
+	 * This method initializes txtVacancyID	
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtEmpid() {
-		if (txtEmpid == null) {
-			txtEmpid = new JTextField();
-			txtEmpid.setLocation(new Point(88, 17));
-			txtEmpid.setSize(new Dimension(90, 25));
+	private JTextField getTxtVacancyID() {
+		if (txtVacancyID == null) {
+			txtVacancyID = new JTextField();
+			txtVacancyID.setLocation(new Point(88, 17));
+			txtVacancyID.setSize(new Dimension(90, 25));
 		}
-		return txtEmpid;
+		return txtVacancyID;
 	}
 
 	/**
@@ -323,7 +337,7 @@ public class ViewVacancies extends JFrame {
 	private JTextField getTxtSectionid() {
 		if (txtSectionid == null) {
 			txtSectionid = new JTextField();
-			txtSectionid.setLocation(new Point(453, 17));
+			txtSectionid.setLocation(new Point(296, 17));
 			txtSectionid.setSize(new Dimension(90, 25));
 		}
 		return txtSectionid;
@@ -348,7 +362,7 @@ public class ViewVacancies extends JFrame {
 			btnSearch.setSize(new Dimension(117, 25));
 			btnSearch.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
-			btnSearch.setLocation(new Point(581, 17));
+			btnSearch.setLocation(new Point(422, 16));
 			btnSearch.addActionListener(new ActionListener() {
 				
 				@Override
@@ -362,7 +376,7 @@ public class ViewVacancies extends JFrame {
 		return btnSearch;
 	}
 	public void loadDataToTableWhenSearch (){
-		String Vacancy_ID = txtEmpid.getText();
+		String Vacancy_ID = txtVacancyID.getText();
 		String SecID = txtSectionid.getText();
 		
 		ArrayList<VacanciesModel> listVacancy = VacanciesDAO.searchVacancies(Vacancy_ID, SecID);
@@ -381,6 +395,41 @@ public class ViewVacancies extends JFrame {
 			
 			row ++;
 		}
+	}
+
+	/**
+	 * This method initializes btnPrint	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBtnPrint() {
+		if (btnPrint == null) {
+			btnPrint = new JButton();
+			btnPrint.setText("Print");
+			btnPrint.setSize(new Dimension(142, 40));
+			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
+			btnPrint.setLocation(new Point(623, 301));
+			btnPrint.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					Map parameters = new HashMap();
+					parameters.put("Vacancy_ID", txtVacancyID.getText().trim());
+					parameters.put("SecID", txtSectionid.getText().trim());
+					//parameters.put("Weightage", txtWeightage.getText().trim());
+					
+					try {
+						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reportVacancies.jrxml");
+						JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DataUtil.getConnection());
+						JasperViewer.viewReport(jasperPrint,false);
+					} catch (JRException a) {
+						// TODO Auto-generated catch block
+						a.printStackTrace();
+					}
+				}
+			});
+		}
+		return btnPrint;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

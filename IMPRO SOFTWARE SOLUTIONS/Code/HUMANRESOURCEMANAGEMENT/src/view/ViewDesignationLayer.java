@@ -20,15 +20,29 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import util.DataUtil;
+
 import model.DepartmentsModel;
 import model.DesignLayerModel;
+import model.EmployeeModel;
 import model.Vacancy_Fill_DetailsModel;
 import dao.DepartmentsDAO;
 import dao.DesignLayerDAO;
+import dao.EmployeeDAO;
 import dao.VacancyFillingDetailsDAO;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewDesignationLayer extends JFrame {
 
@@ -43,13 +57,12 @@ public class ViewDesignationLayer extends JFrame {
 	private JPanel jPanel = null;
 	private JLabel jLabel1 = null;
 	private JTextField txtDesignationid = null;
-	private JLabel jLabel2 = null;
-	private JTextField txtWeightage = null;
 	private JLabel jLabel3 = null;
 	private JTextField txtLayer = null;
 	private JButton btnSearch = null;
 	private String[] ColumnName ={"ID","Layer","Weightage"};
 	private String[][] tableData;
+	private JButton btnPrint = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -93,6 +106,7 @@ public class ViewDesignationLayer extends JFrame {
 			jContentPane.add(getBtnEdit(), null);
 			jContentPane.add(getBtnDelete(), null);
 			jContentPane.add(getJPanel(), null);
+			jContentPane.add(getBtnPrint(), null);
 		}
 		return jContentPane;
 	}
@@ -171,7 +185,7 @@ public class ViewDesignationLayer extends JFrame {
 			btnEdit.setText("Edit");
 			btnEdit.setSize(new Dimension(90, 30));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
-			btnEdit.setLocation(new Point(322, 391));
+			btnEdit.setLocation(new Point(263, 390));
 			btnEdit.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
@@ -204,7 +218,7 @@ public class ViewDesignationLayer extends JFrame {
 			btnDelete.setText("Delete");
 			btnDelete.setSize(new Dimension(90, 30));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(527, 391));
+			btnDelete.setLocation(new Point(410, 391));
 			btnDelete.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					//System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
@@ -248,10 +262,6 @@ public class ViewDesignationLayer extends JFrame {
 			jLabel3.setText("Layer :");
 			jLabel3.setLocation(new Point(196, 17));
 			jLabel3.setSize(new Dimension(44, 25));
-			jLabel2 = new JLabel();
-			jLabel2.setText("Weightage :");
-			jLabel2.setSize(new Dimension(70, 25));
-			jLabel2.setLocation(new Point(366, 17));
 			jLabel1 = new JLabel();
 			jLabel1.setText("Layer_ID :");
 			jLabel1.setSize(new Dimension(67, 25));
@@ -259,11 +269,9 @@ public class ViewDesignationLayer extends JFrame {
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(28, 291));
-			jPanel.setSize(new Dimension(696, 60));
+			jPanel.setSize(new Dimension(542, 60));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtDesignationid(), null);
-			jPanel.add(jLabel2, null);
-			jPanel.add(getTxtWeightage(), null);
 			jPanel.add(jLabel3, null);
 			jPanel.add(getTxtLayer(), null);
 			jPanel.add(getBtnSearch(), null);
@@ -284,20 +292,6 @@ public class ViewDesignationLayer extends JFrame {
 			txtDesignationid.setSize(new Dimension(90, 25));
 		}
 		return txtDesignationid;
-	}
-
-	/**
-	 * This method initializes txtWeightage	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getTxtWeightage() {
-		if (txtWeightage == null) {
-			txtWeightage = new JTextField();
-			txtWeightage.setLocation(new Point(446, 17));
-			txtWeightage.setSize(new Dimension(90, 25));
-		}
-		return txtWeightage;
 	}
 
 	/**
@@ -325,9 +319,65 @@ public class ViewDesignationLayer extends JFrame {
 			btnSearch.setText("Search");
 			btnSearch.setSize(new Dimension(117, 25));
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.png")));
-			btnSearch.setLocation(new Point(557, 17));
+			btnSearch.setLocation(new Point(387, 16));
+			btnSearch.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					loadDataToTableWhenSearch();
+					jTableViewdesignationlayer.setModel(new DefaultTableModel(tableData, ColumnName));
+				}
+			});
 		}
 		return btnSearch;
+	}
+	public void loadDataToTableWhenSearch (){
+		String Layer_ID = txtDesignationid.getText();
+		String Layer = txtLayer.getText();
+		
+		ArrayList<DesignLayerModel> listlayer = DesignLayerDAO.searchDesignLayer(Layer_ID, Layer);
+		tableData = new String [listlayer.size()][3];
+		int row = 0;
+		for(DesignLayerModel model : listlayer) {
+			tableData [row][0] = model.getLayer_ID();
+			tableData [row][1] = model.getLayer();
+			tableData [row][2] = model.getWeightage();	
+			row ++;
+		}
+	}
+
+	/**
+	 * This method initializes btnPrint	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBtnPrint() {
+		if (btnPrint == null) {
+			btnPrint = new JButton();
+			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
+			btnPrint.setSize(new Dimension(94, 30));
+			btnPrint.setLocation(new Point(555, 391));
+			btnPrint.setText("Print");
+			btnPrint.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					Map parameters = new HashMap();
+					parameters.put("Layer_ID", txtDesignationid.getText().trim());
+					parameters.put("Layer", txtLayer.getText().trim());
+					//parameters.put("Weightage", txtWeightage.getText().trim());
+					
+					try {
+						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reportDesignlayer.jrxml");
+						JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DataUtil.getConnection());
+						JasperViewer.viewReport(jasperPrint,false);
+					} catch (JRException a) {
+						// TODO Auto-generated catch block
+						a.printStackTrace();
+					}
+				}
+			});
+		}
+		return btnPrint;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

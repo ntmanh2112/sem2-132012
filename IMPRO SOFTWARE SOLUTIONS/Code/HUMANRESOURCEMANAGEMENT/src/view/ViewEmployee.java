@@ -17,16 +17,28 @@ import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JTextField;
 
 import model.DepartmentsModel;
 import model.EmployeeModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import dao.DepartmentsDAO;
 import dao.EmployeeDAO;
 
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+
+import util.DataUtil;
 
 import Common.Constants;
 
@@ -55,6 +67,7 @@ public class ViewEmployee extends JFrame {
 	private JButton btnSearch = null;
 	private String[] ColumnName ={"ID","Name","SecID","Des_ID","Address","Phone","Fax","Email"};
 	private String[][] tableData;
+	private JButton btnPrint = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -100,6 +113,7 @@ public class ViewEmployee extends JFrame {
 			jContentPane.add(getBtnEdit(), null);
 			jContentPane.add(getBtnDelete(), null);
 			jContentPane.add(getJPanel(), null);
+			jContentPane.add(getBtnPrint(), null);
 		}
 		return jContentPane;
 	}
@@ -380,6 +394,41 @@ public class ViewEmployee extends JFrame {
 			
 			row ++;
 		}
+	}
+
+	/**
+	 * This method initializes btnPrint	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBtnPrint() {
+		if (btnPrint == null) {
+			btnPrint = new JButton();
+			btnPrint.setText("Print");
+			btnPrint.setSize(new Dimension(150, 35));
+			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
+			btnPrint.setLocation(new Point(590, 295));
+			btnPrint.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					Map parameters = new HashMap();
+					parameters.put("EmID", txtEmpid.getText().trim());
+					parameters.put("Name", txtEmpname.getText().trim());
+					parameters.put("Des_ID", txtDeptid.getText().trim());
+					
+					try {
+						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reportEmployee.jrxml");
+						JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DataUtil.getConnection());
+						JasperViewer.viewReport(jasperPrint,false);
+					} catch (JRException a) {
+						// TODO Auto-generated catch block
+						a.printStackTrace();
+					}
+				}
+			});
+		}
+		return btnPrint;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

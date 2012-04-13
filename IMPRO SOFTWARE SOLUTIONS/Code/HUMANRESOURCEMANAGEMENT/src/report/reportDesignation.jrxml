@@ -2,10 +2,11 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportDesignation" language="groovy" pageWidth="600" pageHeight="595" orientation="Landscape" columnWidth="560" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="10"/>
 	<parameter name="DesID" class="java.lang.String"/>
+	<parameter name="Designation" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from Designation where DesID LIKE '%' + $P{DesID}]]>
+		<![CDATA[select * from Designation where DesID LIKE '%' + $P{DesID} and Designation LIKE '%' + $P{Designation}]]>
 	</queryString>
 	<field name="DesID" class="java.lang.String"/>
 	<field name="Layer_ID" class="java.lang.String"/>

@@ -17,18 +17,30 @@ import javax.swing.JButton;
 import java.awt.Point;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JTextField;
 
 import model.AccountModel;
 import model.DepartmentsModel;
 import model.EmployeeModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import dao.AccountDAO;
 import dao.DepartmentsDAO;
 import dao.EmployeeDAO;
 
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
+
+import util.DataUtil;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +65,7 @@ public class ViewAccount extends JFrame {
 	private JTextField txtDesignation = null;
 	private JLabel jLabel3 = null;
 	private JTextField txtname = null;
+	private JButton btnPrint = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -199,7 +212,7 @@ public class ViewAccount extends JFrame {
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
 			jPanel.setLocation(new Point(33, 280));
-			jPanel.setSize(new Dimension(740, 67));
+			jPanel.setSize(new Dimension(740, 93));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtEmpid(), null);
 			jPanel.add(getBtnSearch(), null);
@@ -208,6 +221,7 @@ public class ViewAccount extends JFrame {
 		    jPanel.add(getTxtDesignation(), null);
 		    jPanel.add(jLabel3, null);
 		    jPanel.add(getTxtname(), null);
+		    jPanel.add(getBtnPrint(), null);
 		}
 		return jPanel;
 	}
@@ -237,7 +251,7 @@ public class ViewAccount extends JFrame {
 			btnSearch.setText("Search");
 			btnSearch.setSize(new Dimension(106, 34));
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.gif")));
-			btnSearch.setLocation(new Point(615, 17));
+			btnSearch.setLocation(new Point(614, 7));
 			btnSearch.addActionListener(new ActionListener() {
 				
 				@Override
@@ -294,6 +308,41 @@ public class ViewAccount extends JFrame {
 			txtname.setSize(new Dimension(130, 25));
 		}
 		return txtname;
+	}
+
+	/**
+	 * This method initializes btnPrint	
+	 * 	
+	 * @return javax.swing.JButton	
+	 */
+	private JButton getBtnPrint() {
+		if (btnPrint == null) {
+			btnPrint = new JButton();
+			btnPrint.setText("Print");
+			btnPrint.setSize(new Dimension(106, 34));
+			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
+			btnPrint.setLocation(new Point(614, 50));
+			btnPrint.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					Map parameters = new HashMap();
+					parameters.put("EmID", txtEmpid.getText().trim());
+					parameters.put("name", txtname.getText().trim());
+					parameters.put("Deignation", txtDesignation.getText().trim());
+					
+					try {
+						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reprortsearch.jrxml");
+						JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DataUtil.getConnection());
+						JasperViewer.viewReport(jasperPrint,false);
+					} catch (JRException a) {
+						// TODO Auto-generated catch block
+						a.printStackTrace();
+					}
+				}
+			});
+		}
+		return btnPrint;
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
