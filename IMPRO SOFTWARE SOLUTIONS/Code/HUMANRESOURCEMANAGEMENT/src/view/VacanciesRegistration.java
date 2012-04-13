@@ -26,16 +26,21 @@ import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.toedter.calendar.JDateChooser;
 import javax.swing.ImageIcon;
 
 import model.DepartmentsModel;
 import model.DesignationModel;
+import model.EmployeeModel;
 import model.SectionModel;
 import model.VacanciesModel;
 import Common.KeyValue;
 import dao.DepartmentsDAO;
 import dao.DesignationDAO;
+import dao.EmployeeDAO;
 import dao.SectionDAO;
 import dao.VacanciesDAO;
 
@@ -61,11 +66,11 @@ public class VacanciesRegistration extends JFrame {
 	private JButton btnAdd = null;
 	private JButton btnSave = null;
 	private JLabel jLabel9 = null;
-	private JTextField txtCreator = null;
 	private JDateChooser txtVacancydate = null;
 	VacanciesModel model = new VacanciesModel();  //  @jve:decl-index=0:
 	private JLabel jLabel2 = null;
 	private JTextField txtinterpretation = null;
+	private JComboBox cbnCreator = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -99,6 +104,15 @@ public class VacanciesRegistration extends JFrame {
 			cbnDesignid.addItem(item);
 			if (item.getKey().equals(model.getDesignation_ID())) {
 				cbnDesignid.setSelectedItem(item);
+			}
+		}
+		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
+		for (EmployeeModel desm : listEmployee) {
+			KeyValue item = new KeyValue(desm.getEmID(),desm.getName());
+
+			cbnCreator.addItem(item);
+			if (item.getKey().equals(model.getCreator())) {
+				cbnCreator.setSelectedItem(item);
 			}
 		}
 	}
@@ -188,9 +202,9 @@ public class VacanciesRegistration extends JFrame {
 			jContentPane.add(getBtnAdd(), null);
 			jContentPane.add(getBtnSave(), null);
 			jContentPane.add(jLabel9, null);
-			jContentPane.add(getTxtCreator(), null);
 			jContentPane.add(jLabel2, null);
 			jContentPane.add(getTxtinterpretation(), null);
+			jContentPane.add(getCbnCreator(), null);
 			jContentPane.add(txtVacancydate, null);
 		}
 		return jContentPane;
@@ -327,7 +341,9 @@ public class VacanciesRegistration extends JFrame {
 					//model.setVacancy_Date(txtVacancydate.getText().trim());
 					SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 					model.setVacancy_Date(sdf.format(txtVacancydate.getDate()).trim());
-					model.setCreator(txtCreator.getText().trim());
+					model.setCreator(((KeyValue) cbnCreator.getSelectedItem())
+							.getKey());
+					//model.setCreator(txtCreator.getText().trim());
 					model.setPriority(txtPriority.getText().trim());
 					if(!validateModel(model)) {
 						return;
@@ -335,14 +351,14 @@ public class VacanciesRegistration extends JFrame {
 					Boolean kq = VacanciesDAO.insertUsingStore(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Add successful employee", "Notice",
+								"Add successful ", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewVacancies()).setVisible(true);
 						dispose();
 					}else{
 						JOptionPane.showMessageDialog(null,
-								"Add employee failed", "Notice",
-								JOptionPane.INFORMATION_MESSAGE);
+								"Add failed", "Notice",
+								JOptionPane.ERROR_MESSAGE);
 						(new ViewVacancies()).setVisible(true);
 						dispose();
 					}
@@ -383,27 +399,25 @@ public class VacanciesRegistration extends JFrame {
 		return btnSave;
 	}
 
-	/**
-	 * This method initializes txtCreator	
-	 * 	
-	 * @return javax.swing.JTextField	
-	 */
-	private JTextField getTxtCreator() {
-		if (txtCreator == null) {
-			txtCreator = new JTextField();
-			txtCreator.setSize(new Dimension(200, 25));
-			txtCreator.setLocation(new Point(465, 190));
-		}
-		return txtCreator;
-	}
-private Boolean validateModel(VacanciesModel mo) {
+	private Boolean validateModel(VacanciesModel mo) {
     	
     	if( mo.getVacancy_ID() == null || mo.getVacancy_ID().equals("")){ 
     		JOptionPane.showMessageDialog(null, "Vacancy_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if (VacanciesDAO.getSectionByID(mo.getVacancy_ID()) != null) {
+    		JOptionPane.showMessageDialog(null, "Vacancy_ID Already exists","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    		}
+    	if( mo.getInterpretation() == null || mo.getInterpretation().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Interpretation invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
     	if( mo.getNo_Of_Vacancies() == null || mo.getNo_Of_Vacancies().equals("")){ 
     		JOptionPane.showMessageDialog(null, "No_Of_Vacancies invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if(!validateno_of(mo.getNo_Of_Vacancies())){
     		return false;
     	}
     	if( mo.getStatus()== null || mo.getStatus().equals("")){
@@ -429,7 +443,18 @@ private Boolean validateModel(VacanciesModel mo) {
 		return true;
     	
     }
-
+	public boolean  validateno_of(String input){
+		//boolean kq = true;
+		String regex = "[0-9*]";
+		Pattern pat = Pattern.compile(regex);
+		Matcher mat = pat.matcher(input);
+		if(mat.find()){
+			
+			return true;
+		}
+		JOptionPane.showMessageDialog(null, "Is the No_Of_Vacancies number","Notice",JOptionPane.ERROR_MESSAGE);
+		return false;
+		}
 /**
  * This method initializes txtinterpretation	
  * 	
@@ -441,6 +466,20 @@ private JTextField getTxtinterpretation() {
 		txtinterpretation.setBounds(new Rectangle(128, 187, 194, 72));
 	}
 	return txtinterpretation;
+}
+
+/**
+ * This method initializes cbnCreator	
+ * 	
+ * @return javax.swing.JComboBox	
+ */
+private JComboBox getCbnCreator() {
+	if (cbnCreator == null) {
+		cbnCreator = new JComboBox();
+		cbnCreator.setSize(new Dimension(200, 25));
+		cbnCreator.setLocation(new Point(466, 190));
+	}
+	return cbnCreator;
 }
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

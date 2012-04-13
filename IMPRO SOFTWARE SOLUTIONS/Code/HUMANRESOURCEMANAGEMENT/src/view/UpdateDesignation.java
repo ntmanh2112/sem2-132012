@@ -29,6 +29,8 @@ import model.DesignationModel;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 
@@ -138,6 +140,7 @@ public class UpdateDesignation extends JFrame {
 	private JTextField getTxtDesignationid() {
 		if (txtDesignationid == null) {
 			txtDesignationid = new JTextField();
+			txtDesignationid.setEnabled(false);
 			txtDesignationid.setSize(new Dimension(200, 25));
 			txtDesignationid.setLocation(new Point(100, 100));
 		}
@@ -192,6 +195,13 @@ public class UpdateDesignation extends JFrame {
 						(new ViewDesignation()).setVisible(true);
 						dispose();
 					}
+					else{
+						JOptionPane.showMessageDialog(null,
+								"Update failed", "Notice",
+								JOptionPane.ERROR_MESSAGE);
+						(new ViewDesignation()).setVisible(true);
+						dispose();
+					}
 				}
 			});
 		}
@@ -241,9 +251,23 @@ public class UpdateDesignation extends JFrame {
     		JOptionPane.showMessageDialog(null, "Designation invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+		if(!validateDesignation(mo.getDesignation())){
+			return false;
+		}
 		return true;
 	}
-
+	public boolean  validateDesignation(String input){
+		//boolean kq = true;
+		String regex = "[A-Za-z]";
+		Pattern pat = Pattern.compile(regex);
+		Matcher mat = pat.matcher(input);
+		if(mat.find()){
+			
+			return true;
+		}
+		JOptionPane.showMessageDialog(null, "Designation not numbers","Notice",JOptionPane.ERROR_MESSAGE);
+		return false;
+		}
 	/**
 	 * This method initializes cbnLayerId	
 	 * 	
@@ -252,6 +276,7 @@ public class UpdateDesignation extends JFrame {
 	private JComboBox getCbnLayerId() {
 		if (cbnLayerId == null) {
 			cbnLayerId = new JComboBox();
+			cbnLayerId.setEnabled(false);
 			cbnLayerId.setSize(new Dimension(200, 26));
 			cbnLayerId.setLocation(new Point(100, 140));
 		}

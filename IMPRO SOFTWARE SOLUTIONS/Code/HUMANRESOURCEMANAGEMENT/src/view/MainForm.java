@@ -151,7 +151,7 @@ public class MainForm extends JFrame {
 			jJMenuBar.add(getJMenuHrmanager());
 			jJMenuBar.add(getJMenuDepartmentmanager());
 			jJMenuBar.add(getJMenuEmployee());
-			jJMenuBar.add(getJMenuExit());
+			
 		}
 		return jJMenuBar;
 	}
@@ -169,22 +169,19 @@ public class MainForm extends JFrame {
 				//jJMenuBar.add(getJMenuHrmanager());
 				//jJMenuBar.add(getJMenuDepartmentmanager());
 				//jJMenuBar.add(getJMenuEmployee());
-				jJMenuBar.add(getJMenuExit());
+				
 			} 
 			if(desID.equals("D201")){
 				jJMenuBar.add(getJMenuHrmanager());
-				jJMenuBar.add(getJMenuExit());
 				//jJMenuBar.add(getJMenuDepartmentmanager()); bo? cai nay dung ko
 				//jJMenuBar.add(getJMenuEmployee());
 			} 
 			if(desID.equals("D301")){
 				jJMenuBar.add(getJMenuDepartmentmanager());
 				//jJMenuBar.add(getJMenuEmployee());
-				jJMenuBar.add(getJMenuExit());
 			} 
 			if(desID.equals("D401")){
 				jJMenuBar.add(getJMenuEmployee());
-				jJMenuBar.add(getJMenuExit());
 			} 
 		}
 		return jJMenuBar;
@@ -200,14 +197,16 @@ public class MainForm extends JFrame {
 			jMenuAdmin.setText("Admin");
 			jMenuAdmin.add(getJMenuItemViewdepartment());
 			jMenuAdmin.add(getJMenuItemViewsection());
-			jMenuAdmin.add(getJMenuItemViewemployee());
+			jMenuAdmin.add(getJMenuItemViewdesignationlayer());
 			jMenuAdmin.add(getJMenuItemViewdesignation());
+			jMenuAdmin.add(getJMenuItemViewemployee());
+			
 			//jMenuAdmin.add(getJMenuItemViewdepartmentdependencies());
 			
 			jMenuAdmin.add(getJMenuItemViewvacancies());
 			jMenuAdmin.add(getJMenuItemViewvacanciesfillinginfo());
 			
-			jMenuAdmin.add(getJMenuItemViewdesignationlayer());
+			
 			//jMenuAdmin.add(getJMenuItemViewdesignationweightage());
 			jMenuAdmin.add(getJMenuItemCreateaccount());
 		}
@@ -228,7 +227,7 @@ public class MainForm extends JFrame {
 			jMenuHrmanager.add(getJMenuItemHrviewsection());
 			jMenuHrmanager.add(getJMenuItemHrrotateemployee());
 			jMenuHrmanager.add(getJMenuItemHrprocessvacancy());
-			jMenuHrmanager.add(getJMenuItemHrviewreport());
+			//jMenuHrmanager.add(getJMenuItemHrviewreport());
 		}
 		return jMenuHrmanager;
 	}
@@ -245,7 +244,7 @@ public class MainForm extends JFrame {
 			jMenuDepartmentmanager.add(getJMenuItemDmviewemployee());
 			jMenuDepartmentmanager.add(getJMenuItemDmviewsection());
 			jMenuDepartmentmanager.add(getJMenuItemDmmanagevacancy());
-			jMenuDepartmentmanager.add(getJMenuItemDmviewreport());
+			//jMenuDepartmentmanager.add(getJMenuItemDmviewreport());
 		}
 		return jMenuDepartmentmanager;
 	}
@@ -258,7 +257,7 @@ public class MainForm extends JFrame {
 	private JMenu getJMenuEmployee() {
 		if (jMenuEmployee == null) {
 			jMenuEmployee = new JMenu();
-			jMenuEmployee.setText("Employee");
+			jMenuEmployee.setText("Information Employee");
 			jMenuEmployee.add(getJMenuItemViewinformation());
 		}
 		return jMenuEmployee;
@@ -469,7 +468,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrviewdepartment() {
 		if (jMenuItemHrviewdepartment == null) {
 			jMenuItemHrviewdepartment = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/Forward.png");
+			ImageIcon img = new ImageIcon("images/Script.png");
 			jMenuItemHrviewdepartment.setIcon(img);
 			jMenuItemHrviewdepartment.setText("View Department");
 			jMenuItemHrviewdepartment
@@ -492,9 +491,9 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrviewemployee() {
 		if (jMenuItemHrviewemployee == null) {
 			jMenuItemHrviewemployee = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/Forward.png");
+			ImageIcon img = new ImageIcon("images/People.png");
 			jMenuItemHrviewemployee.setIcon(img);
-			jMenuItemHrviewemployee.setText("View Employee");
+			jMenuItemHrviewemployee.setText("Management Employee");
 			jMenuItemHrviewemployee.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); 
@@ -514,9 +513,9 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrviewsection() {
 		if (jMenuItemHrviewsection == null) {
 			jMenuItemHrviewsection = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/Forward.png");
+			ImageIcon img = new ImageIcon("images/Table.png");
 			jMenuItemHrviewsection.setIcon(img);
-			jMenuItemHrviewsection.setText("View Section");
+			jMenuItemHrviewsection.setText("Management Section");
 			jMenuItemHrviewsection.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
@@ -536,7 +535,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrrotateemployee() {
 		if (jMenuItemHrrotateemployee == null) {
 			jMenuItemHrrotateemployee = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/Forward.png");
+			ImageIcon img = new ImageIcon("images/User group.png");
 			jMenuItemHrrotateemployee.setIcon(img);
 			jMenuItemHrrotateemployee.setText("Rotate Employee");
 			jMenuItemHrrotateemployee
@@ -559,9 +558,9 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrprocessvacancy() {
 		if (jMenuItemHrprocessvacancy == null) {
 			jMenuItemHrprocessvacancy = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/Forward.png");
+			ImageIcon img = new ImageIcon("images/Wallet.png");
 			jMenuItemHrprocessvacancy.setIcon(img);
-			jMenuItemHrprocessvacancy.setText("Process Vacancy");
+			jMenuItemHrprocessvacancy.setText("View Vacancy");
 			jMenuItemHrprocessvacancy
 					.addActionListener(new java.awt.event.ActionListener() {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -604,9 +603,9 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemDmviewemployee() {
 		if (jMenuItemDmviewemployee == null) {
 			jMenuItemDmviewemployee = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/Yes.png");
+			ImageIcon img = new ImageIcon("images/People.png");
 			jMenuItemDmviewemployee.setIcon(img);
-			jMenuItemDmviewemployee.setText("View Employee");
+			jMenuItemDmviewemployee.setText("Management Employee");
 			jMenuItemDmviewemployee.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
@@ -626,9 +625,9 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemDmviewsection() {
 		if (jMenuItemDmviewsection == null) {
 			jMenuItemDmviewsection = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/Yes.png");
+			ImageIcon img = new ImageIcon("images/Table.png");
 			jMenuItemDmviewsection.setIcon(img);
-			jMenuItemDmviewsection.setText("View Section");
+			jMenuItemDmviewsection.setText("Management Section");
 			jMenuItemDmviewsection.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
@@ -648,9 +647,9 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemDmmanagevacancy() {
 		if (jMenuItemDmmanagevacancy == null) {
 			jMenuItemDmmanagevacancy = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/Yes.png");
+			ImageIcon img = new ImageIcon("images/Wallet.png");
 			jMenuItemDmmanagevacancy.setIcon(img);
-			jMenuItemDmmanagevacancy.setText("Manage Vacancy");
+			jMenuItemDmmanagevacancy.setText("Management Vacancy");
 			jMenuItemDmmanagevacancy.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
@@ -685,7 +684,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemViewinformation() {
 		if (jMenuItemViewinformation == null) {
 			jMenuItemViewinformation = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/View.png");
+			ImageIcon img = new ImageIcon("images/People.png");
 			jMenuItemViewinformation.setIcon(img);
 			jMenuItemViewinformation.setText("View Information");
 			jMenuItemViewinformation.addActionListener(new java.awt.event.ActionListener() {
@@ -703,24 +702,6 @@ public class MainForm extends JFrame {
 	 * 	
 	 * @return javax.swing.JMenu	
 	 */
-	private JMenu getJMenuExit() {
-		if (jMenuExit == null) {
-			jMenuExit = new JMenu();
-			jMenuExit.setText("Exit");
-			jMenuExit.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					int kg = JOptionPane.showConfirmDialog(null,
-							"Are you sure you want to exit", "Notice",
-							JOptionPane.OK_CANCEL_OPTION);
-					if (kg == 0) {
-						(new Login()).setVisible(true);
-						dispose();
-					}
-				}
-			});
-		}
-		return jMenuExit;
-	}
+	
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

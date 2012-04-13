@@ -21,7 +21,7 @@ public class DesignLayerDAO {
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				DesignLayerModel model = new DesignLayerModel();
-				model.setDes_ID(rs.getString("Des_ID"));
+				model.setLayer_ID(rs.getString("Layer_ID"));
 				model.setLayer(rs.getString("Layer"));
 				model.setWeightage(rs.getString("Weightage"));
 				
@@ -36,12 +36,13 @@ public class DesignLayerDAO {
 	public static DesignLayerModel getDesignLayerByID(String id){
 		DesignLayerModel model = null;
 		try {
-			String sql = "SELECT * FROM DesignLayer WHERE Layer_ID =?";
+			String sql = "SELECT * FROM Desiglayer WHERE Layer_ID =?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				model.setDes_ID(rs.getString("Des_ID"));
+				model = new DesignLayerModel();
+				model.setLayer_ID(rs.getString("Layer_ID"));
 				model.setLayer(rs.getString("Layer"));
 				model.setWeightage(rs.getString("Weightage"));
 			}
@@ -51,7 +52,7 @@ public class DesignLayerDAO {
 		}
 		return model;
 	}
-	public static ArrayList<DesignLayerModel> getlayerByID(String id){
+	/*public static ArrayList<DesignLayerModel> getlayerByID(String id){
 		 ArrayList<DesignLayerModel> listmodel = new ArrayList<DesignLayerModel>();
 		try {
 			String sql = "select A.layer,B.Designation from DesigLayer AS A inner join Designation AS B on A.layer_ID = B.layer_ID where Layer = ?";
@@ -69,15 +70,17 @@ public class DesignLayerDAO {
 			e.printStackTrace();
 		}
 		return listmodel;
-	}
+	}*/
 	public static boolean updateDesignLayer(DesignLayerModel model){
 		Boolean kq = false;
 		try {
-			String sql = "UPDATE DesignLayer SET Layer = ? , Weightage = ? WHERE Layer_ID=?";
+			String sql = "UPDATE DesigLayer SET Layer = ? , Weightage = ? WHERE Layer_ID=?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			
 			ps.setString(1, model.getLayer());
 			ps.setString(2, model.getWeightage());
-			ps.setString(3, model.getDes_ID());	
+			ps.setString(3, model.getLayer_ID());	
+			
 			ps.executeUpdate();
 			kq = true;
 		} catch (Exception e) {
@@ -90,9 +93,9 @@ public class DesignLayerDAO {
 		Boolean kq = false;
 		String sql ;
 			try {
-				sql = "INSERT INTO DesignLayer VALUES (?,?,?)";
+				sql = "INSERT INTO Desiglayer VALUES (?,?,?)";
 				PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
-				ps.setString(1, model.getDes_ID());
+				ps.setString(1, model.getLayer_ID());
 				ps.setString(2, model.getLayer());
 				ps.setString(3, model.getWeightage());
 				ps.executeUpdate();
@@ -106,9 +109,9 @@ public class DesignLayerDAO {
 	public static Boolean deleteDesignLayer(DesignLayerModel model){
 		Boolean kq = false;
 		try {
-			String sql = "DELETE  FROM DesignLayer WHERE Layer_ID = ?";
+			String sql = "DELETE  FROM DesigLayer WHERE Layer_ID = ?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
-			ps.setString(1, model.getDes_ID());
+			ps.setString(1, model.getLayer_ID());
 			ps.executeUpdate();
 			kq = true;
 		} catch (SQLException e) {
@@ -125,7 +128,7 @@ public class DesignLayerDAO {
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){
 				DesignLayerModel model = new DesignLayerModel();
-				model.setDes_ID(rs.getString("Des_ID"));
+				model.setLayer_ID(rs.getString("Layer_ID"));
 				model.setLayer(rs.getString("Layer"));
 				model.setWeightage(rs.getString("Weightage"));
 				listDesignLayer.add(model);

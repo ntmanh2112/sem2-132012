@@ -21,14 +21,18 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 import dao.DepartmentsDAO;
+import dao.DesignLayerDAO;
 import dao.DesignationDAO;
 import dao.EmployeeDAO;
 
 import model.DepartmentsModel;
+import model.DesignLayerModel;
 import model.DesignationModel;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 
@@ -54,8 +58,8 @@ public class DesignationRegistration extends JFrame {
 	public DesignationRegistration() {
 		super();
 		initialize();
-		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
-		for (DesignationModel dm : listDesignation) {
+		ArrayList<DesignLayerModel> listDesignLayer = DesignLayerDAO.getAllDesignLayer();
+		for (DesignLayerModel dm : listDesignLayer) {
 			KeyValue item = new KeyValue(dm.getLayer_ID(),dm.getLayer_ID());
 
 			cbnLayerId.addItem(item);
@@ -178,8 +182,15 @@ public class DesignationRegistration extends JFrame {
 					Boolean kq = DesignationDAO.insertDesignation(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Add succesful Designation", "Notice",
+								"Add succesful ", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewDesignation()).setVisible(true);
+						dispose();
+					}
+					else{
+						JOptionPane.showMessageDialog(null,
+								"Add failed ", "Notice",
+								JOptionPane.ERROR_MESSAGE);
 						(new ViewDesignation()).setVisible(true);
 						dispose();
 					}
@@ -224,6 +235,11 @@ public class DesignationRegistration extends JFrame {
     		JOptionPane.showMessageDialog(null, "DEP_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+		if (DesignationDAO.getDesignationByID(mo.getDesID()) != null) {
+    		JOptionPane.showMessageDialog(null, "DesID Already exists","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    		}
+    	
 		if( mo.getLayer_ID() == null || mo.getLayer_ID().equals("")){ 
     		JOptionPane.showMessageDialog(null, "LAYER_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
@@ -232,9 +248,23 @@ public class DesignationRegistration extends JFrame {
     		JOptionPane.showMessageDialog(null, "Designation invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+		if(!validateDesignation(mo.getDesignation())){
+			return false;
+		}
 		return true;
 	}
-
+	public boolean  validateDesignation(String input){
+		//boolean kq = true;
+		String regex = "[A-Za-z]";
+		Pattern pat = Pattern.compile(regex);
+		Matcher mat = pat.matcher(input);
+		if(mat.find()){
+			
+			return true;
+		}
+		JOptionPane.showMessageDialog(null, "Designation not numbers","Notice",JOptionPane.ERROR_MESSAGE);
+		return false;
+		}
 	/**
 	 * This method initializes cbnLayerId	
 	 * 	

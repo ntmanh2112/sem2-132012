@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -17,9 +18,12 @@ import java.awt.Point;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
+import model.DepartmentsModel;
 import model.DesignLayerModel;
 import model.Vacancy_Fill_DetailsModel;
+import dao.DepartmentsDAO;
 import dao.DesignLayerDAO;
 import dao.VacancyFillingDetailsDAO;
 
@@ -77,10 +81,10 @@ public class ViewDesignationLayer extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(294, 17, 143, 47));
+			jLabel.setBounds(new Rectangle(259, 17, 243, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
-			jLabel.setText("View Layer");
+			jLabel.setText("View DesignaLayer");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -125,7 +129,7 @@ public class ViewDesignationLayer extends JFrame {
 		tableData = new String[listDesigLayer.size()][7];
 		int row = 0;
 		for (DesignLayerModel model:listDesigLayer){
-		tableData [row][0] = model.getDes_ID();
+		tableData [row][0] = model.getLayer_ID();
 		tableData [row][1] = model.getLayer();
 		tableData [row][2] = model.getWeightage();
 		
@@ -145,6 +149,13 @@ public class ViewDesignationLayer extends JFrame {
 			btnAdd.setSize(new Dimension(90, 30));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
 			btnAdd.setLocation(new Point(113, 391));
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					(new DesignationLayerRegistration()).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -161,6 +172,23 @@ public class ViewDesignationLayer extends JFrame {
 			btnEdit.setSize(new Dimension(90, 30));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Modify.png")));
 			btnEdit.setLocation(new Point(322, 391));
+			btnEdit.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					int row = jTableViewdesignationlayer.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "You not choose to edit the line","Notice",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewdesignationlayer.getValueAt(row, column).toString();
+					DesignLayerModel model = new DesignLayerModel();
+					model.setLayer_ID(manvduocluachon);
+					//JOptionPane.showMessageDialog(null,manvduocluachon);
+					(new UpdateLayer(model)).setVisible(true);
+					dispose();
+				}
+			});
 		}
 		return btnEdit;
 	}
@@ -177,6 +205,34 @@ public class ViewDesignationLayer extends JFrame {
 			btnDelete.setSize(new Dimension(90, 30));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
 			btnDelete.setLocation(new Point(527, 391));
+			btnDelete.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					//System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					DesignLayerModel mo = new DesignLayerModel();
+					int row = jTableViewdesignationlayer.getSelectedRow();
+					if(row== -1){
+						JOptionPane.showMessageDialog(null, "You not choose to delete the line","Notice",JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					int column = 0;
+					String manvduocluachon = jTableViewdesignationlayer.getValueAt(row, column).toString();
+					mo.setLayer_ID(manvduocluachon);
+					int yn = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Notice",JOptionPane.OK_CANCEL_OPTION);
+					if(yn == 0){
+						Boolean kq = DesignLayerDAO.deleteDesignLayer(mo);
+						if(kq){
+							loadDataToTable();
+							jTableViewdesignationlayer.setModel(new DefaultTableModel(tableData,ColumnName));
+							JOptionPane.showMessageDialog(null, "Delete Success","Notice",JOptionPane.INFORMATION_MESSAGE);
+							
+						}else {
+							JOptionPane.showMessageDialog(null, "Delete failed","Notice",JOptionPane.WARNING_MESSAGE);
+					
+						}
+					}
+				}
+			});
 		}
 		return btnDelete;
 	}

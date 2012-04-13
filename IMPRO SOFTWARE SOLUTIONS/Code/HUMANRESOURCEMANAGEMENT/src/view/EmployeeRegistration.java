@@ -323,67 +323,25 @@ public class EmployeeRegistration extends JFrame {
 						
 						return;
 					}
-					if(!validateEmName(txtEmpname.getText())) {
-						
-						return;
-					}
-					//validateEmail(txtEmail.getText());
 					
-					if(!validateEmail(txtEmail.getText())) {
-						
-						return;
-					}
-					//validateEmName(txtEmpname.getText());
-					
-					if(!validatePhone(txtPhone.getText())) {
-						
-						return;
-					}
 						Boolean kq = EmployeeDAO.insertUsingStore(model);
 						if (kq) {
 							JOptionPane.showMessageDialog(null,
-									"Add successful employee", "Notice",
+									"Add successful ", "Notice",
 									JOptionPane.INFORMATION_MESSAGE);
 							(new ViewEmployee()).setVisible(true);
 							dispose();
 						}else {
 							JOptionPane.showMessageDialog(null,
-									"Add that bai ", "Notice",
-									JOptionPane.INFORMATION_MESSAGE);
+									"Add failed ", "Notice",
+									JOptionPane.ERROR_MESSAGE);
 							(new ViewEmployee()).setVisible(true);
 							dispose();
 						}
 					
 				}
 			});
-			/*btnOk.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()");
-					// TODO Auto-generated Event stub actionPerformed()
-					validateEmail(txtEmail.getText());
-				}
-		});
-			btnOk.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); 
-					// TODO Auto-generated Event stub actionPerformed()
-					validatePhone(txtPhone.getText());
-				}
-			});
-			btnOk.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); 
-					// TODO Auto-generated Event stub actionPerformed()
-					validateEmName(txtEmpname.getText());
-				}
-			});
-			btnOk.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); 
-					// TODO Auto-generated Event stub actionPerformed()
-					validateFax(txtFax.getText());
-				}
-			});*/
+			
 		}
 		return btnOk;
 	}
@@ -439,37 +397,53 @@ private Boolean validateModel(EmployeeModel mo) {
     		return false;
     	}
     	if (EmployeeDAO.getEmployeeByID(mo.getEmID()) != null) {
-			JOptionPane.showMessageDialog(null, "Already exists","Notice",JOptionPane.ERROR_MESSAGE);
-			return false;
-		}
-    	   	
+    		JOptionPane.showMessageDialog(null, "EmID Already exists","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    		}
+    	
+    		
     	if( mo.getName() == null || mo.getName().equals("")){ 
     		JOptionPane.showMessageDialog(null, "EmName invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if(!validateEmName(mo.getName())){
+    		return false;
+    	}
+    	   
     
     	if( mo.getPassword()== null || mo.getPassword().equals("")){
     		JOptionPane.showMessageDialog(null, "Password invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	
     	if( mo.getAddress()== null || mo.getAddress().equals("")){
     		JOptionPane.showMessageDialog(null, "Address invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	
     	if( mo.getPhone()== null || mo.getPhone().equals("")){
     		JOptionPane.showMessageDialog(null, "Phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
-    	if(mo.getPhone().equals("")){
-    		JOptionPane.showMessageDialog(null, "Phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    	if(!validatePhone(mo.getPhone())){
+    		
     		return false;
     	}
+    	
     	if( mo.getFax()== null || mo.getFax().equals("")){
     		JOptionPane.showMessageDialog(null, "Fax invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if(!validateFax(mo.getFax())){
+    		return false;
+    	}
+    	
+    	
     	if( mo.getEmail()== null || mo.getEmail().equals("")){
     		JOptionPane.showMessageDialog(null, "Email invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if(!validateEmail(mo.getEmail())){
     		return false;
     	}
     	
@@ -477,7 +451,7 @@ private Boolean validateModel(EmployeeModel mo) {
     	
     }
 public boolean  validateEmName(String input){
-	boolean kq = true;
+	//boolean kq = true;
 	String regex = "[A-Za-z]";
 	Pattern pat = Pattern.compile(regex);
 	Matcher mat = pat.matcher(input);
@@ -485,37 +459,39 @@ public boolean  validateEmName(String input){
 		
 		return true;
 	}
-	JOptionPane.showMessageDialog(null, "EmName invalid");
-	return kq;
+	JOptionPane.showMessageDialog(null, "Names not numbers","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
 	}
 
 
 public boolean  validatePhone(String input){
-	boolean kq = true;
-	String regex = "[0-9]";
+	//boolean kq = true;
+	String regex = "[0-9*]{9,11}";
 	Pattern pat = Pattern.compile(regex);
 	Matcher mat = pat.matcher(input);
 	if(mat.find()){
-		
 		return true;
+	}else{
+	JOptionPane.showMessageDialog(null, "Is the phone number","Notice",JOptionPane.ERROR_MESSAGE);
+	//return false;
 	}
-	JOptionPane.showMessageDialog(null, "Phone invalid");
-	return kq;
+	JOptionPane.showMessageDialog(null, "Telephone number must be 9 to 11","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
 	}
 public boolean  validateFax(String input){
-	boolean kq = true;
-	String regex = "[0-9]";
+	//boolean kq = true;
+	String regex = "[0-9*]{9,11}";
 	Pattern pat = Pattern.compile(regex);
 	Matcher mat = pat.matcher(input);
 	if(mat.find()){
 		
 		return true;
 	}
-	JOptionPane.showMessageDialog(null, "Fax invalid");
-	return kq;
+	JOptionPane.showMessageDialog(null, "Is the Fax number","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
 	}
 public boolean  validateEmail(String input){
-	boolean kq = true;
+	//boolean kq = true;
 	String regex = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 	Pattern pat = Pattern.compile(regex);
 	Matcher mat = pat.matcher(input);
@@ -523,8 +499,8 @@ public boolean  validateEmail(String input){
 		
 		return true;
 	}
-	JOptionPane.showMessageDialog(null, "Email invalid");
-	return kq;
+	JOptionPane.showMessageDialog(null, "Email not invalid","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
 	}
 
 /**

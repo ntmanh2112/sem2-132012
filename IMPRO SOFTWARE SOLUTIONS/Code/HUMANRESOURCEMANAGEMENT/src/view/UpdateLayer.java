@@ -32,6 +32,8 @@ import model.DepartmentsModel;
 import model.DesignLayerModel;
 import dao.DepartmentsDAO;
 import dao.DesignLayerDAO;
+import dao.EmployeeDAO;
+
 import javax.swing.JComboBox;
 
 public class UpdateLayer extends JFrame {
@@ -46,13 +48,23 @@ public class UpdateLayer extends JFrame {
 	private JTextField txtWeightage = null;
 	private JButton btnDongy = null;
 	private JButton btnCancel = null;
-	private JComboBox jCbnDes_ID = null;
+	private JTextField txtLayerID = null;
+	DesignLayerModel model = new DesignLayerModel();  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
 	 */
 	public UpdateLayer() {
 		super();
 		initialize();
+	}
+	public UpdateLayer(DesignLayerModel mo) {
+		super();
+		this.model = DesignLayerDAO.getDesignLayerByID(mo.getLayer_ID());
+		initialize();
+		txtLayerID.setText(model.getLayer_ID());
+		txtLayer.setText(model.getLayer());
+		txtWeightage.setText(model.getWeightage());
+		
 	}
 
 	/**
@@ -65,7 +77,7 @@ public class UpdateLayer extends JFrame {
 		Dimension wndSize = theKit.getScreenSize();
 		this.setResizable(false);
 		this.setLocation((wndSize.width-436)/2, (wndSize.height-353)/2);
-		this.setSize(436, 353);
+		this.setSize(387, 353);
 		this.setContentPane(getJContentPane());
 		this.setTitle("JFrame");
 	}
@@ -80,32 +92,32 @@ public class UpdateLayer extends JFrame {
 			jLabelWeightage = new JLabel();
 			jLabelWeightage.setText("Weightage :");
 			jLabelWeightage.setLocation(new Point(40, 180));
-			jLabelWeightage.setSize(new Dimension(89, 25));
+			jLabelWeightage.setSize(new Dimension(73, 25));
 			jLabelLayer = new JLabel();
 			jLabelLayer.setText("Layer :");
 			jLabelLayer.setLocation(new Point(40, 140));
-			jLabelLayer.setSize(new Dimension(93, 25));
+			jLabelLayer.setSize(new Dimension(66, 25));
 			JLabelID = new JLabel();
-			JLabelID.setText("Des_ID :");
+			JLabelID.setText("Layer_ID :");
 			JLabelID.setLocation(new Point(40, 100));
-			JLabelID.setSize(new Dimension(95, 25));
+			JLabelID.setSize(new Dimension(66, 25));
 			jLabelTitle = new JLabel();
-			jLabelTitle.setBounds(new Rectangle(44, 15, 165, 48));
+			jLabelTitle.setBounds(new Rectangle(76, 13, 249, 48));
 			jLabelTitle.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabelTitle.setForeground(Color.red);
-			jLabelTitle.setText("Update Layer");
+			jLabelTitle.setText("Update DesignLayer");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.setBackground(new Color(238, 238, 238));
 			jContentPane.add(jLabelTitle, null);
 			jContentPane.add(JLabelID, null);
-			jContentPane.add(getJCbnDes_ID(), null);
 			jContentPane.add(jLabelLayer, null);
 			jContentPane.add(getTxtLayer(), null);
 			jContentPane.add(jLabelWeightage, null);
 			jContentPane.add(getTxtWeightage(), null);
 			jContentPane.add(getBtnDongy(), null);
 			jContentPane.add(getBtnCancel(), null);
+			jContentPane.add(getTxtLayerID(), null);
 		}
 		return jContentPane;
 	}
@@ -118,8 +130,9 @@ public class UpdateLayer extends JFrame {
 	private JTextField getTxtLayer() {
 		if (txtLayer == null) {
 			txtLayer = new JTextField();
+			//txtLayer.setEnabled(false);
 			txtLayer.setSize(new Dimension(200, 25));
-			txtLayer.setLocation(new Point(170, 140));
+			txtLayer.setLocation(new Point(130, 140));
 		}
 		return txtLayer;
 	}
@@ -133,7 +146,7 @@ public class UpdateLayer extends JFrame {
 		if (txtWeightage == null) {
 			txtWeightage = new JTextField();
 			txtWeightage.setSize(new Dimension(200, 25));
-			txtWeightage.setLocation(new Point(170, 180));
+			txtWeightage.setLocation(new Point(130, 180));
 		}
 		return txtWeightage;
 	}
@@ -146,11 +159,17 @@ public class UpdateLayer extends JFrame {
 private Boolean validateModel(DesignLayerModel mo) {
     	
     	if( mo.getLayer() == null || mo.getLayer().equals("")){ 
-    		JOptionPane.showMessageDialog(null, "Layer Không Hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Layer invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if(!validateLayer(mo.getLayer())){
+			return false;
+		}
     	if( mo.getWeightage()== null || mo.getWeightage().equals("")){
-    		JOptionPane.showMessageDialog(null, "Weightage không hợp lệ","Thông Báo",JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "Weightage invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if(!validateWeightage(mo.getWeightage())){
     		return false;
     	}
     	return true;
@@ -166,10 +185,10 @@ private Boolean validateModel(DesignLayerModel mo) {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					DesignLayerModel model = new DesignLayerModel();
+					model.setLayer_ID(txtLayerID.getText().trim());
 					model.setLayer(txtLayer.getText().trim());
 					model.setWeightage(txtWeightage.getText().trim());
-					model.setDes_ID(((KeyValue) jCbnDes_ID.getSelectedItem())
-							.getKey());
+					
 					if(!validateModel(model)) {
 						
 						return;
@@ -177,31 +196,20 @@ private Boolean validateModel(DesignLayerModel mo) {
 					Boolean kq = DesignLayerDAO.updateDesignLayer(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Update Thành Công", "Thông Báo",
+								"Update success", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewDesignationLayer()).setVisible(true);
 						dispose();
 					}else{
 						JOptionPane.showMessageDialog(null,
-								"Update Viên Th?t b?i", "Thông Báo",
-								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewVacancies()).setVisible(true);
+								"Update failed", "Notice",
+								JOptionPane.ERROR_MESSAGE);
+						(new ViewDesignationLayer()).setVisible(true);
 						dispose();
 					}
 				}
 			});
-			btnDongy.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					validateLayer(txtLayer.getText());
-				}
-			});
-			btnDongy.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					validateWeightage(txtWeightage.getText());
-				}
-			});
+			
 		}
 		return btnDongy;
 	}
@@ -222,7 +230,7 @@ private Boolean validateModel(DesignLayerModel mo) {
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					int kg = JOptionPane.showConfirmDialog(null,
-							"Ban co chac muon thoat", "Thong Bao",
+							"Are you sure you want to exit", "Notice",
 							JOptionPane.OK_CANCEL_OPTION);
 					if (kg == 0) {
 						(new ViewDesignationLayer()).setVisible(true);
@@ -234,41 +242,44 @@ private Boolean validateModel(DesignLayerModel mo) {
 		return btnCancel;
 	}
 
-	/**
-	 * This method initializes jCbnDes_ID	
-	 * 	
-	 * @return javax.swing.JComboBox	
-	 */
-	private JComboBox getJCbnDes_ID() {
-		if (jCbnDes_ID == null) {
-			jCbnDes_ID = new JComboBox();
-			jCbnDes_ID.setBounds(new Rectangle(169, 99, 201, 25));
+	public boolean  validateLayer(String input){
+		//boolean kq = true;
+		String regex = "[0-9*]";
+		Pattern pat = Pattern.compile(regex);
+		Matcher mat = pat.matcher(input);
+		if(mat.find()){
+			return true;
 		}
-		return jCbnDes_ID;
-	}
+		JOptionPane.showMessageDialog(null, "Is the Layer number","Notice",JOptionPane.ERROR_MESSAGE);
+		return false;
+		}
+		
+		
+	public boolean  validateWeightage(String input){
+		//boolean kq = true;
+		String regex = "[0-9*]";
+		Pattern pat = Pattern.compile(regex);
+		Matcher mat = pat.matcher(input);
+		if(mat.find()){
+			return true;
+		}
+		JOptionPane.showMessageDialog(null, "Is the Weightage number","Notice",JOptionPane.ERROR_MESSAGE);
+		
+		return false;
+		}
 
-public boolean  validateLayer(String input){
-	boolean kq = true;
-	String regex = "[0-9]";
-	Pattern pat = Pattern.compile(regex);
-	Matcher mat = pat.matcher(input);
-	if(mat.find()){
-		
-		return true;
+/**
+ * This method initializes txtLayerID	
+ * 	
+ * @return javax.swing.JTextField	
+ */
+private JTextField getTxtLayerID() {
+	if (txtLayerID == null) {
+		txtLayerID = new JTextField();
+		txtLayerID.setEnabled(false);
+		txtLayerID.setSize(new Dimension(200, 25));
+		txtLayerID.setLocation(new Point(130, 100));
 	}
-	JOptionPane.showMessageDialog(null, "Layer invalid");
-	return kq;
-	}
-public boolean  validateWeightage(String input){
-	boolean kq = true;
-	String regex = "[0-9]";
-	Pattern pat = Pattern.compile(regex);
-	Matcher mat = pat.matcher(input);
-	if(mat.find()){
-		
-		return true;
-	}
-	JOptionPane.showMessageDialog(null, "Weightage invalid");
-	return kq;
-	}
+	return txtLayerID;
+}
 }  //  @jve:decl-index=0:visual-constraint="10,10"
