@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.BorderFactory;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
 
 import Common.Constants;
 
@@ -209,7 +210,7 @@ public class InformationEmployee extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("DepID :");
+			jLabel3.setText("DesID :");
 			jLabel3.setLocation(new Point(419, 14));
 			jLabel3.setSize(new Dimension(48, 25));
 			jLabel2 = new JLabel();
@@ -289,8 +290,36 @@ public class InformationEmployee extends JFrame {
 			btnSearch.setSize(new Dimension(96, 25));
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.gif")));
 			btnSearch.setLocation(new Point(610, 14));
+			btnSearch.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					loadDataToTableWhenSearch();
+					jTableInformation.setModel(new DefaultTableModel(tableData, ColumnName));
+				}
+			});
 		}
 		return btnSearch;
+	}
+	public void loadDataToTableWhenSearch (){
+		String EmID = txtEmid.getText();
+		String Name = txtName.getText();
+		String DesID = txtDeptid.getText();
+		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.searchEmployee(EmID, Name, DesID);
+		tableData = new String [listEmployee.size()][8];
+		int row = 0;
+		for(EmployeeModel model : listEmployee) {
+			tableData [row][0] = model.getEmID();
+			tableData [row][1] = model.getName();
+			tableData [row][2] = model.getSecID();
+			tableData [row][3] = model.getDes_ID();
+			
+			tableData [row][4] = model.getAddress();
+			tableData [row][5] = model.getPhone();
+			tableData [row][6] = model.getFax();
+			tableData [row][7] = model.getEmail();
+			
+			row ++;
+		}
 	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

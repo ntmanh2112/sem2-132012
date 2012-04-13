@@ -26,6 +26,9 @@ import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.toedter.calendar.JDateChooser;
 import javax.swing.ImageIcon;
 
@@ -422,8 +425,15 @@ private Boolean validateModel(VacanciesModel mo) {
     		JOptionPane.showMessageDialog(null, "Vacancy_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if( mo.getInterpretation() == null || mo.getInterpretation().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Interpretation invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
     	if( mo.getNo_Of_Vacancies() == null || mo.getNo_Of_Vacancies().equals("")){ 
     		JOptionPane.showMessageDialog(null, "No_Of_Vacancies invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if(!validateno_of(mo.getNo_Of_Vacancies())){
     		return false;
     	}
     	if( mo.getStatus()== null || mo.getStatus().equals("")){
@@ -449,6 +459,18 @@ private Boolean validateModel(VacanciesModel mo) {
 		return true;
     	
     }
+public boolean  validateno_of(String input){
+	//boolean kq = true;
+	String regex = "[0-9*]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "Is the No_Of_Vacancies number","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
+	}
 /**
  * This method initializes txtinterpretation	
  * 	

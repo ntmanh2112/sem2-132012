@@ -62,6 +62,7 @@ public class ViewEmployee extends JFrame {
 		super();
 		initialize();
 		
+		
 	}
 
 	/**
@@ -266,7 +267,7 @@ public class ViewEmployee extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("DeptID :");
+			jLabel3.setText("DesID :");
 			jLabel3.setLocation(new Point(351, 17));
 			jLabel3.setSize(new Dimension(50, 25));
 			jLabel2 = new JLabel();
@@ -362,8 +363,8 @@ public class ViewEmployee extends JFrame {
 	public void loadDataToTableWhenSearch (){
 		String EmID = txtEmpid.getText();
 		String Name = txtEmpname.getText();
-		String Dep_ID = txtDeptid.getText();
-		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.searchEmployee(EmID, Name, Dep_ID);
+		String DesID = txtDeptid.getText();
+		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.searchEmployee(EmID, Name, DesID);
 		tableData = new String [listEmployee.size()][8];
 		int row = 0;
 		for(EmployeeModel model : listEmployee) {

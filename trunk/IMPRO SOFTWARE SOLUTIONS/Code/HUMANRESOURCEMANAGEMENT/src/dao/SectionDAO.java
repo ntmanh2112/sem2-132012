@@ -87,7 +87,7 @@ public class SectionDAO {
 				model.setSecID(rs.getString("SecID"));
 				model.setName(rs.getString("Name"));
 				model.setSection_Inch(rs.getString("Section_Inch"));
-				model.setDep_ID(rs.getString("DepID"));
+				model.setDep_ID(rs.getString("Dep_ID"));
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -98,7 +98,7 @@ public class SectionDAO {
 	public static boolean updateSection(SectionModel model){
 		Boolean kq = false;
 		try {
-			String sql = "UPDATE Section SET Name = ? , Section_Inch = ?, DepID = ? WHERE SecID=?";
+			String sql = "UPDATE Section SET Name = ? , Section_Inch = ?, Dep_ID = ? WHERE SecID=?";
 
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, model.getName());

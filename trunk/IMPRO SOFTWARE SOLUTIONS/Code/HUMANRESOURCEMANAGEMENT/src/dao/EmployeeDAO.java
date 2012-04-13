@@ -41,8 +41,8 @@ public class EmployeeDAO {
 	public static EmployeeModel getEmployeeByID(String id){
 		EmployeeModel model = null;
 		try {
-			//String sql = "SELECT A.EmID, A.Name, B.Password, A.Dep_ID, A.Des_ID, A.SecID, A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID";
-			String sql = "select *  from employee AS A inner join account AS B on A.EmID =  B.EmID where A.EmID = ? ";
+			String sql = "SELECT A.EmID, A.Name, B.Password, A.Des_ID, A.SecID, A.Address, A.Phone, A.Fax, A.Email from Employee as A inner join Account as B on B.EmID = A.EmID where A.EmiD=?";
+			//String sql = "select *  from employee AS A inner join account AS B on A.EmID =  B.EmID where A.EmID = ? ";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -50,6 +50,7 @@ public class EmployeeDAO {
 				model = new EmployeeModel();
 				model.setEmID(rs.getString("EmID"));
 				model.setName(rs.getString("Name"));
+				model.setPassword(rs.getString("Password"));
 				model.setSecID(rs.getString("SecID"));
 				model.setDes_ID(rs.getString("Des_ID"));
 				
@@ -57,7 +58,7 @@ public class EmployeeDAO {
 				model.setPhone(rs.getString("Phone"));
 				model.setFax(rs.getString("Fax"));
 				model.setEmail(rs.getString("Email"));
-				model.setPassword(rs.getString("Password"));
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -183,10 +184,10 @@ public class EmployeeDAO {
 		}
 		return kq;
 	}
-	public static ArrayList<EmployeeModel> searchEmployee(String EmID,String Name,String Dep_ID){
+	public static ArrayList<EmployeeModel> searchEmployee(String EmID,String Name,String DesID){
 		ArrayList<EmployeeModel> listEmployee = new ArrayList<EmployeeModel>();
 		try {
-			String sql = "SELECT EmID, Name, Dep_ID, Des_ID, Address, Phone, Fax, Email FROM Employee WHERE EmID LIKE '%" +EmID+ "%' AND Name LIKE '%" +Name+ "%' AND Dep_ID LIKE '%" +Dep_ID+ "%'";
+			String sql = "SELECT EmID, Name, SecID,Des_ID, Address, Phone, Fax, Email FROM Employee WHERE EmID LIKE '%" +EmID+ "%' AND Name LIKE '%" +Name+ "%' AND Des_ID LIKE '%" +DesID+ "%'";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){

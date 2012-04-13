@@ -61,12 +61,16 @@ public class DiviseEmployee extends JFrame {
 			KeyValue item = new KeyValue(section.getSecID(), section.getName());
 
 			cbnSectionname.addItem(item);
+			
 		}
 		ArrayList<VacanciesModel> listvacancy = VacanciesDAO.getAllVacancies();
 		for (VacanciesModel vacncy : listvacancy) {
 			KeyValue item = new KeyValue(vacncy.getVacancy_ID(), vacncy.getInterpretation());
 			
 			cbnVacancy.addItem(item);
+			if (item.getKey().equals(this.model.getSecID())) {
+				cbnVacancy.setSelectedItem(item);
+			}
 			//cbnVacancy.removeAllItems();
 		}
 		//cbnVacancy.removeAllItems();
@@ -186,10 +190,10 @@ public class DiviseEmployee extends JFrame {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					
 					
-					KeyValue val = (KeyValue) cbnSectionname.getSelectedItem();
-					/*String Vacancy_ID = ((KeyValue)cbnVacancy.getSelectedItem()).getKey();
-					String SecID = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
-					VacanciesDAO.getSectionByID(SecID);*/
+					//KeyValue val = (KeyValue) cbnSectionname.getSelectedItem();
+					//String Vacancy_ID = ((KeyValue)cbnVacancy.getSelectedItem()).getKey();
+					//String SecID = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
+					//VacanciesDAO.getSectionByID(SecID);
 					//ArrayList<VacanciesModel> listDivision = VacanciesDAO.getSectionByID(SecID);
 					loadData();
 				}

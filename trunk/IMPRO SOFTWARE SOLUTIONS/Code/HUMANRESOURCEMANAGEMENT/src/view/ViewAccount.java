@@ -47,7 +47,7 @@ public class ViewAccount extends JFrame {
 	private JLabel jLabel1 = null;
 	private JTextField txtEmpid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"EmID","Name","Layer","Designation"};
+	private String[] ColumnName ={"EmID","Name","Layer","Position"};
 	private String[][] tableData;
 	private JLabel jLabel2 = null;
 	private JTextField txtDesignation = null;

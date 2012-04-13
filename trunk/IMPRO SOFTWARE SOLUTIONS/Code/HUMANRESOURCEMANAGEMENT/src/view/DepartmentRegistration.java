@@ -223,27 +223,20 @@ public class DepartmentRegistration extends JFrame {
 					Boolean kq = DepartmentsDAO.insertDepartments(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Add successful department", "Notice",
+								"Add successful ", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewDepartment()).setVisible(true);
+						dispose();
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Add failed ", "Notice",
+								JOptionPane.ERROR_MESSAGE);
 						(new ViewDepartment()).setVisible(true);
 						dispose();
 					}
 				}
 			});
-			btnAdd.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()"); 
-					// TODO Auto-generated Event stub actionPerformed()
-					validateDeptno(txtupno.getText());
-				}
-			});
-			btnAdd.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					System.out.println("actionPerformed()");
-					// TODO Auto-generated Event stub actionPerformed()
-					validateDeptno(txtdnno.getText());
-				}
-			});
+			
 		}
 		return btnAdd;
 	}
@@ -352,12 +345,22 @@ private Boolean validateModel(DepartmentsModel mo) {
     		JOptionPane.showMessageDialog(null, " DEP_ID invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if (DepartmentsDAO.getDepartmentsByID(mo.getDep_ID()) != null) {
+    		JOptionPane.showMessageDialog(null, "Dep_ID Already exists","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    		}
     	if( mo.getDep_Name() == null || mo.getDep_Name().equals("")){ 
     		JOptionPane.showMessageDialog(null, "DEP_NAME invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if(!validateDepName(mo.getDep_Name())){
+    		return false;
+    	}
     	if( mo.getDep_Head()== null || mo.getDep_Head().equals("")){
     		JOptionPane.showMessageDialog(null, "DEP_HEAD invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if(!validateDep_head(mo.getDep_Head())){
     		return false;
     	}
     	if( mo.getLocation()== null || mo.getLocation().equals("")){
@@ -368,8 +371,14 @@ private Boolean validateModel(DepartmentsModel mo) {
     		JOptionPane.showMessageDialog(null, "UP_DEP_NO invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
+    	if(!validateupNo(mo.getUp_Dep_No())){
+    		return false;
+    	}
     	if( mo.getDn_Dep_No()== null || mo.getDn_Dep_No().equals("")){
     		JOptionPane.showMessageDialog(null, "DN_DEP_NO invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if(!validateDnNo(mo.getDn_Dep_No())){
     		return false;
     	}
     	
@@ -377,17 +386,52 @@ private Boolean validateModel(DepartmentsModel mo) {
 		
     	
     }
-public boolean  validateDeptno(String input){
-	boolean kq = true;
-	String regex = "[0-9]";
+public boolean  validateDepName(String input){
+	//boolean kq = true;
+	String regex = "[A-Za-z]";
 	Pattern pat = Pattern.compile(regex);
 	Matcher mat = pat.matcher(input);
 	if(mat.find()){
-		JOptionPane.showMessageDialog(null, "OK");
+		
 		return true;
 	}
-	JOptionPane.showMessageDialog(null, "UP(DN)_Dep_No must be number");
-	return kq;
+	JOptionPane.showMessageDialog(null, "Names not numbers","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
 	}
-
+public boolean  validateDep_head(String input){
+	//boolean kq = true;
+	String regex = "[A-Za-z]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		
+		return true;
+	}
+	JOptionPane.showMessageDialog(null, "Dep_head not numbers","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
+	}
+public boolean  validateupNo(String input){
+	//boolean kq = true;
+	String regex = "[0-9*]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		return true;
+	}else{
+	JOptionPane.showMessageDialog(null, "Is the Up_Dep_No number","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
+	}
+}
+public boolean  validateDnNo(String input){
+	//boolean kq = true;
+	String regex = "[0-9*]";
+	Pattern pat = Pattern.compile(regex);
+	Matcher mat = pat.matcher(input);
+	if(mat.find()){
+		return true;
+	}else{
+	JOptionPane.showMessageDialog(null, "Is the Dn_Dep_No number","Notice",JOptionPane.ERROR_MESSAGE);
+	return false;
+	}
+}
 }  //  @jve:decl-index=0:visual-constraint="10,10"

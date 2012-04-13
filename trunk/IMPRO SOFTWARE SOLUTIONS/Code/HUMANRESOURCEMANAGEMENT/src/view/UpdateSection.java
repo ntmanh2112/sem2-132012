@@ -31,6 +31,8 @@ import dao.SectionDAO;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UpdateSection extends JFrame {
 
@@ -75,7 +77,15 @@ public class UpdateSection extends JFrame {
 			}
 		}
 		
-		
+		/*ArrayList<SectionModel> listsection = SectionDAO.getAllSection();
+		for (SectionModel dm : listsection) {
+			KeyValue item = new KeyValue(dm.getDep_ID(),dm.getDep_ID());
+
+			cbnDeptno.addItem(item);
+			if (item.getKey().equals(this.model.getDep_ID())) {
+				cbnDeptno.setSelectedItem(item);
+			}
+		}*/
 	
 		
 		//txtSecincharge.setText(this.model.getSection_Inch());
@@ -194,6 +204,7 @@ public class UpdateSection extends JFrame {
 	private JComboBox getCbnDeptno() {
 		if (cbnDeptno == null) {
 			cbnDeptno = new JComboBox();
+			cbnDeptno.setEnabled(false);
 			cbnDeptno.setLocation(new Point(150, 220));
 			cbnDeptno.setSize(new Dimension(200, 25));
 			
@@ -266,6 +277,13 @@ public class UpdateSection extends JFrame {
 						(new ViewSection()).setVisible(true);
 						dispose();
 
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Update failed",
+								"Notice",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewSection()).setVisible(true);
+						dispose();
 					}
 				}
 				
@@ -283,7 +301,10 @@ public class UpdateSection extends JFrame {
 			JOptionPane.showMessageDialog(null,"SecName invalid","Notice",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		
+		if(!validateSecName(mo.getName())){
+			
+			return false;
+		}
 		if (mo.getSection_Inch() == null || mo.getSection_Inch().equals("")) {
 			JOptionPane.showMessageDialog(null,"Section incharge invalid","Notice",JOptionPane.ERROR_MESSAGE);
 			return false;
@@ -291,5 +312,16 @@ public class UpdateSection extends JFrame {
 		return true;
 	
 	}
-
+	public boolean  validateSecName(String input){
+		//boolean kq = true;
+		String regex = "[A-Za-z]";
+		Pattern pat = Pattern.compile(regex);
+		Matcher mat = pat.matcher(input);
+		if(mat.find()){
+			
+			return true;
+		}
+		JOptionPane.showMessageDialog(null, "SecName not numbers","Notice",JOptionPane.ERROR_MESSAGE);
+		return false;
+		}
 }  //  @jve:decl-index=0:visual-constraint="10,10"

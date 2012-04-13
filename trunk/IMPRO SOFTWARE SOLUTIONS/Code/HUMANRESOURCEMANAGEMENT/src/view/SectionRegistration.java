@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import Common.KeyValue;
 
 import dao.DepartmentsDAO;
+import dao.EmployeeDAO;
 import dao.SectionDAO;
 
 
@@ -28,6 +29,8 @@ import model.SectionModel;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SectionRegistration extends JFrame {
 
@@ -255,7 +258,13 @@ public class SectionRegistration extends JFrame {
 					Boolean kq = SectionDAO.insertSection(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
-								"Thêm Section Thành Công", "Thông Báo",
+								"Add successful", "Notice",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new ViewSection()).setVisible(true);
+						dispose();
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Add failed", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
 						(new ViewSection()).setVisible(true);
 						dispose();
@@ -270,8 +279,16 @@ public class SectionRegistration extends JFrame {
 			JOptionPane.showMessageDialog(null,"SecID invalid","Notice",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
+		if (SectionDAO.getSectionByID(mo.getSecID()) != null) {
+    		JOptionPane.showMessageDialog(null, "SecID Already exists","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    		}
 		if (mo.getName() == null || mo.getName().equals("")) {
 			JOptionPane.showMessageDialog(null,"SecName invalid","Notice",JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if(!validateSecName(mo.getName())){
+			
 			return false;
 		}
 		
@@ -282,7 +299,18 @@ public class SectionRegistration extends JFrame {
 		return true;
 	
 	}
+	public boolean  validateSecName(String input){
+		//boolean kq = true;
+		String regex = "[A-Za-z]";
+		Pattern pat = Pattern.compile(regex);
+		Matcher mat = pat.matcher(input);
+		if(mat.find()){
 			
+			return true;
+		}
+		JOptionPane.showMessageDialog(null, "SecName not numbers","Notice",JOptionPane.ERROR_MESSAGE);
+		return false;
+		}			
 		
 	
 }  //  @jve:decl-index=0:visual-constraint="10,10"
