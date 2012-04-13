@@ -6,8 +6,28 @@ public class AccountModel {
 	private String EmID;
 	private String Password;
 	private String DesignationID;
+	private String Name;
+	private String Layer;
+	private String Designation;
 	
-	
+	public String getName() {
+		return Name;
+	}
+	public void setName(String name) {
+		Name = name;
+	}
+	public String getLayer() {
+		return Layer;
+	}
+	public void setLayer(String layer) {
+		Layer = layer;
+	}
+	public String getDesignation() {
+		return Designation;
+	}
+	public void setDesignation(String designation) {
+		Designation = designation;
+	}
 	public String getDesignationID(){
 		return DesignationID;
 	}

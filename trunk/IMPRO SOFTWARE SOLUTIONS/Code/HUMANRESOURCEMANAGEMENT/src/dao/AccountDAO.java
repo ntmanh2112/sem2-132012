@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import model.AccountModel;
 import model.DepartmentsModel;
 import model.DesignLayerModel;
+import model.EmployeeModel;
 import model.SectionModel;
 
 import util.DataUtil;
@@ -42,13 +44,16 @@ public class AccountDAO {
 	public static ArrayList<AccountModel> getAllAccount(){
 		ArrayList<AccountModel> listAccount = new ArrayList<AccountModel>();
 		try {
-			String sql = "SELECT * FROM Account";
+			String sql = "select A.EmID,A.Password,B.name,C.Designation,D.Layer from Account AS A inner join employee AS B ON A.EmID = B.EmID inner join Designation AS C ON B.Des_ID = C.DesID inner join DesigLayer AS D ON C.Layer_ID = D.Layer_ID";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			while (rs.next()){
 				AccountModel model = new AccountModel();
-				model.setUserID(rs.getString("UserID"));
+				//model.setUserID(rs.getString("UserID"));
 				model.setPassword(rs.getString("Password"));
 				model.setEmID(rs.getString("EmID"));
+				model.setName(rs.getString("Name"));
+				model.setDesignation(rs.getString("Designation"));
+				model.setLayer(rs.getString("Layer"));
 				
 				
 				listAccount.add(model);
@@ -62,14 +67,20 @@ public class AccountDAO {
 	public static AccountModel getAccountByID(String id){
 		AccountModel model = null;
 		try {
-			String sql = "SELECT * FROM Account WHERE UserID =?";
+			String sql = "select A.EmID,A.Password,B.name,C.Designation,D.Layer from Account AS A inner join employee AS B ON A.EmID = B.EmID inner join Designation AS C ON B.Des_ID = C.DesID inner join DesigLayer AS D ON C.Layer_ID = D.Layer_ID where A.EmID=?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-				model.setUserID(rs.getString("UserID"));
+				
+				model = new AccountModel();
+				
+				//model.setUserID(rs.getString("UserID"));
 				model.setEmID(rs.getString("EmID"));
 				model.setPassword(rs.getString("Password"));
+				model.setName(rs.getString("Name"));
+				model.setLayer(rs.getString("Layer"));
+				model.setDesignation(rs.getString("Designation"));
 				
 			}
 		} catch (Exception e) {
@@ -96,7 +107,7 @@ public class AccountDAO {
 			}		
 		return kq;
 	}
-	public static boolean updateAccount(AccountModel model){
+	/*public static boolean updateAccount(AccountModel model){
 		Boolean kq = false;
 		try {
 			String sql = "UPDATE Account SET EmID = ?,Password = ?  WHERE UserID = ?";
@@ -104,7 +115,7 @@ public class AccountDAO {
 			ps.setString(1, model.getEmID());
 			ps.setString(2, model.getPassword());
 			
-			ps.setString(4, model.getEmID());
+			//ps.setString(3, model.getName());
 			ps.executeUpdate();
 			kq = true;
 		} catch (Exception e) {
@@ -112,6 +123,28 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 			return kq;
+	}*/
+	public static Boolean UpdateUsingStore(AccountModel model) {
+		Boolean kq = false;
+		
+		try {
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_UPDATEACCOUNTTODISIGNATION(?,?,?,?)}");
+			csmt.setString("EmID", model.getEmID());
+			csmt.setString("Password", model.getPassword());
+			csmt.setString("Name", model.getName());
+			csmt.setString("Des_ID", model.getLayer());
+
+			
+			
+			
+			csmt.executeUpdate();
+			kq = true;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return kq;
 	}
 	public static Boolean deleteAccount(AccountModel model){
 		Boolean kq = false;
@@ -126,5 +159,31 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 		return kq;
+	}
+	public static ArrayList<AccountModel> searchAccount(String EmID,String Name,String Designation){
+		ArrayList<AccountModel> listAccount = new ArrayList<AccountModel>();
+		try {
+			//String sql = "SELECT EmID, Name, Dep_ID, Des_ID, Address, Phone, Fax, Email FROM Employee WHERE EmID LIKE '%" +EmID+ "%' AND Name LIKE '%" +Name+ "%' AND Dep_ID LIKE '%" +Dep_ID+ "%'";
+			String sql ="select A.EmID,A.Password,B.name,C.Designation,D.Layer from Account AS A inner join employee AS B ON A.EmID = B.EmID inner join Designation AS C ON B.Des_ID = C.DesID inner join DesigLayer AS D ON C.Layer_ID = D.Layer_ID where A.EmID LIKE '%" +EmID+ "%' AND Name LIKE '%" +Name+ "%' AND Designation LIKE '%" +Designation+ "%'";
+			ResultSet rs = DataUtil.executeQuery(sql);
+			System.out.println("Result Set:"+rs.getRow());
+			while (rs.next()){
+				AccountModel model = new AccountModel();
+				model.setEmID(rs.getString("EmID"));
+				model.setName(rs.getString("Name"));
+				model.setPassword(rs.getString("Password"));
+				model.setDesignation(rs.getString("Designation"));
+				
+				
+				model.setLayer(rs.getString("Layer"));
+				
+				listAccount.add(model);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listAccount;
 	}
 }

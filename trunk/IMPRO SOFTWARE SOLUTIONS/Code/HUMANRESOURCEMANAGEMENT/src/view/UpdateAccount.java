@@ -50,6 +50,10 @@ public class UpdateAccount extends JFrame {
 	private JButton btnDelete = null;
 	AccountModel model = new AccountModel();  //  @jve:decl-index=0:
 	private JTextField txtEmID = null;
+	private JLabel jLabel1 = null;
+	private JTextField txtDesignation = null;
+	private JLabel jLabel5 = null;
+	private JTextField txtname = null;
 
 	/**
 	 * This is the default constructor
@@ -60,28 +64,23 @@ public class UpdateAccount extends JFrame {
 	}
 	public UpdateAccount(AccountModel mo){
 		super();
-		this.model = AccountDAO.getAccountByID(mo.getUserID());
+		this.model = AccountDAO.getAccountByID(mo.getEmID());
 		initialize();
-		/*ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
-		for (EmployeeModel em : listEmployee) {
-			KeyValue item = new KeyValue(em.getName(),em.getEmID());
-
-			cbnEmployeeid.addItem(item);
-			if (item.getKey().equals(model.getEmID())) {
-				cbnEmployeeid.setSelectedItem(item);
-			}
-		}*/
-		txtEmID.setText(model.getEmID());
+		
+		txtEmID.setText(this.model.getEmID());
 		txtPassword.setText(model.getPassword());
-		/*ArrayList<DesignationModel> listdesig = DesignationDAO.getAllDesignation();
+		txtname.setText(model.getName());
+		
+		ArrayList<DesignationModel> listdesig =  DesignationDAO.getAllDesignation();
 		for (DesignationModel dm : listdesig) {
 			KeyValue item = new KeyValue(dm.getDesignation(),dm.getLayer_ID());
 
 			cbnAcclevel.addItem(item);
-			if (item.getKey().equals(model.getAcc_level())) {
+			if (item.getKey().equals(model.getLayer())) {
 				cbnAcclevel.setSelectedItem(item);
 			}
-		}*/
+		}
+		txtDesignation.setText(model.getDesignation());
 	}
 
 	/**
@@ -94,7 +93,7 @@ public class UpdateAccount extends JFrame {
 		Dimension wndSize = theKit.getScreenSize();
 		this.setResizable(false);
 		this.setLocation((wndSize.width-438)/2, (wndSize.height-333)/2);
-		this.setSize(438, 333);
+		this.setSize(438, 364);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmUserCreation");
 	}
@@ -106,10 +105,16 @@ public class UpdateAccount extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
+			jLabel5 = new JLabel();
+			jLabel5.setBounds(new Rectangle(23, 168, 71, 30));
+			jLabel5.setText("Name :");
+			jLabel1 = new JLabel();
+			jLabel1.setBounds(new Rectangle(18, 246, 84, 28));
+			jLabel1.setText("Designation :");
 			jLabel4 = new JLabel();
-			jLabel4.setText("Acc-Level :");
+			jLabel4.setText("Level :");
 			jLabel4.setSize(new Dimension(71, 25));
-			jLabel4.setLocation(new Point(20, 170));
+			jLabel4.setLocation(new Point(19, 205));
 			jLabel3 = new JLabel();
 			jLabel3.setText("EmID :");
 			jLabel3.setLocation(new Point(20, 90));
@@ -135,6 +140,10 @@ public class UpdateAccount extends JFrame {
 			jContentPane.add(getBtnAdd(), null);
 			jContentPane.add(getBtnDelete(), null);
 			jContentPane.add(getTxtEmID(), null);
+			jContentPane.add(jLabel1, null);
+			jContentPane.add(getTxtDesignation(), null);
+			jContentPane.add(jLabel5, null);
+			jContentPane.add(getTxtname(), null);
 		}
 		return jContentPane;
 	}
@@ -162,7 +171,7 @@ public class UpdateAccount extends JFrame {
 		if (cbnAcclevel == null) {
 			cbnAcclevel = new JComboBox();
 			cbnAcclevel.setSize(new Dimension(200, 25));
-			cbnAcclevel.setLocation(new Point(130, 170));
+			cbnAcclevel.setLocation(new Point(135, 210));
 		}
 		return cbnAcclevel;
 	}
@@ -178,7 +187,7 @@ public class UpdateAccount extends JFrame {
 			btnAdd.setText("Add");
 			btnAdd.setSize(new Dimension(103, 40));
 			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
-			btnAdd.setLocation(new Point(74, 227));
+			btnAdd.setLocation(new Point(78, 287));
 			btnAdd.addActionListener(new ActionListener() {
 				
 				@Override
@@ -188,18 +197,20 @@ public class UpdateAccount extends JFrame {
 					//model.setUserID(userID);
 					model.setEmID(txtEmID.getText().trim());
 					model.setPassword(txtPassword.getText().trim());
-					/*model.setAcc_level(((KeyValue) cbnAcclevel.getSelectedItem())
-							.getKey());*/
+					model.setName(txtname.getText().trim());
+					model.setLayer(((KeyValue) cbnAcclevel.getSelectedItem())
+							.getKey());
+					model.setDesignation(txtDesignation.getText().trim());
 					if(!validateModel(model)) {
 						
 						return;
 					}
-					Boolean kq = AccountDAO.updateAccount(model);
+					Boolean kq = AccountDAO.UpdateUsingStore(model);
 					if (kq) {
 						JOptionPane.showMessageDialog(null,
 								"Update successful Account", "Notice",
 								JOptionPane.INFORMATION_MESSAGE);
-						(new ViewEmployee()).setVisible(true);
+						(new ViewAccount()).setVisible(true);
 						dispose();
 					}else {
 						JOptionPane.showMessageDialog(null,
@@ -226,7 +237,7 @@ public class UpdateAccount extends JFrame {
 			btnDelete.setSize(new Dimension(101, 40));
 			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(252, 227));
+			btnDelete.setLocation(new Point(255, 284));
 			btnDelete.addActionListener(new ActionListener() {
 				
 				@Override
@@ -266,6 +277,30 @@ private JTextField getTxtEmID() {
 		txtEmID.setLocation(new Point(130, 90));
 	}
 	return txtEmID;
+}
+/**
+ * This method initializes txtDesignation	
+ * 	
+ * @return javax.swing.JTextField	
+ */
+private JTextField getTxtDesignation() {
+	if (txtDesignation == null) {
+		txtDesignation = new JTextField();
+		txtDesignation.setBounds(new Rectangle(132, 245, 201, 29));
+	}
+	return txtDesignation;
+}
+/**
+ * This method initializes txtname	
+ * 	
+ * @return javax.swing.JTextField	
+ */
+private JTextField getTxtname() {
+	if (txtname == null) {
+		txtname = new JTextField();
+		txtname.setBounds(new Rectangle(132, 165, 199, 29));
+	}
+	return txtname;
 }
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"

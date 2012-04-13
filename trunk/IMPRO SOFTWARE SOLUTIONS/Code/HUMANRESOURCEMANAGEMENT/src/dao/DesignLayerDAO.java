@@ -51,6 +51,25 @@ public class DesignLayerDAO {
 		}
 		return model;
 	}
+	public static ArrayList<DesignLayerModel> getlayerByID(String id){
+		 ArrayList<DesignLayerModel> listmodel = new ArrayList<DesignLayerModel>();
+		try {
+			String sql = "select A.layer,B.Designation from DesigLayer AS A inner join Designation AS B on A.layer_ID = B.layer_ID where Layer = ?";
+			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				DesignLayerModel model = new DesignLayerModel();
+				model.setLayer(rs.getString("Layer"));
+				model.setDesignation(rs.getString("Designation"));
+				listmodel.add(model);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listmodel;
+	}
 	public static boolean updateDesignLayer(DesignLayerModel model){
 		Boolean kq = false;
 		try {

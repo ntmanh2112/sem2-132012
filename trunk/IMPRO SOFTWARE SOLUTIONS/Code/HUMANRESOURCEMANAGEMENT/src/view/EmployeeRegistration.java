@@ -323,16 +323,18 @@ public class EmployeeRegistration extends JFrame {
 						
 						return;
 					}
+					if(!validateEmName(txtEmpname.getText())) {
+						
+						return;
+					}
 					//validateEmail(txtEmail.getText());
+					
 					if(!validateEmail(txtEmail.getText())) {
 						
 						return;
 					}
 					//validateEmName(txtEmpname.getText());
-					if(!validateEmName(txtEmpname.getText())) {
-						
-						return;
-					}
+					
 					if(!validatePhone(txtPhone.getText())) {
 						
 						return;
@@ -354,7 +356,7 @@ public class EmployeeRegistration extends JFrame {
 					
 				}
 			});
-			btnOk.addActionListener(new java.awt.event.ActionListener() {
+			/*btnOk.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
 					// TODO Auto-generated Event stub actionPerformed()
@@ -381,7 +383,7 @@ public class EmployeeRegistration extends JFrame {
 					// TODO Auto-generated Event stub actionPerformed()
 					validateFax(txtFax.getText());
 				}
-			});
+			});*/
 		}
 		return btnOk;
 	}
@@ -440,18 +442,15 @@ private Boolean validateModel(EmployeeModel mo) {
 			JOptionPane.showMessageDialog(null, "Already exists","Notice",JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-    	
-    	
+    	   	
     	if( mo.getName() == null || mo.getName().equals("")){ 
     		JOptionPane.showMessageDialog(null, "EmName invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
     	}
-    	if(mo.getName().equals("[a-zA-Z]")){
-    		JOptionPane.showMessageDialog(null, "EmName invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    
+    	if( mo.getPassword()== null || mo.getPassword().equals("")){
+    		JOptionPane.showMessageDialog(null, "Password invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
-    	}else{
-    		JOptionPane.showMessageDialog(null, "names not numbers","Notice",JOptionPane.ERROR_MESSAGE);
-    		
     	}
     	if( mo.getAddress()== null || mo.getAddress().equals("")){
     		JOptionPane.showMessageDialog(null, "Address invalid","Notice",JOptionPane.ERROR_MESSAGE);
@@ -464,9 +463,6 @@ private Boolean validateModel(EmployeeModel mo) {
     	if(mo.getPhone().equals("")){
     		JOptionPane.showMessageDialog(null, "Phone invalid","Notice",JOptionPane.ERROR_MESSAGE);
     		return false;
-    	}else{
-    		JOptionPane.showMessageDialog(null, "Is the phone number","Notice",JOptionPane.ERROR_MESSAGE);
-    		
     	}
     	if( mo.getFax()== null || mo.getFax().equals("")){
     		JOptionPane.showMessageDialog(null, "Fax invalid","Notice",JOptionPane.ERROR_MESSAGE);
