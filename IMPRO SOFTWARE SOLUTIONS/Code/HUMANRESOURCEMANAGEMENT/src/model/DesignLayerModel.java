@@ -22,4 +22,11 @@ public class DesignLayerModel {
 	}
 	private String Layer;
 	private String Weightage;
+	private String Designation;
+	public String getDesignation() {
+		return Designation;
+	}
+	public void setDesignation(String designation) {
+		Designation = designation;
+	}
 }

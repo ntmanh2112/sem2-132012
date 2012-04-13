@@ -1,9 +1,12 @@
 package util;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class DataUtil {
 	
@@ -12,7 +15,29 @@ public class DataUtil {
 	public static String DATA = "jdbc:sqlserver://LETHANH-PC; DATABASENAME = QUANLYNHANSU";
 	public static String USER_NAME = "sa";
 	public static String PASSWORD = "1111984";
+	public static ResourceBundle BUNDLE = null;
 	
+	public static void readFileConfig(){
+		
+		try{
+			Scanner scanner = new Scanner(new FileInputStream("ConfigDatabase/setting.properties"));
+			int count = 1;
+			while(scanner.hasNextLine()){
+				String line = scanner.nextLine();
+				if(count ==1){
+					DATA = line;
+				} else if (count ==2){
+					USER_NAME = line;
+				} else if (count ==3){
+					PASSWORD = line;
+				}
+				count ++;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	// Ham dung de tao cau noi den SQL Server
 	public static void connect(){
 		try {

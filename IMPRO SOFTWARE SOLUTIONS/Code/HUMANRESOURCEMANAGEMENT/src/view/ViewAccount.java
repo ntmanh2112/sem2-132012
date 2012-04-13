@@ -42,15 +42,17 @@ public class ViewAccount extends JFrame {
 	private JLabel jLabel = null;
 	private JScrollPane jScrollPane = null;
 	private JTable jTableViewAccount = null;
-	private JButton btnAdd = null;
 	private JButton btnEdit = null;
-	private JButton btnDelete = null;
 	private JPanel jPanel = null;
 	private JLabel jLabel1 = null;
 	private JTextField txtEmpid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"EmID","Password","Acc_Level"};
+	private String[] ColumnName ={"EmID","Name","Layer","Designation"};
 	private String[][] tableData;
+	private JLabel jLabel2 = null;
+	private JTextField txtDesignation = null;
+	private JLabel jLabel3 = null;
+	private JTextField txtname = null;
 	/**
 	 * This is the default constructor
 	 */
@@ -90,9 +92,7 @@ public class ViewAccount extends JFrame {
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(getJScrollPane(), null);
-			jContentPane.add(getBtnAdd(), null);
-			jContentPane.add(getBtnEdit(), null);
-			jContentPane.add(getBtnDelete(), null);
+			//jContentPane.add(getBtnEdit(), null);
 			jContentPane.add(getJPanel(), null);
 		}
 		return jContentPane;
@@ -131,7 +131,9 @@ public class ViewAccount extends JFrame {
 		for (AccountModel model:listAccount){
 		//tableData [row][0] = model.getUserID();
 		tableData [row][0] = model.getEmID();
-		tableData [row][1] = model.getPassword();
+		tableData [row][1] = model.getName();
+		tableData [row][2] = model.getLayer();
+		tableData [row][3] = model.getDesignation();
 		
 		
 		
@@ -140,37 +142,11 @@ public class ViewAccount extends JFrame {
 		}
 
 	/**
-	 * This method initializes btnAdd	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtnAdd() {
-		if (btnAdd == null) {
-			btnAdd = new JButton();
-			btnAdd.setText("Add Account");
-			btnAdd.setSize(new Dimension(150, 35));
-			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
-			btnAdd.setLocation(new Point(60, 295));
-			btnAdd.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					
-					(new AddUser()).setVisible(true);
-					hide();
-				}
-			});
-		}
-		return btnAdd;
-	}
-
-	/**
 	 * This method initializes btnEdit	
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getBtnEdit() {
+	/*private JButton getBtnEdit() {
 		if (btnEdit == null) {
 			btnEdit = new JButton();
 			btnEdit.setText("Update Account");
@@ -190,6 +166,7 @@ public class ViewAccount extends JFrame {
 					}
 					int column = 0;
 					String manvduocluachon = jTableViewAccount.getValueAt(row, column).toString();
+					//JOptionPane.showMessageDialog(null, manvduocluachon);
 					AccountModel model = new AccountModel();
 					model.setEmID(manvduocluachon);
 					(new UpdateAccount(model)).setVisible(true);
@@ -198,55 +175,7 @@ public class ViewAccount extends JFrame {
 			});
 		}
 		return btnEdit;
-	}
-
-	/**
-	 * This method initializes btnDelete	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtnDelete() {
-		if (btnDelete == null) {
-			btnDelete = new JButton();
-			btnDelete.setText("Delete Account");
-			btnDelete.setSize(new Dimension(150, 35));
-			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnDelete.setLocation(new Point(416, 295));
-			btnDelete.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					AccountModel mo = new AccountModel();
-					int row = jTableViewAccount.getSelectedRow();
-					if(row== -1){
-						JOptionPane.showMessageDialog(null, "You not choose to delete the line","Notice",JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-					int column = 0;
-					String manvduocluachon = jTableViewAccount.getValueAt(row, column).toString();
-					mo.setUserID(manvduocluachon);
-					int yn = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Notice",JOptionPane.OK_CANCEL_OPTION);
-					if(yn == 0){
-						Boolean kq = AccountDAO.deleteAccount(mo);
-						if(kq){
-							loadDataToTable();
-							jTableViewAccount.setModel(new DefaultTableModel(tableData,ColumnName));
-							JOptionPane.showMessageDialog(null, "Delete success","Notice",JOptionPane.INFORMATION_MESSAGE);
-							
-						}else {
-							JOptionPane.showMessageDialog(null, "Delete failed","Notice",JOptionPane.WARNING_MESSAGE);
-					
-						}
-					}
-					
-				}
-			});
-		}
-		return btnDelete;
-	}
+	}*/
 
 	/**
 	 * This method initializes jPanel	
@@ -255,18 +184,30 @@ public class ViewAccount extends JFrame {
 	 */
 	private JPanel getJPanel() {
 		if (jPanel == null) {
+			jLabel3 = new JLabel();
+			jLabel3.setText("Name :");
+			jLabel3.setLocation(new Point(173, 17));
+			jLabel3.setSize(new Dimension(45, 25));
+			jLabel2 = new JLabel();
+			jLabel2.setText("Designation :");
+			jLabel2.setLocation(new Point(385, 17));
+			jLabel2.setSize(new Dimension(76, 25));
 			jLabel1 = new JLabel();
 			jLabel1.setText("EmpID :");
 			jLabel1.setSize(new Dimension(46, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
 			jPanel.setLayout(null);
-			jPanel.setLocation(new Point(576, 280));
-			jPanel.setSize(new Dimension(197, 100));
+			jPanel.setLocation(new Point(33, 280));
+			jPanel.setSize(new Dimension(740, 67));
 			jPanel.add(jLabel1, null);
 			jPanel.add(getTxtEmpid(), null);
 			jPanel.add(getBtnSearch(), null);
 		    jPanel.setBorder(BorderFactory.createEtchedBorder());
+		    jPanel.add(jLabel2, null);
+		    jPanel.add(getTxtDesignation(), null);
+		    jPanel.add(jLabel3, null);
+		    jPanel.add(getTxtname(), null);
 		}
 		return jPanel;
 	}
@@ -294,40 +235,65 @@ public class ViewAccount extends JFrame {
 		if (btnSearch == null) {
 			btnSearch = new JButton();
 			btnSearch.setText("Search");
-			btnSearch.setSize(new Dimension(106, 25));
+			btnSearch.setSize(new Dimension(106, 34));
 			btnSearch.setIcon(new ImageIcon(getClass().getResource("/images/View.gif")));
-			btnSearch.setLocation(new Point(42, 54));
+			btnSearch.setLocation(new Point(615, 17));
 			btnSearch.addActionListener(new ActionListener() {
 				
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					//loadDataToTableWhenSearch();
+					loadDataToTableWhenSearch();
 					jTableViewAccount.setModel(new DefaultTableModel(tableData, ColumnName));
 				}
 			});
 		}
 		return btnSearch;
 	}
-	/*public void loadDataToTableWhenSearch (){
+	public void loadDataToTableWhenSearch (){
 		String EmID = txtEmpid.getText();
-		
-		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.searchEmployee(EmID, );
-		tableData = new String [listEmployee.size()][9];
+		String Name = txtname.getText();
+		String Designation = txtDesignation.getText();
+		ArrayList<AccountModel> listAccount = AccountDAO.searchAccount(EmID, Name, Designation);
+		tableData = new String [listAccount.size()][4];
 		int row = 0;
-		for(EmployeeModel model : listEmployee) {
+		for(AccountModel model : listAccount) {
 			tableData [row][0] = model.getEmID();
 			tableData [row][1] = model.getName();
-			tableData [row][2] = model.getDep_ID();
-			tableData [row][3] = model.getDes_ID();
-			tableData [row][4] = model.getSecID();
-			tableData [row][5] = model.getAddress();
-			tableData [row][6] = model.getPhone();
-			tableData [row][7] = model.getFax();
-			tableData [row][8] = model.getEmail();
+			//tableData [row][2] = model.getPassword();
+			tableData [row][2] = model.getLayer();	
+			tableData [row][3] = model.getDesignation();
 			
 			row ++;
 		}
-	}*/
+	}
+
+	/**
+	 * This method initializes txtDesignation	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtDesignation() {
+		if (txtDesignation == null) {
+			txtDesignation = new JTextField();
+			txtDesignation.setSize(new Dimension(121, 25));
+			txtDesignation.setLocation(new Point(477, 17));
+		}
+		return txtDesignation;
+	}
+
+	/**
+	 * This method initializes txtname	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	private JTextField getTxtname() {
+		if (txtname == null) {
+			txtname = new JTextField();
+			txtname.setLocation(new Point(232, 17));
+			txtname.setSize(new Dimension(130, 25));
+		}
+		return txtname;
+	}
 
 }  //  @jve:decl-index=0:visual-constraint="10,10"
