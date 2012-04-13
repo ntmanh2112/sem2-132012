@@ -108,10 +108,10 @@ public class DepartmentsDAO {
 		}
 		return kq;
 	}
-	public static ArrayList<DepartmentsModel> searchDepartments(String Dep_ID,String Dep_Name,String Dep_Head){
+	public static ArrayList<DepartmentsModel> searchDepartments(String Dep_ID,String Dep_Name){
 		ArrayList<DepartmentsModel> listDepartments = new ArrayList<DepartmentsModel>();
 		try {
-			String sql = "SELECT Dep_ID,Dep_Name,Dep_Head,Location,Up_Dep_No,Dn_Dep_No FROM Departments WHERE Dep_ID LIKE '%" +Dep_ID+ "%' AND Dep_Name LIKE '%" +Dep_Name+ "%' AND Dep_Head LIKE '%" +Dep_Head+ "%'";
+			String sql = "SELECT Dep_ID,Dep_Name,Dep_Head,Location,Up_Dep_No,Dn_Dep_No FROM Departments WHERE Dep_ID LIKE '%" +Dep_ID+ "%' AND Dep_Name LIKE '%" +Dep_Name+ "%' ";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){

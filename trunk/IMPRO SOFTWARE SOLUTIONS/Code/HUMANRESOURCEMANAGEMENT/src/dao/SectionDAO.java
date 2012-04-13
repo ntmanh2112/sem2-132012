@@ -145,10 +145,10 @@ public class SectionDAO {
 		}
 		return kq;
 	}
-	public static ArrayList<SectionModel> searchSection(String SecID,String DepID,String Name){
+	public static ArrayList<SectionModel> searchSection(String SecID,String Name){
 		ArrayList<SectionModel> listSection = new ArrayList<SectionModel>();
 		try {
-			String sql = "SELECT SecID,Name,Section_Inch,DepID FROM Section WHERE SecID LIKE '%" +SecID+ "%' AND Name LIKE '%" +Name+ "%' AND DepID LIKE '%" +DepID+ "%'";
+			String sql = "SELECT SecID,Name,Section_Inch,Dep_ID FROM Section WHERE SecID LIKE '%" +SecID+ "%' AND Name LIKE '%" +Name+ "%' ";
 			ResultSet rs = DataUtil.executeQuery(sql);
 			System.out.println("Result Set:"+rs.getRow());
 			while (rs.next()){

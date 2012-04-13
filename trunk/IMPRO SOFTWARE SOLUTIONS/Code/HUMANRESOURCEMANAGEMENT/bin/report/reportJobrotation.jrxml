@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportJobrotation" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="EmID" class="java.lang.String"/>
+	<parameter name="PresentDesigntaion" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from Job_rotation where Em_ID LIKE '%' + $P{EmID}
+and Present_Designation LIKE '%' +$P{PresentDesigntaion}]]>
+	</queryString>
+	<field name="ID" class="java.lang.Integer"/>
+	<field name="Em_ID" class="java.lang.String"/>
+	<field name="Present_Designation" class="java.lang.String"/>
+	<field name="Deputed_To" class="java.lang.String"/>
+	<field name="Creation_Date" class="java.sql.Timestamp"/>
+	<field name="Creator" class="java.lang.String"/>
+	<field name="Status" class="java.lang.String"/>
+	<field name="Remarks" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<staticText>
+				<reportElement x="331" y="44" width="167" height="32" forecolor="#FF0000"/>
+				<textElement>
+					<font fontName="Arial" size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Job Rotation]]></text>
+			</staticText>
+			<image>
+				<reportElement x="145" y="0" width="114" height="96"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\LeThanh\\Documents\\New folder\\rotate270anticlockwise3green.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="100" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Em_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="0" width="131" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Present_Designation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="331" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Deputed_To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="431" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Creation_Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="531" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Creator]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="631" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="731" y="0" width="71" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Remarks]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="100" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Em_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="200" y="0" width="131" height="20" backcolor="#CCCCCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Present_Designation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="331" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Deputed_To}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="431" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{Creation_Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="531" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Creator}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="631" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="731" y="0" width="71" height="20" backcolor="#CCCCCC"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Remarks}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

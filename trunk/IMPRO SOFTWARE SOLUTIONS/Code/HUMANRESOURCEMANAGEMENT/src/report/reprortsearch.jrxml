@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reprortEmployee" language="groovy" pageWidth="370" pageHeight="842" columnWidth="330" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="Table Dataset 1"/>
+	<parameter name="EmID" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select A.EmID,A.Password,B.name,C.Designation,D.Layer from Account AS A inner join employee AS B ON A.EmID = B.EmID inner join Designation AS C ON B.Des_ID = C.DesID inner join DesigLayer AS D ON C.Layer_ID = D.Layer_ID where A.EmID LIKE '%' + $P{EmID}
+]]>
+	</queryString>
+	<field name="EmID" class="java.lang.String"/>
+	<field name="Password" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="Designation" class="java.lang.String"/>
+	<field name="Layer" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<staticText>
+				<reportElement x="63" y="25" width="181" height="39" forecolor="#FF0000"/>
+				<textElement>
+					<font fontName="Arial" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Print Account]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="2" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="77" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EmID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="77" y="0" width="80" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="157" y="0" width="71" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Layer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="228" y="0" width="79" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Position]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="77" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EmID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="77" y="0" width="80" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="157" y="0" width="71" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Layer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="228" y="0" width="79" height="20" backcolor="#CCCCCC"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Designation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
