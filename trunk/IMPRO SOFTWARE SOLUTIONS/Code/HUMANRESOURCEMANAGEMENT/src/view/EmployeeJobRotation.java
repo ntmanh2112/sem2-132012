@@ -11,11 +11,33 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+
+import com.toedter.calendar.JDateChooser;
+
+import Common.KeyValue;
+
+import dao.DepartmentsDAO;
+import dao.DesignationDAO;
+import dao.EmployeeDAO;
+import dao.Job_RotationDAO;
+import dao.SectionDAO;
+import dao.VacanciesDAO;
+
+import model.DepartmentsModel;
+import model.DesignationModel;
+import model.Job_rotationModel;
+import model.SectionModel;
+import model.VacanciesModel;
 
 public class EmployeeJobRotation extends JFrame {
 
@@ -23,9 +45,9 @@ public class EmployeeJobRotation extends JFrame {
 	private JPanel jContentPane = null;
 	private JLabel jLabel = null;
 	private JLabel jLabel1 = null;
-	private JComboBox cbnEmpname = null;
+	private JComboBox cbndes = null;
 	private JLabel jLabel2 = null;
-	private JTextField txtPresentdesign = null;
+	private JTextField txtEmId = null;
 	private JLabel jLabel3 = null;
 	private JComboBox cbnDeputedto = null;
 	private JLabel jLabel4 = null;
@@ -34,13 +56,42 @@ public class EmployeeJobRotation extends JFrame {
 	private JTextField txtRemark = null;
 	private JButton btnAdd = null;
 	private JButton btnDelete = null;
-
+	Job_rotationModel model = new Job_rotationModel();  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
 	 */
 	public EmployeeJobRotation() {
 		super();
 		initialize();
+	}
+	
+	public EmployeeJobRotation(Job_rotationModel model) {
+		super();
+		this.model = Job_RotationDAO.getJob_RotationID(model.getEmID());
+		initialize();
+		txtEmId.setText(this.model.getEmID());
+		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
+		for (DesignationModel desm : listDesignation) {
+			KeyValue item = new KeyValue(desm.getDesignation(),desm.getDesignation());
+
+			cbndes.addItem(item);
+			if (item.getKey().equals(this.model.getDes_ID())) {
+				cbndes.setSelectedItem(item);
+			}
+		}
+		
+		ArrayList<DepartmentsModel> listdep = DepartmentsDAO.getAllDepartments();
+		for (DepartmentsModel desm : listdep) {
+			KeyValue item = new KeyValue(desm.getDep_ID(),desm.getDep_Name());
+
+			cbnDeputedto.addItem(item);
+			if (item.getKey().equals(this.model.getDeputed_To())) {
+				cbnDeputedto.setSelectedItem(item);
+			}
+		}
+		
+		txtStatus.setText(this.model.getStatus());
+		txtRemark.setText(this.model.getRemarks());
 	}
 
 	/**
@@ -53,7 +104,7 @@ public class EmployeeJobRotation extends JFrame {
 		Dimension wndSize = theKit.getScreenSize();
 		this.setResizable(false);
 		this.setLocation((wndSize.width-471)/2, (wndSize.height-445)/2);
-		this.setSize(471, 445);
+		this.setSize(431, 445);
 		this.setContentPane(getJContentPane());
 		this.setTitle("FrmJobRotation");
 	}
@@ -66,12 +117,12 @@ public class EmployeeJobRotation extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel5 = new JLabel();
-			jLabel5.setText("Remark");
-			jLabel5.setLocation(new Point(50, 260));
+			jLabel5.setText("Stratus");
+			jLabel5.setLocation(new Point(50, 220));
 			jLabel5.setSize(new Dimension(68, 25));
 			jLabel4 = new JLabel();
-			jLabel4.setText("Status");
-			jLabel4.setLocation(new Point(50, 220));
+			jLabel4.setText("Remarks");
+			jLabel4.setLocation(new Point(50, 260));
 			jLabel4.setHorizontalAlignment(SwingConstants.LEADING);
 			jLabel4.setSize(new Dimension(67, 25));
 			jLabel3 = new JLabel();
@@ -87,18 +138,18 @@ public class EmployeeJobRotation extends JFrame {
 			jLabel1.setSize(new Dimension(61, 25));
 			jLabel1.setLocation(new Point(50, 100));
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(88, 21, 287, 42));
+			jLabel.setBounds(new Rectangle(36, 21, 356, 42));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
-			jLabel.setText("Employee Job Rotation");
+			jLabel.setText("Update Employee Job Rotation");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.setBackground(new Color(238, 238, 238));
 			jContentPane.add(jLabel, null);
 			jContentPane.add(jLabel1, null);
-			jContentPane.add(getCbnEmpname(), null);
+			jContentPane.add(getCbndes(), null);
 			jContentPane.add(jLabel2, null);
-			jContentPane.add(getTxtPresentdesign(), null);
+			jContentPane.add(getTxtEmId(), null);
 			jContentPane.add(jLabel3, null);
 			jContentPane.add(getCbnDeputedto(), null);
 			jContentPane.add(jLabel4, null);
@@ -112,31 +163,31 @@ public class EmployeeJobRotation extends JFrame {
 	}
 
 	/**
-	 * This method initializes cbnEmpname	
+	 * This method initializes cbndes	
 	 * 	
 	 * @return javax.swing.JComboBox	
 	 */
-	private JComboBox getCbnEmpname() {
-		if (cbnEmpname == null) {
-			cbnEmpname = new JComboBox();
-			cbnEmpname.setLocation(new Point(170, 100));
-			cbnEmpname.setSize(new Dimension(200, 25));
+	private JComboBox getCbndes() {
+		if (cbndes == null) {
+			cbndes = new JComboBox();
+			cbndes.setLocation(new Point(170, 140));
+			cbndes.setSize(new Dimension(200, 25));
 		}
-		return cbnEmpname;
+		return cbndes;
 	}
 
 	/**
-	 * This method initializes txtPresentdesign	
+	 * This method initializes txtEmId	
 	 * 	
 	 * @return javax.swing.JTextField	
 	 */
-	private JTextField getTxtPresentdesign() {
-		if (txtPresentdesign == null) {
-			txtPresentdesign = new JTextField();
-			txtPresentdesign.setSize(new Dimension(200, 25));
-			txtPresentdesign.setLocation(new Point(170, 140));
+	private JTextField getTxtEmId() {
+		if (txtEmId == null) {
+			txtEmId = new JTextField();
+			txtEmId.setSize(new Dimension(200, 25));
+			txtEmId.setLocation(new Point(170, 100));
 		}
-		return txtPresentdesign;
+		return txtEmId;
 	}
 
 	/**
@@ -189,10 +240,41 @@ public class EmployeeJobRotation extends JFrame {
 	private JButton getBtnAdd() {
 		if (btnAdd == null) {
 			btnAdd = new JButton();
-			btnAdd.setText("Add");
-			btnAdd.setSize(new Dimension(90, 34));
-			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Create.png")));
-			btnAdd.setLocation(new Point(99, 331));
+			btnAdd.setText("Update");
+			btnAdd.setSize(new Dimension(112, 34));
+			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
+			btnAdd.setLocation(new Point(56, 331));
+			btnAdd.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					Job_rotationModel model = new Job_rotationModel();
+					model.setEmID(txtEmId.getText().trim());
+					model.setPresent_Designation(((KeyValue) cbndes.getSelectedItem())
+							.getKey());
+					model.setDeputed_To(((KeyValue) cbnDeputedto.getSelectedItem())
+							.getKey());
+					
+					model.setStatus(txtStatus.getText().trim());
+					model.setRemarks(txtRemark.getText().trim());
+					if(!validateModel(model)){
+						return;
+					}
+					Boolean kq = Job_RotationDAO.UpdateUsingStore(model);
+					if (kq) {
+						JOptionPane.showMessageDialog(null,
+								"Update Success ", "Notice",
+								JOptionPane.INFORMATION_MESSAGE);
+						(new viewJobRotation()).setVisible(true);
+						dispose();
+					}else{
+						JOptionPane.showMessageDialog(null,
+								"Update failed", "Notice",
+								JOptionPane.ERROR_MESSAGE);
+						(new viewJobRotation()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
 		return btnAdd;
 	}
@@ -219,12 +301,42 @@ public class EmployeeJobRotation extends JFrame {
 	private JButton getBtnDelete() {
 		if (btnDelete == null) {
 			btnDelete = new JButton();
-			btnDelete.setText("Delete");
-			btnDelete.setSize(new Dimension(90, 34));
+			btnDelete.setText("cancel");
+			btnDelete.setSize(new Dimension(103, 34));
 			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setLocation(new Point(262, 331));
+			btnDelete.setLocation(new Point(255, 331));
+			btnDelete.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
+					int kg = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to exit", "Notice",
+							JOptionPane.OK_CANCEL_OPTION);
+					if (kg == 0) {
+						(new viewJobRotation()).setVisible(true);
+						dispose();
+					}
+				}
+			});
 		}
 		return btnDelete;
 	}
 
+	/**
+	 * This method initializes txtCreation_Date	
+	 * 	
+	 * @return javax.swing.JTextField	
+	 */
+	
+private Boolean validateModel(Job_rotationModel mo) {
+    	
+    	if( mo.getStatus() == null || mo.getStatus().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Status invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	if( mo.getRemarks() == null || mo.getRemarks().equals("")){ 
+    		JOptionPane.showMessageDialog(null, "Remarks invalid","Notice",JOptionPane.ERROR_MESSAGE);
+    		return false;
+    	}
+    	return true;
+}
 }  //  @jve:decl-index=0:visual-constraint="10,10"

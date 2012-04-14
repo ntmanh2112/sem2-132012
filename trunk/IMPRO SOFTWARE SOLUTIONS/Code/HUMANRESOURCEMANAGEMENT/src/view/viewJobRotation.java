@@ -56,9 +56,7 @@ public class viewJobRotation extends JFrame {
 	private JLabel jLabel = null;
 	private JScrollPane jScrollPane = null;
 	private JTable jTableViewemployee = null;
-	private JButton btnAdd = null;
 	private JButton btnEdit = null;
-	private JButton btnDelete = null;
 	private JPanel jPanel = null;
 	private JLabel jLabel1 = null;
 	private JTextField txtEmpid = null;
@@ -67,7 +65,7 @@ public class viewJobRotation extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"EmID","Present_Designation","Deputed_To","Creation_Date","Status","Remarks"};
+	private String[] ColumnName ={"EmID","Present_Designation","Deputed_To","Status","Remarks"};
 	private String[][] tableData;
 	private JButton btnPrint = null;
 	/**
@@ -103,17 +101,15 @@ public class viewJobRotation extends JFrame {
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(299, 18, 185, 47));
+			jLabel.setBounds(new Rectangle(257, 18, 284, 47));
 			jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
 			jLabel.setForeground(Color.red);
-			jLabel.setText("View Employee");
+			jLabel.setText(" Employee Job Rotation");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
 			jContentPane.add(getJScrollPane(), null);
-			jContentPane.add(getBtnAdd(), null);
 			jContentPane.add(getBtnEdit(), null);
-			jContentPane.add(getBtnDelete(), null);
 			jContentPane.add(getJPanel(), null);
 			jContentPane.add(getBtnPrint(), null);
 		}
@@ -148,49 +144,23 @@ public class viewJobRotation extends JFrame {
 	}
 	private void loadDataToTable(){
 		ArrayList<Job_rotationModel> listrotation = Job_RotationDAO.getAllJobrotation();
-		tableData = new String[listrotation.size()][6];
+		tableData = new String[listrotation.size()][5];
 		int row = 0;
 		for (Job_rotationModel model:listrotation){
 		//tableData [row][0] = model.getID();
-		tableData [row][0] = model.getEm_ID();
+		tableData [row][0] = model.getEmID();
 		//tableData [row][2] = model.getPassword();
 		tableData [row][1] = model.getPresent_Designation();
 		tableData [row][2] = model.getDeputed_To();
 		
-		tableData [row][3] = model.getCreation_Date();
-		tableData [row][4] = model.getStatus();
-		tableData [row][5] = model.getRemarks();
+		//tableData [row][3] = model.getCreation_Date();
+		tableData [row][3] = model.getStatus();
+		tableData [row][4] = model.getRemarks();
 		
 		
 		row++;
 		}
 		}
-
-	/**
-	 * This method initializes btnAdd	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtnAdd() {
-		if (btnAdd == null) {
-			btnAdd = new JButton();
-			btnAdd.setText("Add Employee");
-			btnAdd.setSize(new Dimension(150, 35));
-			btnAdd.setIcon(new ImageIcon(getClass().getResource("/images/add-2-icon.png")));
-			btnAdd.setLocation(new Point(60, 295));
-			btnAdd.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					
-					(new EmployeeRegistration()).setVisible(true);
-					hide();
-				}
-			});
-		}
-		return btnAdd;
-	}
 
 	/**
 	 * This method initializes btnEdit	
@@ -204,7 +174,7 @@ public class viewJobRotation extends JFrame {
 			btnEdit.setSize(new Dimension(158, 35));
 			btnEdit.setIcon(new ImageIcon(getClass().getResource("/images/Update.png")));
 			btnEdit.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnEdit.setLocation(new Point(233, 295));
+			btnEdit.setLocation(new Point(121, 294));
 			btnEdit.addActionListener(new ActionListener() {
 				
 				@Override
@@ -217,62 +187,15 @@ public class viewJobRotation extends JFrame {
 					}
 					int column = 0;
 					String manvduocluachon = jTableViewemployee.getValueAt(row, column).toString();
-					EmployeeModel model = new EmployeeModel();
+					//JOptionPane.showMessageDialog(null, manvduocluachon);
+					Job_rotationModel model = new Job_rotationModel();
 					model.setEmID(manvduocluachon);
-					(new UpdateEmployee(model)).setVisible(true);
+					(new EmployeeJobRotation(model)).setVisible(true);
 					dispose();
 				}
 			});
 		}
 		return btnEdit;
-	}
-
-	/**
-	 * This method initializes btnDelete	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtnDelete() {
-		if (btnDelete == null) {
-			btnDelete = new JButton();
-			btnDelete.setText("Delete Employee");
-			btnDelete.setSize(new Dimension(150, 35));
-			btnDelete.setIcon(new ImageIcon(getClass().getResource("/images/Delete.png")));
-			btnDelete.setMnemonic(KeyEvent.VK_UNDEFINED);
-			btnDelete.setLocation(new Point(416, 295));
-			btnDelete.addActionListener(new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
-					EmployeeModel mo = new EmployeeModel();
-					int row = jTableViewemployee.getSelectedRow();
-					if(row== -1){
-						JOptionPane.showMessageDialog(null, "You not choose to delete the line","Notice",JOptionPane.ERROR_MESSAGE);
-						return;
-					}
-					int column = 0;
-					String manvduocluachon = jTableViewemployee.getValueAt(row, column).toString();
-					mo.setEmID(manvduocluachon);
-					int yn = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete","Notice",JOptionPane.OK_CANCEL_OPTION);
-					if(yn == 0){
-						Boolean kq = EmployeeDAO.deleteEmployee(mo);
-						if(kq){
-							loadDataToTable();
-							jTableViewemployee.setModel(new DefaultTableModel(tableData,ColumnName));
-							JOptionPane.showMessageDialog(null, "Delete success","Notice",JOptionPane.INFORMATION_MESSAGE);
-							
-						}else {
-							JOptionPane.showMessageDialog(null, "Delete failed","Notice",JOptionPane.WARNING_MESSAGE);
-					
-						}
-					}
-					
-				}
-			});
-		}
-		return btnDelete;
 	}
 
 	/**
@@ -283,15 +206,15 @@ public class viewJobRotation extends JFrame {
 	private JPanel getJPanel() {
 		if (jPanel == null) {
 			jLabel3 = new JLabel();
-			jLabel3.setText("DesID :");
-			jLabel3.setLocation(new Point(351, 17));
+			jLabel3.setText("DepID :");
+			jLabel3.setLocation(new Point(358, 17));
 			jLabel3.setSize(new Dimension(50, 25));
 			jLabel2 = new JLabel();
-			jLabel2.setText("Name :");
-			jLabel2.setSize(new Dimension(50, 25));
-			jLabel2.setLocation(new Point(179, 17));
+			jLabel2.setText("Designation :");
+			jLabel2.setSize(new Dimension(77, 25));
+			jLabel2.setLocation(new Point(171, 17));
 			jLabel1 = new JLabel();
-			jLabel1.setText("EmpID :");
+			jLabel1.setText("EmID :");
 			jLabel1.setSize(new Dimension(46, 25));
 			jLabel1.setLocation(new Point(9, 17));
 			jPanel = new JPanel();
@@ -332,7 +255,7 @@ public class viewJobRotation extends JFrame {
 	private JTextField getTxtEmpname() {
 		if (txtEmpname == null) {
 			txtEmpname = new JTextField();
-			txtEmpname.setLocation(new Point(241, 17));
+			txtEmpname.setLocation(new Point(257, 17));
 			txtEmpname.setSize(new Dimension(90, 25));
 		}
 		return txtEmpname;
@@ -378,21 +301,19 @@ public class viewJobRotation extends JFrame {
 	}
 	public void loadDataToTableWhenSearch (){
 		String EmID = txtEmpid.getText();
-		String Name = txtEmpname.getText();
+		String Designation = txtEmpname.getText();
 		String DesID = txtDeptid.getText();
-		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.searchEmployee(EmID, Name, DesID);
-		tableData = new String [listEmployee.size()][8];
+		ArrayList<Job_rotationModel> listEmployee = Job_RotationDAO.searchjob(EmID, Designation, DesID);
+		tableData = new String [listEmployee.size()][5];
 		int row = 0;
-		for(EmployeeModel model : listEmployee) {
+		for(Job_rotationModel model : listEmployee) {
 			tableData [row][0] = model.getEmID();
-			tableData [row][1] = model.getName();
-			tableData [row][2] = model.getSecID();
-			tableData [row][3] = model.getDes_ID();
+			tableData [row][1] = model.getPresent_Designation();
+			tableData [row][2] = model.getDeputed_To();
+			tableData [row][3] = model.getStatus();
+			tableData [row][4] = model.getRemarks();
 			
-			tableData [row][4] = model.getAddress();
-			tableData [row][5] = model.getPhone();
-			tableData [row][6] = model.getFax();
-			tableData [row][7] = model.getEmail();
+			
 			
 			row ++;
 		}
@@ -409,17 +330,17 @@ public class viewJobRotation extends JFrame {
 			btnPrint.setText("Print");
 			btnPrint.setSize(new Dimension(150, 35));
 			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
-			btnPrint.setLocation(new Point(590, 295));
+			btnPrint.setLocation(new Point(487, 295));
 			btnPrint.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()"); // TODO Auto-generated Event stub actionPerformed()
 					Map parameters = new HashMap();
 					parameters.put("EmID", txtEmpid.getText().trim());
-					parameters.put("Name", txtEmpname.getText().trim());
-					parameters.put("Des_ID", txtDeptid.getText().trim());
+					parameters.put("designation", txtEmpname.getText().trim());
+					parameters.put("Dep_ID", txtDeptid.getText().trim());
 					
 					try {
-						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reportEmployee.jrxml");
+						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reportJobrotation.jrxml");
 						JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 						JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, DataUtil.getConnection());
 						JasperViewer.viewReport(jasperPrint,false);

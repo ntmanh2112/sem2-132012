@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,10 +34,12 @@ import dao.SectionDAO;
 import model.DepartmentsModel;
 import model.DesignationModel;
 import model.EmployeeModel;
+import model.Job_rotationModel;
 import model.SectionModel;
 import javax.swing.JPasswordField;
 
 import com.steadystate.css.ParseException;
+import com.toedter.calendar.JDateChooser;
 
 public class UpdateEmployee extends JFrame {
 
@@ -64,6 +67,8 @@ public class UpdateEmployee extends JFrame {
 	private JPasswordField txtpassword = null;
 	private JLabel jLabel3 = null;
 	private JComboBox cbnSecID = null;
+	private JDateChooser txtdate = null;
+	//Job_rotationModel model1 = new Job_rotationModel();  //  @jve:decl-index=0:
 	/**
 	 * This is the default constructor
 	 */
@@ -117,10 +122,12 @@ public class UpdateEmployee extends JFrame {
 		}
 		
 		
+		
 		txtAddress.setText(this.model.getAddress());
 		txtPhone.setText(this.model.getPhone());
 		txtFax.setText(this.model.getFax());
 		txtEmail.setText(this.model.getEmail());
+		
 		
 	}
 
@@ -346,6 +353,13 @@ public class UpdateEmployee extends JFrame {
 						(new ViewEmployee()).setVisible(true);
 						dispose();
 
+					}else {
+						JOptionPane.showMessageDialog(null,
+								"Update failed",
+								"Notice",
+								JOptionPane.ERROR_MESSAGE);
+						(new ViewEmployee()).setVisible(true);
+						dispose();
 					}
 
 					
@@ -511,4 +525,20 @@ private JComboBox getCbnSecID() {
 	}
 	return cbnSecID;
 }
+
+/**
+ * This method initializes txtdate	
+ * 	
+ * @return javax.swing.JTextField	
+ */
+private JDateChooser getTxtdate() {
+	if (txtdate == null) {
+		txtdate = new JDateChooser();
+		txtdate.setDateFormatString("MM/dd/yyyy");
+		txtdate.setBounds(new Rectangle(431, 257, 202, 28));
+		txtdate.getDateEditor().setEnabled(false);
+	}
+	return txtdate;
+}
+
 }  //  @jve:decl-index=0:visual-constraint="10,10"
