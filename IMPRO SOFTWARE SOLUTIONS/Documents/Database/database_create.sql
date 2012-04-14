@@ -5,7 +5,7 @@
 /* Project name:                                                          */
 /* Author:                                                                */
 /* Script type:           Database creation script                        */
-/* Created on:            2012-04-06 13:20                                */
+/* Created on:            2012-04-14 08:22                                */
 /* ---------------------------------------------------------------------- */
 
 
@@ -19,7 +19,7 @@
 
 CREATE TABLE [Departments] (
     [Dep_ID] VARCHAR(10) NOT NULL,
-    [Dep_Name] VARCHAR(10),
+    [Dep_Name] VARCHAR(15),
     [Dep_Head] VARCHAR(10),
     [Location] VARCHAR(10),
     [Up_Dep_No] NUMERIC(10),
@@ -34,7 +34,7 @@ GO
 
 CREATE TABLE [Employee] (
     [EmID] VARCHAR(10) NOT NULL,
-    [Name] VARCHAR(10),
+    [Name] VARCHAR(20),
     [SecID] VARCHAR(10),
     [Des_ID] VARCHAR(10) NOT NULL,
     [Address] VARCHAR(50),
@@ -51,7 +51,7 @@ GO
 
 CREATE TABLE [Section] (
     [SecID] VARCHAR(10) NOT NULL,
-    [Name] VARCHAR(15),
+    [Name] VARCHAR(20),
     [Section_Inch] VARCHAR(10),
     [Dep_ID] VARCHAR(10) NOT NULL,
     CONSTRAINT [PK_Section] PRIMARY KEY ([SecID])
@@ -80,7 +80,6 @@ CREATE TABLE [Job_rotation] (
     [Present_Designation] VARCHAR(15),
     [Deputed_To] VARCHAR(10),
     [Creation_Date] DATETIME,
-    [Creator] VARCHAR(20),
     [Status] VARCHAR(50),
     [Remarks] VARCHAR(100),
     CONSTRAINT [PK_Job_rotation] PRIMARY KEY ([ID])
@@ -130,41 +129,6 @@ CREATE TABLE [DesigLayer] (
 GO
 
 /* ---------------------------------------------------------------------- */
-/* Add table "Assignment"                                                 */
-/* ---------------------------------------------------------------------- */
-
-CREATE TABLE [Assignment] (
-    [Des_ID] VARCHAR(10) NOT NULL,
-    [Fun_ID] VARCHAR(10) NOT NULL,
-    CONSTRAINT [PK_Assignment] PRIMARY KEY ([Des_ID], [Fun_ID])
-)
-GO
-
-/* ---------------------------------------------------------------------- */
-/* Add table "Functions"                                                  */
-/* ---------------------------------------------------------------------- */
-
-CREATE TABLE [Functions] (
-    [ID] VARCHAR(10) NOT NULL,
-    [Fun_Name] VARCHAR(20),
-    CONSTRAINT [PK_Functions] PRIMARY KEY ([ID])
-)
-GO
-
-/* ---------------------------------------------------------------------- */
-/* Add table "History"                                                    */
-/* ---------------------------------------------------------------------- */
-
-CREATE TABLE [History] (
-    [ID] INTEGER IDENTITY(0,1) NOT NULL,
-    [EmID] VARCHAR(10) NOT NULL,
-    [Date_action] DATETIME,
-    [Action] VARCHAR(20),
-    CONSTRAINT [PK_History] PRIMARY KEY ([ID])
-)
-GO
-
-/* ---------------------------------------------------------------------- */
 /* Add table "Account"                                                    */
 /* ---------------------------------------------------------------------- */
 
@@ -206,18 +170,6 @@ GO
 
 ALTER TABLE [Division] ADD CONSTRAINT [Section_Division] 
     FOREIGN KEY ([SecID]) REFERENCES [Section] ([SecID])ON DELETE CASCADE
-GO
-
-ALTER TABLE [Assignment] ADD CONSTRAINT [Designation_Assignment] 
-    FOREIGN KEY ([Des_ID]) REFERENCES [Designation] ([DesID])ON DELETE CASCADE
-GO
-
-ALTER TABLE [Assignment] ADD CONSTRAINT [Functions_Assignment] 
-    FOREIGN KEY ([Fun_ID]) REFERENCES [Functions] ([ID])ON DELETE CASCADE
-GO
-
-ALTER TABLE [History] ADD CONSTRAINT [Employee_History] 
-    FOREIGN KEY ([EmID]) REFERENCES [Employee] ([EmID])ON DELETE CASCADE
 GO
 
 ALTER TABLE [Account] ADD CONSTRAINT [Employee_Account] 
