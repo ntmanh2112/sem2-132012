@@ -34,7 +34,12 @@ CREATE PROC sp_INSERT_EMPLOYEE
 	@Phone	varchar(15),
 	@Fax	varchar(15),
 	@Email	varchar(50),
-	@Password	nvarchar(40)
+	@Password	nvarchar(40),
+	@Present_Designation varchar(15),
+	@Deputed_To varchar(10),
+	
+	@Status varchar(50),
+	@Remarks varchar(100)
 AS	
 BEGIN
 	INSERT INTO EMPLOYEE
@@ -55,6 +60,7 @@ BEGIN
 		@EmID,
 		@Password
 	)
+	
 	
 END
 
@@ -118,7 +124,7 @@ GO
 CREATE PROC sp_UPDATE_EMPLOYEE
 	@EmID	varchar(10),
 	@Name	varchar(10),
-	@SecID	varchar(40),
+	@SecID	varchar(10),
 	@Des_ID	varchar(10),
 	
 	@Address	varchar(50),
@@ -292,7 +298,7 @@ CREATE PROC sp_UPDATE_EMPLOYEETOJOBLOTATION
 	@Remarks varchar(100),
 	@EmID	varchar(10),
 	@Name	varchar(10),
-	@SecID	varchar(40),
+	@SecID	varchar(10),
 	@Des_ID	varchar(10),
 	
 	@Address	varchar(50),
@@ -326,6 +332,7 @@ BEGIN
 		Phone = @Phone,
 		Fax = @Fax,
 		Email = @Email
+
 	where EmID = @EmID;
 
 	
@@ -387,5 +394,45 @@ BEGIN
 		@Status,
 		@Remarks
 	)
+	
+END
+go
+IF EXISTS (SELECT * FROM DBO.SYSOBJECTS WHERE NAME='sp_UPDATE_EMPLOYEErato')
+BEGIN
+	DROP PROC sp_UPDATE_EMPLOYEErato
+END
+GO
+CREATE PROC sp_UPDATE_EMPLOYEErato
+	@EmID varchar(10),
+	@Present_Designation varchar(15),
+	@Deputed_To varchar(10),
+	--@SecID varchar(10),
+	--@Des_ID varchar(10),
+	@Status varchar(50),
+	@Remarks varchar(100)
+AS	
+BEGIN
+	UPDATE JOB_ROTATION
+	SET
+		EmID = @EmID,
+		Present_Designation = @Present_Designation,
+		Deputed_To = @Deputed_To,
+	
+		Status = @Status,
+		Remarks = @Remarks
+
+	where EmID = @EmID;
+
+	UPDATE  EMPLOYEE
+	SET 
+		EmID = @EmID,
+		SecID = @Deputed_To,
+		Des_ID = @Present_Designation
+		
+	where EmID = @EmID
+
+	
+
+	
 	
 END

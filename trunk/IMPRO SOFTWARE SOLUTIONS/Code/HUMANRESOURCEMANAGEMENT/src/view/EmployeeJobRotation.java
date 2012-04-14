@@ -72,17 +72,26 @@ public class EmployeeJobRotation extends JFrame {
 		txtEmId.setText(this.model.getEmID());
 		ArrayList<DesignationModel> listDesignation = DesignationDAO.getAllDesignation();
 		for (DesignationModel desm : listDesignation) {
-			KeyValue item = new KeyValue(desm.getDesignation(),desm.getDesignation());
+			KeyValue item = new KeyValue(desm.getDesID(),desm.getDesignation());
 
 			cbndes.addItem(item);
-			if (item.getKey().equals(this.model.getDes_ID())) {
+			if (item.getKey().equals(this.model.getPresent_Designation())) {
 				cbndes.setSelectedItem(item);
 			}
 		}
 		
-		ArrayList<DepartmentsModel> listdep = DepartmentsDAO.getAllDepartments();
+		/*ArrayList<DepartmentsModel> listdep = DepartmentsDAO.getAllDepartments();
 		for (DepartmentsModel desm : listdep) {
 			KeyValue item = new KeyValue(desm.getDep_ID(),desm.getDep_Name());
+
+			cbnDeputedto.addItem(item);
+			if (item.getKey().equals(this.model.getDeputed_To())) {
+				cbnDeputedto.setSelectedItem(item);
+			}
+		}*/
+		ArrayList<SectionModel> listdep = SectionDAO.getAllSection();
+		for (SectionModel desm : listdep) {
+			KeyValue item = new KeyValue(desm.getSecID(),desm.getName());
 
 			cbnDeputedto.addItem(item);
 			if (item.getKey().equals(this.model.getDeputed_To())) {
@@ -184,6 +193,7 @@ public class EmployeeJobRotation extends JFrame {
 	private JTextField getTxtEmId() {
 		if (txtEmId == null) {
 			txtEmId = new JTextField();
+			txtEmId.setEnabled(false);
 			txtEmId.setSize(new Dimension(200, 25));
 			txtEmId.setLocation(new Point(170, 100));
 		}

@@ -409,6 +409,7 @@ public class UpdateEmployee extends JFrame {
 		if (cbnDesID == null) {
 			
 			cbnDesID = new JComboBox();
+			cbnDesID.setEnabled(false);
 			cbnDesID.setSize(new Dimension(200, 23));
 			cbnDesID.setLocation(new Point(100, 260));
 		}
@@ -519,7 +520,7 @@ private JPasswordField getTxtpassword() {
 private JComboBox getCbnSecID() {
 	if (cbnSecID == null) {
 		cbnSecID = new JComboBox();
-	
+		cbnSecID.setEnabled(false);
 		cbnSecID.setSize(new Dimension(200, 25));
 		cbnSecID.setLocation(new Point(100, 220));
 	}
