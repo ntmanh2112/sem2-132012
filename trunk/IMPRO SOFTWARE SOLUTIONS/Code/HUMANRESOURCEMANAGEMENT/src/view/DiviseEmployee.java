@@ -45,7 +45,6 @@ public class DiviseEmployee extends JFrame {
 	private JList jListEmployeeinvolved = null;
 	private JLabel jLabel3 = null;
 	private JButton btn1 = null;
-	private JButton btnPrint = null;
 	SectionModel model = new SectionModel();  //  @jve:decl-index=0:
 	private JLabel jLabel4 = null;
 	private JComboBox cbnVacancy = null;
@@ -137,7 +136,6 @@ public class DiviseEmployee extends JFrame {
 			jContentPane.add(getJListEmployeeinvolved(), null);
 			jContentPane.add(jLabel3, null);
 			jContentPane.add(getBtn1(), null);
-			jContentPane.add(getBtnPrint(), null);
 			jContentPane.add(jLabel4, null);
 			jContentPane.add(getCbnVacancy(), null);
 		}
@@ -243,7 +241,7 @@ public class DiviseEmployee extends JFrame {
 	private JButton getBtn1() {
 		if (btn1 == null) {
 			btn1 = new JButton();
-			btn1.setLocation(new Point(350, 254));
+			btn1.setLocation(new Point(346, 306));
 			btn1.setText("");
 			btn1.setIcon(new ImageIcon(getClass().getResource("/images/Forward.png")));
 			btn1.setSize(new Dimension(90, 30));
@@ -280,20 +278,6 @@ public class DiviseEmployee extends JFrame {
 		return btn1;
 	}
 
-	/**
-	 * This method initializes btnPrint	
-	 * 	
-	 * @return javax.swing.JButton	
-	 */
-	private JButton getBtnPrint() {
-		if (btnPrint == null) {
-			btnPrint = new JButton();
-			btnPrint.setBounds(new Rectangle(339, 376, 106, 38));
-			btnPrint.setIcon(new ImageIcon(getClass().getResource("/images/Print.png")));
-			btnPrint.setText("Print");
-		}
-		return btnPrint;
-	}
 	/**
 	 * This method initializes cbnVacancy	
 	 * 	

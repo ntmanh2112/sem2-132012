@@ -3,31 +3,38 @@ INSERT INTO Departments values ('P10','Management','no','hcm',10,20)
 INSERT INTO Departments values ('P20','Organizations','no','Tphcm',20,10)
 INSERT INTO Departments values ('P30','Operating','no','HaNoi',30,20)
 INSERT INTO Departments values ('P40','Project','no','HaNoi',30,20)
+INSERT INTO Departments values ('P50','Waiting','no','HaNoi',30,20)
+
 --Section
 INSERT INTO Section VALUES ('S101','Java','XY1 100','P10')
 INSERT INTO Section VALUES ('S201','Website','XY2 200','P20')
 INSERT INTO Section VALUES ('S301','C#','XY3 300','P30')
 INSERT INTO Section VALUES ('S401','PHP','XY4 400','P40')
+INSERT INTO Section VALUES ('S001','Wating','XY4 400','P50')
+
 --desigLayer
-INSERT INTO DesigLayer VALUES ('L101',1,500)
-INSERT INTO DesigLayer VALUES ('L201',2,400)
-INSERT INTO DesigLayer VALUES ('L301',3,300)
-INSERT INTO DesigLayer VALUES ('L401',4,200)
+INSERT INTO DesigLayer VALUES ('L101',4,200)
+INSERT INTO DesigLayer VALUES ('L201',3,300)
+INSERT INTO DesigLayer VALUES ('L301',2,400)
+INSERT INTO DesigLayer VALUES ('L401',1,500)
 --designation
-INSERT INTO Designation VALUES ('D101','L101','Employee')
-INSERT INTO Designation VALUES ('D201','L201','Deputy')
-INSERT INTO Designation VALUES ('D301','L301','Head')
-INSERT INTO Designation VALUES ('D401','L401','Director')
+INSERT INTO Designation VALUES ('D401','L401','Employee')
+INSERT INTO Designation VALUES ('D301','L301','Deputy')
+INSERT INTO Designation VALUES ('D201','L201','Head')
+INSERT INTO Designation VALUES ('D101','L101','Director')
 --Employee
 INSERT INTO Employee VALUES ('E101','Le ngoc Thanh','S101','D101','dongnai','0938430200','123456789','lethanh.aptech@gmail.com')
 INSERT INTO Employee VALUES ('E201','Tran Le quoc hung','S201','D201','dongthap','090667786','12345','hung@gmail.com')
 INSERT INTO Employee VALUES ('E301','Quach vinh quang','S301','D301','hcm','0909090909','56789','quang@gmail.com')
 INSERT INTO Employee VALUES ('E401','Tran Cam Thanh','S401','D401','Tphcm','0988765432','34567','camthanh@gmail.com')
+INSERT INTO Employee VALUES ('E501','Thanh Dung','S001','D401','Tphcm','0988765432','34567','thanhdung@gmail.com')
+
 --Account
 INSERT INTO Account VALUES ('E101','thanh')
 INSERT INTO Account VALUES ('E201','hung')
 INSERT INTO Account VALUES ('E301','quang')
 INSERT INTO Account VALUES ('E401','cthanh')
+INSERT INTO Account VALUES ('E501','dung')
 
 --vacancy
 INSERT INTO Vacancies VALUES ('V101','S101','D101','Hiring managers','1','1','1/1/2012','E101','Max')

@@ -224,6 +224,7 @@ public class MainForm extends JFrame {
 			jMenuHrmanager.setText("HR Manager");
 			jMenuHrmanager.add(getJMenuItemHrviewdepartment());
 			jMenuHrmanager.add(getJMenuItemHrviewemployee());
+			//jMenuAdmin.add(getJMenuItemViewvacanciesfillinginfo());
 			jMenuHrmanager.add(getJMenuItemHrviewsection());
 			jMenuHrmanager.add(getJMenuItemHrrotateemployee());
 			jMenuHrmanager.add(getJMenuItemHrprocessvacancy());
@@ -515,12 +516,12 @@ public class MainForm extends JFrame {
 			jMenuItemHrviewsection = new JMenuItem();
 			ImageIcon img = new ImageIcon("images/Table.png");
 			jMenuItemHrviewsection.setIcon(img);
-			jMenuItemHrviewsection.setText("Management Section");
+			jMenuItemHrviewsection.setText("Vacancies filling Employee");
 			jMenuItemHrviewsection.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");
 					// TODO Auto-generated Event stub actionPerformed()
-					(new ViewSection()).setVisible(true);
+					(new DiviseEmployee()).setVisible(true);
 				}
 			});
 		}
@@ -543,7 +544,7 @@ public class MainForm extends JFrame {
 						public void actionPerformed(java.awt.event.ActionEvent e) {
 							System.out.println("actionPerformed()"); 
 							// TODO Auto-generated Event stub actionPerformed()
-							(new EmployeeJobRotation()).setVisible(true);
+							(new viewJobRotation()).setVisible(true);
 						}
 					});
 		}
@@ -605,7 +606,7 @@ public class MainForm extends JFrame {
 			jMenuItemDmviewemployee = new JMenuItem();
 			ImageIcon img = new ImageIcon("images/People.png");
 			jMenuItemDmviewemployee.setIcon(img);
-			jMenuItemDmviewemployee.setText("Management Employee");
+			jMenuItemDmviewemployee.setText("View Employee");
 			jMenuItemDmviewemployee.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					System.out.println("actionPerformed()");

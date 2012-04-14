@@ -12,9 +12,9 @@ public class DataUtil {
 	
 	// Khai bao 4 bien
 	public static Connection conn;
-	public static String DATA = "jdbc:sqlserver://LETHANH-PC; DATABASENAME = QUANLYNHANSU";
-	public static String USER_NAME = "sa";
-	public static String PASSWORD = "1111984";
+	public static String DATA = "";
+	public static String USER_NAME = "";
+	public static String PASSWORD = "";
 	public static ResourceBundle BUNDLE = null;
 	
 	public static void readFileConfig(){

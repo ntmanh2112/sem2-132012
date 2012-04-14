@@ -3,9 +3,11 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="LayerID" class="java.lang.String"/>
+	<parameter name="Layer_ID" class="java.lang.String"/>
+	<parameter name="Layer" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from DesigLayer where Layer_ID LIKE '%' + $P{LayerID}]]>
+		<![CDATA[select * from DesigLayer where Layer_ID LIKE '%' + $P{Layer_ID}
+and Layer LIKE '%' + $P{Layer}]]>
 	</queryString>
 	<field name="Layer_ID" class="java.lang.String"/>
 	<field name="Layer" class="java.math.BigDecimal"/>
