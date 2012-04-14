@@ -71,7 +71,8 @@ public class EmployeeDAO {
 		Boolean kq = false;
 		
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_INSERT_EMPLOYEE(?,?,?,?,?,?,?,?,?)}");
+			//CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_INSERT_EMPLOYEE(?,?,?,?,?,?,?,?,?,?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call sp_INSERT_EMPLOYEETOJOBROTATION(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("EmID", model.getEmID());
 			csmt.setString("Name", model.getName());
 			csmt.setString("SecID", model.getSecID());
@@ -82,6 +83,11 @@ public class EmployeeDAO {
 			csmt.setString("Fax", model.getFax());
 			csmt.setString("Email", model.getEmail());
 			csmt.setString("Password", model.getPassword());
+			csmt.setString("Present_Designation", model.getPresent_Designation());
+			csmt.setString("Deputed_To", model.getDeputed_To());
+			//csmt.setString("Creation_Date", model.getCreation_Date());
+			csmt.setString("Status", model.getStatus());
+			csmt.setString("Remarks", model.getRemarks());
 			
 			csmt.executeUpdate();
 			kq = true;
@@ -149,7 +155,7 @@ public class EmployeeDAO {
 		Boolean kq = false;
 		
 		try {
-			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_UPDATE_EMPLOYEE(?,?,?,?,?,?,?,?,?)}");
+			CallableStatement csmt = DataUtil.getConnection().prepareCall("{call SP_UPDATE_EMPLOYEE(?,?,?,?,?,?,?,?,?,?,?,?,?)}");
 			csmt.setString("EmID", model.getEmID());
 			csmt.setString("Name", model.getName());
 			csmt.setString("SecID", model.getSecID());
@@ -160,6 +166,11 @@ public class EmployeeDAO {
 			csmt.setString("Fax", model.getFax());
 			csmt.setString("Email", model.getEmail());
 			csmt.setString("Password", model.getPassword());
+			csmt.setString("Present_Designation", model.getPresent_Designation());
+			csmt.setString("Deputed_To", model.getDeputed_To());
+			//csmt.setString("Creation_Date", model.getCreation_Date());
+			csmt.setString("Status", model.getStatus());
+			csmt.setString("Remarks", model.getRemarks());
 			
 			csmt.executeUpdate();
 			kq = true;

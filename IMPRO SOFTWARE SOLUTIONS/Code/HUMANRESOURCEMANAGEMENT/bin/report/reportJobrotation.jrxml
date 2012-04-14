@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportJobrotation" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportJobrotation" language="groovy" pageWidth="660" pageHeight="595" orientation="Landscape" columnWidth="620" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="EmID" class="java.lang.String"/>
-	<parameter name="PresentDesigntaion" class="java.lang.String"/>
+	<parameter name="designation" class="java.lang.String"/>
+	<parameter name="Dep_ID" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from Job_rotation where Em_ID LIKE '%' + $P{EmID}
-and Present_Designation LIKE '%' +$P{PresentDesigntaion}]]>
+		<![CDATA[select A.EmID,B.designation,D.Dep_ID ,E.Status,E.Remarks from employee AS A inner join designation AS B on A.Des_ID = B.DesID inner join Section AS C on A.secID = C.SecID inner join departments AS D on C.Dep_ID = D.Dep_ID inner join Job_rotation AS E on A.EmID = E.EmID
+where A.EmID LIKE '%' +$P{EmID}
+and B.designation LIKE '%' +$P{designation}
+and D.Dep_ID LIKE '%' +$P{Dep_ID}]]>
 	</queryString>
-	<field name="ID" class="java.lang.Integer"/>
-	<field name="Em_ID" class="java.lang.String"/>
-	<field name="Present_Designation" class="java.lang.String"/>
-	<field name="Deputed_To" class="java.lang.String"/>
-	<field name="Creation_Date" class="java.sql.Timestamp"/>
-	<field name="Creator" class="java.lang.String"/>
+	<field name="EmID" class="java.lang.String"/>
+	<field name="designation" class="java.lang.String"/>
+	<field name="Dep_ID" class="java.lang.String"/>
 	<field name="Status" class="java.lang.String"/>
 	<field name="Remarks" class="java.lang.String"/>
 	<background>
@@ -23,14 +23,14 @@ and Present_Designation LIKE '%' +$P{PresentDesigntaion}]]>
 	<title>
 		<band height="108" splitType="Stretch">
 			<staticText>
-				<reportElement x="331" y="44" width="167" height="32" forecolor="#FF0000"/>
+				<reportElement x="238" y="28" width="296" height="32" forecolor="#FF0000"/>
 				<textElement>
 					<font fontName="Arial" size="26" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Job Rotation]]></text>
+				<text><![CDATA[Employee Job Rotation]]></text>
 			</staticText>
 			<image>
-				<reportElement x="145" y="0" width="114" height="96"/>
+				<reportElement x="110" y="0" width="114" height="96"/>
 				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\LeThanh\\Documents\\New folder\\rotate270anticlockwise3green.png"]]></imageExpression>
 			</image>
 		</band>
@@ -41,56 +41,35 @@ and Present_Designation LIKE '%' +$P{PresentDesigntaion}]]>
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[ID]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="100" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<reportElement mode="Opaque" x="11" y="0" width="113" height="20" forecolor="#FF0000" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Em_ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="200" y="0" width="131" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<reportElement mode="Opaque" x="124" y="0" width="152" height="20" forecolor="#FF0000" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Present_Designation]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="331" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<reportElement mode="Opaque" x="276" y="0" width="119" height="20" forecolor="#FF0000" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Deputed_To]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="431" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Creation_Date]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="531" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Creator]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="631" y="0" width="100" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<reportElement mode="Opaque" x="395" y="0" width="103" height="20" forecolor="#FF0000" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="731" y="0" width="71" height="20" forecolor="#FF0000" backcolor="#000000"/>
+				<reportElement mode="Opaque" x="498" y="0" width="120" height="20" forecolor="#FF0000" backcolor="#000000"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -101,54 +80,39 @@ and Present_Designation LIKE '%' +$P{PresentDesigntaion}]]>
 	<detail>
 		<band height="26" splitType="Stretch">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="11" y="0" width="113" height="20" backcolor="#CCCCCC"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{ID}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{EmID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="100" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="124" y="0" width="152" height="20" backcolor="#CCCCCC"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Em_ID}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{designation}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="200" y="0" width="131" height="20" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="276" y="0" width="119" height="20" backcolor="#CCCCCC"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Present_Designation}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Dep_ID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="331" y="0" width="100" height="20" backcolor="#CCCCCC"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Deputed_To}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="431" y="0" width="100" height="20" backcolor="#CCCCCC"/>
-				<textElement/>
-				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{Creation_Date}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="531" y="0" width="100" height="20" backcolor="#CCCCCC"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{Creator}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement mode="Opaque" x="631" y="0" width="100" height="20" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="395" y="0" width="103" height="20" backcolor="#CCCCCC"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{Status}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="731" y="0" width="71" height="20" backcolor="#CCCCCC"/>
+				<reportElement mode="Opaque" x="498" y="0" width="120" height="20" backcolor="#CCCCCC"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{Remarks}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="6" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

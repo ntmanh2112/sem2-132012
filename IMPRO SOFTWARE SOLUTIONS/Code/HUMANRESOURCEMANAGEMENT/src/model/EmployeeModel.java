@@ -66,6 +66,40 @@ public class EmployeeModel {
 	private String Phone;
 	private String Fax;
 	private String Email;
-	
+	private String Present_Designation;
+	private String Deputed_To;
+	private String Status;
+	private String Remarks;
+	public String getStatus() {
+		return Status;
+	}
+	public void setStatus(String status) {
+		Status = status;
+	}
+	public String getRemarks() {
+		return Remarks;
+	}
+	public void setRemarks(String remarks) {
+		Remarks = remarks;
+	}
+	private String Creation_Date;
+	public String getPresent_Designation() {
+		return Present_Designation;
+	}
+	public void setPresent_Designation(String presentDesignation) {
+		Present_Designation = presentDesignation;
+	}
+	public String getDeputed_To() {
+		return Deputed_To;
+	}
+	public void setDeputed_To(String deputedTo) {
+		Deputed_To = deputedTo;
+	}
+	public String getCreation_Date() {
+		return Creation_Date;
+	}
+	public void setCreation_Date(String creationDate) {
+		Creation_Date = creationDate;
+	}
 	
 }

@@ -37,17 +37,19 @@ INSERT INTO Account VALUES ('E401','cthanh')
 INSERT INTO Account VALUES ('E501','dung')
 
 --vacancy
-INSERT INTO Vacancies VALUES ('V101','S101','D101','Hiring managers','1','1','1/1/2012','E101','Max')
-INSERT INTO Vacancies VALUES ('V201','S201','D201','','2','2','2/2/2012','E201','Min')
-INSERT INTO Vacancies VALUES ('V301','S301','D301','','3','3','3/3/2012','E301','Max')
-INSERT INTO Vacancies VALUES ('V401','S401','D401','','4','4','4/4/2012','E401','Min')
+INSERT INTO Vacancies VALUES ('V101','S101','D101','MESSAGE','1','1','1/1/2012','E101','Max')
+INSERT INTO Vacancies VALUES ('V201','S201','D201','MESSAGE','2','2','2/2/2012','E201','Min')
+INSERT INTO Vacancies VALUES ('V301','S301','D301','MESSAGE','3','3','3/3/2012','E301','Max')
+INSERT INTO Vacancies VALUES ('V401','S401','D401','MESSAGE','4','4','4/4/2012','E401','Min')
 --vacancy_fill_details
 INSERT INTO Division VALUES ('V101','S101')
 INSERT INTO Division VALUES ('V201','S201')
 INSERT INTO Division VALUES ('V301','S301')
 INSERT INTO Division VALUES ('V401','S401')
 --job rotation
-INSERT INTO job_rotation VALUES ('E101','Director','P10','01/01/2011','1','ok')
-INSERT INTO job_rotation VALUES ('E201','Head','P20','02/01/2011','2','ok')
-INSERT INTO job_rotation VALUES ('E301','Deputy','P30','03/01/2011','3','ok')
-INSERT INTO job_rotation VALUES ('E401','Employee','P40','04/01/2011','4','ok')
+INSERT INTO job_rotation VALUES ('E101','Director','P10','1','ok')
+INSERT INTO job_rotation VALUES ('E201','Head','P20','2','ok')
+INSERT INTO job_rotation VALUES ('E301','Deputy','P30','3','ok')
+INSERT INTO job_rotation VALUES ('E401','Employee','P40','4','ok')
+INSERT INTO job_rotation VALUES ('E501','Employee','P50','1','ok')
+

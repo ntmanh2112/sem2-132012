@@ -207,7 +207,7 @@ public class MainForm extends JFrame {
 			jMenuAdmin.add(getJMenuItemViewvacanciesfillinginfo());
 			
 			
-			//jMenuAdmin.add(getJMenuItemViewdesignationweightage());
+			jMenuAdmin.add(getJMenuItemHrrotateemployee());
 			jMenuAdmin.add(getJMenuItemCreateaccount());
 		}
 		return jMenuAdmin;
@@ -536,7 +536,7 @@ public class MainForm extends JFrame {
 	private JMenuItem getJMenuItemHrrotateemployee() {
 		if (jMenuItemHrrotateemployee == null) {
 			jMenuItemHrrotateemployee = new JMenuItem();
-			ImageIcon img = new ImageIcon("images/User group.png");
+			ImageIcon img = new ImageIcon("images/Diagram.png");
 			jMenuItemHrrotateemployee.setIcon(img);
 			jMenuItemHrrotateemployee.setText("Rotate Employee");
 			jMenuItemHrrotateemployee

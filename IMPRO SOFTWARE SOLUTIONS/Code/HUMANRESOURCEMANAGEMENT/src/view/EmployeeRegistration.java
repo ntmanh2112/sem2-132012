@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +41,8 @@ import model.EmployeeModel;
 import model.SectionModel;
 import javax.swing.JPasswordField;
 import javax.swing.text.MaskFormatter;
+
+import com.toedter.calendar.JDateChooser;
 
 public class EmployeeRegistration extends JFrame {
 
@@ -73,6 +76,8 @@ public class EmployeeRegistration extends JFrame {
 	public EmployeeRegistration() {
 		super();
 		initialize();
+		
+		
 		ArrayList<SectionModel> listSection = SectionDAO.getAllSection();
 		for (SectionModel desm : listSection) {
 			KeyValue item = new KeyValue(desm.getSecID(),desm.getName());
@@ -319,6 +324,7 @@ public class EmployeeRegistration extends JFrame {
 					model.setEmail(txtEmail.getText().trim());
 				//validateEmail(txtEmail.getText());
 					model.setPassword(txtpassword.getText().trim());
+					
 					if(!validateModel(model)) {
 						
 						return;
@@ -530,4 +536,12 @@ private JComboBox getCbnSecID() {
 	}
 	return cbnSecID;
 }
+
+/**
+ * This method initializes txtCreation	
+ * 	
+ * @return javax.swing.JTextField	
+ */
+
+
 }  //  @jve:decl-index=0:visual-constraint="10,10"
