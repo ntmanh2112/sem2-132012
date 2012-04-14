@@ -328,7 +328,7 @@ public class ViewAccount extends JFrame {
 					Map parameters = new HashMap();
 					parameters.put("EmID", txtEmpid.getText().trim());
 					parameters.put("name", txtname.getText().trim());
-					parameters.put("Deignation", txtDesignation.getText().trim());
+					parameters.put("Designation", txtDesignation.getText().trim());
 					
 					try {
 						JasperDesign jasperDesign = JRXmlLoader.load("src/report/reprortsearch.jrxml");

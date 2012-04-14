@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 
 import model.DepartmentsModel;
 import model.EmployeeModel;
+import model.Job_rotationModel;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -34,6 +35,7 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import dao.DepartmentsDAO;
 import dao.EmployeeDAO;
+import dao.Job_RotationDAO;
 
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -47,7 +49,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.Color;
 
-public class ViewEmployee extends JFrame {
+public class viewJobRotation extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jContentPane = null;
@@ -65,20 +67,16 @@ public class ViewEmployee extends JFrame {
 	private JLabel jLabel3 = null;
 	private JTextField txtDeptid = null;
 	private JButton btnSearch = null;
-	private String[] ColumnName ={"ID","Name","SecID","Des_ID","Address","Phone","Fax","Email"};
+	private String[] ColumnName ={"EmID","Present_Designation","Deputed_To","Creation_Date","Status","Remarks"};
 	private String[][] tableData;
 	private JButton btnPrint = null;
 	/**
 	 * This is the default constructor
 	 */
-	public ViewEmployee() {
+	public viewJobRotation() {
 		super();
 		initialize();
-		if (Constants.userLogin.getDesignationID().equals("D301")) {
-			btnAdd.setEnabled(false);
-			btnEdit.setEnabled(false);
-			btnDelete.setEnabled(false);
-		}
+		
 		
 	}
 
@@ -149,20 +147,20 @@ public class ViewEmployee extends JFrame {
 		return jTableViewemployee;
 	}
 	private void loadDataToTable(){
-		ArrayList<EmployeeModel> listEmployee = EmployeeDAO.getAllEmployee();
-		tableData = new String[listEmployee.size()][8];
+		ArrayList<Job_rotationModel> listrotation = Job_RotationDAO.getAllJobrotation();
+		tableData = new String[listrotation.size()][6];
 		int row = 0;
-		for (EmployeeModel model:listEmployee){
-		tableData [row][0] = model.getEmID();
-		tableData [row][1] = model.getName();
+		for (Job_rotationModel model:listrotation){
+		//tableData [row][0] = model.getID();
+		tableData [row][0] = model.getEm_ID();
 		//tableData [row][2] = model.getPassword();
-		tableData [row][2] = model.getSecID();
-		tableData [row][3] = model.getDes_ID();
+		tableData [row][1] = model.getPresent_Designation();
+		tableData [row][2] = model.getDeputed_To();
 		
-		tableData [row][4] = model.getAddress();
-		tableData [row][5] = model.getPhone();
-		tableData [row][6] = model.getFax();
-		tableData [row][7] = model.getEmail();
+		tableData [row][3] = model.getCreation_Date();
+		tableData [row][4] = model.getStatus();
+		tableData [row][5] = model.getRemarks();
+		
 		
 		row++;
 		}

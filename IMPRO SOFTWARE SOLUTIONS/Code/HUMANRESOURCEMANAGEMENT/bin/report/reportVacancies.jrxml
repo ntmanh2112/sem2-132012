@@ -3,10 +3,10 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="VacancyID" class="java.lang.String"/>
+	<parameter name="Vacancy_ID" class="java.lang.String"/>
 	<parameter name="SecID" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from Vacancies where Vacancy_ID LIKE '%' + $P{VacancyID}
+		<![CDATA[select * from Vacancies where Vacancy_ID LIKE '%' + $P{Vacancy_ID}
 and SecID LIKE '%' + $P{SecID}]]>
 	</queryString>
 	<field name="Vacancy_ID" class="java.lang.String"/>
@@ -24,11 +24,11 @@ and SecID LIKE '%' + $P{SecID}]]>
 	<title>
 		<band height="96" splitType="Stretch">
 			<staticText>
-				<reportElement x="356" y="21" width="124" height="35" forecolor="#FF0000"/>
+				<reportElement x="333" y="21" width="198" height="35" forecolor="#FF0000"/>
 				<textElement>
 					<font fontName="Arial" size="24" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vacancies]]></text>
+				<text><![CDATA[Print Vacancies]]></text>
 			</staticText>
 			<image>
 				<reportElement x="204" y="0" width="99" height="79"/>

@@ -71,7 +71,7 @@ public class DivisionDAO {
 				model.setName(rs.getString("Name"));
 				//model.setPassword(rs.getString("Password"));
 				model.setSecID(rs.getString("SecID"));
-				model.setDes_ID(rs.getString("SECID"));
+				//model.setDes_ID(rs.getString("Des_ID"));
 				
 				//model.setAddress(rs.getString("Address"));
 				//model.setPhone(rs.getString("Phone"));

@@ -3,13 +3,15 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="EmID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<parameter name="Name" class="java.lang.String"/>
-	<parameter name="DesID" class="java.lang.String"/>
-	<parameter name="SecID" class="java.lang.String"/>
+	<parameter name="Des_ID" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select * from Employee where Name LIKE '%' + $P{Name}
-and Des_ID LIKE '%' + $P{DesID}
-and SecID LIKE '%' + $P{SecID}]]>
+		<![CDATA[select * from Employee where EmID LIKE '%' + $P{EmID}
+and Name LIKE '%' + $P{Name}
+and Des_ID LIKE '%' + $P{Des_ID}]]>
 	</queryString>
 	<field name="EmID" class="java.lang.String"/>
 	<field name="Name" class="java.lang.String"/>
@@ -31,10 +33,6 @@ and SecID LIKE '%' + $P{SecID}]]>
 				</textElement>
 				<text><![CDATA[Employee]]></text>
 			</staticText>
-			<image>
-				<reportElement x="200" y="0" width="84" height="75"/>
-				<imageExpression class="java.lang.String"><![CDATA["H:\\jasper\\employeesIcon200.jpg"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
