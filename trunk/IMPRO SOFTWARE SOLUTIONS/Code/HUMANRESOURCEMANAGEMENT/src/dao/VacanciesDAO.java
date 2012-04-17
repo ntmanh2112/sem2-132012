@@ -75,7 +75,7 @@ public class VacanciesDAO {
 		//ArrayList<VacanciesModel> listVacancy = new ArrayList<VacanciesModel>();
 		VacanciesModel model = null;
 		try {
-			String sql = "select SecID,Interpretation from vacancies where SecID=?";
+			String sql = "select SecID,Vacancy_ID from vacancies where SecID=?";
 			PreparedStatement ps = DataUtil.getConnection().prepareStatement(sql);
 			ps.setString(1, SecID);
 			ResultSet rs = ps.executeQuery();

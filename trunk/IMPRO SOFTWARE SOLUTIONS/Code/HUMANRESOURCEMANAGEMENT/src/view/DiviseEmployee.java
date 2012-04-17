@@ -60,24 +60,28 @@ public class DiviseEmployee extends JFrame {
 			KeyValue item = new KeyValue(section.getSecID(), section.getName());
 
 			cbnSectionname.addItem(item);
-			
+			if (item.getKey().equals(model.getSecID())) {
+				cbnSectionname.setSelectedItem(item);
+			}
 		}
+		
 		ArrayList<VacanciesModel> listvacancy = VacanciesDAO.getAllVacancies();
 		for (VacanciesModel vacncy : listvacancy) {
 			KeyValue item = new KeyValue(vacncy.getVacancy_ID(), vacncy.getInterpretation());
 			
 			cbnVacancy.addItem(item);
-			if (item.getKey().equals(this.model.getSecID())) {
+			if (item.getKey().equals(model.getSecID())) {
 				cbnVacancy.setSelectedItem(item);
 			}
 			//cbnVacancy.removeAllItems();
+		}
 		}
 		//cbnVacancy.removeAllItems();
 		/*for (DivisionModel division : listDivision) {
 			KeyValue item = new KeyValue(division.getId(),division.getInterpretation_Vacancy());
 			cbnVacancy.addItem(item);
 		}*/
-	}
+	
 	public DiviseEmployee(EmployeeModel mo) {
 		super();
 		initialize();;
@@ -257,7 +261,7 @@ public class DiviseEmployee extends JFrame {
 					String Vacancy_ID = ((KeyValue)cbnVacancy.getSelectedItem()).getKey();
 					String emid = getJListEmployeenotinvolved().getSelectedValue().toString().split("---")[1];
 					String secid = ((KeyValue)cbnSectionname.getSelectedItem()).getKey();
-					JOptionPane.showMessageDialog(null, "Tiến hành phân công đề án :" + secid + " Cho nhân viên : "+ emid);
+					JOptionPane.showMessageDialog(null, "Perform assigned : " + secid + " Employees : "+ emid);
 					//System.out.println(emid+"-"+secid+"-"+divisionID);
 					DivisionDAO.updateEmployeeToSection(emid, secid, Vacancy_ID);
 					loadData();

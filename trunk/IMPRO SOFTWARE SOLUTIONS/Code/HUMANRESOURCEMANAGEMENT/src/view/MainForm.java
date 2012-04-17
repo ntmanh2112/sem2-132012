@@ -125,7 +125,7 @@ public class MainForm extends JFrame {
 			jContentPane.setBackground(SystemColor.activeCaption);
 			 BufferedImage bf = null;
 			 try {
-				 bf = ImageIO.read(new File("images/A013.jpg"));
+				 bf = ImageIO.read(new File("images/aaa.png"));
 				 } catch (IOException e) {
 					 e.printStackTrace();  
 				} 
@@ -194,7 +194,7 @@ public class MainForm extends JFrame {
 	private JMenu getJMenuAdmin() {
 		if (jMenuAdmin == null) {
 			jMenuAdmin = new JMenu();
-			jMenuAdmin.setText("Admin");
+			jMenuAdmin.setText("Admin Manager");
 			jMenuAdmin.add(getJMenuItemViewdepartment());
 			jMenuAdmin.add(getJMenuItemViewsection());
 			jMenuAdmin.add(getJMenuItemViewdesignationlayer());
